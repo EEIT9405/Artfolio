@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<context:component-scan base-package="controller" />
+	<context:component-scan base-package="misc" />
+	<mvc:annotation-driven />
+	
+	<bean class="org.springframework.web.servlet.view.XmlViewResolver" />
+	
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/bountyDisplay.controller"/>
+			<bean class="misc.block.BlockInterceptor" />
+		</mvc:interceptor>
+		
+<!-- 		<mvc:interceptor> -->
+<!-- 			<mvc:mapping path="/workInser.controller"/> -->
+<!-- 			<bean class="misc.websocket.PushInterceptor"></bean> -->
+<!-- 		</mvc:interceptor> -->
+	</mvc:interceptors>
+	
+	<task:scheduler id="scheduler1" pool-size="1"/>
+	<task:annotation-driven scheduler="scheduler1" mode="proxy"/>
+	
+<!-- 	<bean id="bountyScheduler" class="misc.schedule.BountyScheduler"></bean> -->
+	
+<!-- 	<task:scheduler id="scheduler2"/> -->
+<!-- 	<task:scheduled-tasks scheduler="scheduler2"> -->
+<!-- 		<task:scheduled ref="bountyScheduler" method="doSomethig" cron="0/30 * * * * ?"/> -->
+<!-- 	</task:scheduled-tasks> -->
+	
+<!-- 	<aop:aspectj-autoproxy /> -->
+</beans>
