@@ -1,6 +1,7 @@
 package misc.block;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,21 +34,30 @@ public class BlockInterceptor implements HandlerInterceptor {
 			return;
 		}
 		int mid = user.getMid();
-		modelAndView.getModel();
 		List<BlockBean> blockList = blockService.getAllList(user);
 
 		Object obj = modelAndView.getModel().get("bean");
+		Object obj2 = modelAndView.getModel().get("select");
 
 		if (blockList != null && !blockList.isEmpty()) {
 			// if (workList != null) {
 			// request.setAttribute("works", filterWork(blockList, workList));
 			// }
-			if (obj != null) {
+			if (obj != null && obj2 != null) {
 				if (obj instanceof BountyBean) {
 					BountyBean bountyBean = (BountyBean) obj;
 					BountyBean bean = BlockUtils.filterBounty(blockList, bountyBean, mid);
-					request.setAttribute("bean", bean);
+					if (bean == null) {
+						modelAndView.setViewName("bountyIndext");
+					}
+					modelAndView.addObject("bean", bean);
 				}
+				if (obj2 instanceof List) {
+					List<Map<String, Object>> temp = (List<Map<String, Object>>) obj2;
+					if (!temp.isEmpty())
+						modelAndView.addObject("select", BlockUtils.filterBmsg(blockList, temp, mid));
+				}
+
 			}
 		}
 	}

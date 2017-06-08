@@ -19,11 +19,11 @@ import model.member.MemberBean;
 @WebServlet("/mail/mailUploadList.controller")
 public class MailUploadListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private LoginService memberService;
+	private LoginService loginService;
 	@Override
 	public void init() throws ServletException {
-		WebApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
-		memberService = (LoginService) context.getBean("loginService");
+		WebApplicationContext context = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
+		loginService = (LoginService) context.getBean("loginService");
 	}
 
 	@Override
@@ -70,13 +70,13 @@ public class MailUploadListServlet extends HttpServlet {
 			case "report":
 				request.setAttribute("mState", 3);
 				request.setAttribute("title", "[檢舉]:");
-				break;	
+				break;
 		}	
 		
 			String toName = "";
 			String toEmail = "";
 			if(toId!=null){      //若toId!=null取得收件者的名稱與email
-				MemberBean memberBean =memberService.selectById(toId);
+				MemberBean memberBean =loginService.selectById(toId);
 				toName = memberBean.getName();
 				toEmail = memberBean.getEmail();
 			}

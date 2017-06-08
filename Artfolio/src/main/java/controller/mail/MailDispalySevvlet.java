@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,10 +27,12 @@ import model.mail.MailService;
 public class MailDispalySevvlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private MailService mailService;
+	DateFormat sdf;
 	@Override
 	public void init() throws ServletException {
 		WebApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
 		mailService = (MailService) context.getBean("mailService");
+		sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	}
 
 	@Override
@@ -47,29 +51,31 @@ public class MailDispalySevvlet extends HttpServlet {
 			targetId = Integer.parseInt(temp);
 		}
 	
+		System.out.println(showReadOrDelete);
+		
 		MailBean bean = null; //根據條件查詢信件
 		switch(showReadOrDelete){
 			case "delete":
-				bean = new MailBean(targetId,true);//選取該id所有delete的信件
+				bean = new MailBean(targetId,true,"delete");//選取該id所有delete的信件
 				break;
 			case "undelete":
-				bean = new MailBean(targetId,false);//選取該id所有undelete的信件
+				bean = new MailBean(targetId,false,"delete");//選取該id所有undelete的信件
 				break;
 			case "read":	
-				//
+				bean = new MailBean(targetId,true,"read");
 				break;
 			case "unread":
-				//
+				bean = new MailBean(targetId,false,"read");
 				break;
 		}
 							
 		//呼叫model選取資料
 		List<MailBean> result = mailService.select(bean);
-	
+		System.out.println(result);
+		
 		//將資料轉換成JSON格式
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		ObjectMapper mapper = new ObjectMapper();
-		mapper.setDateFormat(df);
+		mapper.setDateFormat(sdf);
 		JsonGenerator generator = mapper.getFactory().createGenerator(out);
 		generator.writeObject(result);
 	}

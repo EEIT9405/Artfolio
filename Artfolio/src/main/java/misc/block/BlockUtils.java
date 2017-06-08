@@ -2,8 +2,10 @@ package misc.block;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import model.block.BlockBean;
+import model.bmsg.BmsgBean;
 import model.bounty.BountyBean;
 import model.wmsg.WmsgBean;
 import model.work.WorkBean;
@@ -72,5 +74,23 @@ public class BlockUtils {
 			}
 		}
 		return workList;
+	}
+	
+	public static List<Map<String, Object>> filterBmsg(List<BlockBean> blockList, List<Map<String, Object>> mapList, Integer mid) {
+		
+		for (Iterator<Map<String, Object>> iterator = mapList.iterator(); iterator.hasNext();) {
+			BmsgBean bmsgBean = (BmsgBean) iterator.next().get("msg");
+			int bmsgMid = bmsgBean.getMid();
+			for (int j = 0; j < blockList.size(); j++) {
+				int myId = blockList.get(j).getMyBean().getMid();
+				int targetId = blockList.get(j).getTargetBean().getMid();
+				if (bmsgMid != mid) {
+					if (bmsgMid == myId || bmsgMid == targetId) {
+						iterator.remove();
+					}
+				}
+			}
+		}
+		return mapList;
 	}
 }

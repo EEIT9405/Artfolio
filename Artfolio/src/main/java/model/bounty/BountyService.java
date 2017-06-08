@@ -14,9 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class BountyService {
 	@Autowired
 	private BountyDAO bountydao;
-	public BountyService(BountyDAO bountydao) {
-		this.bountydao = bountydao;
-	}
 	
 	//選取活動by bean
 	public List<BountyBean> select(BountyBean bean) {
@@ -34,42 +31,50 @@ public class BountyService {
 	}
 	
 	//選取活動by id
-		public BountyBean selectById(int b_id) {
-			return bountydao.select(b_id);
-				
+		public BountyBean selectById(Integer b_id) {
+			return bountydao.select(b_id);		
+		}
+		
+	// 選取活動by member
+	public List<BountyBean> selectByMember(Integer mid) {
+		return bountydao.selectByMember(mid);
+	}
+	//選擇byTags	
+		//選擇byState
+		
+		public List<BountyBean> selectByState(String Selector){
+			Integer selector = null;
+			if(Selector!=null){
+				selector = Integer.parseInt(Selector);
+			}
+			return bountydao.selectByState(selector);
 		}
 	
 	
-	//選取活動+標籤
-	
-//	public List<BountyBean> select(BountyBean bean) {
-//		List<BountyBean> result = null;
-//		if(bean!=null && bean.getB_id()!=0) {
-//			BountyBean temp = bountydao.select(bean.getB_id());
-//			if(temp!=null) {
-//				result = new ArrayList<BountyBean>();
-//				result.add(temp);
-//			}
-//		} else {
-//			result = bountydao.select(); 
-//		}
-//		return result;
-//		
-//		BountyBean b = dao.select(21);
-//		System.out.print(b.getB_title() + ",");
-//		System.out.print(b.getB_content() + ",");
-//		System.out.print(b.getB_organizer());
-//		System.out.println("\n-----------------");
-//		Set<BountyTagBean> set3 = b.getTags();
-//		for (BountyTagBean tb : set3) {
-//			System.out.print(tb.getB_tagid() + ",");
-//			System.out.print(tb.getB_tag() + ",");
-//
-//			System.out.println();
-//		}		
-//	}
-	
-	
+	//選擇byTags	
+	//選擇byState		
+	//選擇byOther(最高獎金 熱門活動 最新活動)
+	public List<BountyBean> selectBySelector(String selector) {
+		List<BountyBean> result = new ArrayList<BountyBean>();
+		switch(selector){
+			case "b_click": result = bountydao.selectByClick();break;
+			case "b_update": result = bountydao.selectByUpdateDate();break;
+			case "b_bonus_total": result = bountydao.selectByMaxBouns();break;
+		}
+		return result;
+	}
+			
+	//選擇byBouns
+	public List<BountyBean> selectByBouns(Integer min, Integer max){
+		List<BountyBean> result = new ArrayList<BountyBean>();
+		if(min==null){
+			result = bountydao.selectByBouns(max);
+		}else{
+			result = bountydao.selectByBouns(min, max);
+		}
+		return result;
+	}
+			
 	//新增活動
 	public BountyBean insertInfo(BountyBean bean) {
 		BountyBean result = null;
@@ -115,18 +120,9 @@ public class BountyService {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	//create method by Lin Teiu
+	public boolean updateByDate(int state){
+		return bountydao.updateByDate(state);
+	}
 	
 }

@@ -19,7 +19,7 @@
 	
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/bountyDisplay.controller"/>
+			<mvc:mapping path="/bounty/bountyPage.controller"/>
 			<bean class="misc.block.BlockInterceptor" />
 		</mvc:interceptor>
 		
@@ -32,12 +32,12 @@
 	<task:scheduler id="scheduler1" pool-size="1"/>
 	<task:annotation-driven scheduler="scheduler1" mode="proxy"/>
 	
-<!-- 	<bean id="bountyScheduler" class="misc.schedule.BountyScheduler"></bean> -->
+	<bean id="bountyScheduler" class="misc.schedule.BountyScheduler"></bean>
 	
-<!-- 	<task:scheduler id="scheduler2"/> -->
-<!-- 	<task:scheduled-tasks scheduler="scheduler2"> -->
-<!-- 		<task:scheduled ref="bountyScheduler" method="doSomethig" cron="0/30 * * * * ?"/> -->
-<!-- 	</task:scheduled-tasks> -->
+	<task:scheduler id="scheduler2"/>
+	<task:scheduled-tasks scheduler="scheduler2">
+		<task:scheduled ref="bountyScheduler" method="doSomethig" cron="59 59 23 * * ?"/>
+	</task:scheduled-tasks>
 	
 <!-- 	<aop:aspectj-autoproxy /> -->
 </beans>

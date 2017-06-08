@@ -18,18 +18,20 @@ div#column2{
 	position:absolute;
 	left:150px;
 	padding:10px;
+	top:130px;
 }
-table#maillist{
+table#mailTable{
 	border: 1px solid #ccc;
 	padding:15px;
 	font-size:9px;
-	border-collapse:collapse
+	border-collapse:collapse;
+/* 	rules:none; */
 }
 td{
-	text-align: center;
-	border-top: 1px solid #ccc;
-	border-bottom: 1px solid #ccc;
-	padding:10px;
+/* 	text-align: center; */
+/* 	border-top: 1px solid #ccc; */
+/* 	border-bottom: 1px solid #ccc; */
+ 	padding:10px; 
 }
 .writeout{
 	padding:5px;
@@ -54,20 +56,41 @@ div.mailboxover{
 	background-color: #E6E6E6;
 	text-align:center;
 }
+.readtrue{
+	background-color:#F2F2F2;
+}
+.readfalse{
+	font-weight: bolder;
+}
+#mailmsg1{
+	font-size:12px;
+	font-weight: bolder;
+	position:absolute;
+	left:150px;
+	padding:10px;
+}
+#mailmsg2{
+	font-size:12px;
+	font-weight: bolder;
+	position:absolute;
+	left:150px;
+	top:120px;
+	padding:10px;
+}
 
 </style>
 </head>
 <body>
 <h3>ArtFolio活動專區</h3>
-	<a href="<c:url value="/bountyIndex.jsp"/>">活動首頁</a> |
-	<a href="<c:url value="/bountyDisplay.jsp"/>">所有活動</a> |
-	<a href="<c:url value="/bountyUpload.jsp"/>">舉辦活動</a> |
-	<a href="<c:url value="/bountyTrackPage.jsp"/>">活動追蹤</a> |
-	<a href="<c:url value="/bountyPersonal.jsp"/>">活動管理</a> |
+	<a href="<c:url value="/bounty/bountyIndex.jsp"/>">活動首頁</a> |
+	<a href="<c:url value="/bounty/bountyDisplay.jsp"/>">所有活動</a> |
+	<a href="<c:url value="/bounty/bountyUpload.jsp"/>">舉辦活動</a> |
+	<a href="<c:url value="/bounty/bountyTrackPage.jsp"/>">活動追蹤</a> |
+	<a href="<c:url value="/bounty/bountyPersonal.jsp"/>">活動管理</a> |
 	<a href="">回作品集</a>  |
 	<a href="<c:url value="/mail/mailIndex.jsp"/>">站內信</a>  |
 	<a href="<c:url value="/secure/login.jsp"/>">登入</a> |
-	<a href="<c:url value="/secure/logout.jsp"/>">登出</a> |  <span>您好，${loginOK.mid}</span>
+	<a href="<c:url value="/secure/logout.jsp"/>">登出</a> |  <span>您好，${loginOK.name}</span>
 	<hr>
 
 
@@ -76,24 +99,29 @@ div.mailboxover{
 	
 	<div id="write">撰寫</div>
 	<hr>
-	<div id="mailbox">收件匣 ( ${mailcount})</div>
+	<div id="mailbox">收件匣 ()</div>
 	<br>
 	<div id="mailcopy">寄件備份</div>
 	<br>
 	<div id="draft">草稿</div>
 	<br>
-	<div id="junk">垃圾桶 ( )</div>
+	<div id="read">已讀 </div>
+	<br>
+	<div id="junk">垃圾桶 ()</div>
 	<br>
 </div>
-
+	<div id="mailmsg1">(在 [垃圾桶] 中的郵件 30 天後會自動刪除)</div>
+	<div id="mailmsg2"></div>
 <div id="column2">
+	<div id="mailmsg"></div>
 	<table id="mailTable">
 		<thead>
 			<tr>
-				<th>信件編號</th>
+				<th></th>
 				<th>寄件者</th>
 				<th>主旨</th>
 				<th>寄件日期</th>	
+				<th></th>
 			<tr>
 		</thead>
 		<tbody>
@@ -103,12 +131,13 @@ div.mailboxover{
 </div>
 
 <script src="../js/jquery-3.2.1.min.js"></script>
-<script>
+<script type="text/javascript">
 	$(document).ready(function() {
 		var mid = "${loginOK.mid}"
 			var contentPath = "${pageContext.request.contextPath}"
 			loadMail(mid)
 			
+			//=====按鈕樣式======================================
 			$('#write').addClass('writeout').mouseover(function (){
 				$(this).removeClass().addClass('writeover');
 			}).mouseout(function (){
@@ -139,6 +168,13 @@ div.mailboxover{
 				$(this).removeClass().addClass('mailboxout');	
 			});	
 			
+			$('#read').addClass('mailboxout').mouseover(function (){
+				$(this).removeClass().addClass('mailboxover');
+			}).mouseout(function (){
+				$(this).removeClass().addClass('mailboxout');	
+			});
+				
+			//=====按鈕動作===========================================================================
 			$('#write').click(function () {	
 	 			$(location).attr('href', contentPath+'/mail/mailUploadList.controller?mailClass=general')	
 			});
@@ -150,20 +186,36 @@ div.mailboxover{
 			$('#junk').click(function () {			
 				$(location).attr('href', '<c:url value="/mail/junkemail.jsp" />')			
 			});
+			
+			$('#read').click(function () {			
+				$(location).attr('href', '<c:url value="/mail/readmail.jsp" />')			
+			});
 		
+			//=====載入頁面============================================================================		
 		function loadMail(mid) {
+			$.getJSON("mailDisplay.controller",{"targetId":mid, "ShowReadOrDelete":"undelete"},function(datas) {
+				$('#mailbox').text("收件匣 ("+datas.length+")")
+			})
+			$.getJSON("mailDisplay.controller",{"targetId":mid, "ShowReadOrDelete":"read"},function(datas) {
+				$('#read').text("已讀 ("+datas.length+")")
+			})
 			$.getJSON("mailDisplay.controller",{"targetId":mid,"ShowReadOrDelete":"delete"},function(datas) {
 				var docFrag = $(document.createDocumentFragment());
 				var tb = $('#mailTable>tbody');
 				tb.empty();
+				$('#junk').text("垃圾桶 ("+datas.length+")")
+				if(datas.length===0){
+					$('#column2').attr('style','display:none');
+					$('#mailmsg2').text("「垃圾桶」中沒有信件")
+				}
 				$.each(datas, function(idx, mail) {
-					   var cell1 = $('<td></td>').text(mail.mailid);
+					var cell1 = $('<td></td>').html("<div style='display:none'>"+mail.mailid+"</div>");
 					   var cell2 = $('<td></td>').text(mail.memberBean.name);
 					   var cell3 = $('<td></td>').text(mail.mailtitle);
 					   var cell4 = $('<td></td>').text(mail.maildate);	 
-					   var cell5 = $('<td></td>').html("<input type='button' name='undelete' value='復原'/><input type='button' name='deletepermanently' value='永久刪除'/>");
-					   var row = $('<tr></tr>').append(
-								[cell1,cell2,cell3,cell4,cell5]);
+					   var cell5 = $('<td></td>').html("<input type='button' name='delete' value='復原'/>");
+					   var row = $("<tr class='read"+mail.isread+"'></tr>").append(
+								[cell1, cell2,cell3,cell4,cell5]);
 						docFrag.append(row);
 				})
 				tb.append(docFrag);
@@ -177,8 +229,7 @@ div.mailboxover{
 				alert(data);
 				loadMail(mid);
 			});
-		});	
-		
+		});		
 	});
 </script>
 

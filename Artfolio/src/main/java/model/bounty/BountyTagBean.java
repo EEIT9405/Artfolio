@@ -10,13 +10,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+@Component
 @Entity
 @Table(name="B_TAG")
-@JsonAutoDetect
-@JsonIgnoreProperties(value={"hibernateLazyInitializer","bountyBean"})
 public class BountyTagBean implements Serializable {
 	
 	public BountyTagBean(){
@@ -37,7 +36,8 @@ public class BountyTagBean implements Serializable {
 	}
 	
 	@ManyToOne 
-	@JoinColumn(name = "B_ID")  //�@��PK
+	@JoinColumn(name = "B_ID") 
+	@JsonBackReference
 	public BountyBean getBountyBean() {
 		return bountyBean;
 	}
@@ -51,11 +51,8 @@ public class BountyTagBean implements Serializable {
 	public void setB_tag(String b_tag) {
 		this.b_tag = b_tag;
 	}
-//	@Override
-//	public String toString() {
-//		return "BountyTagBean [b_tagid=" + b_tagid + ", bountyBean=" + bountyBean + ", b_tag=" + b_tag + "]";
-//	}
-	
-
-	
+	@Override
+	public String toString() {
+		return "BountyTagBean [b_tagid=" + b_tagid + ", bountyBean=" + bountyBean + ", b_tag=" + b_tag + "]";
+	}
 }

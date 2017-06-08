@@ -8,11 +8,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import model.member.MemberBean;
+import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import model.member.MemberBean;
+@Component
 @Entity
 @Table(name="TB_MAIL")
 public class MailBean implements Serializable{
@@ -20,9 +25,19 @@ public class MailBean implements Serializable{
 	public MailBean(){	
 	}
 	
-	public MailBean(Integer toId, Boolean isDelete){
+	public MailBean(Integer toId, Boolean state, String DeleteOrRead){
+		if(DeleteOrRead.equalsIgnoreCase("delete")){
+			this.toId=toId;
+			this.isdelete=state;
+		}else if(DeleteOrRead.equalsIgnoreCase("read")){
+			this.toId=toId;
+			this.isread=state;
+		}
+	}
+	
+	public MailBean(Boolean isRead, Integer toId){
 		this.toId=toId;
-		this.isdelete=isDelete;
+		this.isread=isRead;
 	}
 	
 	public MailBean(Integer mailid){
@@ -115,9 +130,14 @@ public class MailBean implements Serializable{
 	public void setIsdelete(Boolean isdelete) {
 		this.isdelete = isdelete;
 	}
+
 	@Override
 	public String toString() {
-		return "MailBean [mailid=" + mailid + ", toId=" + toId + ", mailtitle=" + mailtitle
-				+ ", mailcontent=" + mailcontent + "]";
-	}	
+		return "MailBean [mailid=" + mailid + ", memberBean=" + memberBean + ", toId=" + toId + ", mailtitle="
+				+ mailtitle + ", mailcontent=" + mailcontent + ", mattach=" + mattach + ", mstatus=" + mstatus
+				+ ", isread=" + isread + ", isdelete=" + isdelete + ", reid=" + reid + ", maildate=" + maildate + "]";
+	}
+
+	
+	
 }

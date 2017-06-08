@@ -1,471 +1,266 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<link type="text/css" rel="stylesheet" href="css/jquery.ui.css"></link>
-<link type="text/css" rel="stylesheet" href="css/jquery.ui.html4.css"></link>
-<link type="text/css" rel="stylesheet" href="css/magazine.css"></link>
-<script type="text/javascript" src="js/jquery.min.1.7.js"></script>
-<script type="text/javascript" src="js/modernizr.2.5.3.min.js"></script>
-<script type="text/javascript" src="js/turn.min.js"></script>
-<script type="text/javascript" src="js/magazine.js"></script>
-<script type="text/javascript" src="js/hash.js"></script>
-</head>
-<body>
-
-<div id="canvas">
-
-<div class="zoom-icon zoom-icon-in"></div>
-
-<div class="magazine-viewport">
-	<div class="container">
-		<div class="magazine">
-			<!-- Next button -->
-			<div ignore="1" class="next-button"></div>
-			<!-- Previous button -->
-			<div ignore="1" class="previous-button"></div>
-		</div>
-	</div>
-</div>
-
-<!-- Thumbnails -->
-<div class="thumbnails">
-	<div>
-		<ul>
-			<li class="i">
-				<img src="/img/1495356328744IMG_3975.jpg" width="76" height="100" class="page-1">
-				<span>1</span>
-			</li>
-			<li class="d">
-				<img src="/img/1495356333957IMG_4113.JPG" width="76" height="100" class="page-2">
-				<img src="/img/1495356341457IMG_4126.JPG" width="76" height="100" class="page-3">
-				<span>2-3</span>
-			</li>
-			<li class="d">
-				<img src="/img/1495356341457IMG_4126.JPG" width="76" height="100" class="page-4">
-				<img src="/img/1495356341457IMG_4126.JPG" height="100" class="page-5">
-				<span>4-5</span>
-			</li>
-			<li class="d">
-				<img src="/img/1495356341457IMG_4126.JPG" width="76" height="100" class="page-6">
-				<img src="/img/1495356341457IMG_4126.JPG" width="76" height="100" class="page-7">
-				<span>6-7</span>
-			</li>
-			<li class="d">
-				<img src="/img/1495356341457IMG_4126.JPG" width="76" height="100" class="page-8">
-				<img src="v" width="76" height="100" class="page-9">
-				<span>8-9</span>
-			</li>
-			<li class="d">
-				<img src="/img/1495356341457IMG_4126.JPG" width="76" height="100" class="page-10">
-				<img src="/img/1495356341457IMG_4126.JPG" width="76" height="100" class="page-11">
-				<span>10-11</span>
-			</li>
-			<li class="i">
-				<img src="/img/1495356341457IMG_4126.JPG" width="76" height="100" class="page-12">
-				<span>12</span>
-			</li>
-		<ul>
-	<div>	
-</div>
-</div>
-
-<script type="text/javascript">
-
-function loadApp() {
-
- 	$('#canvas').fadeIn(1000);
-
- 	var flipbook = $('.magazine');
-
- 	// Check if the CSS was already loaded
-	
-	if (flipbook.width()==0 || flipbook.height()==0) {
-		setTimeout(loadApp, 10);
-		return;
-	}
-	
-	// Create the flipbook
-
-	flipbook.turn({
-			
-			// Magazine width
-
-			width: 922,
-
-			// Magazine height
-
-			height: 600,
-
-			// Duration in millisecond
-
-			duration: 1000,
-
-			// Hardware acceleration
-
-			acceleration: !isChrome(),
-
-			// Enables gradients
-
-			gradients: true,
-			
-			// Auto center this flipbook
-
-			autoCenter: true,
-
-			// Elevation from the edge of the flipbook when turning a page
-
-			elevation: 50,
-
-			// The number of pages
-
-			pages: 12,
-
-			// Events
-
-			when: {
-				turning: function(event, page, view) {
-					
-					var book = $(this),
-					currentPage = book.turn('page'),
-					pages = book.turn('pages');
-			
-					// Update the current URI
-
-					Hash.go('page/' + page).update();
-
-					// Show and hide navigation buttons
-
-					disableControls(page);
-					
-
-					$('.thumbnails .page-'+currentPage).
-						parent().
-						removeClass('current');
-
-					$('.thumbnails .page-'+page).
-						parent().
-						addClass('current');
-
-
-
-				},
-
-				turned: function(event, page, view) {
-
-					disableControls(page);
-
-					$(this).turn('center');
-
-					if (page==1) { 
-						$(this).turn('peel', 'br');
-					}
-
-				},
-
-				missing: function (event, pages) {
-
-					// Add pages that aren't in the magazine
-
-					for (var i = 0; i < pages.length; i++)
-						addPage(pages[i], $(this));
-
-				}
-			}
-
-	});
-
-	// Zoom.js
-
-	$('.magazine-viewport').zoom({
-		flipbook: $('.magazine'),
-
-		max: function() { 
-			
-			return largeMagazineWidth()/$('.magazine').width();
-
-		}, 
-
-		when: {
-
-			swipeLeft: function() {
-
-				$(this).zoom('flipbook').turn('next');
-
-			},
-
-			swipeRight: function() {
-				
-				$(this).zoom('flipbook').turn('previous');
-
-			},
-
-			resize: function(event, scale, page, pageElement) {
-
-				if (scale==1)
-					loadSmallPage(page, pageElement);
-				else
-					loadLargePage(page, pageElement);
-
-			},
-
-			zoomIn: function () {
-
-				$('.thumbnails').hide();
-				$('.made').hide();
-				$('.magazine').removeClass('animated').addClass('zoom-in');
-				$('.zoom-icon').removeClass('zoom-icon-in').addClass('zoom-icon-out');
-				
-				if (!window.escTip && !$.isTouch) {
-					escTip = true;
-
-					$('<div />', {'class': 'exit-message'}).
-						html('<div>Press ESC to exit</div>').
-							appendTo($('body')).
-							delay(2000).
-							animate({opacity:0}, 500, function() {
-								$(this).remove();
-							});
-				}
-			},
-
-			zoomOut: function () {
-
-				$('.exit-message').hide();
-				$('.thumbnails').fadeIn();
-				$('.made').fadeIn();
-				$('.zoom-icon').removeClass('zoom-icon-out').addClass('zoom-icon-in');
-
-				setTimeout(function(){
-					$('.magazine').addClass('animated').removeClass('zoom-in');
-					resizeViewport();
-				}, 0);
-
-			}
-		}
-	});
-
-	// Zoom event
-
-	if ($.isTouch)
-		$('.magazine-viewport').bind('zoom.doubleTap', zoomTo);
-	else
-		$('.magazine-viewport').bind('zoom.tap', zoomTo);
-
-
-	// Using arrow keys to turn the page
-
-	$(document).keydown(function(e){
-
-		var previous = 37, next = 39, esc = 27;
-
-		switch (e.keyCode) {
-			case previous:
-
-				// left arrow
-				$('.magazine').turn('previous');
-				e.preventDefault();
-
-			break;
-			case next:
-
-				//right arrow
-				$('.magazine').turn('next');
-				e.preventDefault();
-
-			break;
-			case esc:
-				
-				$('.magazine-viewport').zoom('zoomOut');	
-				e.preventDefault();
-
-			break;
-		}
-	});
-
-	// URIs - Format #/page/1 
-
-	Hash.on('^page\/([0-9]*)$', {
-		yep: function(path, parts) {
-			var page = parts[1];
-
-			if (page!==undefined) {
-				if ($('.magazine').turn('is'))
-					$('.magazine').turn('page', page);
-			}
-
-		},
-		nop: function(path) {
-
-			if ($('.magazine').turn('is'))
-				$('.magazine').turn('page', 1);
-		}
-	});
-
-
-	$(window).resize(function() {
-		resizeViewport();
-	}).bind('orientationchange', function() {
-		resizeViewport();
-	});
-
-	// Events for thumbnails
-
-	$('.thumbnails').click(function(event) {
-		
-		var page;
-
-		if (event.target && (page=/page-([0-9]+)/.exec($(event.target).attr('class'))) ) {
-		
-			$('.magazine').turn('page', page[1]);
-		}
-	});
-
-	$('.thumbnails li').
-		bind($.mouseEvents.over, function() {
-			
-			$(this).addClass('thumb-hover');
-
-		}).bind($.mouseEvents.out, function() {
-			
-			$(this).removeClass('thumb-hover');
-
-		});
-
-	if ($.isTouch) {
-	
-		$('.thumbnails').
-			addClass('thumbanils-touch').
-			bind($.mouseEvents.move, function(event) {
-				event.preventDefault();
-			});
-
-	} else {
-
-		$('.thumbnails ul').mouseover(function() {
-
-			$('.thumbnails').addClass('thumbnails-hover');
-
-		}).mousedown(function() {
-
-			return false;
-
-		}).mouseout(function() {
-
-			$('.thumbnails').removeClass('thumbnails-hover');
-
-		});
-
-	}
-
-
-	// Regions
-
-	if ($.isTouch) {
-		$('.magazine').bind('touchstart', regionClick);
-	} else {
-		$('.magazine').click(regionClick);
-	}
-
-	// Events for the next button
-
-	$('.next-button').bind($.mouseEvents.over, function() {
-		
-		$(this).addClass('next-button-hover');
-
-	}).bind($.mouseEvents.out, function() {
-		
-		$(this).removeClass('next-button-hover');
-
-	}).bind($.mouseEvents.down, function() {
-		
-		$(this).addClass('next-button-down');
-
-	}).bind($.mouseEvents.up, function() {
-		
-		$(this).removeClass('next-button-down');
-
-	}).click(function() {
-		
-		$('.magazine').turn('next');
-
-	});
-
-	// Events for the next button
-	
-	$('.previous-button').bind($.mouseEvents.over, function() {
-		
-		$(this).addClass('previous-button-hover');
-
-	}).bind($.mouseEvents.out, function() {
-		
-		$(this).removeClass('previous-button-hover');
-
-	}).bind($.mouseEvents.down, function() {
-		
-		$(this).addClass('previous-button-down');
-
-	}).bind($.mouseEvents.up, function() {
-		
-		$(this).removeClass('previous-button-down');
-
-	}).click(function() {
-		
-		$('.magazine').turn('previous');
-
-	});
-
-
-	resizeViewport();
-
-	$('.magazine').addClass('animated');
-
+<link rel="stylesheet" href="css/bootstrap.min.css" />
+<style type="text/css">
+body {
+    position: relative;
+    overflow-x: hidden;
+}
+body,
+html { height: 100%;}
+.nav .open > a, 
+.nav .open > a:hover, 
+.nav .open > a:focus {background-color: transparent;}
+
+/*-------------------------------*/
+/*           Wrappers            */
+/*-------------------------------*/
+
+#wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
 }
 
-// Zoom icon
+#wrapper.toggled {
+    padding-left: 220px;
+}
 
- $('.zoom-icon').bind('mouseover', function() { 
- 	
- 	if ($(this).hasClass('zoom-icon-in'))
- 		$(this).addClass('zoom-icon-in-hover');
+#sidebar-wrapper {
+    z-index: 1000;
+    left: 220px;
+    width: 0;
+    height: 100%;
+    margin-left: -220px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: #1a1a1a;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
 
- 	if ($(this).hasClass('zoom-icon-out'))
- 		$(this).addClass('zoom-icon-out-hover');
- 
- }).bind('mouseout', function() { 
- 	
- 	 if ($(this).hasClass('zoom-icon-in'))
- 		$(this).removeClass('zoom-icon-in-hover');
- 	
- 	if ($(this).hasClass('zoom-icon-out'))
- 		$(this).removeClass('zoom-icon-out-hover');
+#sidebar-wrapper::-webkit-scrollbar {
+  display: none;
+}
 
- }).bind('click', function() {
+#wrapper.toggled #sidebar-wrapper {
+    width: 220px;
+}
 
- 	if ($(this).hasClass('zoom-icon-in'))
- 		$('.magazine-viewport').zoom('zoomIn');
- 	else if ($(this).hasClass('zoom-icon-out'))	
-		$('.magazine-viewport').zoom('zoomOut');
+#page-content-wrapper {
+    width: 100%;
+    padding-top: 70px;
+}
 
- });
+#wrapper.toggled #page-content-wrapper {
+    position: absolute;
+    margin-right: -220px;
+}
 
- $('#canvas').hide();
+/*-------------------------------*/
+/*     Sidebar nav styles        */
+/*-------------------------------*/
 
+/*-------------------------------*/
+/*       Hamburger-Cross         */
+/*-------------------------------*/
 
-// Load the HTML4 version if there's not CSS transform
+.hamburger {
+  position: fixed;
+  top: 20px;  
+  z-index: 999;
+  display: block;
+  width: 32px;
+  height: 32px;
+  margin-left: 15px;
+  background: transparent;
+  border: none;
+}
+.hamburger:hover,
+.hamburger:focus,
+.hamburger:active {
+  outline: none;
+}
+.hamburger.is-closed:before {
+  content: '';
+  display: block;
+  width: 100px;
+  font-size: 14px;
+  color: #fff;
+  line-height: 32px;
+  text-align: center;
+  opacity: 0;
+  -webkit-transform: translate3d(0,0,0);
+  -webkit-transition: all .35s ease-in-out;
+}
+.hamburger.is-closed:hover:before {
+  opacity: 1;
+  display: block;
+  -webkit-transform: translate3d(-100px,0,0);
+  -webkit-transition: all .35s ease-in-out;
+}
 
-yepnope({
-	test : Modernizr.csstransforms,
-	yep: ['js/turn.min.js'],
-	nope: ['js/turn.html4.min.js'],
-	both: ['js/zoom.min.js', 'js/magazine.js', 'css/magazine.css'],
-	complete: loadApp
-});
+.hamburger.is-closed .hamb-top,
+.hamburger.is-closed .hamb-middle,
+.hamburger.is-closed .hamb-bottom,
+.hamburger.is-open .hamb-top,
+.hamburger.is-open .hamb-middle,
+.hamburger.is-open .hamb-bottom {
+  position: absolute;
+  left: 0;
+  height: 4px;
+  width: 100%;
+}
+.hamburger.is-closed .hamb-top,
+.hamburger.is-closed .hamb-middle,
+.hamburger.is-closed .hamb-bottom {
+  background-color: #1a1a1a;
+}
+.hamburger.is-closed .hamb-top { 
+  top: 5px; 
+  -webkit-transition: all .35s ease-in-out;
+}
+.hamburger.is-closed .hamb-middle {
+  top: 50%;
+  margin-top: -2px;
+}
+.hamburger.is-closed .hamb-bottom {
+  bottom: 5px;  
+  -webkit-transition: all .35s ease-in-out;
+}
 
-</script>
+.hamburger.is-closed:hover .hamb-top {
+  top: 0;
+  -webkit-transition: all .35s ease-in-out;
+}
+.hamburger.is-closed:hover .hamb-bottom {
+  bottom: 0;
+  -webkit-transition: all .35s ease-in-out;
+}
+.hamburger.is-open .hamb-top,
+.hamburger.is-open .hamb-middle,
+.hamburger.is-open .hamb-bottom {
+  background-color: #1a1a1a;
+}
+.hamburger.is-open .hamb-top,
+.hamburger.is-open .hamb-bottom {
+  top: 50%;
+  margin-top: -2px;  
+}
+.hamburger.is-open .hamb-top { 
+  -webkit-transform: rotate(45deg);
+  -webkit-transition: -webkit-transform .2s cubic-bezier(.73,1,.28,.08);
+}
+.hamburger.is-open .hamb-middle { display: none; }
+.hamburger.is-open .hamb-bottom {
+  -webkit-transform: rotate(-45deg);
+  -webkit-transition: -webkit-transform .2s cubic-bezier(.73,1,.28,.08);
+}
+.hamburger.is-open:before {
+  content: '';
+  display: block;
+  width: 100px;
+  font-size: 14px;
+  color: #fff;
+  line-height: 32px;
+  text-align: center;
+  opacity: 0;
+  -webkit-transform: translate3d(0,0,0);
+  -webkit-transition: all .35s ease-in-out;
+}
+.hamburger.is-open:hover:before {
+  opacity: 1;
+  display: block;
+  -webkit-transform: translate3d(-100px,0,0);
+  -webkit-transition: all .35s ease-in-out;
+}
 
+/*-------------------------------*/
+/*            Overlay            */
+/*-------------------------------*/
+
+.overlay {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(250,250,250,.8);
+    z-index: 1;
+}
+
+</style>
+</head>
+<body>
+	<div id="wrapper">
+		<div class="overlay"></div>
+
+		<!-- Sidebar -->
+		<nav class="navbar navbar-inverse navbar-fixed-top"
+			id="sidebar-wrapper" role="navigation">
+			
+		</nav>
+		<!-- /#sidebar-wrapper -->
+
+		<!-- Page Content -->
+		<div id="page-content-wrapper">
+			<button type="button" class="hamburger is-closed"
+				data-toggle="offcanvas">
+				<span class="hamb-top"></span> <span class="hamb-middle"></span> <span
+					class="hamb-bottom"></span>
+			</button>
+
+		</div>
+		<!-- /#page-content-wrapper -->
+
+	</div>
+	<!-- JS -->
+
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<!-- jQuery -->
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<!-- Bootstrap -->
+	<script type="text/javascript">
+	$(document).ready(function () {
+		  var trigger = $('.hamburger'),
+		      overlay = $('.overlay'),
+		     isClosed = false;
+
+		    trigger.click(function () {
+		      hamburger_cross();      
+		    });
+
+		    function hamburger_cross() {
+
+		      if (isClosed == true) {          
+		        overlay.hide();
+		        trigger.removeClass('is-open');
+		        trigger.addClass('is-closed');
+		        isClosed = false;
+		      } else {   
+		        overlay.show();
+		        trigger.removeClass('is-closed');
+		        trigger.addClass('is-open');
+		        isClosed = true;
+		      }
+		  }
+		  
+		  $('[data-toggle="offcanvas"]').click(function () {
+		        $('#wrapper').toggleClass('toggled');
+		  });  
+		});
+	</script>
 </body>
 </html>

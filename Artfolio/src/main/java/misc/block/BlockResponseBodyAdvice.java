@@ -1,5 +1,7 @@
 package misc.block;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,10 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
+
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import model.block.BlockBean;
 import model.block.BlockService;
@@ -28,7 +34,7 @@ public class BlockResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 			Class<? extends HttpMessageConverter<?>> clazz, ServerHttpRequest req, ServerHttpResponse resp) {
 
 		if (returnValue != null && methodParameter != null) {
-			String className = methodParameter.getMethod().getName();
+			String methodName = methodParameter.getMethod().getName();
 			MemberBean user = (MemberBean) ((ServletServerHttpRequest) req).getServletRequest().getSession(false)
 					.getAttribute("loginOK");
 			if(user == null){
@@ -36,17 +42,25 @@ public class BlockResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 			}
 			Integer mid = user.getMid();
 			List<BlockBean> blockList = blockService.getAllList(user);
-			//ObjectMapper mapper = new ObjectMapper();
+			ObjectMapper mapper = new ObjectMapper();
 			if (blockList != null && !blockList.isEmpty()) {
-				if ("bountyDisplay".equals(className)) {
-					// List<BountyBean> bountyList = mapper.readValue((String)
-					// returnValue,
-					// mapper.getTypeFactory().constructCollectionType(ArrayList.class,
-					// BountyBean.class));
-					List<BountyBean> bountyList = (List<BountyBean>) returnValue;
-					return BlockUtils.filterBounty(blockList, bountyList, mid);
+				if ("BountyDisplay".equals(methodName)) {
+					 List<BountyBean> bountyList = null;
+					try {
+						bountyList = mapper.readValue((String) returnValue,
+						 mapper.getTypeFactory().constructCollectionType(ArrayList.class,BountyBean.class));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+//					List<BountyBean> bountyList = (List<BountyBean>) returnValue;
+					if(bountyList != null)
+						try {
+							return mapper.writeValueAsString(BlockUtils.filterBounty(blockList, bountyList, mid));
+						} catch (JsonProcessingException e) {
+							e.printStackTrace();
+						}
 				}
-				if ("getAllWmsg".equals(className)) {
+				if ("getAllWmsg".equals(methodName)) {
 					List<WmsgBean> wmsgList = (List<WmsgBean>) returnValue;
 					return BlockUtils.filterWmsg(blockList, wmsgList, mid);
 				}
@@ -59,12 +73,12 @@ public class BlockResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 	@Override
 	public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> clazz) {
 
-		String className = methodParameter.getMethod().getName();
+		String methodName = methodParameter.getMethod().getName();
 
-		if ("bountyDisplay".equals(className)) {
+		if ("BountyDisplay".equals(methodName)) {
 			return true;
 		}
-		if ("getAllWmsg".equals(className)) {
+		if ("getAllWmsg".equals(methodName)) {
 			return true;
 		}
 		return false;

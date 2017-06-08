@@ -23,11 +23,11 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import model.bounty.BountyBean;
 import model.bounty.BountyService;
-
+import model.member.MemberBean;
 
 @MultipartConfig
-@WebServlet(urlPatterns={"/bounty.controller"})
-public class BountyServlet extends HttpServlet {
+@WebServlet(urlPatterns={"/bounty/bounty.controller"})
+public class BountyUploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	SimpleDateFormat sdf;
 	private BountyService bountyService;
@@ -35,7 +35,7 @@ public class BountyServlet extends HttpServlet {
 	public void init() throws ServletException {
 		sdf = new SimpleDateFormat("yyyy-MM-dd");
 		WebApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
-		bountyService = (BountyService) context.getBean("bountyService");
+		bountyService =  (BountyService) context.getBean("bountyService");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -46,8 +46,10 @@ public class BountyServlet extends HttpServlet {
 		Map<String,String> errors = new HashMap<String,String>(); 
 		request.setAttribute("err", errors);
 		
-		//取得session資訊 //取得loginOk MemberBean
+		//取得session資訊 //取得loginOK MemberBean
 		 HttpSession session = request.getSession(false);
+		 MemberBean memberBean = (MemberBean) session.getAttribute("loginOK");
+		 Integer mid = memberBean.getMid(); //新增活動時需要使用
 		 		
 		//接收資料    從multipart post request取得請求表單的parts
 		Collection<Part> parts = request.getParts();
@@ -61,6 +63,7 @@ public class BountyServlet extends HttpServlet {
 		String temp5 = null;
 		String organizer = null;
 		String content = null;
+		String particimethod =null;
 		String pisStorageURL = null;
 		String attchStorageURL=null;
 
@@ -88,7 +91,9 @@ public class BountyServlet extends HttpServlet {
 						organizer = value;
 					} else if (fldName.equals("content")) {
 						content = value;
-					} 		
+					} else if (fldName.equals("particimethod")) {
+						particimethod = value;
+					} 				
 				} else {    // 檔案類型資料
 					if(fldName.equals("pic")){
 						String picname = null;
@@ -161,7 +166,10 @@ public class BountyServlet extends HttpServlet {
 				errors.put("maxbonus", "請輸入最高獎金");
 			}
 			if(content==null || content.trim().length()==0){
-				errors.put("content", "請輸入主辦單位");
+				errors.put("content", "請輸入活動詳情");
+			}
+			if(particimethod==null || particimethod.trim().length()==0){
+				errors.put("aprti", "請輸入參加辦法");
 			}
 			if(organizer==null || organizer.trim().length()==0){
 				errors.put("organizer", "請輸入主辦單位");
@@ -220,14 +228,13 @@ public class BountyServlet extends HttpServlet {
 			
 			if(errors!=null && !errors.isEmpty()) {
 				request.getRequestDispatcher(
-						"/activityUpload.jsp").forward(request, response);
+						"/bounty/bountyUpload.jsp").forward(request, response);
 				return;
 			}	
 			
 			//呼叫Model		
 			BountyBean bean = new BountyBean();		
-			bean.setMid(1);  //之後要用Session取得user id
-		
+			bean.setMid(mid);
 			bean.setB_title(topic);
 			bean.setB_startdate(startdate);
 			bean.setB_enddate(enddate);
@@ -236,6 +243,7 @@ public class BountyServlet extends HttpServlet {
 			bean.setB_bonus_max(maxbonus);
 			bean.setB_organizer(organizer);
 			bean.setB_content(content);
+			bean.setB_partimethod(particimethod);
 			bean.setB_attach_pic(pisStorageURL);
 			bean.setB_attach_pdf(attchStorageURL);
 			
@@ -249,12 +257,11 @@ public class BountyServlet extends HttpServlet {
 				
 			if(result!=null){
 				//新增成功後轉至bountyDisplay.controller
-				response.sendRedirect("/Artfolio/bountyDisplay.controller");
-//				request.getRequestDispatcher("/bountyDisplay.controller").forward(request, response);	
+				response.sendRedirect("/Artfolio/bounty/bountyDisplay.jsp");
+//				request.getRequestDispatcher("/display.controller").forward(request, response);	
 			}else{
 				errors.put("error", "新增失敗");
-				request.getRequestDispatcher("/bountyUpload.jsp").forward(request, response);
+				request.getRequestDispatcher("/bounty/bountyUpload.jsp").forward(request, response);
 			}
-			
 	}
 }

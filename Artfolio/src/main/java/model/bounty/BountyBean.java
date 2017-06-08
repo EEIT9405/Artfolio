@@ -12,13 +12,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.stereotype.Component;
+@Component
 @Entity
 @Table(name="TB_BOUNTY")
-@JsonAutoDetect
 public class BountyBean implements Serializable {
 
 	public BountyBean(){
@@ -30,6 +31,7 @@ public class BountyBean implements Serializable {
 	private String b_title;
 	private String b_content;
 	private String b_organizer;
+	private String b_partimethod;
 	private Integer b_bonus_total;
 	private Integer b_bonus_max;
 	private java.util.Date b_startdate;
@@ -86,6 +88,12 @@ public class BountyBean implements Serializable {
 	}
 	public void setB_content(String b_content) {
 		this.b_content = b_content;
+	}
+	public String getB_partimethod() {
+		return b_partimethod;
+	}
+	public void setB_partimethod(String b_partimethod) {
+		this.b_partimethod = b_partimethod;
 	}
 	public String getB_organizer() {
 		return b_organizer;
@@ -163,13 +171,13 @@ public class BountyBean implements Serializable {
 	public void setB_end(java.util.Date b_end) {
 		this.b_end = b_end;
 	}
-//	@Override
-//	public String toString() {
-//		return "BountyBean [b_id=" + b_id + ", mid=" + mid + ", b_state=" + b_state + ", b_title=" + b_title
-//				+ ", b_content=" + b_content + ", b_organizer=" + b_organizer + ", b_bonus_total=" + b_bonus_total
-//				+ ", b_bonus_max=" + b_bonus_max + ", b_startdate=" + b_startdate + ", b_enddate=" + b_enddate
-//				+ ", b_announced=" + b_announced + ", b_attach_pic=" + b_attach_pic + ", b_attach_pdf=" + b_attach_pdf
-//				+ ", b_click=" + b_click + ", b_uploaddate=" + b_uploaddate + ", b_update=" + b_update + ", b_end="
-//				+ b_end + ", tags=" + tags + "]";
-//	}
+	@Override
+	public String toString() {
+		return "BountyBean [b_id=" + b_id + ", mid=" + mid + ", b_state=" + b_state + ", b_title=" + b_title
+				+ ", b_content=" + b_content + ", b_organizer=" + b_organizer + ", b_bonus_total=" + b_bonus_total
+				+ ", b_bonus_max=" + b_bonus_max + ", b_startdate=" + b_startdate + ", b_enddate=" + b_enddate
+				+ ", b_announced=" + b_announced + ", b_attach_pic=" + b_attach_pic + ", b_attach_pdf=" + b_attach_pdf
+				+ ", b_click=" + b_click + ", b_uploaddate=" + b_uploaddate + ", b_update=" + b_update + ", b_end="
+				+ b_end + ", tags=" + tags + "]";
+	}
 }

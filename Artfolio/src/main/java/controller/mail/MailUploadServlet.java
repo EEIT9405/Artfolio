@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -16,13 +17,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
-import org.hibernate.Session;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import model.mail.MailBean;
-import model.mail.MailDAOHibernate;
 import model.mail.MailService;
+import model.member.LoginService;
 import model.member.MemberBean;
 
 @MultipartConfig
@@ -30,10 +30,12 @@ import model.member.MemberBean;
 public class MailUploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private MailService mailService;
+	private LoginService loginService;
 	@Override
 	public void init() throws ServletException {
 		WebApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
 		mailService = (MailService) context.getBean("mailService");
+		loginService = (LoginService) context.getBean("loginService");
 	}      
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
@@ -47,9 +49,13 @@ public class MailUploadServlet extends HttpServlet {
 		Integer fromId = loginOK.getMid();  //寄件時需要使用
 	
 		 String recipient = null;
+		 String recipientmail = null;
 		 String title = null;
 		 String content = null;
 		 String mState = null;
+		 String reply = null;
+		 String mailid = null;
+		 String replystate = null;
 		 String fileStorageURL = null;
 		 
 		//接收資料    從multipart post request取得請求表單的parts
@@ -61,13 +67,22 @@ public class MailUploadServlet extends HttpServlet {
 					if (p.getContentType() == null) {
 						if (fldName.equals("recipient")) {
 							recipient = value;
+						}else if (fldName.equals("recipientmail")){
+							recipientmail = value;
 						}else if (fldName.equals("title")){
 							title = value;
-						}else if (fldName.equals("content"))
+						}else if (fldName.equals("content")){
 							content = value;
-						else if (fldName.equals("mState"))
+						}else if (fldName.equals("mState")){
 							mState = value;			
-					}else{
+						}else if (fldName.equals("reply")){
+							reply = value ; 
+						}else if (fldName.equals("mailid")){
+							mailid = value ; 
+						}else if(fldName.equals("replystate")){
+							replystate = value ;
+						}
+					}else{		
 						if(fldName.equals("file")){
 							String filename = null;
 							for (String file : p.getHeader("content-disposition").split(";")) { // 從part取得"content-disposition"標頭(內含上傳檔案資訊(包含名稱))，並從標頭中取得filenanme
@@ -76,8 +91,12 @@ public class MailUploadServlet extends HttpServlet {
 									System.out.println(filename);
 								}
 							}	
-
-							fileStorageURL = "C:/Artfolio/BountyImgs/"+ filename;
+							System.out.println(replystate);
+							if("true".equals(replystate)){
+								fileStorageURL = "C:/Artfolio/MailAttachs/"+ filename;
+							}else{
+								fileStorageURL = "C:/Artfolio/BountyImgs/"+ filename;
+							}				
 							if (filename != null && filename.trim().length() > 0) {
 								try (InputStream is = p.getInputStream(); // 開啟輸入檔
 										FileOutputStream os = new FileOutputStream(fileStorageURL);// 將上傳檔案寫入至資料庫硬碟
@@ -89,8 +108,7 @@ public class MailUploadServlet extends HttpServlet {
 									}
 								}
 							} else{
-								fileStorageURL = null;
-								
+								fileStorageURL = null;		
 							}
 						}
 					}
@@ -98,7 +116,7 @@ public class MailUploadServlet extends HttpServlet {
 			}
 			
 			//驗證資料		
-			if (recipient == null || recipient.trim().length() == 0) {
+			if (recipientmail == null || recipientmail.trim().length() == 0) {
 				errors.put("alert", "請至少指定一個收件人。");
 			}
 			if (title == null || title.trim().length() == 0) {
@@ -123,26 +141,60 @@ public class MailUploadServlet extends HttpServlet {
 			if(mState!=null && mState.trim().length()!=0){
 				mstate = Byte.parseByte(mState);
 			}
-										
-			//呼叫Model		
-			MailBean bean = new MailBean();	
-			MemberBean memberBean = new MemberBean();
-			memberBean.setMid(fromId);
-			bean.setMemberBean(memberBean);
-			bean.setToId(toId);
-			bean.setMailtitle(title);
-			bean.setMailcontent(content);
-			bean.setMstatus(mstate);
-			bean.setMattach(fileStorageURL);
-			
+					
+			Integer mailId = null;
+			if(mailid!=null && mailid.trim().length()!=0){
+				mailId = Integer.parseInt(mailid);
+			}			
+			Integer reId = null;
+			if(reply!=null && reply.trim().length()!=0){
+				reId = Integer.parseInt(reply);
+			}
+				
+			//if toId==null //利用user輸入的email寄信
+			//Select * from tb_member where email='' 取得userbean
+			//bean.getMid()
+			if(toId==null){
+				System.out.println(recipientmail);
+				List<MemberBean> member = loginService.select(recipientmail);
+				System.out.println(member);
+				for(MemberBean bean:member){
+					toId = bean.getMid();
+				}
+			}
+							
+			MailBean bean = new MailBean();			
+				//呼叫Model			
+				MemberBean memberBean = new MemberBean();
+				memberBean.setMid(fromId);
+					bean.setMemberBean(memberBean);
+					bean.setToId(toId);
+					bean.setMailtitle(title);
+					bean.setMailcontent(content);				
+					bean.setMattach(fileStorageURL);
+				if(mstate!=null){
+					bean.setMstatus(mstate);
+				}
+				if(reId==null){ //if replyid=null
+					//設定要回覆的mailId  
+					//reid = mailid
+					bean.setReid(mailId); 			
+				}else{
+					bean.setReid(reId); 
+					// reid = reid
+				}
+					
 			//新增資料至DB
 			MailBean result = mailService.insert(bean);
-			
+	
+			if("reply".equals(reply)){
+				request.getRequestDispatcher("/mail/replyTest.jsp").forward(request, response);			
+			}		
 			if(result!=null){
 				request.getRequestDispatcher("/mail/mailIndex.jsp").forward(request, response);	
 			}else{
 				errors.put("alert", "寄件失敗");
 				request.getRequestDispatcher("/mail/mailSendPage.jsp").forward(request, response);
-			}	
+			}			
 	}
 }

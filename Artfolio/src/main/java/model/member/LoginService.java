@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,8 +34,6 @@ public class LoginService {
 //		}
 //	}
 	
-	
-
 	public MemberBean login(String email, String password) {
 		List<MemberBean> bean = loginDaO.select(email);
 		if (bean.size() != 0) {
@@ -53,4 +52,16 @@ public class LoginService {
 	public MemberBean selectById(Integer mid){
 		return loginDaO.select(mid);
 	}
+	
+	//2017/06/07新增 
+	public List<MemberBean> select(String email) {
+		List<MemberBean> result=null;
+		if(email!=null){
+			 result = loginDaO.select(email);
+		}
+		return result;
+	}
+	
+	
+	
 }

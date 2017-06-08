@@ -7,12 +7,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import model.member.MemberBean;
+
 @Service
 @Transactional
 public class MailService {
 	@Autowired
 	private MailDAO mailDao;
-	
+
+	//選取by replyid
+	public List<MailBean> selectByReId(Integer id){
+		List<MailBean> result =null;
+		if(id!=null){
+			result = mailDao.getReplyMails(id);
+		}
+		return result;
+	}	
 	//選取
 	public List<MailBean> select(MailBean bean) {
 		List<MailBean> result = null;
@@ -28,7 +38,14 @@ public class MailService {
 				}else{
 					result = mailDao.getUnDeleteMails(bean);
 				}
-			}	
+			}
+			if(bean.getIsread()!=null){
+				if(bean.getIsread()){
+					result = mailDao.getReadMails(bean);
+				}else{
+					result = mailDao.getUnReadMails(bean);
+				}
+			}
 		} else {
 			result = mailDao.getMails(); 
 		}
@@ -51,5 +68,25 @@ public class MailService {
 			result = mailDao.update(bean);
 		}
 		return result;
+	}
+	
+	//create method by Lin Teiu
+	public MailBean selectByPrimaryKey(MailBean bean){
+		return mailDao.getMailByPrimaryKey(bean);
+	}
+	
+	//create method by Lin Teiu
+	public List<MailBean> getAdminMails(MemberBean admin, Boolean isServiceMail){
+		if(isServiceMail == null)
+			return mailDao.selectJunkMails(admin);
+		else if(isServiceMail.booleanValue() == false)
+			return mailDao.selectReportMails(admin);
+		else
+			return mailDao.selectServiceMails(admin);
+	}
+	
+	//create method by Lin Teiu
+	public MailBean getMail(MailBean bean){
+		return mailDao.getMailByPrimaryKey(bean);
 	}
 }

@@ -16,8 +16,11 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.stereotype.Component;
+
 import model.favorite.FavoriteBean;
 
+@Component
 @Entity
 @Table(name = "TB_MEMBER")
 public class MemberBean {

@@ -102,19 +102,24 @@
 <body>
 
 <h3>ArtFolio活動專區</h3>
-
-		<a href="<c:url value="/bountyIndex.jsp"/>">活動首頁</a> | <a href="<c:url value="/bountyDisplayJson.controller"/>">所有活動</a> | <a href="<c:url value="/bountyUpload.jsp"/>">舉辦活動</a>  | <a href="">活動追蹤</a>
-		| <a href="">個人活動管理</a> | <a href="">回作品集</a>
-		
-		<hr>
+	<a href="<c:url value="/bounty/bountyIndex.jsp"/>">活動首頁</a> |
+	<a href="<c:url value="/bounty/bountyDisplay.jsp"/>">所有活動</a> |
+	<a href="<c:url value="/bounty/bountyUpload.jsp"/>">舉辦活動</a> |
+	<a href="<c:url value="/bounty/bountyTrackPage.jsp"/>">活動追蹤</a> |
+	<a href="<c:url value="/bounty/bountyPersonal.jsp"/>">活動管理</a> |
+	<a href="">回作品集</a>  |
+	<a href="<c:url value="/mail/mailIndex.jsp"/>">站內信</a>  |
+	<a href="<c:url value="/secure/login.jsp"/>">登入</a> |
+	<a href="<c:url value="/secure/logout.jsp"/>">登出</a> |  <span>您好，${loginOK.name}</span>
+	<hr>
 		得獎活動
 		<div id="abgne_marquee">
 		<ul>
-			<li class="b1"><a href="http://www.flycan.com.tw/course/course_javascript.php"><img height="100px" src="img/1.jpg"></a></li>
-			<li class="b2"><a href="http://www.flycan.com.tw/course/course_photopro.php"><img height="100px" src="img/2.png"></a></li>
-			<li class="b3"><a href="http://abgne.tw/site-proclamation/questionnaire-1.html"><img height="100px" src="img/3.jpg"></a></li>
+			<li class="b1"><a href="http://www.flycan.com.tw/course/course_javascript.php"><img height="100px" src="../img/1.jpg"></a></li>
+			<li class="b2"><a href="http://www.flycan.com.tw/course/course_photopro.php"><img height="100px" src="../img/2.png"></a></li>
+			<li class="b3"><a href="http://abgne.tw/site-proclamation/questionnaire-1.html"><img height="100px" src="../img/3.jpg"></a></li>
 		</ul>
 	</div>
-
+	
 </body>
 </html>

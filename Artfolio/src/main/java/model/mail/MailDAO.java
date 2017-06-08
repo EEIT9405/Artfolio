@@ -2,6 +2,8 @@ package model.mail;
 
 import java.util.List;
 
+import model.member.MemberBean;
+
 public interface MailDAO {
 
 	//  insert 
@@ -15,5 +17,13 @@ public interface MailDAO {
 	List<MailBean> getUnDeleteMails(MailBean bean);
 	List<MailBean> getDeleteMails(MailBean bean);
 	List<MailBean> getMails();
-
+	List<MailBean> getReplyMails(Integer reid);
+	List<MailBean> getUnReadMails(MailBean bean);
+	List<MailBean> getReadMails(MailBean bean);
+	//create method by Lin Teiu
+	public List<MailBean> selectReportMails(MemberBean admin);
+	//create method by Lin Teiu
+	public List<MailBean> selectServiceMails(MemberBean admin);
+	//create method by Lin Teiu
+	public List<MailBean> selectJunkMails(MemberBean admin);
 }

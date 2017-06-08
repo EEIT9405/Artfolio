@@ -4,6 +4,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+	<script language="JavaScript" type="text/javascript" src="jj/html2xhtml.min.js"></script>
+	<script language="JavaScript" type="text/javascript" src="jj/richtext.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 
@@ -14,6 +16,15 @@
   padding-right:5px; 
 
  margin-right:3px;
+}
+
+div#content{
+position:absolute;
+width:580px;
+left:100px;
+top:100px;
+border: 1px solid #ccc;
+padding:30px;
 }
 </style>
 
@@ -28,7 +39,6 @@
 	$(function() {
 		$(".datepicker").datepicker();
 		$(".datepicker").datepicker("option", "dateFormat", "yy-mm-dd");
-		
 	});
 	
 	function doClick(){ //標籤doclick
@@ -57,13 +67,23 @@
 
 </head>
 <body>
-	<h3>ArtFolio活動專區</h3>
-	<a href="<c:url value="/bountyIndex.jsp"/>">活動首頁</a> | <a href="<c:url value="/bountyDisplay.controller"/>">所有活動</a> | <a href="<c:url value="/bountyUpload.jsp"/>">舉辦活動</a>  | <a href="">活動追蹤</a>
-	| <a href="">個人活動管理</a> | <a href="">回作品集</a>
-
+<h3>ArtFolio活動專區</h3>
+	<a href="<c:url value="/bounty/bountyIndex.jsp"/>">活動首頁</a> |
+	<a href="<c:url value="/bounty/bountyDisplay.jsp"/>">所有活動</a> |
+	<a href="<c:url value="/bounty/bountyUpload.jsp"/>">舉辦活動</a> |
+	<a href="<c:url value="/bounty/bountyTrackPage.jsp"/>">活動追蹤</a> |
+	<a href="<c:url value="/bounty/bountyPersonal.jsp"/>">活動管理</a> |
+	<a href="">回作品集</a>  |
+	<a href="<c:url value="/mail/mailIndex.jsp"/>">站內信</a>  |
+	<a href="<c:url value="/secure/login.jsp"/>">登入</a> |
+	<a href="<c:url value="/secure/logout.jsp"/>">登出</a> |  <span>您好，${loginOK.name}</span>
 	<hr>
 
-	<form action="bounty.controller" method="POST" enctype="multipart/form-data" >
+<!-- bounty.controller -->
+
+<div id="content">
+	<h3>舉辦活動</h3>
+	<form name="RTEDemo" action="bounty.controller" method="POST" enctype="multipart/form-data" onsubmit="return submitForm();">
 		<table>
 			<tr>
 				<td>主題:</td>
@@ -108,8 +128,11 @@
 				<td><input type="text" name="organizer" value="${param.organizer}" /><span>${err.organizer}</span></td>
 			</tr>
 			<tr>
-				<td>活動內容:</td>
-				<td><textarea rows="30" cols="60" name="content" wrap="hard" ></textarea><span>${err.attach}</span></td>
+				<td>活動詳情:</td>
+				<td><textarea  rows="10" cols="60" name="content" id="content"></textarea><span>${err.content}</span></td>
+			</tr>
+				<td>參加辦法:</td>
+				<td><textarea  rows="10" cols="60" name="particimethod" id="particimethod"></textarea><span>${err.aprti}</span></td>
 			</tr>
 			<tr>
 				<td>活動圖片:</td>
@@ -120,17 +143,12 @@
 				<td><input type="file" name="file" /></td>
 			</tr>
 			<tr>
-				<td><input type="submit" value="發布" /></td>
+				<td><input type="submit" name="submit"  value="發布" /></td>
 				<td><input type="button" value="重置" /></td>
 			</tr>
 		</table>
 		<span>${err.error}</span>
 	</form>
-
-
-
-
-
-
+</div>
 </body>
 </html>

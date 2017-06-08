@@ -25,7 +25,7 @@ div#column1 {
 					</tr>
 					<tr>
 						<td><span>收件者</span></td>
-							<td><input type="text" id="recipient" name="recipient" size="40" value="${toEmail}"/></td> 
+							<td><input type="text" id="recipientmail" name="recipientmail" size="40" value="${toEmail}"/></td> 
 					</tr>
 					<tr>
 						<td><span>寄件者</span></td>
@@ -54,11 +54,6 @@ div#column1 {
 	
 	<script src="../js/jquery-3.2.1.min.js"></script>
 	<script>
-// 		$(document).ready(function() {			
-// 			$('#recipient').change(function() {
-// 				alert("hahahahaha")	
-// 			});		
-// 		});
 	</script>
 	
 	

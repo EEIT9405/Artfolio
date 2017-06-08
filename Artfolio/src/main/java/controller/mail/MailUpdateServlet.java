@@ -24,7 +24,7 @@ public class MailUpdateServlet extends HttpServlet {
 	@Override
 	public void init() throws ServletException {
 		WebApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
-		mailService = (MailService) context.getBean("mailService");
+		mailService = (MailService)context.getBean("mailService");
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -38,7 +38,6 @@ public class MailUpdateServlet extends HttpServlet {
 		//接收資料
 		String temp = request.getParameter("mailid");  //取得要處理的信件id
 		String readOrDelete = request.getParameter("ReadOrDelete");
-		System.out.println(readOrDelete);
 				
 		//轉換資料
 		Integer mailid = null;
@@ -71,12 +70,12 @@ public class MailUpdateServlet extends HttpServlet {
 		}
 		
 		MailBean result = mailService.update(updateBean);
-		
-		if("read".equals(readOrDelete) || "unread".equals(readOrDelete)){
-			System.out.println("hahahahahaha");
-			request.getRequestDispatcher("/mail/mailPage.jsp").forward(request, response);
-//			response.sendRedirect("/Artfolio/mail/mailPage.jsp");
-			return;
+			
+		if("read".equals(readOrDelete)){
+			request.setAttribute("mailid", mailid);
+			request.getRequestDispatcher("/mail/mailPage.controller").forward(request, response);
+		}else if("unread".equals(readOrDelete)){
+			response.sendRedirect("/Artfolio//mail/readmail.jsp");
 		}else{
 			if(result!=null && "delete".equals(readOrDelete)){
 				//刪除成功
