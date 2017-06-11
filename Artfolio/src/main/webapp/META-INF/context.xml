@@ -5,4 +5,12 @@
                username="sa" password="sa123456"
                driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
                url="jdbc:sqlserver://192.168.204.128:1433;database=ARTFOLIO"/>
+               
+    <Resource name="mail/Session" auth="Container"
+            type="javax.mail.Session" mail.smtp.host="smtp.live.com" 
+            mail.smtp.port="587" mail.smtp.starttls.enable="true"
+            mail.smtp.auth="true"
+            password="hk4g4m/4" 
+            mail.user="fortest432@outlook.com"
+       	    mail.transport.protocol="smtp" />
 </Context>

@@ -7,12 +7,9 @@ public class TagBean {
 	private Integer wid;
 	private String tag;
 	private Boolean lock=false;
-	public Boolean isLock() {
-		return lock;
-	}
-	public void setLock(Boolean lock) {
-		this.lock = lock;
-	}
+	private Integer vote;
+	
+	
 	public TagBean(){}
 	public TagBean(Integer wid,String tag){
 		this.wid=wid;
@@ -23,6 +20,14 @@ public class TagBean {
 		this.tag=tag;
 		this.lock=lock;
 	}
+	public TagBean(Integer wid,String tag,Boolean lock,Integer vote){
+		this.wid=wid;
+		this.tag=tag;
+		this.lock=lock;
+		this.vote=vote;
+	}
+	
+	
 	public Integer getWid() {
 		return wid;
 	}
@@ -35,6 +40,21 @@ public class TagBean {
 	public void setTag(String tag) {
 		this.tag = tag;
 	}
+	
+	
+	public Integer getVote() {
+		return vote;
+	}
+	public void setVote(Integer vote) {
+		this.vote = vote;
+	}
+	public Boolean getLock() {
+		return lock;
+	}
+	public void setLock(Boolean lock) {
+		this.lock = lock;
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if(obj instanceof TagBean){

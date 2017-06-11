@@ -24,7 +24,9 @@ public class WorkBean {
 	private String picurl;
 	private String winfo;
 	private String wtitle;
+	@Column(insertable=false)
 	private Integer wlike;
+	@Column(insertable=false)
 	private Integer wissue;
 	private boolean iswmsg;
 	private boolean isscore;

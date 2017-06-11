@@ -46,7 +46,7 @@ public class WorkTopDAOHibernate implements WorkTopDAO {
 			List<Integer> top1 = getSession().createQuery(SELECT_ISSUE_NO_DESC).setMaxResults(1).getResultList();
 			return new HashSet<Integer>(top1);
 		}else{
-			List<Integer> list = getSession().createQuery(SELECT_ISSUE_NO).getResultList();
+			List<Integer> list = getSession().createQuery(SELECT_ISSUE_NO_DESC).getResultList();
 			return new LinkedHashSet<Integer>(list);
 		}
 	}

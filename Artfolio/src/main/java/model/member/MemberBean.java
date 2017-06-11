@@ -41,7 +41,7 @@ public class MemberBean {
 	private Boolean gender;
 	@Column(insertable = false)
 	private Boolean isgender;
-	private byte[] mphoto;
+	private String mphoto;
 	@Column(insertable = false)
 	private String point;
 	@Column(insertable = false)
@@ -151,11 +151,11 @@ public class MemberBean {
 		this.isgender = isgender;
 	}
 
-	public byte[] getMphoto() {
+	public String getMphoto() {
 		return mphoto;
 	}
 
-	public void setMphoto(byte[] mphoto) {
+	public void setMphoto(String mphoto) {
 		this.mphoto = mphoto;
 	}
 

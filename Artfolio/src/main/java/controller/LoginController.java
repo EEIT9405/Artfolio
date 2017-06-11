@@ -1,25 +1,27 @@
 package controller;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
+import model.member.LoginService;
 import model.member.MemberBean;
 
+
 @Controller
-@RequestMapping("/login.controller")
-@SessionAttributes("loginOK")
+@RequestMapping("login.controller")
 public class LoginController {
+	@Autowired
+	private LoginService loginService;
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public String login(Model model){
+	public String login(HttpSession session){
 		
-		MemberBean user = new MemberBean();
-		user.setMid(2);
-		
-		model.addAttribute("loginOK", user);
+		MemberBean user = loginService.selectById(1);
+		session.setAttribute("loginOK",user);
 		return "picture";
 	}
 }

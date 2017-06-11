@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 
@@ -15,6 +16,8 @@ public class TagService{
 	private TagDAO tagdao;
 	@Transactional
 	public List<TagBean> addTag(Integer wid,String[] tags){
+		if(wid==null || tags==null)
+			return null;
 		List<TagBean> result=new ArrayList<>();
 		List<TagBean> current=getTags(wid);
 		if (current.size()>=10 || tags.length>10)
@@ -35,16 +38,20 @@ public class TagService{
 	}
 
 	
-	@Transactional
+	@Transactional(readOnly=true)
 	public List<TagBean> getTags(Integer wid){
+		if(wid!=null)
 		return tagdao.select(wid);
+		return null;
 	}
 	
 	@Transactional
 	public boolean delTag(Integer wid,String tag){
+		if(wid==null || tag==null)
+			return false;
 		List<TagBean> list=getTags(wid);
 		for(TagBean bean:list){
-			if(bean.getTag().equals(tag) && bean.isLock())
+			if(bean.getTag().equals(tag) && bean.getLock())
 				return false;
 		}
 		return tagdao.delete(new TagBean(wid,tag));
@@ -52,7 +59,23 @@ public class TagService{
 	
 	@Transactional
 	public boolean lockTag(TagBean bean){
-		bean.setLock(!bean.isLock());
-		return tagdao.update(bean);
+		if(bean==null)
+			return false;
+		bean.setLock(!bean.getLock());
+		return tagdao.lock(bean);
+	}
+	
+	@Transactional(readOnly=true)
+	public List<Integer> getWorks(String[] and,String[] or,String[] not){
+		if(and!=null || or!=null ||not!=null)
+		return tagdao.search(and,or,not);
+		return null;
+	}
+	
+	@Transactional(propagation=Propagation.MANDATORY)
+	public boolean voteTag(TagBean bean){
+		if(bean==null)
+			return false;
+		return tagdao.vote(bean);
 	}
 }

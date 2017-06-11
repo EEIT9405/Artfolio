@@ -8,14 +8,14 @@
 <link rel='stylesheet prefetch' href='css/bootstrap.min.css'>
 <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
 <link rel='css/bootstrap-theme.min.css'>
-<link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/pushBar.css">
 <link rel="stylesheet" href="css/workWindow.css">
-
+<link rel="stylesheet" href="css/style.css">
+<script src='js/jquery-3.2.1.min.js'></script>
 </head>
 
 <body>
-  
+<input id="user" type="hidden" value="${sessionScope.loginOK.mid}">
 <header class="navbar navbar-default navbar-fixed-top navbar-inverse">
   <div class="row">
     <div class="col-md-1"></div>
@@ -60,11 +60,31 @@
     <div class="col-sm-0 col-md-1"></div>
     <div class="col-sm-0 col-md-1">
 		<div id="issueMenu">
-			<div style="border-radius:100%; width:10px; height:10px; background-color:#000; margin-top:15px"></div>
-			<div style="border-radius:100%; width:10px; height:10px; background-color:#000; margin-top:15px"></div>
-			<div style="border-radius:100%; width:10px; height:10px; background-color:#000; margin-top:15px"></div>
-			<div style="border-radius:100%; width:10px; height:10px; background-color:#000; margin-top:15px"></div>
-		</div>
+	        <div class="circle"> 
+	          <p>I</p>
+	          <div class="issue">123</div>
+	        </div>
+	        <div class="circle"> 
+	          <p>s</p>
+	          <div class="issue">123</div>
+	        </div>
+	        <div class="circle"> 
+	          <p>s</p>
+	          <div class="issue">123</div>
+	        </div>
+	        <div class="circle"> 
+	          <p>u</p>
+	          <div class="issue">123</div>
+	        </div>
+	        <div class="circle"> 
+	          <p>e</p>
+	          <div class="issue">123</div>
+	        </div>
+	        <div class="circle"> 
+	          <p>s</p>
+	          <div class="issue">123</div>
+	        </div>
+      </div>
     </div>
     <div class="col-sm-12 col-md-8">
       <h1>Top Pictures</h1>
@@ -456,7 +476,44 @@
 							</script>
 							<div class="row"></div>
 							<div id="wmsg" class="row">
-								
+								<form>
+									<div class="form-group" style="margin-right:5px;">
+									    <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+										<div class="pull-right">
+										    <input type="button" class="btn btn-primary " name="wmsgSubmit" value="留言">
+										    <input type="button" class="btn btn-default" name="wmsgCancel" value="取消">
+										</div>
+										<hr style="margin-top:50px;">
+									</div>
+								</form>
+								<div class="wmsgArea">
+									<table class="table table-striped">
+										<tr>
+											<td>test</td>
+											<td>test</td>
+											<td>test</td>
+											<td>test</td>
+											<td>test</td>
+											<td>test</td>
+										</tr>
+										<tr>
+											<td>test</td>
+											<td>test</td>
+											<td>test</td>
+											<td>test</td>
+											<td>test</td>
+											<td>test</td>
+										</tr>
+										<tr>
+											<td>test</td>
+											<td>test</td>
+											<td>test</td>
+											<td>test</td>
+											<td>test</td>
+											<td>test</td>
+										</tr>
+									</table>
+								</div>
 							</div>
 							
 							<script>
@@ -734,7 +791,7 @@
 <!-- 博超  -->
 
 <!-- JS -->
-<script src='js/jquery-3.2.1.min.js'></script>
+
 <script src='js/bootstrap.min.js'></script>
 <script src='js/pushBar.js'></script>
 <script>
@@ -751,6 +808,9 @@ $(function(){
 	var top10 = $('#top10');
 	var top11 = $('#top11');
 	var issueMenu = $('#issueMenu');
+	var wmsgTable = $('.wmsgArea>table.table');
+	var wmsgSubmit = $('div.form-group>div.pull-right input[name="wmsgSubmit"]');
+	var wmsgCancel = $('div.form-group>div.pull-right input[name="Cancel"]');
 	
 	showTop();
 	//putIssueNo();
@@ -839,19 +899,81 @@ $(function(){
 				backdrop : 'static'
 			});
 	});
-	$('.img-box').click(
-		thisWid = $(this).children('input').val();
-		console.log(thisWid);
-		function() {
-			var mb = $('#modalbodyimage').empty();
-			$(this).children('img').clone().attr("style",
-					"max-width:100%;height:auto").addClass('img-fluid')
-					.appendTo(mb);
-			$('#ImageModal').modal({
-				backdrop : 'static'
-			});
+	$('.img-box').click(function() {
+		thisWid = $(this).children('input[name="wid"]').val();
+		var mb = $('#modalbodyimage').empty();
+		$(this).children('img').clone().attr("style",
+				"max-width:100%;height:auto").addClass('img-fluid')
+				.appendTo(mb);
+		$('#ImageModal').modal({
+			backdrop : 'static'
+		});
+		//showWmsg();
 	});
 	//博超-----------
+	
+	function showWmsg(){
+		$.getJSON('showWmsg.controller',{wid:thisWid},function(data){
+			wmsgTable.empty();
+			var docFrag = $(document.createDocumentFragment());
+			$.each(data, function(index, value){
+				var cell1 = $('<td></td>').text(v.memberBean.mid);
+				var cell2 = $('<td></td>').text(v.wmsgcontent);
+				var cell3 = $('<td></td>').text($.formatDateTime('yy-mm-dd gg:ii:ss a',new Date(v.wmsgdate)));
+				var cell6 = $('<input type="hidden" value=' + v.wmsgid + '>');
+				if(value.memberBean.mid == $('#user').val()){
+					var cell4 = $('<input name="delete" type="button" value="刪除">');
+				    var cell5 = $('<input name="update" type="button" value="編輯">');
+				    var row = $('<tr></tr>').append([cell1,cell2,cell3,cell4,cell5,cell6]);
+				    docFrag.append(row);
+				}else {
+					var row = $('<tr></tr>').append([cell1,cell2,cell3,cell6]);
+					docFrag.append(row);
+				}
+			});
+			wmsgTable.append(docFrag);
+		});
+	}
+	
+	wmsgSubmit.click(function(){
+		var msg = $('input[name="msg"]').val();
+		$.post('insertWmsg.controller', {wmsgcontent:msg, wid:thisWid}, function(data){
+			console.log(data);
+// 			wmsgTable.append("<tr><td>"+ data.memberBean.mid +"</td>" + "<td>"
+// 					+data.wmsgcontent+"</td>"+"<td>"+ $.formatDateTime('yy-mm-dd gg:ii:ss a',new Date(data.wmsgdate)) +"</td></tr>");
+		});
+	});
+	
+	wmsgTable.on('click', 'input[name=update]', function(event){
+		var thiz = this;
+		var id = $(thiz).next('input').val();
+		var td = $(thiz).parent('tr').children('td').eq(1);
+		var msg = td.text();
+		var btnval = $(thiz).val();
+		if(btnval == "編輯"){
+			td.html('<input value="'+msg+'"/>');
+			$(thiz).val('更新');
+		}
+		if(btnval == "更新"){
+			var wmsgcontent = td.children('input').val();
+			$.get('updateWmsg.controller', {wmsgid: id, wmsgcontent:wmsgcontent}, function(data){
+				td.empty();
+				td.text(data.wmsgcontent);
+				$(thiz).val('編輯');
+			});
+		}
+	});
+	
+	wmsgTable.on('click', 'input[name=delete]', function(event){
+		var thiz = this;
+		var id = $(thiz).next('input').next('input').val();
+		$.get('deleteWmsg.controller', {wmsgid: id}, function(data){
+			if(data){
+				$(thiz).parent('tr').remove();
+			}
+		});
+	});
+	
 });
 </script>
 </body>

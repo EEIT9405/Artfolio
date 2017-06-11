@@ -76,36 +76,36 @@ public class PushWebSocketHandler extends TextWebSocketHandler {
 			List<TagBean> tags = tagService.getTags(workBean.getWid());
 			//for(WorkBean workBean: workList){
 				//List<TagBean> tags = tagService.getTags(workBean.getWid());
-			if (tags != null && !tags.isEmpty()) {
+//			if (tags != null && !tags.isEmpty()) {
 				Iterator<Map.Entry<MemberBean, WebSocketSession>> iterator = userSocketSessionMap.entrySet().iterator();
 				while (iterator.hasNext()) {
 					Map.Entry<MemberBean, WebSocketSession> entry = iterator.next();
 					//取得user的所有看過的標籤
-					TreeSet<FavoriteBean> favorites = (TreeSet<FavoriteBean>) entry.getKey().getFavorites();
-					HashSet<FavoriteBean> topFavo = new HashSet<>();
+//					TreeSet<FavoriteBean> favorites = (TreeSet<FavoriteBean>) entry.getKey().getFavorites();
+//					HashSet<FavoriteBean> topFavo = new HashSet<>();
 					//取得前三喜歡標籤
-					if (favorites != null && !favorites.isEmpty()) {
-						topFavo.add(favorites.pollFirst());
-						if (!favorites.isEmpty()) {
-							topFavo.add(favorites.pollFirst());
-						}
-						if (!favorites.isEmpty()) {
-							topFavo.add(favorites.pollFirst());
-						}
-					}
+//					if (favorites != null && !favorites.isEmpty()) {
+//						topFavo.add(favorites.pollFirst());
+//						if (!favorites.isEmpty()) {
+//							topFavo.add(favorites.pollFirst());
+//						}
+//						if (!favorites.isEmpty()) {
+//							topFavo.add(favorites.pollFirst());
+//						}
+//					}
 					//如此workBean包含user喜歡的標籤，就push
-					for (FavoriteBean fb : topFavo) {
-						String ftag = fb.getTag();
-						for (TagBean tagBean : tags) {
-							if(ftag.equals(tagBean.getTag())){
+//					for (FavoriteBean fb : topFavo) {
+//						String ftag = fb.getTag();
+//						for (TagBean tagBean : tags) {
+//							if(ftag.equals(tagBean.getTag())){
 								System.out.println("send message");
 								entry.getValue().sendMessage(message);
 								//entry.getValue().sendMessage(new TextMessage(mapper.writeValueAsString(workBean)));
 							}
-						}
-					}
-				}
-			}
+//						}
+//					}
+//				}
+//			}
 		//}
 		}
 	}

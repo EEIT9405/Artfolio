@@ -20,14 +20,15 @@ public class UploadController {
     @RequestParam(value = "file", required = false) MultipartFile file,
     HttpServletRequest request, ModelMap model) {
         //建立你要儲存的檔案的路徑
-        String path = request.getSession().getServletContext().getRealPath("lupload");
+//        String path = request.getSession().getServletContext().getRealPath("lupload");
+    	String path = "D:/temp/img";
         //獲取該檔案的檔案名
         String fileName = file.getOriginalFilename();
 
         File targetFile = new File(path, fileName);
-        if (!targetFile.exists()) {
-            targetFile.mkdirs();
-        }
+//        if (!targetFile.exists()) {
+//            targetFile.mkdirs();
+//        }
         // 儲存
         try {
             file.transferTo(targetFile);
@@ -35,7 +36,8 @@ public class UploadController {
             e.printStackTrace();
         }
         //將該檔案的路徑給客戶端，讓其可以請求該圖片
-        model.addAttribute("fileUrl", request.getContextPath() + "/lupload/"+ fileName);
+//        model.addAttribute("fileUrl", request.getContextPath() + "/lupload/"+ fileName);
+        model.addAttribute("fileUrl", "/img/" + fileName);
         return "UploadIndex";
     }
 }

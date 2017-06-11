@@ -35,4 +35,18 @@
 	
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	<aop:aspectj-autoproxy />
+	
+<!-- 	<bean id="mailSession" class="org.springframework.jndi.JndiObjectFactoryBean"> -->
+<!-- 		<property name="jndiName" value="java:comp/env/mail/Session" /> -->
+<!-- 	</bean> -->
+<!-- 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl"> -->
+<!-- 		<property name="defaultEncoding" value="UTF-8" /> -->
+<!-- 		<property name="session" ref="mailSession" /> -->
+<!-- 	</bean> -->
+<!-- 	<bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor"> -->
+<!-- 		<property name="corePoolSize" value="5"></property> -->
+<!-- 		<property name="maxPoolSize" value="10"></property> -->
+<!-- 		<property name="queueCapacity" value="30"></property> -->
+<!-- 		<property name="waitForTasksToCompleteOnShutdown" value="true"></property> -->
+<!-- 	</bean> -->
 </beans>

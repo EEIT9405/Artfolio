@@ -35,6 +35,9 @@ public class WmsgController {
 	@RequestMapping(value = "/insertWmsg.controller", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public WmsgBean insertWmsg(@SessionAttribute("loginOK") MemberBean user, Integer wid, String wmsgcontent) {
+		
+		System.out.println(user);
+		System.out.println(wmsgcontent);
 		if (user != null && wmsgcontent != null) {
 			String encodeWmsg = StringEscapeUtils.escapeHtml4(wmsgcontent);
 			WebApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(application);
