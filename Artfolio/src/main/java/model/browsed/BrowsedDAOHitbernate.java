@@ -2,6 +2,8 @@ package model.browsed;
 
 import java.util.List;
 
+import javax.persistence.Query;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,4 +63,14 @@ public class BrowsedDAOHitbernate implements BrowsedDAO {
 		return null;
 	}
 
+	private static final String SELECT_BY_WORK = "from BrowsedBean where wid=? and mid !=? order by browseddate desc";
+
+	@Override
+	public List<BrowsedBean> selectByWork(Integer mid, Integer wid) {
+		if (wid != null) {
+			Query query = getSession().createQuery(SELECT_BY_WORK, BrowsedBean.class).setParameter(0, wid).setParameter(1, mid).setMaxResults(5);
+			return query.getResultList();
+		}
+		return null;
+	}
 }

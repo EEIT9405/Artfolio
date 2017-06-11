@@ -22,5 +22,6 @@
   <servlet-mapping>
     <servlet-name>springMVC</servlet-name>
     <url-pattern>*.controller</url-pattern>
+    <url-pattern>/ws/*</url-pattern>
   </servlet-mapping>
 </web-app>

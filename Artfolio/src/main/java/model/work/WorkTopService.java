@@ -3,6 +3,7 @@ package model.work;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -17,8 +18,8 @@ public class WorkTopService {
 	@Autowired
 	private WorkTopDAO workTopDAO;
 
-	public int selectIssueNO() {
-		return workTopDAO.selectIssueNO();
+	public Set<Integer> selectIssueNO(boolean isNow) {
+		return workTopDAO.selectIssueNO(isNow);
 	}
 
 	public List<WorkBean> selectByIssue(int issue, int top) {
@@ -34,7 +35,11 @@ public class WorkTopService {
 	}
 
 	public Map<Integer, List<WorkBean>> selectAllTop() {
-		int newIssue = workTopDAO.selectIssueNO()-1;
+		int newIssue = 0;
+		Set<Integer> set = workTopDAO.selectIssueNO(true);
+		for(Integer issue : set){
+			newIssue = issue - 1;
+		}
 		if (newIssue > 0) {
 			Map<Integer, List<WorkBean>> topMap = new HashMap<>();
 			for (int i = 1; i <= newIssue; i++) {

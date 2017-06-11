@@ -11,5 +11,5 @@ public interface BrowsedDAO {
 	public boolean update(BrowsedBean bean);
 	public List<BrowsedBean> selectAll(MemberBean memberBean);
 	public BrowsedBean selectOne(Integer mid, WorkBean workBean);
-	//public List<BrowsedBean> selectAllByWork(Integer wid);
+	public List<BrowsedBean> selectByWork(Integer mid, Integer wid); 
 }

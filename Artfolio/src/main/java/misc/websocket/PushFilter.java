@@ -29,7 +29,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import model.work.WorkBean;
 import model.work.WorkService;
 
-@WebFilter("")
+@WebFilter("/Upload/tbwork.controller")
 public class PushFilter implements Filter {
 
 	private WorkService workService;
@@ -61,16 +61,19 @@ public class PushFilter implements Filter {
 		// List<WorkBean> workList = (List<WorkBean>)
 		// request.getSession().getAttribute("");
 		if (session != null) {
-			Integer wid = (Integer) request.getAttribute("");
-			//WorkBean workBean = workService.selectBy(wid);
-			//session.sendMessage(new TextMessage(new ObjectMapper().writeValueAsString(workBean)));
+			Integer wid = (Integer) request.getAttribute("wid");
+			WorkBean workBean = new WorkBean();
+			workBean.setWid(wid);
+			workBean = workService.select(workBean).get(0);
+			if(workBean != null && workBean.getWid() != 0);
+			session.sendMessage(new TextMessage(new ObjectMapper().writeValueAsString(workBean)));
 		}
 	}
 
 	public void init(FilterConfig fConfig) throws ServletException {
-//		WebApplicationContext context = WebApplicationContextUtils
-//				.getWebApplicationContext(fConfig.getServletContext());
-//		workService = (WorkService) context.getBean("workService");
+		WebApplicationContext context = WebApplicationContextUtils
+				.getWebApplicationContext(fConfig.getServletContext());
+		workService = (WorkService) context.getBean("workService");
 	}
 
 }

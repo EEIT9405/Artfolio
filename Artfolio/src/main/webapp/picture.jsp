@@ -6,7 +6,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <link type="text/css" rel="stylesheet" href="css/jquery.ui.css"></link>
-<link type="text/css" rel="stylesheet" href="css/magazine.css"></link>
 </head>
 <body>
 	<input type="hidden" name="wid" value="3">
@@ -40,15 +39,11 @@
 	<br />
 	<table id="d2"></table>
 	<br />
-	<!-- ------------------ -->
+	<hr/>
 	
-	<!-- ----------- -->
+	<input id="WorkRelational" type="button" value="相關圖">
 
 	<script src="js/jquery-3.2.1.min.js"></script>
-	<script src="js/turn.min.js"></script>
-	<script src="js/zoom.min.js"></script>
-	<script src="js/hash.js"></script>
-	<script src="js/magazine.js"></script>
 	<script>
 		$("#p1").click(function() {
 			var data = $('input[name="wid"]').val();
@@ -128,6 +123,12 @@
 					documentFrag.append(row);
 				});
 				$('#d2').append(documentFrag);
+			});
+		});
+		
+		$('#WorkRelational').click(function(){
+			$.getJSON('showRelationalWork.controller',{wid:1}, function(data){
+				console.log(data);
 			});
 		});
 		

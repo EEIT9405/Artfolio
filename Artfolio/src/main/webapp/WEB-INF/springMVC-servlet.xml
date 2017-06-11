@@ -18,26 +18,41 @@
 	<bean class="org.springframework.web.servlet.view.XmlViewResolver" />
 	
 	<mvc:interceptors>
+		<!--徵稿黑名單過濾器 -->
 		<mvc:interceptor>
 			<mvc:mapping path="/bounty/bountyPage.controller"/>
 			<bean class="misc.block.BlockInterceptor" />
 		</mvc:interceptor>
 		
+		<!--作品推播過濾器 -->
 <!-- 		<mvc:interceptor> -->
 <!-- 			<mvc:mapping path="/workInser.controller"/> -->
 <!-- 			<bean class="misc.websocket.PushInterceptor"></bean> -->
 <!-- 		</mvc:interceptor> -->
 	</mvc:interceptors>
 	
+	<!--輪播TOP系統自動獲取定時器 -->
 	<task:scheduler id="scheduler1" pool-size="1"/>
 	<task:annotation-driven scheduler="scheduler1" mode="proxy"/>
 	
+	<!--徵稿自動過期文定時器 -->
 	<bean id="bountyScheduler" class="misc.schedule.BountyScheduler"></bean>
-	
 	<task:scheduler id="scheduler2"/>
 	<task:scheduled-tasks scheduler="scheduler2">
 		<task:scheduled ref="bountyScheduler" method="doSomethig" cron="59 59 23 * * ?"/>
 	</task:scheduled-tasks>
 	
+	<!--郵件黑名單過濾AOP -->
 <!-- 	<aop:aspectj-autoproxy /> -->
+
+	<!-- 支持上傳檔案 -->
+   <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+    
+    
+    <!-- 一定要這個annotation-driven，不然獲得不了靜態資源，還有注意mapping的值一定不要與項目名字開頭有相同的，否則會出很多問題 ，很多要通過controler的都會出問題-->
+    <mvc:annotation-driven/>
+    <!-- 映射靜態資源 -->
+    <!--後面img引用圖片路徑要這個靜態映射  -->
+    <mvc:resources location="/lupload/" mapping="/lupload/**" />  
+	
 </beans>

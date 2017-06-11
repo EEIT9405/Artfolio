@@ -1,0 +1,153 @@
+.img-box {
+  overflow: hidden;
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  position: relative;
+  border:solid 0px rgba(0,0,0,0);
+}
+.img-box img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 150%;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.tobig {
+  cursor: pointer;
+}
+.tobig:hover img {
+  width: 180%;
+}
+
+.title-box {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  background: -webkit-linear-gradient(top, transparent 70%, rgba(0, 0, 0, 0.7));
+  background: linear-gradient(180deg, transparent 70%, rgba(0, 0, 0, 0.7));
+  background-size: 110%;
+  background-position: 100% 10%;
+}
+.title-box .info {
+  position: absolute;
+  left: 17px;
+  bottom: -100%;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+.title-box .info .author, .title-box .info .pic-title {
+  margin: 0;
+  color: #ddd;
+  letter-spacing: 1px;
+}
+.title-box .info .author {
+  font-size: 18px;
+}
+.title-box .info .pic-title {
+  font-size: 25px;
+  font-weight: 700;
+  margin-top: -2px;
+}
+.title-box .info .goto-pic {
+  width: 100px;
+  height: 40px;
+  border: solid 1.5px #DDD;
+  color: #ddd;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 38px;
+  margin-top: 15px;
+  position: relative;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.title-box .info .goto-pic::after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 0;
+  background-color: rgba(255, 255, 255, 0.3);
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+.title-box .info .goto-pic:hover::after {
+  height: 100%;
+}
+.title-box:hover {
+  background-size: 100%;
+  background-position: 100% 30%;
+}
+.title-box:hover .info {
+  left: 17px;
+  bottom: 17px;
+}
+
+.padding-0 {
+  padding-right: 12px;
+  padding-left: 12px;
+}
+
+.top-colleciton, .new-picture {
+  padding-top: 30px;
+  padding-bottom: 55px;
+}
+
+.top-colleciton {
+  background-image: url(https://livedemo00.template-help.com/magento_52963/skin/frontend/default/theme323k/images/bg_index.jpg);
+  background-size: 100%;
+  padding-top: 60px;
+}
+.top-colleciton .img-box {
+  box-shadow: 0px 15px 50px -15px;
+}
+
+.footer {
+  padding-top: 40px;
+  padding-bottom: 10px;
+  background-color: #222;
+  color: #999;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+.footer hr {
+  background-color: #222;
+  opacity: 0.1;
+}
+
+@media screen and (max-width: 1024px) {
+  .img-box {
+    margin-top: 7px;
+    margin-bottom: 7px;
+  }
+
+  .padding-0 {
+    padding-right: 7px;
+    padding-left: 7px;
+  }
+
+  h1 {
+    font-size: 30px;
+  }
+
+  header .row .navbar-right {
+    margin-right: 0;
+  }
+}

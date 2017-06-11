@@ -41,8 +41,11 @@ public class PushWebSocketHandler extends TextWebSocketHandler {
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		MemberBean user = (MemberBean) session.getAttributes().get("user");
-		if (user != null)
+		if (user != null){
+			System.out.println("user connect="+ user.getName());
+			System.out.println("session="+ session);
 			userSocketSessionMap.put(user, session);
+		}
 	}
 
 	// Client中斷連接
@@ -50,6 +53,7 @@ public class PushWebSocketHandler extends TextWebSocketHandler {
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		MemberBean user = (MemberBean) session.getAttributes().get("user");
 		if (user != null)
+			System.out.println("user unconnect");
 			userSocketSessionMap.remove(user);
 	}
 
@@ -57,6 +61,7 @@ public class PushWebSocketHandler extends TextWebSocketHandler {
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		if (message.getPayloadLength() == 0)
 			return;
+		System.out.println("handleTextMessage");
 		sendMessage(message);
 	}
 
@@ -93,6 +98,7 @@ public class PushWebSocketHandler extends TextWebSocketHandler {
 						String ftag = fb.getTag();
 						for (TagBean tagBean : tags) {
 							if(ftag.equals(tagBean.getTag())){
+								System.out.println("send message");
 								entry.getValue().sendMessage(message);
 								//entry.getValue().sendMessage(new TextMessage(mapper.writeValueAsString(workBean)));
 							}

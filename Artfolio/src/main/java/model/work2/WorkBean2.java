@@ -1,72 +1,32 @@
-package model.work;
+package model.work2;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import org.springframework.stereotype.Component;
 
-import model.album.AlbumBean;
-
-@Entity
-@Table(name="TB_WORK")
-public class WorkBean {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+@Component
+public class WorkBean2 {
 	private Integer wid;
-	@Column(name ="mid",insertable=true, updatable=false)
 	private Integer mid;
 	private String picurl;
+	private Integer aid;
 	private String winfo;
 	private String wtitle;
 	private Integer wlike;
-	private Integer wissue;
-	private boolean iswmsg;
-	private boolean isscore;
-	@Column(name ="wstart",insertable=false, updatable=false)
+	private Boolean iswmsg;
+	private Boolean isscore;
 	private java.util.Date wstart;
-	@Column(name ="wend",insertable=true, updatable=true)
 	private java.util.Date wend;
 	private String score_1;
 	private String score_2;
 	private String score_3;
 	private String score_4;
 	private String score_5;
-	
-	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name ="aid")
-	private AlbumBean albumBean;
-	
-	
-	
-	
-	@Override
-	public int hashCode() {
-		return wid.hashCode();
+	private Integer scoreversion;
+	public Integer getScoreversion() {
+		return scoreversion;
 	}
-	@Override
-	public boolean equals(Object obj) {
-		if(obj == null) return false;
-		if(this == obj) return true;
-		if(obj instanceof WorkBean){
-			WorkBean workBean = (WorkBean) obj;
-			if(workBean.wid == this.wid) return true;
-		}
-		return false;
+	public void setScoreversion(Integer scoreversion) {
+		this.scoreversion = scoreversion;
 	}
-	
-	public AlbumBean getAlbumBean() {
-		return albumBean;
-	}
-	public void setAlbumBean(AlbumBean albumBean) {
-		this.albumBean = albumBean;
-	}
-	
 	public Integer getWid() {
 		return wid;
 	}
@@ -84,6 +44,12 @@ public class WorkBean {
 	}
 	public void setPicurl(String picurl) {
 		this.picurl = picurl;
+	}
+	public Integer getAid() {
+		return aid;
+	}
+	public void setAid(Integer aid) {
+		this.aid = aid;
 	}
 	public String getWinfo() {
 		return winfo;
@@ -103,22 +69,16 @@ public class WorkBean {
 	public void setWlike(Integer wlike) {
 		this.wlike = wlike;
 	}
-	public Integer getWissue() {
-		return wissue;
-	}
-	public void setWissue(Integer wissue) {
-		this.wissue = wissue;
-	}
-	public boolean isIswmsg() {
+	public Boolean getIswmsg() {
 		return iswmsg;
 	}
-	public void setIswmsg(boolean iswmsg) {
+	public void setIswmsg(Boolean iswmsg) {
 		this.iswmsg = iswmsg;
 	}
-	public boolean isIsscore() {
+	public Boolean getIsscore() {
 		return isscore;
 	}
-	public void setIsscore(boolean isscore) {
+	public void setIsscore(Boolean isscore) {
 		this.isscore = isscore;
 	}
 	public java.util.Date getWstart() {
@@ -163,5 +123,5 @@ public class WorkBean {
 	public void setScore_5(String score_5) {
 		this.score_5 = score_5;
 	}
-
+	
 }

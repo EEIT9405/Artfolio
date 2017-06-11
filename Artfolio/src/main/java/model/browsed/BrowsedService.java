@@ -35,4 +35,8 @@ public class BrowsedService {
 	public List<BrowsedBean> selectAll(MemberBean memberBean){
 		return browsedDAO.selectAll(memberBean);
 	}
+	
+	public List<BrowsedBean> selectTop5Relational(int mid, int wid){
+		return browsedDAO.selectByWork(mid, wid);
+	}
 }

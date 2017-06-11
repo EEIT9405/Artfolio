@@ -22,6 +22,12 @@ div.mailContainer {
 	margin-left:100px;
 	width:50%;
 }
+
+.mailReid {
+	border: 1px solid #E6E6E6;
+	width: 500px;
+	font-size: 12px;
+}
 </style>
 </head>
 <body>
@@ -50,6 +56,9 @@ div.mailContainer {
 	</tbody>
 </table>
 </div>
+<div id="replyBox">
+		按這裡即可<label id="reply">回覆</label>或<label id="forward">轉寄</label>郵件
+	</div>
 
 <!-- JS -->
 <script src="../js/jquery-3.2.1.min.js"></script>
@@ -91,8 +100,17 @@ mailTable.on('click','tr>td:not(:nth-child(4))', function(){
 	$.getJSON('showReIdMails.controller', {mailid:mailid},function(data){
 		var docFrag = $(document.createDocumentFragment());
 		container.empty();
-		container.html($('<table id=adminMail>haha</table>'));
-		
+		container.append($('<div></div>').html("<h3>Re：" +data[0].mailtitle + "</h3>"));
+		$.each(data, function(index, value){
+			var cell1 = $('<tr></tr>').html($('<td></td>').text("寄件者：" + value.memberBean.name + "("+value.memberBean.email+")"));
+			var cell2 = $('<tr></tr>').html($.formatDateTime('yy-mm-dd gg:ii:ss a',new Date(value.maildate))+"<br><br>");
+			var cell3 = $('<tr></tr>').html($('<td></td>').text(value.mailcontent));
+			var table = $('<table class="mailReid"></table>');
+			table.append([cell1,cell2,cell3]);
+			docFrag.append(table);
+		});
+		docFrag.append(<div id="replyBox">按這裡即可<label id="reply">回覆</label>郵件</div>);
+		container.append(docFrag);	
 	});
 });
 

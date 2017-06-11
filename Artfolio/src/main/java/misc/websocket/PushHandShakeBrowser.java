@@ -19,6 +19,7 @@ public class PushHandShakeBrowser extends HttpSessionHandshakeInterceptor {
 	@Override
 	public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler,
 			Map<String, Object> attributes) throws Exception {
+		System.out.println("broeser handshake");
 		if(request instanceof ServletServerHttpRequest){
 			ServletServerHttpRequest servletServerHttpRequest = (ServletServerHttpRequest) request;
 			HttpSession session = servletServerHttpRequest.getServletRequest().getSession(false);

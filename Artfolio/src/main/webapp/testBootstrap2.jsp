@@ -12,81 +12,108 @@
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css" />
 <style type="text/css">
-	* {
-		font-family:微軟正黑體;
-	}
-	
-	h1, h2, h3, h4, h5, h6 {
-		font-weight:bold;
-	}
-	
-	.block {
-		border-left: solid 1px #aaa;
-		border-right: solid 1px #aaa;
-	}
-	
-	.border {
-		border: solid 1px #aaa;
-	}
+	 #sidebar-wrapper {
+    margin-right: -250px;
+    right: 0;
+    width: 250px;
+    background: #eee;
+    border:solid 1px silver;
+    position: fixed;
+    height: 100%;
+    overflow-y: auto;
+    z-index: 1000;
+    transition: all 0.5s ease-in 0s;
+    -webkit-transition: all 0.5s ease-in 0s;
+    -moz-transition: all 0.5s ease-in 0s;
+    -ms-transition: all 0.5s ease-in 0s;
+    -o-transition: all 0.5s ease-in 0s;
+  }
+
+  .sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 250px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .sidebar-nav li {
+    line-height: 50px;
+    text-indent: 20px;
+  }
+
+  .sidebar-nav li a {
+    color: #999999;
+    display: block;
+    text-decoration: none;
+  }
+
+  .sidebar-nav li a:hover {
+    color: #fff;
+    background: rgba(255,255,255,0.2);
+    text-decoration: none;
+  }
+
+  .sidebar-nav li a:active, .sidebar-nav li a:focus {
+    text-decoration: none;
+  }
+
+  .sidebar-nav > .sidebar-brand {
+    height: 55px;
+    line-height: 55px;
+    font-size: 18px;
+  }
+
+  .sidebar-nav > .sidebar-brand a {
+    color: #999999;
+  }
+
+  .sidebar-nav > .sidebar-brand a:hover {
+    color: #fff;
+    background: none;
+  }
+
+  #menu-toggle {
+    top: 0;
+    right: 0;
+    position: fixed;
+    z-index: 1;
+  }
+
+  #sidebar-wrapper.active {
+    right: 250px;
+    width: 250px;
+    transition: all 0.5s ease-out 0s;
+    -webkit-transition: all 0.5s ease-out 0s;
+    -moz-transition: all 0.5s ease-out 0s;
+    -ms-transition: all 0.5s ease-out 0s;
+    -o-transition: all 0.5s ease-out 0s;
+  }
+
+  .toggle {
+    margin: 5px;
+  }
 </style>
 </head>
 <body>
-<div class="jumbotron">
-	<div class="container">
-		<h1>bootstrap格線系統</h1>
-		<p>xxxxxxxxxxxxxxxxxx</p>
-		<div class="row">
-			<div class="col-xs-12 visible-lg"><h3>LG(大螢幕>1200px)</h3></div>
-			<div class="col-xs-12 visible-md"><h3>MD(中螢幕>992px)</h3></div>
-			<div class="col-xs-12 visible-sm"><h3>SM(小螢幕>768px)</h3></div>
-			<div class="col-xs-12 visible-xs"><h3>XS(超小螢幕 <768px)</h3></div>
-		</div>
-		<a class="btn btn-primary" href="https://kkbruce.tw/bs3/" target="_blank">中文說明手冊</a>
-	</div>
+<a id="menu-toggle" href="#" class="btn btn-lg toggle"><i class="glyphicon glyphicon-th-list"></i></a>
+<div id="sidebar-wrapper">
+    <a id="menu-close" href="#" class="btn btn-lg toggle"><i class="glyphicon glyphicon-remove"></i></a>
+    
 </div>
-<div class="container">
-	<div class="row">
-		<div class="block col-xs-1">1</div>
-		<div class="block col-xs-1">2</div>
-		<div class="block col-xs-1">3</div>
-		<div class="block col-xs-1">4</div>
-		<div class="block col-xs-1">5</div>
-		<div class="block col-xs-1">6</div>
-		<div class="block col-xs-1">7</div>
-		<div class="block col-xs-1">8</div>
-		<div class="block col-xs-1">9</div>
-		<div class="block col-xs-1">10</div>
-		<div class="block col-xs-1">11</div>
-		<div class="block col-xs-1">12</div>
-	</div>
-	<div class="row">
-		<div class="border col-sm-8 col-sm-offset-2"><h3>偏移的區塊</h3></div>
-	</div>
-	<div class="row">
-		<div class="border col-lg-6 col-md-7 col-sm-4">
-			<h3>大區塊</h3>
-			<p>xxxxxxxxxxxxxx</p>
-			<p class="well">yyyyyyyyyyyyyyyyyyyyyyyyyyyyyy</p>
-		</div>
-		<div class="border col-lg-6 col-md-5 col-sm-8">
-			<h3>大區塊</h3>
-			<p>xxxxxxxxxxxxxx</p>
-			<ul class="list-group">
-				<li class="list-group-item">項目1</li>
-				<li class="list-group-item">項目2</li>
-			</ul>
-		</div>
-	</div>
-	<div class="row">
-		<div class="border col-sm-4 hidden-md"><h3>標題文字</h3></div>
-		<div class="border col-sm-4 visible-lg"><h3>標題文字</h3></div>
-		<div class="border col-sm-4"><h3>標題文字</h3></div>
-	</div>
-</div>
-
-
 <!-- JS -->
 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript">
+$("#menu-close").click(function(e) {
+    e.preventDefault();
+    $("#sidebar-wrapper").toggleClass("active");
+  });
+  $("#menu-toggle").click(function(e) {
+    e.preventDefault();
+    $("#sidebar-wrapper").toggleClass("active");
+  });
+</script>
 </body>
 </html>

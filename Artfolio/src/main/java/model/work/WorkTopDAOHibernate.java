@@ -1,7 +1,9 @@
 package model.work;
 
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 import javax.persistence.Query;
 
@@ -36,15 +38,20 @@ public class WorkTopDAOHibernate implements WorkTopDAO {
 		return query.getResultList();
 	}
 
-	private static final String SELECT_ISSUE_NO = "select wissue from WorkBean order by wissue desc";
-
+	private static final String SELECT_ISSUE_NO_DESC = "select wissue from WorkBean order by wissue desc";
+	private static final String SELECT_ISSUE_NO = "select wissue from WorkBean";
 	@Override
-	public int selectIssueNO() {
-		List<Integer> list = getSession().createQuery(SELECT_ISSUE_NO).setMaxResults(1).getResultList();
-		return list.get(0);	
+	public Set<Integer> selectIssueNO(boolean isNow) {
+		if (isNow) {
+			List<Integer> top1 = getSession().createQuery(SELECT_ISSUE_NO_DESC).setMaxResults(1).getResultList();
+			return new HashSet<Integer>(top1);
+		}else{
+			List<Integer> list = getSession().createQuery(SELECT_ISSUE_NO).getResultList();
+			return new LinkedHashSet<Integer>(list);
+		}
 	}
 
-	private static final String SELECT_TOP = "from WorkBean where wissue=?";
+	private static final String SELECT_TOP = "from WorkBean where wissue=? order by wlike desc";
 
 	@Override
 	public List<WorkBean> selectTop(int issue) {

@@ -1,7 +1,11 @@
 package controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import misc.schedule.WorkTopScheduler;
+import model.member.MemberService;
 import model.work.WorkBean;
 import model.work.WorkTopService;
 
@@ -20,6 +25,8 @@ public class WorkTopControlller {
 	private WorkTopScheduler workTopScheduler;
 	@Autowired
 	private WorkTopService workTopService;
+	@Autowired
+	private MemberService memberService;
 
 	@RequestMapping(value = "/workTop.controller", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
 	@ResponseBody
@@ -65,16 +72,43 @@ public class WorkTopControlller {
 
 	@RequestMapping(value = "/showTop.controller", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
 	@ResponseBody
-	public List<WorkBean> showTop() {
-		int issue = workTopService.selectIssueNO();
-		if(issue > 0)
-		return workTopService.selectTop(issue);
+	public List<Map<String, Object>> showTop(Integer issue) {
+		if (issue == null || issue.equals(0)) {
+			Set<Integer> set = workTopService.selectIssueNO(true);
+			for (Integer s : set) {
+				issue = s;
+			}
+		}
+		if (issue > 0){
+			List<WorkBean> workList = workTopService.selectTop(issue);
+			List<Map<String, Object>> mapList = new ArrayList<>();
+			for(WorkBean work : workList){
+				Map<String, Object> map = new HashMap<>();
+				map.put("memberBean", memberService.select(work.getMid()));
+				map.put("workBean", work);
+				mapList.add(map);
+			}
+			return mapList;
+		}
 		return null;
 	}
 	
+	@RequestMapping(value = "/showAllIssueNo.controller", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public List<Integer> getAllIssueNo(){
+		Set<Integer> set = workTopService.selectIssueNO(false);
+		Iterator<Integer> iterator = set.iterator();
+		while(iterator.hasNext()){
+			if(iterator.next().equals(0)){
+				iterator.remove();
+			}
+		}
+		return new ArrayList<Integer>(set);
+	}
+
 	@RequestMapping(value = "/showAllTop.controller", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
 	@ResponseBody
-	public Map<Integer, List<WorkBean>> showAllTop(){
+	public Map<Integer, List<WorkBean>> showAllTop() {
 		return workTopService.selectAllTop();
 	}
 }

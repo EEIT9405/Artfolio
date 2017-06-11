@@ -19,6 +19,8 @@ public class PushHandShakeJava extends HttpSessionHandshakeInterceptor {
 	@Override
 	public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler,
 			Map<String, Object> attributes) throws Exception {
+		
+		System.out.println("java handshake");
 		MemberBean user = new MemberBean();
 		user.setName("Admin");
 		

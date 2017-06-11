@@ -1,0 +1,28 @@
+#ImageModal>.modal-dialog {
+	width: 80%
+}
+.tag {
+	float: left;
+	margin-right: 10px;
+	pending: 10px;
+	height: 30px
+}
+.tag a, buttom {
+	display: inline-block;
+	height: 30px;
+	line-height: 30px
+}
+#tag ul {
+	overflow: auto;
+	list-style: none;
+	margin: 0;
+}
+.itagh {
+	display: none
+}
+.itags {
+	display: block;
+}
+#tag>form>div {
+	height: 30px
+}

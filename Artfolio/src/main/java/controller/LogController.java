@@ -1,8 +1,5 @@
 package controller;
 
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -35,9 +32,9 @@ public class LogController {
 	@Autowired
 	private LoginService loginService;
 
-	@RequestMapping(value = "/mail/replyAdminMail.controller", method = RequestMethod.POST)
+	@RequestMapping(value = "/mail/replyAdminMail.controller", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
 	@ResponseBody
-	public void replyMailAndLog(@SessionAttribute("loginOK") MemberBean admin, MailBean mail,
+	public String replyMailAndLog(@SessionAttribute("loginOK") MemberBean admin, MailBean mail,
 			BindingResult bindingResult) {
 		if (admin != null && (admin.getMid().equals(1) || admin.getMid().equals(2)) && mail != null
 				&& !bindingResult.hasErrors()) {
@@ -49,11 +46,12 @@ public class LogController {
 
 			// 回信給會員
 			mail.setMemberBean(admin);
+			mail.setToId(mb.getMemberBean().getMid());
 			mail.setReid(mail.getMailid());
+			mail.setMailtitle("Re:" + mb.getMailtitle());
 			mail.setMailid(null);
 			// mail.setToId(mb.getMemberBean().getMid());
-			mailService.insert(mail);
-
+			MailBean result = mailService.insert(mail);
 			// 新增日誌
 			WebApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(application);
 			LogBean lb = (LogBean) context.getBean("logBean");
@@ -69,8 +67,11 @@ public class LogController {
 			}
 			lb.setLstatus(false);
 			logService.createLog(lb);
+			if (result != null) {
+				return "寄送成功";
+			}
 		}
-		return;
+		return "失敗，請重新寄送";
 	}
 
 	@RequestMapping(value = "/updateLogStatus.controller", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
@@ -80,6 +81,15 @@ public class LogController {
 			LogBean bean = logService.getLogBean(logid);
 			bean.setLstatus(true);
 			return logService.updateLog(bean);
+		}
+		return null;
+	}
+
+	@RequestMapping(value = "/selectAllLog.controller", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public List<LogBean> getAllLog(@SessionAttribute("loginOK") MemberBean admin) {
+		if (admin != null && admin.getMid().equals(1) || admin.getMid().equals(2)) {
+			return logService.getAllLog(true, true);
 		}
 		return null;
 	}
@@ -110,10 +120,10 @@ public class LogController {
 		}
 		return null;
 	}
-	
+
 	@RequestMapping(value = "/mail/showReIdMails.controller", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
 	@ResponseBody
-	public List<MailBean> selectReIdMails(@SessionAttribute("loginOK") MemberBean admin, int mailid){
+	public List<MailBean> selectReIdMails(@SessionAttribute("loginOK") MemberBean admin, int mailid) {
 		if (admin != null && (admin.getMid().equals(1) || admin.getMid().equals(2))) {
 			List<MailBean> mailList = mailService.selectByReId(mailid);
 			return mailList;

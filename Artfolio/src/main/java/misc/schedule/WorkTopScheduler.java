@@ -34,7 +34,7 @@ public class WorkTopScheduler extends ScheduledTaskRegistrar implements Scheduli
 			public void run() {
 				//do schedule...
 				System.out.println("二:"+new Date() + " : " + trigger);
-				createWorkTop.createWorkTop();
+				createWorkTop.createWorkTop(11);
 			}
 		}, trigger);
 	}

@@ -17,7 +17,7 @@ public class LoginController {
 	public String login(Model model){
 		
 		MemberBean user = new MemberBean();
-		user.setMid(1);
+		user.setMid(2);
 		
 		model.addAttribute("loginOK", user);
 		return "picture";
