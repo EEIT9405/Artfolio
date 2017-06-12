@@ -106,7 +106,6 @@ create table tb_tag(
 wid int foreign key references tb_work(wid) not null,
 tag varchar(100) not null,
 lock bit default 0 not null,
-hide bit default 0 not null,
 vote int default 0 not null
 primary key (wid,tag)
 );

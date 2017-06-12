@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+.show {
+	
+}
+
+.hide {
+	display: none
+}
+</style>
+<script src="js/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+	<div id="sc">
+		<form>
+			<table>
+				<thead>
+					<tr>
+						<td>
+							<input type="checkbox" name="isscore" value="false">
+							isscore current version:
+							<input type="hidden" name="scoreversion">
+							<span></span>
+						</td>
+					</tr>
+				</thead>
+				<tbody class="hide">
+					<tr>
+						<td><input type="text" name="score_1"></td>
+					</tr>
+					<tr>
+						<td><input type="text" name="score_2"></td>
+					</tr>
+					<tr>
+						<td><input type="text" name="score_3"></td>
+					</tr>
+					<tr>
+						<td><input type="text" name="score_4"></td>
+					</tr>
+					<tr>
+						<td><input type="text" name="score_5"></td>
+					</tr>
+					<tr>
+						<td style="text-align: center">
+							<input type="button" value="submit">
+						<td>
+					</tr>
+				</tbody>
+			</table>
+			<span></span> <input type="hidden" name="wid" value="1">
+		</form>
+		
+	</div>
+	<div>
+		<form id="stats">
+			<select name="selectedversion"></select>
+			<input type="button" name="switch" value="showstats">
+			<table  class="hide">
+				<thead>
+					<tr>
+						<th>item</th>
+						<th>max</th>
+						<th>min</th>
+						<th>ave</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+	</div>
+	<script>
+			var frm = $('form','#sc');
+			var wid = frm.find('input[name=wid]').val();
+			var check = frm.find('input[name=isscore]');
+			var sctb = frm.find('tbody');
+			var score = frm.find('input[type=text][name^=score]');
+			var ms = frm.children('span').eq(0);
+			var version = frm.find('input[name=scoreversion]');
+			function setversion(v) {
+				version.val(v);
+				version.next('span').text(v);
+			}
+			$.get("record/getw.controller", { //get work 
+				wid : wid
+			}, function(work) {
+				if (work.isscore) {
+					check.prop("checked", true);
+					check.val('true');
+					sctb.toggleClass('show hide');
+				}
+				for (var i = 0; i < score.length; i++) {
+					score.eq(i).val(work['score_'+(i+1)]);
+				}
+				setversion(work.scoreversion);
+			});
+			check.on('change', function() {
+				sctb.toggleClass('show hide');
+				var b = check.prop('checked');
+				check.val(b);
+				$.post("record/update.controller", frm.serialize()
+						+ "&lock=true", function(data) { //lock only,not insert
+					if (data) {
+						ms.text('done');
+					} else
+						ms.text('error');
+				});
+			});
+			frm.find('input[value=submit]').on(
+					'click',
+					function() {
+						$.post("record/update.controller", frm.serialize()
+								+ "&lock=false", function(data) {
+							if (data) {
+								ms.text('done');
+								setversion(version.val() * 1 + 1);
+							} else if(data==="")
+								ms.text('can only change up to 3 times in 24 hours');
+							else
+								ms.text('error');
+						});
+					});
+			
+			var statfrm=$('form#stats');
+			var selectversion=statfrm.find('select[name=selectedversion]');
+			var stattb=statfrm.find('table');
+			var items=stattb.find('tbody>tr>td:first-child');
+			statfrm.children('input[name=switch]').on('click',function(){
+				stattb.toggleClass('show hide');
+				if ($(this).val()=='showstats'){
+					$(this).val('close');
+				}	
+				else{
+					$(this).val('showstats');
+				}
+			}).one('click',function(){
+				var ver=selectversion.val();
+				if(ver==version.val()){
+					setCurrent();
+				}else{
+					setScore(ver);
+				}
+				setStat(ver);
+			});
+			$.get('record/getsv.controller',{wid:wid},function(data){
+				for(var i=1;i<=data;i++){
+					if(i==data)
+					$('<option value="'+i+'"selected>'+i+'</option>').prependTo(selectversion);
+					else
+					$('<option value="'+i+'">'+i+'</option>').prependTo(selectversion);
+				}
+			});
+			selectversion.on('change',function(){
+				var ver=$(this).val();
+				if(ver!=version.val()){ //get scores from tb_score
+					setScore(ver);
+				}else{
+					setCurrent();
+				}
+				setStat(ver);
+			});
+			function setCurrent(){ //get scores from tb_work
+				$.get("record/getw.controller", {
+					wid : wid
+				}, setItem);
+			}
+			function setScore(ver){
+				$.get('record/gets.controller',{wid:wid,scoreversion:ver},setItem);
+			}
+			function setItem(data){
+				items.each(function(i){
+					var item=data['score_'+(i+1)];
+					if (item!=null && item.trim()!=""){
+						$(this).parent('tr').show();
+						$(this).text(item);
+					}else{
+						$(this).parent('tr').hide();
+					}
+				});
+			}
+			function setStat(ver){ //getstats and set to table
+				$.get('record/getst.controller',{wid:wid,scoreversion:ver},function(data){
+					for(var i=0;i<data.length;i++){ //max,min,avg
+						for(var j=0;j<items.length;j++){ //record1-5
+							stattb.find('tbody>tr>td:nth-child('+(i+2)+')').eq(j).text(data[i]['record_'+(j+1)]);
+						}
+					}
+				});
+			}
+		</script>
+</body>
+</html>
