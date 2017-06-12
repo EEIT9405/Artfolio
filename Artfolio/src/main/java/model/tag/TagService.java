@@ -8,12 +8,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import model.tagvote.TagvoteService;
+
 
 
 @Service
 public class TagService{
 	@Autowired
 	private TagDAO tagdao;
+	@Autowired
+	private TagvoteService tagvoteService;
 	@Transactional
 	public List<TagBean> addTag(Integer wid,String[] tags){
 		if(wid==null || tags==null)
@@ -54,7 +58,7 @@ public class TagService{
 			if(bean.getTag().equals(tag) && bean.getLock())
 				return false;
 		}
-		return tagdao.delete(new TagBean(wid,tag));
+		return tagvoteService.delete(tagvoteService.select(wid, tag)) && tagdao.delete(new TagBean(wid,tag));
 	}
 	
 	@Transactional
