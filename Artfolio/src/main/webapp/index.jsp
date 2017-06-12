@@ -978,7 +978,9 @@
 			}
 		});
 		review.click(function(){
-			$(this).next('table').toggleClass('show hide');
+			$('#reviewmodal').modal({
+				backdrop : 'static'
+			});
 		});
 		var like=$('input[name=like]','#rc');
 		var likes=$('#likes');
@@ -1031,6 +1033,10 @@
 		
 		$('input[value=donate]').on('click',function(){
 			window.open('point/donate.controller?wid='+wid.val(),'donate','height=300,width=300');
+		});
+		
+		$('#closereview').click(function() {
+			$('#reviewmodal').modal('hide');
 		});
 		
 		function getAll(){
