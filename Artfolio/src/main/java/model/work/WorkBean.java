@@ -39,12 +39,20 @@ public class WorkBean {
 	private String score_3;
 	private String score_4;
 	private String score_5;
-	
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name ="aid")
 	private AlbumBean albumBean;
 	
+	private Integer scoreversion;
+	public Integer getScoreversion() {
+		return scoreversion;
+	}
+	public void setScoreversion(Integer scoreversion) {
+		this.scoreversion = scoreversion;
+	}
 	
+	public WorkBean(){}
+	public WorkBean(Integer wid){this.wid=wid;}
 	
 	
 	@Override
@@ -118,6 +126,9 @@ public class WorkBean {
 		this.iswmsg = iswmsg;
 	}
 	public boolean isIsscore() {
+		return isscore;
+	}
+	public Boolean getIsscore() {
 		return isscore;
 	}
 	public void setIsscore(boolean isscore) {

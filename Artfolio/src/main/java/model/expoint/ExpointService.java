@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import model.member2.MemberService2;
+import model.member.MemberService;
 
 @Service
 public class ExpointService {
 	@Autowired
 	private ExpointDAO expointdao;
 	@Autowired
-	private MemberService2 memberService;
+	private MemberService memberService;
 	
 	@Transactional
 	public boolean insert(ExpointBean bean,Integer current){

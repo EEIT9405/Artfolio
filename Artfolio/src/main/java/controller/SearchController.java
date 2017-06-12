@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import model.tag.TagService;
-import model.work2.WorkBean2;
-import model.work2.WorkService2;
+import model.work.WorkBean;
+import model.work.WorkService;
 
 @Controller
 @RequestMapping("search.controller")
@@ -22,9 +22,9 @@ public class SearchController {
 	@Autowired
 	private TagService tagService;
 	@Autowired
-	private WorkService2 workService;
+	private WorkService workService;
 	@RequestMapping(method=RequestMethod.GET)
-	public List<WorkBean2> search(String type,
+	public List<WorkBean> search(String type,
 			@RequestParam(name="and",required=false)String and,
 			@RequestParam(name="or",required=false)String or,
 			@RequestParam(name="not",required=false)String not,
@@ -34,7 +34,7 @@ public class SearchController {
 		if(type==null || ((and==null || and.length()==0) && (or==null || or.length()==0) && (not==null || not.length()==0)))
 		return null;
 		
-		List<WorkBean2> list=null;
+		List<WorkBean> list=null;
 		String[] andConditions=null,orConditions=null,notConditions=null;
 		if(and!=null && and.length()>0)
 		andConditions=and.trim().split(" ");
@@ -58,8 +58,8 @@ public class SearchController {
 			return null;
 		boolean o=order.equals("ascending");
 		if(orderby.equals("like")){
-			list.sort(new Comparator<WorkBean2>(){
-				public int compare(WorkBean2 w1, WorkBean2 w2) {
+			list.sort(new Comparator<WorkBean>(){
+				public int compare(WorkBean w1, WorkBean w2) {
 					if(o)
 						return w1.getWlike().compareTo(w2.getWlike());
 					return w2.getWlike().compareTo(w1.getWlike());
@@ -67,8 +67,8 @@ public class SearchController {
 				
 			});
 		}else{
-			list.sort(new Comparator<WorkBean2>(){
-				public int compare(WorkBean2 w1, WorkBean2 w2) {
+			list.sort(new Comparator<WorkBean>(){
+				public int compare(WorkBean w1, WorkBean w2) {
 					if(o)
 						return w1.getWstart().compareTo(w2.getWstart());
 					return w2.getWstart().compareTo(w1.getWstart());

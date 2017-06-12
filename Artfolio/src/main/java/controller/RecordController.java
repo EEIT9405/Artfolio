@@ -16,15 +16,15 @@ import model.record.RecordBean;
 import model.record.RecordService;
 import model.score.ScoreBean;
 import model.score.ScoreService;
-import model.work2.WorkBean2;
-import model.work2.WorkService2;
+import model.work.WorkBean;
+import model.work.WorkService;
 
 @Controller
 @RequestMapping("record")
 @ResponseBody
 public class RecordController {
 	@Autowired
-	WorkService2 workService;
+	WorkService workService;
 	@Autowired
 	RecordService recordService;
 	@Autowired
@@ -33,7 +33,7 @@ public class RecordController {
 	HttpSession session;
 	
 	@RequestMapping(path="getw.controller",method=RequestMethod.GET)
-	public WorkBean2 getCurrent(Integer wid){
+	public WorkBean getCurrent(Integer wid){
 		if(wid!=null){
 			return workService.getWork(wid);
 		}
@@ -41,7 +41,7 @@ public class RecordController {
 	}
 	
 	@RequestMapping(path="update.controller",method=RequestMethod.POST)
-	public Boolean updateScore(WorkBean2 bean,Boolean lock){
+	public Boolean updateScore(WorkBean bean,Boolean lock){
 		if(bean!=null){
 			if(bean.getWid()!=null && bean.getScoreversion()!=null){
 				if(bean.getIsscore()==null)

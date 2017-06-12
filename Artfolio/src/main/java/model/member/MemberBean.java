@@ -43,7 +43,7 @@ public class MemberBean {
 	private Boolean isgender;
 	private String mphoto;
 	@Column(insertable = false)
-	private String point;
+	private Integer point;
 	@Column(insertable = false)
 	private java.util.Date mstart;
 	@Column(insertable = false)
@@ -62,7 +62,9 @@ public class MemberBean {
 			return 1;
 		}
 	});
-
+	public MemberBean(){}
+	public MemberBean(Integer mid){this.mid=mid;}
+	
 	public String getInfo() {
 		return info;
 	}
@@ -159,11 +161,11 @@ public class MemberBean {
 		this.mphoto = mphoto;
 	}
 
-	public String getPoint() {
+	public Integer getPoint() {
 		return point;
 	}
 
-	public void setPoint(String point) {
+	public void setPoint(Integer point) {
 		this.point = point;
 	}
 

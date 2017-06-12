@@ -16,7 +16,7 @@ import model.tag.TagBean;
 import model.tag.TagService;
 import model.tagvote.TagvoteBean;
 import model.tagvote.TagvoteService;
-import model.work2.WorkService2;
+import model.work.WorkService;
 
 @Controller
 @RequestMapping("tag")
@@ -25,7 +25,7 @@ public class TagController {
 	@Autowired
 	TagService tagService;
 	@Autowired
-	WorkService2 workService;
+	WorkService workService;
 	@Autowired
 	TagvoteService tagvoteService;
 	@Autowired

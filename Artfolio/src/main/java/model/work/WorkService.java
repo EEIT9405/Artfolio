@@ -58,4 +58,35 @@ public class WorkService {
 		}
 		return result;
 	}
+	
+	//////////////////////////
+	
+	@Transactional(readOnly=true)
+	public List<WorkBean> selectByTitle(String[] and, String[] or, String[] not,boolean content){
+		if(and!=null || or!=null ||not!=null)
+			return tbworkDao.searchByTitle(and, or, not,content);
+		return null;
+	}
+	
+	@Transactional(propagation=Propagation.MANDATORY)
+	public boolean updateScore(WorkBean bean){
+		if(bean!=null)
+			return tbworkDao.updateScore(bean);
+		return false;
+	}
+	
+	@Transactional(propagation=Propagation.MANDATORY)
+	public boolean updateLike(Integer wid,Integer wlike){
+		if(wid!=null&&wlike!=null)
+			return tbworkDao.updateLike(wid, wlike);
+		return false;
+	}
+	
+	@Transactional(readOnly=true)
+	public WorkBean getWork(Integer wid){
+		if(wid!=null){
+			return this.select(new WorkBean(wid)).get(0);
+		}		
+		return null;
+	}
 }
