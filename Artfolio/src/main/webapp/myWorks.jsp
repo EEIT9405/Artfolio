@@ -99,10 +99,16 @@
 					 	  排序
 					    <span class="caret"></span>
 					  </button>
-					  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-					    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">依相簿</a></li>
-					    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">依時間</a></li>
-					    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">依人氣</a></li>
+					  <ul id="sortList" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+					    <li class="sortbtn" role="presentation"><a role="menuitem" class="btn" tabindex="-1">依相簿</a></li>
+					    <li role="presentation" class="divider"></li>
+					    <li role="presentation" class="dropdown-header">依時間：</li>
+					    <li class="sortbtn" role="presentation"><a role="menuitem" class="btn timeup" tabindex="-1">升幂</a></li>
+					    <li class="sortbtn" role="presentation"><a role="menuitem" class="btn timedown" tabindex="-1">降幂</a></li>
+					    <li role="presentation" class="divider"></li>
+					    <li role="presentation" class="dropdown-header">依人氣：</li>
+					    <li class="sortbtn" role="presentation"><a role="menuitem" class="btn likeup" tabindex="-1">升幂</a></li>
+					    <li class="sortbtn" role="presentation"><a role="menuitem" class="btn likedown" tabindex="-1">降幂</a></li>
 					  </ul>
 					</div>
 				  	<div style="margin-top:10px;">
@@ -211,6 +217,7 @@ $(function(){
 	var wedit = $('#wedit');
 	var wupload = $('#wupload');
 	var editer = $('#photoContainer div.editer');
+	var sortbtn = $('#sortList').children('li.sortbtn');
 	//開啟編輯功能
 	wedit.click(function(){
 		var a1 = $('<a title="remove" class="btn btn-circle btn-danger glyphicon glyphicon-remove">');
@@ -244,6 +251,22 @@ $(function(){
 		console.log("上傳");
 	});
 	
+	sortbtn.click(function(){
+		var sort = $(this).children('a');
+		if(sort.hasClass('timeup')){
+			console.log("依時間升冪");	
+		}
+		if(sort.hasClass('timedown')){
+			console.log("依時間降冪");	
+		}
+		if(sort.hasClass('likeup')){
+			console.log("依人氣升冪");	
+		}
+		if(sort.hasClass('likedown')){
+			console.log("依人氣降冪");	
+		}
+		
+	});
 });
 </script>
 </body>
