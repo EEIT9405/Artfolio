@@ -267,7 +267,6 @@
 											type="button" name="delete" value="delete"> <input
 											type="button" onclick="canceledit()" value="cancel"> <span></span>
 									</div>
-									<input type="hidden" id="wid">
 								</form>
 							</div>
 
@@ -375,9 +374,9 @@
 								</div>
 							</div>
 
-
-							<input type="hidden" name="recordversion"> <input
-								type="hidden" name="update"> 
+							<input type="hidden" name="wid" id="wid">
+							<input type="hidden" name="recordversion"> 
+							<input type="hidden" name="update"> 
 						</form>
 					</div>
 
@@ -924,12 +923,12 @@
 		var values=$('tbody>tr>td:last-child','#rc');
 		var frm=$('form', '#rc');
 		var records=$('input[name^=record]','#rc');
-		var message=frm.children('span');
+		
 		var update=$('input[name=update]','#rc');
 		var submit=$('input[name=submit]','#rc');
 		var cancel=$('input[name=cancel]','#rc');
 		var review=$('input[name=review]','#rc');
-		
+		var message=cancel.next('span');
 		
 		records.on('change',function(){
 			$(this).parent('td').next('td').text($(this).val());

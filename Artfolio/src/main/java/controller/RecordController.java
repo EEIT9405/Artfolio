@@ -67,8 +67,9 @@ public class RecordController {
 				return false;
 			if(update)
 				return recordService.updateRecord(bean);
+			
 			else
-				return recordService.insert(bean);
+				return recordService.insert(bean);				
 		}
 		return false;
 	}
