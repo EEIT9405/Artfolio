@@ -145,8 +145,6 @@
         </div>
         <!-- /.row -->
         
-         <!-- Projects Row -->
-        <div class="row">
 	        <div class="col-sm-12 col-md-3 padding-0">
 	          <div class="img-box"><img src="http://bit.ly/2qYyyVS " alt=""/>
 		          <div class="editer"></div>
@@ -167,10 +165,7 @@
 	          	<div class="editer"></div>
 	          </div>
 	        </div>
-        </div>
-        <!-- /.row -->
-         <!-- Projects Row -->
-        <div class="row">
+
 	        <div class="col-sm-12 col-md-3 padding-0">
 	          <div class="img-box"><img src="http://bit.ly/2qYyyVS " alt=""/>
 		          <div class="editer"></div>
@@ -216,12 +211,13 @@
 $(function(){
 	var wedit = $('#wedit');
 	var wupload = $('#wupload');
-	var editer = $('#photoContainer div.editer');
 	var sortbtn = $('#sortList').children('li.sortbtn');
+	var photoContainer = $('#photoContainer');
 	//開啟編輯功能
 	wedit.click(function(){
 		var a1 = $('<a title="remove" class="btn btn-circle btn-danger glyphicon glyphicon-remove">');
 		var a2 = $('<a title="edit" class="btn btn-circle btn-primary glyphicon glyphicon-pencil">');
+		var editer = $('#photoContainer div.editer');
 		if(wedit.text() == "編輯"){
 			for(var i=0; i<editer.length; i++){
 				editer.eq(i).empty();
@@ -237,7 +233,8 @@ $(function(){
 		}
 	});
 	//刪除或編輯
-	editer.on('click', 'a', function(){
+
+	$('#photoContainer').on('click', 'div.editer a', function(){
 		var btn = $(this);
 		if(btn.attr('title') == "remove"){
 			console.log("remove");
@@ -246,6 +243,7 @@ $(function(){
 			console.log("edit");
 		}
 	});
+	
 	//上傳
 	wupload.click(function(){
 		console.log("上傳");
@@ -254,19 +252,36 @@ $(function(){
 	sortbtn.click(function(){
 		var sort = $(this).children('a');
 		if(sort.hasClass('timeup')){
-			console.log("依時間升冪");	
+			serchWork(1, "date", "ascending");	
 		}
 		if(sort.hasClass('timedown')){
-			console.log("依時間降冪");	
+			serchWork(1, "date", "descending");	
 		}
 		if(sort.hasClass('likeup')){
-			console.log("依人氣升冪");	
+			serchWork(1, "like", "ascending");
 		}
 		if(sort.hasClass('likedown')){
-			console.log("依人氣降冪");	
+			serchWork(1, "like", "descending");
 		}
-		
 	});
+	
+	function serchWork(mid, orderby, order){
+			photoContainer.empty();
+		$.getJSON('searchByMid.controller', {mid:mid, orderby:orderby, order:order}, function(data){
+			var row = $('<div class="row">');
+			$.each(data, function(index, value){
+				var col = $('<div class="col-sm-12 col-md-3 padding-0">');
+				var imgbox = $('<div class="img-box">');
+				var img = $('<img>');
+				var edit = $('<div class="editer">');
+				imgbox.append(img);
+				imgbox.append(edit);
+				col.append(imgbox);
+				row.append(col);
+			});
+			photoContainer.append(row);
+		});
+	}
 });
 </script>
 </body>
