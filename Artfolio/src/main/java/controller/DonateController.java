@@ -123,16 +123,22 @@ public class DonateController {
 			@RequestParam(name="wid",required=false)Integer wid,
 			@RequestParam(name="targetid",required=false)Integer targetid){
 		Integer mid=(Integer) session.getAttribute("mid");
-		if(mid==null)
-			return "index";
+		String msg=null;
+		model.addAttribute("ermsg",msg);
+		if(mid==null){
+			msg="must login first";
+		}
 		if((wid==null && targetid==null) || (wid!=null && targetid!=null)){
-			model.addAttribute("notarget", true);
-			return "donate";
+			msg="error";
 		}
 		if(wid!=null){
 			targetid=workService.getWork(wid).getMid();
 		}
+		if(mid.equals(targetid)){
+			msg="you cannot donate to yourself";
+		}
 		model.addAttribute("targetid", targetid);
+		System.out.println(targetid+":"+memberService.select(targetid).getName());
 		model.addAttribute("targetname", memberService.select(targetid).getName());
 		model.addAttribute("point", memberService.select(mid).getPoint());
 		return "donate";

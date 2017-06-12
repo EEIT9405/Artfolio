@@ -95,7 +95,7 @@ score_5 varchar(20),
 scoreversion int default 0 not null
 );
 
-insert into tb_member (pwd,name,email,gender) values ('','','1',0),('','','2',1),('','','3',0)
+insert into tb_member (pwd,name,email,gender) values ('','a','1',0),('','b','2',1),('','c','3',0)
 insert into tb_work (mid,picurl,wtitle) values(1,'/','aa'),(1,'/','ba'),(1,'/','ca'),(1,'/','da'),(1,'/','ea')
 insert into tb_work (mid,picurl,wtitle) values(1,'/','ab'),(1,'/','bb'),(1,'/','cb'),(1,'/','db'),(1,'/','eb')
 insert into tb_work (mid,picurl,wtitle) values(1,'/','ac'),(1,'/','bc'),(1,'/','cc'),(1,'/','dc'),(1,'/','ec')

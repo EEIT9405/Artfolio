@@ -81,7 +81,7 @@ public class SearchController {
 		return list;
 	}
 	
-	@RequestMapping(path="search.controller",method=RequestMethod.GET)
+	@RequestMapping(path="searchByMid.controller",method=RequestMethod.GET)
 	public List<WorkBean> searchByMid(Integer mid,
 			@RequestParam(name="orderby",defaultValue="like")String orderby,
 			@RequestParam(name="order",defaultValue="descending")String order){

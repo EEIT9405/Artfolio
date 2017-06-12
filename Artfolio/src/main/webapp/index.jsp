@@ -265,7 +265,7 @@
 										<input type="hidden" name="targettag"> <input
 											type="button" name="vote" value="vote">  <input
 											type="button" name="delete" value="delete"> <input
-											type="button" onclick="cancel()" value="cancel"> <span></span>
+											type="button" onclick="canceledit()" value="cancel"> <span></span>
 									</div>
 									<input type="hidden" id="wid">
 								</form>
@@ -877,7 +877,6 @@
 					$('form>ul>li>a:contains("' + tag + '")','#tag').parent('li').remove();
 					divedit.toggleClass("itags itagh").find('span').text("");
 					deltagbutton.val("delete");
-					locktagbutton.val("lock");
 					addtagbutton.prop("disabled",false);
 				} else
 					editmsg.text("failed to delete");
@@ -885,7 +884,7 @@
 
 		});
 		
-		function cancel(){
+		function canceledit(){
 			addmsg.text('');
 			divedit.toggleClass("itags itagh").find('span').text("");
 		}

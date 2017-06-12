@@ -10,8 +10,8 @@
 </head>
 <body>
 	<c:choose>
-		<c:when test="${notarget || empty targetname || empty targetid}">
-			<h1>error</h1>
+		<c:when test="${not empty ermsg || empty targetname || empty targetid}">
+			<h1>${ermsg}</h1>
 		</c:when>
 		<c:otherwise>
 			<form action="donate.controller" method="post">

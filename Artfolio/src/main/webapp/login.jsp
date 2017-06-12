@@ -8,7 +8,7 @@
 </head>
 <body>
 <form action="${pageContext.request.contextPath}/login.controller" method="get">
-
+<input type="text" name="mid">
 <input type="submit" value="登入">
 </form>
 

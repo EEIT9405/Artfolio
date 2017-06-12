@@ -195,7 +195,7 @@ public class WorkDAOHibernate implements WorkDAO {
 	public List<WorkBean> searchByMid(Integer mid) {
 		List<WorkBean> list=null;
 		if(mid!=null){
-			list=this.getSession().createQuery(SELECT_BY_MID,WorkBean.class).list();
+			list=this.getSession().createQuery(SELECT_BY_MID,WorkBean.class).setParameter(0, mid).list();
 		}
 		return list;
 	}
