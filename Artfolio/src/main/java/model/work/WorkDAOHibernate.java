@@ -189,6 +189,16 @@ public class WorkDAOHibernate implements WorkDAO {
 		
 		return false;
 	}
+	
+	private static final String SELECT_BY_MID="from WorkBean where mid=?";
+	@Override
+	public List<WorkBean> searchByMid(Integer mid) {
+		List<WorkBean> list=null;
+		if(mid!=null){
+			list=this.getSession().createQuery(SELECT_BY_MID,WorkBean.class).list();
+		}
+		return list;
+	}
 
 }
 

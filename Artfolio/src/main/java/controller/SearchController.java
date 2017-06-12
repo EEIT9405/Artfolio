@@ -16,14 +16,15 @@ import model.work.WorkBean;
 import model.work.WorkService;
 
 @Controller
-@RequestMapping("search.controller")
 @ResponseBody
 public class SearchController {
 	@Autowired
 	private TagService tagService;
 	@Autowired
 	private WorkService workService;
-	@RequestMapping(method=RequestMethod.GET)
+	
+	
+	@RequestMapping(path="search.controller",method=RequestMethod.GET)
 	public List<WorkBean> search(String type,
 			@RequestParam(name="and",required=false)String and,
 			@RequestParam(name="or",required=false)String or,
@@ -56,6 +57,41 @@ public class SearchController {
 			list=workService.selectByTitle(andConditions, orConditions, notConditions,true);
 		}else
 			return null;
+		
+		
+		list=sort(list,orderby,order);
+		
+		java.util.Date when;
+		if(period.equals("day"))
+			when=new java.util.Date(System.currentTimeMillis()-86400000);
+		else if(period.equals("week"))
+			when=new java.util.Date(System.currentTimeMillis()-86400000*7);
+		else if(period.equals("month"))
+			when=new java.util.Date(System.currentTimeMillis()-86400000L*30);
+		else
+			when=new java.util.Date(System.currentTimeMillis()-86400000L*365);
+		
+//		System.out.println(new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(when));
+		for (int i=0;i<list.size();i++){
+			if(list.get(i).getWstart().before(when)){
+				list.remove(i--);
+			}		
+		}
+		
+		return list;
+	}
+	
+	@RequestMapping(path="search.controller",method=RequestMethod.GET)
+	public List<WorkBean> searchByMid(Integer mid,
+			@RequestParam(name="orderby",defaultValue="like")String orderby,
+			@RequestParam(name="order",defaultValue="descending")String order){
+		List<WorkBean> list=null;
+		if(mid!=null)
+			list=sort(workService.selectByMid(mid), orderby, order);
+		return list;
+	}
+	
+	public List<WorkBean> sort(List<WorkBean> list,String orderby,String order){
 		boolean o=order.equals("ascending");
 		if(orderby.equals("like")){
 			list.sort(new Comparator<WorkBean>(){
@@ -76,23 +112,6 @@ public class SearchController {
 				
 			});
 		}
-		java.util.Date when;
-		if(period.equals("day"))
-			when=new java.util.Date(System.currentTimeMillis()-86400000);
-		else if(period.equals("week"))
-			when=new java.util.Date(System.currentTimeMillis()-86400000*7);
-		else if(period.equals("month"))
-			when=new java.util.Date(System.currentTimeMillis()-86400000L*30);
-		else
-			when=new java.util.Date(System.currentTimeMillis()-86400000L*365);
-		
-//		System.out.println(new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(when));
-		for (int i=0;i<list.size();i++){
-			if(list.get(i).getWstart().before(when)){
-				list.remove(i--);
-			}		
-		}
-		
 		return list;
 	}
 }

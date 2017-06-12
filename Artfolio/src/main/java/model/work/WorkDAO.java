@@ -20,4 +20,5 @@ public interface WorkDAO {
 	boolean updateScore(WorkBean bean);
 	List<WorkBean> searchByTitle(String[] and,String[] or,String[] not,boolean content);
 	boolean updateLike(Integer wid,Integer wlike);
+	List<WorkBean> searchByMid(Integer mid);
 }

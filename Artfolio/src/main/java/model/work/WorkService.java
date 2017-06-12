@@ -89,4 +89,10 @@ public class WorkService {
 		}		
 		return null;
 	}
+	
+	public List<WorkBean> selectByMid(Integer mid){
+		if(mid!=null)
+		return tbworkDao.searchByMid(mid);
+		return null;
+	}
 }
