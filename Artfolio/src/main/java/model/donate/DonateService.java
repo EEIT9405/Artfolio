@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import model.member2.MemberService2;
+import model.member.MemberBean;
+import model.member.MemberService;
 
 
 @Service
@@ -14,16 +15,16 @@ public class DonateService {
 	@Autowired
 	private DonateDAO donatedao;
 	@Autowired
-	private MemberService2 memberService;
+	private MemberService memberService;
 	
 	@Transactional
 	public boolean insert(DonateBean bean){
 		if(bean!=null)
 		return donatedao.insert(bean) 
 				&& memberService.updatePoint(bean.getMid(), 
-						memberService.select(bean.getMid()).getPoint()-bean.getPoint())
+						memberService.select(new MemberBean(bean.getMid())).get(0).getPoint()-bean.getPoint())
 				&& memberService.updatePoint(bean.getTargetid(), 
-						memberService.select(bean.getTargetid()).getPoint()+bean.getPoint());
+						memberService.select(new MemberBean(bean.getTargetid())).get(0).getPoint()+bean.getPoint());
 		return false;
 	}
 	

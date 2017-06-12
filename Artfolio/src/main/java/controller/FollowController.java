@@ -1,7 +1,6 @@
 package controller;
 
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
@@ -15,9 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import model.follow.FollowBean;
 import model.follow.FollowService;
-import model.member2.MemberBean2;
-import model.member2.MemberService2;
-import model.work2.WorkService2;
+import model.member.MemberBean;
+import model.member.MemberService;
+import model.work.WorkService;
 
 
 
@@ -30,9 +29,9 @@ public class FollowController {
 	@Autowired
 	private FollowService followService;
 	@Autowired
-	private WorkService2 workService;
+	private WorkService workService;
 	@Autowired
-	private MemberService2 memberService;
+	private MemberService memberService;
 	
 	@RequestMapping(path="get.controller",method=RequestMethod.GET)
 	public FollowList get(){
@@ -40,12 +39,10 @@ public class FollowController {
 		if (mid != null){
 			List<JointFollowBean> list=new ArrayList<>();
 			for(FollowBean fb:followService.selectFollowing(mid)){
-				MemberBean2 mb=memberService.select(fb.getFollowid());
+				MemberBean mb=memberService.select(fb.getFollowid());
 				StringBuilder sb = new StringBuilder();
 				sb.append("data:image/png;base64,");
-				if(mb.getMphoto()!=null)
-				sb.append(Base64.getEncoder().encodeToString(mb.getMphoto()));
-				list.add(new JointFollowBean(mb.getMid(),mb.getName(),sb.toString(),fb.getFollowdate()));
+				list.add(new JointFollowBean(mb.getMid(),mb.getName(),mb.getMphoto(),fb.getFollowdate()));
 			}
 			return new FollowList(list);
 		}

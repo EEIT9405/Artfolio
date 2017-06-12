@@ -22,6 +22,8 @@ public class LoginController {
 		
 		MemberBean user = loginService.selectById(1);
 		session.setAttribute("loginOK",user);
+		if(user!=null)
+		session.setAttribute("mid", user.getMid());
 		return "picture";
 	}
 }

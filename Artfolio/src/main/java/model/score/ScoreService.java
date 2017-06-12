@@ -4,24 +4,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import model.work2.WorkBean2;
-import model.work2.WorkService2;
+import model.work.WorkBean;
+import model.work.WorkService;
 
 @Service
 public class ScoreService {
 	@Autowired
 	private ScoreDAO scoredao;
 	@Autowired
-	private WorkService2 workservice;
+	private WorkService workservice;
 	
 	
 	@Transactional
-	public Boolean updateScore(WorkBean2 bean,Boolean lock){
+	public Boolean updateScore(WorkBean bean,Boolean lock){
 		if(bean!=null && lock!=null){
 			if(!lock){
 				if(checkFrequency(bean.getWid(),bean.getScoreversion()))
 					return null;
-				WorkBean2 current = workservice.getWork(bean.getWid());
+				WorkBean current = workservice.select(bean).get(0);
 				scoredao.insert(new ScoreBean(current.getWid(),current.getScoreversion(),
 								current.getScore_1(),current.getScore_2(),current.getScore_3(),current.getScore_4(),current.getScore_5()));
 				bean.setScoreversion(bean.getScoreversion()+1);

@@ -1,7 +1,6 @@
 package controller;
 
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,22 +18,22 @@ import model.donate.DonateBean;
 import model.donate.DonateService;
 import model.expoint.ExpointBean;
 import model.expoint.ExpointService;
-import model.member2.MemberBean2;
-import model.member2.MemberService2;
-import model.work2.WorkService2;
+import model.member.MemberBean;
+import model.member.MemberService;
+import model.work.WorkService;
 import util.SpringEmailService;
 
-//@Controller
-//@RequestMapping("point")
+@Controller
+@RequestMapping("point")
 public class DonateController {
 	@Autowired
 	private DonateService donateService;
 	@Autowired
 	private ExpointService expointService;
 	@Autowired
-	private MemberService2 memberService;
+	private MemberService memberService;
 	@Autowired
-	private WorkService2 workService;
+	private WorkService workService;
 	@Autowired
 	private SpringEmailService emailService;
 	@Autowired
@@ -93,15 +92,9 @@ public class DonateController {
 		model.addAttribute("main",memberService.select(mid));
 		List<Map<String,Object>> list=new ArrayList<>();
 		for(DonateBean bean:donateService.select(mid)){
-			MemberBean2 mb=memberService.select(bean.getTargetid());
+			MemberBean mb=memberService.select(bean.getTargetid());
 			Map<String,Object> map=new HashMap<>();
-			if(mb.getMphoto()!=null){
-				StringBuilder sb = new StringBuilder();
-				sb.append("data:image/png;base64,");
-				sb.append(Base64.getEncoder().encodeToString(mb.getMphoto()));
-				map.put("mphoto", sb.toString());
-			}else
-			map.put("mphoto",null);
+			map.put("mphoto",mb.getMphoto());
 			map.put("mid", bean.getTargetid());
 			map.put("name", mb.getName());
 			map.put("point", bean.getPoint());
@@ -111,15 +104,9 @@ public class DonateController {
 		model.addAttribute("donatelog", list);
 		List<Map<String,Object>> list2=new ArrayList<>();
 		for(DonateBean bean:donateService.selectDonated(mid)){
-			MemberBean2 mb=memberService.select(bean.getMid());
+			MemberBean mb=memberService.select(bean.getMid());
 			Map<String,Object> map=new HashMap<>();
-			if(mb.getMphoto()!=null){
-				StringBuilder sb = new StringBuilder();
-				sb.append("data:image/png;base64,");
-				sb.append(Base64.getEncoder().encodeToString(mb.getMphoto()));
-				map.put("mphoto", sb.toString());
-			}else
-			map.put("mphoto",null);
+			map.put("mphoto",mb.getMphoto());
 			map.put("mid", bean.getMid());
 			map.put("name", mb.getName());
 			map.put("point", bean.getPoint());

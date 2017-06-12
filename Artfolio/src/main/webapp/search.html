@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div id="search">
+		<form>
+			<table>
+				<thead>
+					<tr>
+						<th colspan="2">search</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>type</td>
+						<td>
+							<select name="type">
+								<option value="title">title only</option>
+								<option value="content">title and content</option>
+								<option value="tag">by tag</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>and condition</td>
+						<td><input type="text" name="and"></td>
+					</tr>
+					<tr>
+						<td>or condition</td>
+						<td><input type="text" name="or"></td>
+					</tr>
+					<tr>
+						<td>not condition</td>
+						<td><input type="text" name="not"></td>
+					</tr>
+					<tr>
+						<td>order by</td>
+						<td>
+							<select name="orderby">
+								<option value="like" selected>like</option>
+								<option value="date">date</option>
+							</select>
+							<select name="order">
+								<option value="descending" selected>descending</option>
+								<option value="ascending">ascending</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>period</td>
+						<td>
+							<select name="period">
+								<option value="day">last day</option>
+								<option value="week" selected>last week</option>
+								<option value="month">last month</option>
+								<option value="year">last year</option>
+							</select>
+						</td>
+					</tr>
+					<tr><td colspan="2"><input type="button" value="submit"></td></tr>
+				</tbody>
+			</table>
+		</form>
+	</div>
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script>
+		$('input[value=submit]','#search').click(function(){
+			$.get('search.controller',$('form','#search').serialize(),function(data){
+				for(var i=0;i<data.length;i++)
+				console.log(data[i].wid+" "+data[i].wlike+" "+new Date(data[i].wstart).toDateString());
+			})
+
+		});
+	</script>
+</body>
+</html>

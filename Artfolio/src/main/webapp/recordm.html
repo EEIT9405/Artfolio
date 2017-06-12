@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="js/jquery-3.2.1.min.js"></script>
+<style>
+	.hide {display:none}
+	.show {}
+</style>
+<title>Insert title here</title>
+</head>
+<body>
+	<div id="rc">
+		<form>	
+			<input type="button" name="like" value="like">
+			<label id="likes"></label>
+			<input type="button" name="follow" value="follow">
+			<label id="followers"></label>
+			<input type="button" value="donate">
+			<input type="button" name="review"	value="review">
+			<table class="hide">
+				<thead>
+					<tr>
+						<th colspan="3">record</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td></td>
+						<td><input type="range" max="9" min="1" step="1" name="record_1" value="5"></td>
+						<td>5</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><input type="range" max="9" min="1" step="1" name="record_2" value="5"></td>
+						<td>5</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><input type="range" max="9" min="1" step="1" name="record_3" value="5"></td>
+						<td>5</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><input type="range" max="9" min="1" step="1" name="record_4" value="5"></td>
+						<td>5</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><input type="range" max="9" min="1" step="1" name="record_5" value="5"></td>
+						<td>5</td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="3" style="text-align: center">
+							<input type="button" name="submit" value="submit">
+							<input type="button" name="cancel" value="reset">
+						<td>
+					</tr>
+				</tfoot>
+			</table>
+			<span></span>
+			<input type="hidden" name="recordversion">
+			<input type="hidden" name="update">
+			<input type="hidden" name="wid" value="1">
+		</form>
+	</div>
+	
+	<script>
+		var wid=$('input[name=wid]','#rc').val();
+		var version=$('input[name=recordversion]','#rc');
+		var titles=$('tbody>tr>td:first-child','#rc');
+		var values=$('tbody>tr>td:last-child','#rc');
+		var frm=$('form', '#rc');
+		var records=$('input[name^=record]','#rc');
+		var message=frm.children('span');
+		var update=$('input[name=update]','#rc');
+		var submit=$('input[name=submit]','#rc');
+		var cancel=$('input[name=cancel]','#rc');
+		var review=$('input[name=review]','#rc');
+		$.get('record/getw.controller',{wid:wid},function(data){
+			if(data.isscore){
+				version.val(data.scoreversion);
+				titles.each(function(i){
+					var item=data['score_'+(i+1)];	
+					if (item!=null && item.trim()!=""){
+						$(this).text(item);
+					}
+					else{
+						$(this).parent('tr').hide();
+						records.eq(i).attr('type','text').val(-1);
+					}
+				});
+				$.get('record/getr.controller',frm.serialize(),function(data){
+					if(data){
+						update.val('true');
+						submit.val('update');
+						cancel.val('delete');
+						values.each(function(i){
+							var current=records.eq(i);
+							if(current.val()>=0){
+								var v=data['record_'+(i+1)];
+								$(this).text(v);	
+								current.val(v);
+							}
+						});
+					}else
+						update.val('false');
+				});
+			}
+			else{
+				review.next('table').remove();	
+				review.remove();
+			}	
+		});
+		records.on('change',function(){
+			$(this).parent('td').next('td').text($(this).val());
+		});
+		submit.on('click',function(){
+			$.post('record/insert.controller',frm.serialize(),function(data){
+				if(data){
+					if(update.val()=='true'){
+						message.text('updated');
+					}else{
+						message.text('done');
+						update.val('true');
+						submit.val('update');
+						cancel.val('delete');
+					}
+				}else{
+					message.text('error');
+				}
+					
+			});
+		});
+		function resetform(){
+			for(var i=0;i<values.length;i++){
+				values.eq(i).text('5');
+				var r=records.eq(i)
+				if(r.val()!=-1)
+					r.val(5);
+			}
+		}
+		cancel.on('click',function(){
+			if(update.val()=='false'){
+				resetform();
+				message.text('');
+			}else{
+				$.post('record/delete.controller',frm.serialize(),function(data){
+					if(data){
+						message.text('deleted');
+						update.val('false');
+						submit.val('submit');
+						cancel.val('reset');
+						resetform();
+					}else{
+						message.text('failed to delete');
+					}	
+				});
+			}
+		});
+		review.click(function(){
+			$(this).next('table').toggleClass('show hide');
+		});
+		var like=$('input[name=like]','#rc');
+		var likes=$('#likes');
+		var follow=$('input[name=follow]','#rc');
+		var followers=$('#followers');
+		
+		like.click(function(){
+			if(like.val()=='like'){
+				$.post('like/insert.controller',{wid:wid},function(data){
+					if(data.liked){
+						like.val('unlike');
+						likes.text(data.likes);
+					}else{
+						alert('error');
+					}
+				});
+			}else{
+				$.post('like/delete.controller',{wid:wid},function(data){
+					if(data!='' && !data.liked){
+						like.val('like');
+						likes.text(data.likes);
+					}else{
+						alert('error');
+					}
+				});
+			}
+		});
+		$.get('like/check.controller',{wid:wid},function(data){
+			likes.text(data.likes);
+			if(data.liked){
+				like.val('unlike');
+			}
+		});
+		follow.click(function(){
+			if(follow.val()=='follow'){
+				$.post('follow/insert.controller',{wid:wid},function(data){
+					if(data.followed){
+						follow.val('unfollow');
+						followers.text(data.followers);
+					}else{
+						alert('error');
+					}
+				});
+			}else{
+				$.post('follow/deleteByWid.controller',{wid:wid},function(data){
+					if(data!='' && !data.followed){
+						follow.val('follow');
+						followers.text(data.followers);
+					}else{
+						alert('error');
+					}
+				});
+			}
+		});
+		$.get('follow/check.controller',{wid:wid},function(data){
+			followers.text(data.followers);
+			if(data.followed){
+				follow.val('unfollow');
+			}
+		});
+		$('input[value=donate]').on('click',function(){
+			window.open('point/donate.controller?wid='+wid,'donate','height=300,width=300');
+		});
+	</script>
+</body>
+</html>

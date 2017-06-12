@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import model.tag.TagBean;
@@ -41,6 +42,17 @@ public class TagvoteService {
 			return tagvotedao.select(mid);
 		return null;
 		
+	}
+	@Transactional(propagation=Propagation.MANDATORY)
+	public boolean delete(List<TagvoteBean> list){
+		if(list!=null){
+			boolean r=true;
+			for(TagvoteBean bean:list)	{
+				r=r && delete(bean);
+			}
+			return r;
+		}	
+		return false;
 	}
 
 }

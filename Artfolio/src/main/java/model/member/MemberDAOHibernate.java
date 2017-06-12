@@ -1,5 +1,8 @@
 package model.member;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -71,4 +74,20 @@ public class MemberDAOHibernate implements MemberDAO {
 		return null;
 	}
 
+	private static final String UPDATE_POINT="update MemberBean set point=? where mid=?";
+	@Override
+	public boolean updatePoint(Integer mid, Integer point) {
+		if (mid != null && point!=null) {
+			int i = this.getSession().createQuery(UPDATE_POINT)
+					.setParameter(0, point)
+					.setParameter(1, mid)
+					.executeUpdate();
+			if (i == 1) {
+				return true;
+				}
+			}
+		
+		return false;
+	}
+	
 }

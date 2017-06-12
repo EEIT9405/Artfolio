@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import model.like.LikeBean;
 import model.like.LikeService;
-import model.work2.WorkBean2;
-import model.work2.WorkService2;
+import model.work.WorkBean;
+import model.work.WorkService;
 
 @Controller
 @RequestMapping("like")
@@ -26,7 +26,7 @@ public class LikeController {
 	@Autowired
 	private HttpSession session;
 	@Autowired
-	private WorkService2 workService;
+	private WorkService workService;
 
 	@RequestMapping(path = "get.controller", method = RequestMethod.GET)
 	public LikeList get() {
@@ -34,7 +34,7 @@ public class LikeController {
 		if (mid != null){
 			List<JointLikeBean> list=new ArrayList<>();
 			for(LikeBean lb:likeService.select(mid)){
-				WorkBean2 wb=workService.getWork(lb.getWid());
+				WorkBean wb=workService.getWork(lb.getWid());
 				list.add(new JointLikeBean(wb.getWid(),wb.getPicurl(),wb.getWtitle(),lb.getLikedate()));
 			}
 			return new LikeList(list);
