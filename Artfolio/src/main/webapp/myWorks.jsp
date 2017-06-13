@@ -6,7 +6,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>My Space</title>
 <link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/modern-business.css" rel="stylesheet">
 <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <script src="js/jquery-3.2.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
@@ -51,6 +50,19 @@
 .editer {
 	position:absolute;
 	right:0;
+}
+
+.footer {
+  padding-top: 40px;
+  padding-bottom: 10px;
+  background-color: #222;
+  color: #999;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+.footer hr {
+  background-color: #222;
+  opacity: 0.1;
 }
 </style>
 
@@ -194,15 +206,17 @@
         <hr>
 
         <!-- Footer -->
-        <footer>
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>Copyright &copy; Your Website 2014</p>
-                </div>
-            </div>
-        </footer>
+<!--         <footer> -->
+<!--             <div class="row"> -->
+<!--                 <div class="col-lg-12"> -->
+<!--                     <p>Copyright &copy; Your Website 2014</p> -->
+<!--                 </div> -->
+<!--             </div> -->
+<!--         </footer> -->
 
 </div>
+
+<jsp:include page="top/footer.jsp"></jsp:include>
 
 <!-- /.container -->
 

@@ -2,8 +2,6 @@ package controller;
 
 import java.util.List;
 
-import javax.servlet.ServletContext;
-
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import model.member.MemberBean;
 import model.wmsg.WmsgBean;
@@ -23,8 +19,6 @@ public class WmsgController {
 
 	@Autowired
 	private WmsgService wmsgService;
-	@Autowired
-	private ServletContext application;
 
 	@RequestMapping(value = "/showWmsg.controller", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
 	@ResponseBody
@@ -36,12 +30,10 @@ public class WmsgController {
 	@ResponseBody
 	public WmsgBean insertWmsg(@SessionAttribute("loginOK") MemberBean user, Integer wid, String wmsgcontent) {
 		
-		System.out.println(user);
-		System.out.println(wmsgcontent);
 		if (user != null && wmsgcontent != null) {
-			String encodeWmsg = wmsgcontent; //StringEscapeUtils.escapeHtml4(wmsgcontent);
-			WebApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(application);
-			WmsgBean bean = (WmsgBean) context.getBean("wmsgBean");
+			String encodeWmsg = StringEscapeUtils.escapeHtml4(wmsgcontent);
+			
+			WmsgBean bean = new WmsgBean();
 			bean.setMemberBean(user);
 			bean.setWid(wid);
 			bean.setWmsgcontent(encodeWmsg.replaceAll("\\n|\\r\\n", "<br>"));
@@ -55,8 +47,7 @@ public class WmsgController {
 	public WmsgBean updateWmsg(Integer wmsgid, String wmsgcontent) {
 		if (wmsgcontent != null) {
 			String encodeWmsg = StringEscapeUtils.escapeHtml4(wmsgcontent);
-			WebApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(application);
-			WmsgBean bean = (WmsgBean) context.getBean("wmsgBean");
+			WmsgBean bean = new WmsgBean();
 			bean.setWmsgid(wmsgid);
 			bean.setWmsgcontent(encodeWmsg);
 			

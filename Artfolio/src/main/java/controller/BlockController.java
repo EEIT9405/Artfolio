@@ -2,40 +2,32 @@ package controller;
 
 import java.util.List;
 
-import javax.servlet.ServletContext;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import model.block.BlockBean;
 import model.block.BlockService;
 import model.member.MemberBean;
+import model.member.MemberService;
 
 @Controller
 public class BlockController {
 	@Autowired
 	private BlockService blockService;
-//	@Autowired
-//	private MemberService memberService;
 	@Autowired
-	private ServletContext application;
+	private MemberService memberService;
 
 	@RequestMapping(value="/block.controller", method = RequestMethod.POST, produces="text/plain;charset=utf-8")
 	@ResponseBody
 	public String block(@SessionAttribute("loginOK") MemberBean user, int mid) {
-		WebApplicationContext context = WebApplicationContextUtils.getRequiredWebApplicationContext(application);
-		BlockBean bean = (BlockBean) context.getBean("blockBean");
+		BlockBean bean = new BlockBean();
 		boolean result = false;
 		if (user != null && mid > 0) {
-			//還少程式bean.blockid(member.select(mid));
-			MemberBean mb = new MemberBean();
-			mb.setMid(mid);
+			MemberBean mb = memberService.select(mid);
 			bean.setMyBean(user);
 			bean.setTargetBean(mb);
 			
@@ -50,9 +42,7 @@ public class BlockController {
 	public String unBlock(@SessionAttribute("loginOK") MemberBean user, int mid){
 		boolean result = false;
 		if (user != null && mid > 0) {
-			//還少程式bean.blockid(member.select(mid));
-			MemberBean mb = new MemberBean();
-			mb.setMid(mid);
+			MemberBean mb = memberService.select(mid);
 			result = blockService.unblockSomeone(user,mb);
 		}
 		if(result) return "已移除黑名單";
