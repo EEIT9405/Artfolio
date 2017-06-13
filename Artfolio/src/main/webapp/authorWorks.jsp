@@ -278,6 +278,7 @@ $(function(){
 				h3.append(value.wtitle);
 				title.append(h3);
 				img.attr('src', value.picurl);
+				img.attr('title',value.wtitle);
 				imgbox.append(img);
 				imgbox.append(edit);
 				imgbox.append(photowid);
