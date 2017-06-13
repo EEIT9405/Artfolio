@@ -32,6 +32,7 @@
   margin-right:15px;
   position: relative;
   float:left;
+  cursor:pointer;
 }
 .recommendPhoto img {
   position: absolute;
@@ -441,7 +442,8 @@
 			//wmsg用
 
 			var modelTitle = $('#ImageModalLabel');
-
+			var recommend = $('#recommend');
+			
 			showTop();
 			putIssueNo();
 
@@ -614,17 +616,40 @@
 						});
 						showWmsg();
 						getAll();
+						showRecommendPhoto();
 					}
 			
 			
 			$('.img-box').click(showModal);
 			//博超-----------
-
+			
+			//推薦欄點擊
+			recommend.on('click', 'div.recommendPhoto', showModal);
+			
+			//推播欄點擊
 			$('#push').on(
 					'click',
 					'div.pushbefore',
 					showModal);
 
+			function showRecommendPhoto(){
+				recommend.empty();
+				$.getJSON('showRelationalWork.controller', {wid:thisWid}, function(data){
+					var documentFrag = $(document.createDocumentFragment());
+					recommend.append($('<div class="col-md-1">'));
+					$.each(data, function(index, value){
+						var div = $('<div class="col-md-2 recommendPhoto">');
+						var img = $('<img>').attr('src', value.picurl);
+						var widhidden = $('<input name="wid" type="hidden">').val(value.wid);
+						div.append(img);
+						div.append(widhidden);
+						documentFrag.append(div);
+					});
+					recommend.append(documentFrag);
+					recommend.append($('<div class="col-md-1">'));
+				});
+			}
+			
 			//wmsg
 			function showWmsg() {
 				$

@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -79,6 +80,15 @@ public class BrowsedController {
 							}
 						}
 					}
+				}
+				List<WorkBean> list = new ArrayList<>(workSet);
+				workSet.clear();
+				for(int i = 0 ; i < 5 ; i++){
+					if(list.isEmpty()){
+						break;
+					}
+					int ran = (int) (Math.random() * list.size());
+					workSet.add(list.remove(ran));
 				}
 				return workSet;
 			}
