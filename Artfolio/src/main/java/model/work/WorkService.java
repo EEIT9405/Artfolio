@@ -47,7 +47,7 @@ public class WorkService {
 	public WorkBean update(WorkBean bean) {
 		WorkBean result = null;
 		if(bean!=null) {
-			result = tbworkDao.update(bean.getWid(),bean.getMid(),bean.getPicurl(),0, bean.getWinfo(),bean.getWtitle(),bean.getWlike(),bean.getWissue(),bean.isIswmsg(),bean.isIsscore(),bean.getWstart(),bean.getWend(),bean.getScore_1(),bean.getScore_2(),bean.getScore_3(),bean.getScore_4(),bean.getScore_5());
+			result = tbworkDao.update(bean.getWid(),bean.getMid(),bean.getPicurl(),0, bean.getWinfo(),bean.getWtitle(),bean.getWlike(),bean.getWissue(),bean.isIswmsg(),bean.isIsscore(),bean.getWstart(),bean.getWend(),bean.getScore_1(),bean.getScore_2(),bean.getScore_3(),bean.getScore_4(),bean.getScore_5(),bean.getScoreversion());
 		}
 		return result;
 	}

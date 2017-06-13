@@ -91,25 +91,29 @@ public class SearchController {
 		return list;
 	}
 	
-	public List<WorkBean> sort(List<WorkBean> list,String orderby,String order){
+	public static List<WorkBean> sort(List<WorkBean> list,String orderby,String order){
 		boolean o=order.equals("ascending");
 		if(orderby.equals("like")){
 			list.sort(new Comparator<WorkBean>(){
 				public int compare(WorkBean w1, WorkBean w2) {
-					if(o)
-						return w1.getWlike().compareTo(w2.getWlike());
-					return w2.getWlike().compareTo(w1.getWlike());
-				}
-				
+					int c=w1.getWlike().compareTo(w2.getWlike());
+					return o?c:-c;
+				}	
 			});
-		}else{
+		//	list.sort((w1,w2)->o?w1.getWlike().compareTo(w2.getWlike()):-w1.getWlike().compareTo(w2.getWlike()));
+		}else if(orderby.equals("date")){
 			list.sort(new Comparator<WorkBean>(){
 				public int compare(WorkBean w1, WorkBean w2) {
-					if(o)
-						return w1.getWstart().compareTo(w2.getWstart());
-					return w2.getWstart().compareTo(w1.getWstart());
+					int c=w1.getWstart().compareTo(w2.getWstart());
+					return o?c:-c;
 				}
-				
+			});
+		}else if(orderby.equals("alphabet")){
+			list.sort(new Comparator<WorkBean>(){
+				public int compare(WorkBean w1, WorkBean w2) {
+					int c=w1.getWtitle().compareTo(w2.getWtitle());
+					return o?c:-c;
+				}
 			});
 		}
 		return list;
