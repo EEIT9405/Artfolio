@@ -43,7 +43,6 @@ public class PushWebSocketHandler extends TextWebSocketHandler {
 		MemberBean user = (MemberBean) session.getAttributes().get("user");
 		if (user != null){
 			System.out.println("user connect="+ user.getName());
-			System.out.println("session="+ session);
 			userSocketSessionMap.put(user, session);
 		}
 	}
@@ -73,11 +72,12 @@ public class PushWebSocketHandler extends TextWebSocketHandler {
 			WorkBean workBean = mapper.readValue(message.getPayload().toString(), WorkBean.class);
 			//List<WorkBean> workList = mapper.readValue(message.getPayload().toString(), mapper.getTypeFactory().constructParametricType(ArrayList.class, WorkBean.class));
 			//取得此bean所有tag
-			List<TagBean> tags = tagService.getTags(workBean.getWid());
+	//		List<TagBean> tags = tagService.getTags(workBean.getWid());
 			//for(WorkBean workBean: workList){
 				//List<TagBean> tags = tagService.getTags(workBean.getWid());
 //			if (tags != null && !tags.isEmpty()) {
 				Iterator<Map.Entry<MemberBean, WebSocketSession>> iterator = userSocketSessionMap.entrySet().iterator();
+				
 				while (iterator.hasNext()) {
 					Map.Entry<MemberBean, WebSocketSession> entry = iterator.next();
 					//取得user的所有看過的標籤

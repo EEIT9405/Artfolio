@@ -20,7 +20,7 @@ public class LoginController {
 	@RequestMapping(method=RequestMethod.GET)
 	public String login(HttpSession session){
 		
-		MemberBean user = loginService.selectById(1);
+		MemberBean user = loginService.selectById(5);
 		session.setAttribute("loginOK",user);
 		if(user!=null)
 		session.setAttribute("mid", user.getMid());

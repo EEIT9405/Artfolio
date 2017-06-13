@@ -42,7 +42,7 @@ public class WorkBean {
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name ="aid")
 	private AlbumBean albumBean;
-	
+	@Column(insertable=false)
 	private Integer scoreversion;
 	public Integer getScoreversion() {
 		return scoreversion;

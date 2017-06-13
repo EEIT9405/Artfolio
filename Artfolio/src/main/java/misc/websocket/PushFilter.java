@@ -67,6 +67,7 @@ public class PushFilter implements Filter {
 			workBean = workService.select(workBean).get(0);
 			if(workBean != null && workBean.getWid() != 0);
 			session.sendMessage(new TextMessage(new ObjectMapper().writeValueAsString(workBean)));
+			session.close();
 		}
 	}
 

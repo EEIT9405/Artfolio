@@ -39,12 +39,12 @@ public class WmsgController {
 		System.out.println(user);
 		System.out.println(wmsgcontent);
 		if (user != null && wmsgcontent != null) {
-			String encodeWmsg = StringEscapeUtils.escapeHtml4(wmsgcontent);
+			String encodeWmsg = wmsgcontent; //StringEscapeUtils.escapeHtml4(wmsgcontent);
 			WebApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(application);
 			WmsgBean bean = (WmsgBean) context.getBean("wmsgBean");
 			bean.setMemberBean(user);
 			bean.setWid(wid);
-			bean.setWmsgcontent(encodeWmsg);
+			bean.setWmsgcontent(encodeWmsg.replaceAll("\\n|\\r\\n", "<br>"));
 			return wmsgService.insert(bean);
 		}
 		return null;

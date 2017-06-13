@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>My Space</title>
+<title>Insert title here</title>
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/modern-business.css" rel="stylesheet">
 <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -108,10 +108,6 @@
 					    <li class="sortbtn" role="presentation"><a role="menuitem" class="btn likedown" tabindex="-1">遞減</a></li>
 					  </ul>
 					</div>
-				  	<div style="margin-top:10px;">
-				    	<a id="wupload" class="btn btn-primary">上傳</a>
-				    	<a id="wedit" class="btn btn-default">編輯</a>
-				    </div>
 				  </div>
 				</div>
             </div>

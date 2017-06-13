@@ -15,10 +15,31 @@
 <link rel="stylesheet" href="css/workWindow.css">
 <script src='js/jquery-3.2.1.min.js'></script>
 <style type="text/css">
+* {
+	border:solid 1px;
+}
 .wmsgArea {
-	height: 800px;
+	height: 400px;
 	overflow-y: auto;
 	overflow-x: hidden;
+}
+.recommendPhoto {
+  overflow: hidden;
+  width: 100px;
+  height: 100px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  margin-right:15px;
+  position: relative;
+  float:left;
+}
+.recommendPhoto img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 150%;
 }
 </style>
 
@@ -247,63 +268,15 @@
 				</div>
 				<div class="modal-body">
 					<div class="row">
-						<div id="modalbodyimage" class="col-md-8"
-							style="text-align: center"></div>
-						<div class="col-md-4">
-							<div id="tag" class="row">
-								<form>
-									<ul>
-										<li class="tag"><input type="button" value="addtag"
-											onclick="addtags()"></li>
-									</ul>
-									<div id="addtag" class="itagh">
-										<input type="text" name="tag" value=""> <input
-											type="button" name="add" value="add"> <input
-											type="button" onclick="addtags()" value="cancel"> <span></span>
-									</div>
-									<div id="edittag" class="itagh">
-										<input type="hidden" name="targettag"> <input
-											type="button" name="vote" value="vote">  <input
-											type="button" name="delete" value="delete"> <input
-											type="button" onclick="cancel()" value="cancel"> <span></span>
-									</div>
-									<input type="hidden" id="wid">
-								</form>
+						<div class="col-md-8">
+							<div id="modalbodyimage" class="row" style="text-align: center">
 							</div>
-
-							<div class="row"></div>
-							<div id="wmsg" class="row">
+							<div class="row">
+					<!-- like欄位 -->
+								<div class="col-md-12">
+								<div id="rc">
 								<form>
-									<div class="form-group" style="margin-right: 5px;">
-										<textarea wrap="physical" class="form-control" rows="3"
-											cols="30"></textarea>
-										<div class="pull-right">
-											<input type="button" class="btn btn-primary disabled"
-												name="wmsgSubmit" value="留言" disabled> <input
-												type="button" class="btn btn-default disabled"
-												name="wmsgCancel" value="取消" disabled>
-										</div>
-										<hr style="margin-top: 50px;">
-									</div>
-								</form>
-								<div class="wmsgArea">
-									<table class="table table-striped">
-										<tbody>
-										</tbody>
-									</table>
-								</div>
-							</div>
-
-							<script>
-								
-							</script>
-						</div>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<div id="rc">
-						<form>
-							<input type="button" name="like" value="like"> <label
+								<input type="button" name="like" value="like"> <label
 								id="likes"></label> <input type="button" name="follow"
 								value="follow"> <label id="followers"></label> <input
 								type="button" value="donate"> <input type="button"
@@ -368,19 +341,71 @@
 													</tr>
 												</tfoot>
 											</table>
-
-
 										</div>
 									</div>
 								</div>
 							</div>
-
-
 							<input type="hidden" name="recordversion"> <input
 								type="hidden" name="update"> 
 						</form>
 					</div>
+				</div>
+<!-- like欄位 -->
+<!-- 看過這張圖的也看過 -->
+				<div class="col-md-12">
+					<div>hahah</div>
+				</div>
+<!-- 看過這張圖的也看過 -->
+			</div>
+						</div>
+						<div class="col-md-4">
+							<div id="tag" class="row">
+								<form>
+									<ul>
+										<li class="tag"><input type="button" value="addtag"
+											onclick="addtags()"></li>
+									</ul>
+									<div id="addtag" class="itagh">
+										<input type="text" name="tag" value=""> <input
+											type="button" name="add" value="add"> <input
+											type="button" onclick="addtags()" value="cancel"> <span></span>
+									</div>
+									<div id="edittag" class="itagh">
+										<input type="hidden" name="targettag"> <input
+											type="button" name="vote" value="vote">  <input
+											type="button" name="delete" value="delete"> <input
+											type="button" onclick="cancel()" value="cancel"> <span></span>
+									</div>
+									<input type="hidden" id="wid">
+								</form>
+							</div>
 
+							<div class="row"></div>
+							<div id="wmsg" class="row">
+								<form>
+									<div class="form-group" style="margin-right: 5px;">
+										<textarea class="form-control" rows="3"
+											cols="30"></textarea>
+										<div class="pull-right">
+											<input type="button" class="btn btn-primary disabled"
+												name="wmsgSubmit" value="留言" disabled> <input
+												type="button" class="btn btn-default disabled"
+												name="wmsgCancel" value="取消" disabled>
+										</div>
+										<hr style="margin-top: 50px;">
+									</div>
+								</form>
+								<div class="wmsgArea">
+									<table class="table table-striped">
+										<tbody>
+										</tbody>
+									</table>
+								</div>
+							</div>
+
+				
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -581,7 +606,7 @@
 						$('#wid').val(thisWid);
 						var mb = $('#modalbodyimage').empty();
 						$(this).children('img').clone().attr("style",
-								"max-width:100%;height:auto").addClass(
+								"max-width:100%;max-height:500px").addClass(
 								'img-fluid').appendTo(mb);
 						$('#ImageModal').modal({
 							backdrop : 'static'
@@ -620,7 +645,7 @@
 																.text(
 																		value.memberBean.name);
 														var td3 = $('<td>')
-																.text(
+																.html(
 																		value.wmsgcontent);
 														var td4 = $('<td>')
 																.text(
@@ -691,7 +716,7 @@
 											//var td1 = $('<td>').append($('<img>').attr('src',value.memberBean.mphoto));
 											var td2 = $('<td>').text(
 													data.memberBean.name);
-											var td3 = $('<td>').text(
+											var td3 = $('<td>').html(
 													data.wmsgcontent);
 											var td4 = $('<td>')
 													.text(
