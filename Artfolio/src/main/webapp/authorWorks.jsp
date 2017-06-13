@@ -207,7 +207,7 @@ $(function(){
 	var sortbtn = $('#sortList').children('li.sortbtn');
 	var photoContainer = $('#photoContainer');
 	
-	listWork(1, "date", "descending");
+	listWork(1, "alphabet", "ascending");
 	
 	//載入作者資訊
 	
@@ -273,11 +273,16 @@ $(function(){
 				var img = $('<img>');
 				var edit = $('<div class="editer">');
 				var photowid = $('<input name="wid" type="hidden">').val(value.wid);
+				var title = $('<div class="title">');
+				var h3 = $('<h3>');
+				h3.append(value.wtitle);
+				title.append(h3);
 				img.attr('src', value.picurl);
 				imgbox.append(img);
 				imgbox.append(edit);
 				imgbox.append(photowid);
 				col.append(imgbox);
+				col.append(title);
 				row.append(col);
 			});
 			photoContainer.append(row);

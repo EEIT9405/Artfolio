@@ -64,6 +64,10 @@
   background-color: #222;
   opacity: 0.1;
 }
+
+.title h3{
+	text-align:center;
+}
 </style>
 
 </head>
@@ -150,7 +154,6 @@
 	          <div class="img-box"><img src="http://bit.ly/2qYyyVS " alt=""/>
 	          	<div class="editer"></div>
 	          </div>
-	          <div><h3>ahah</h3></div>
 	        </div>
         </div>
         <!-- /.row -->
@@ -194,9 +197,7 @@
 	        <div class="col-sm-12 col-md-3 padding-0">
 	          <div class="img-box"><img src="http://bit.ly/2qYyyVS " alt=""/>
 	          	<div class="editer"></div>
-	          	<div><h3>ahah</h3></div>
 	          </div>
-	          
 	        </div>
         </div>
         <!-- /.row -->
@@ -221,6 +222,7 @@
 <!-- /.container -->
 
 <!-- JS -->
+<script src="js/jquery.formatDateTime.min.js"></script>
 <script>
 $(function(){
 	var wedit = $('#wedit');
@@ -228,7 +230,7 @@ $(function(){
 	var sortbtn = $('#sortList').children('li.sortbtn');
 	var photoContainer = $('#photoContainer');
 	
-	listWork(1, "date", "descending");	
+	listWork(1, "alphabet", "ascending");	
 	//開啟編輯功能
 	wedit.click(function(){
 		var a1 = $('<a title="remove" class="btn btn-circle btn-danger glyphicon glyphicon-remove">');
@@ -291,11 +293,26 @@ $(function(){
 				var img = $('<img>');
 				var edit = $('<div class="editer">');
 				var photowid = $('<input name="wid" type="hidden">').val(value.wid);
+				var title = $('<div class="title">');
+				var h3 = $('<h3>');
+				if(orderby == "alphabet"){
+					h3.append(value.wtitle);
+				}
+				if(orderby == "date"){
+					h3.append($.formatDateTime('yy-mm-dd' ,(new Date(value.wstart))));
+				}
+				if(orderby == "like"){
+					h3.append("人氣：" + value.wlike);
+				}
+				
+				
+				title.append(h3);
 				img.attr('src', value.picurl);
 				imgbox.append(img);
 				imgbox.append(edit);
 				imgbox.append(photowid);
 				col.append(imgbox);
+				col.append(title);
 				row.append(col);
 			});
 			photoContainer.append(row);
