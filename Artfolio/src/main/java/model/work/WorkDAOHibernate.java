@@ -48,7 +48,7 @@ public class WorkDAOHibernate implements WorkDAO {
 	@Override
 	public WorkBean update(int wid, int mid, String picurl, int aid, String winfo, String wtitle, int wlike, int wissue,
 			boolean iswmsg, boolean isscore, Date wstart, Date wend, String score_1, String score_2, String score_3,
-			String score_4, String score_5) {
+			String score_4, String score_5,Integer scoreversion) {
 		WorkBean bean = this.select(wid);
 		if(bean!=null) {
 			bean.setWid(wid);
@@ -67,6 +67,7 @@ public class WorkDAOHibernate implements WorkDAO {
 			bean.setScore_3(score_3);
 			bean.setScore_4(score_4);
 			bean.setScore_5(score_5);
+			bean.setScoreversion(scoreversion);
 		}
 		return bean;
 	}

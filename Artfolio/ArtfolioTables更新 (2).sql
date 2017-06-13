@@ -175,18 +175,18 @@ recorddate datetime default getDate()
 
 --作家追蹤 --5/27更新
 create table tb_follow(
-fid int primary key identity,
 mid int foreign key references tb_member(mid) not null,
 followid int foreign key references tb_member(mid) not null, --追蹤作家的id
 followdate datetime default getDate()
+primary key(mid,followid)
 );
 
 --喜愛作品 --5/27更新
 create table tb_like(
-likeid int primary key identity,
 mid int foreign key references tb_member(mid) not null,
 wid int foreign key references tb_work(wid) not null,
 likedate datetime default getDate()
+primary key(mid,wid)
 );
 
 --點數交易紀錄(與官方)
