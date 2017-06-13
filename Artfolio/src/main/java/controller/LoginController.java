@@ -18,9 +18,9 @@ public class LoginController {
 	private LoginService loginService;
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public String login(HttpSession session){
+	public String login(HttpSession session,Integer mid){
 		
-		MemberBean user = loginService.selectById(5);
+		MemberBean user = loginService.selectById(mid);
 		session.setAttribute("loginOK",user);
 		if(user!=null)
 		session.setAttribute("mid", user.getMid());

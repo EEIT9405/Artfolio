@@ -602,7 +602,6 @@
 
 			function showModal() {
 						thisWid = $(this).children('input[name="wid"]').val();
-						thisWid=1;
 						$('#wid').val(thisWid);
 						var mb = $('#modalbodyimage').empty();
 						$(this).children('img').clone().attr("style",
@@ -902,7 +901,6 @@
 					$('form>ul>li>a:contains("' + tag + '")','#tag').parent('li').remove();
 					divedit.toggleClass("itags itagh").find('span').text("");
 					deltagbutton.val("delete");
-					locktagbutton.val("lock");
 					addtagbutton.prop("disabled",false);
 				} else
 					editmsg.text("failed to delete");
@@ -950,12 +948,12 @@
 		var values=$('tbody>tr>td:last-child','#rc');
 		var frm=$('form', '#rc');
 		var records=$('input[name^=record]','#rc');
-		var message=frm.children('span');
+		
 		var update=$('input[name=update]','#rc');
 		var submit=$('input[name=submit]','#rc');
 		var cancel=$('input[name=cancel]','#rc');
 		var review=$('input[name=review]','#rc');
-		
+		var message=cancel.next('span');
 		
 		records.on('change',function(){
 			$(this).parent('td').next('td').text($(this).val());
@@ -1004,7 +1002,9 @@
 			}
 		});
 		review.click(function(){
-			$(this).next('table').toggleClass('show hide');
+			$('#reviewmodal').modal({
+				backdrop : 'static'
+			});
 		});
 		var like=$('input[name=like]','#rc');
 		var likes=$('#likes');
@@ -1057,6 +1057,10 @@
 		
 		$('input[value=donate]').on('click',function(){
 			window.open('point/donate.controller?wid='+wid.val(),'donate','height=300,width=300');
+		});
+		
+		$('#closereview').click(function() {
+			$('#reviewmodal').modal('hide');
 		});
 		
 		function getAll(){
