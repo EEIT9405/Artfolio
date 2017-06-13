@@ -138,6 +138,7 @@
 	          <div class="img-box"><img src="http://bit.ly/2qYyyVS " alt=""/>
 	          	<div class="editer"></div>
 	          </div>
+	          <div><h3>ahah</h3></div>
 	        </div>
         </div>
         <!-- /.row -->
@@ -181,7 +182,9 @@
 	        <div class="col-sm-12 col-md-3 padding-0">
 	          <div class="img-box"><img src="http://bit.ly/2qYyyVS " alt=""/>
 	          	<div class="editer"></div>
+	          	<div><h3>ahah</h3></div>
 	          </div>
+	          
 	        </div>
         </div>
         <!-- /.row -->
@@ -211,7 +214,7 @@ $(function(){
 	var sortbtn = $('#sortList').children('li.sortbtn');
 	var photoContainer = $('#photoContainer');
 	
-	serchWork(1, "date", "descending");	
+	listWork(1, "date", "descending");	
 	//開啟編輯功能
 	wedit.click(function(){
 		var a1 = $('<a title="remove" class="btn btn-circle btn-danger glyphicon glyphicon-remove">');
@@ -251,20 +254,20 @@ $(function(){
 	sortbtn.click(function(){
 		var sort = $(this).children('a');
 		if(sort.hasClass('timeup')){
-			serchWork(1, "date", "ascending");	
+			listWork(1, "date", "ascending");	
 		}
 		if(sort.hasClass('timedown')){
-			serchWork(1, "date", "descending");	
+			listWork(1, "date", "descending");	
 		}
 		if(sort.hasClass('likeup')){
-			serchWork(1, "like", "ascending");
+			listWork(1, "like", "ascending");
 		}
 		if(sort.hasClass('likedown')){
-			serchWork(1, "like", "descending");
+			listWork(1, "like", "descending");
 		}
 	});
 	
-	function serchWork(mid, orderby, order){
+	function listWork(mid, orderby, order){
 			photoContainer.empty();
 		$.getJSON('searchByMid.controller', {mid:mid, orderby:orderby, order:order}, function(data){
 			var row = $('<div class="row">');
