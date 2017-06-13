@@ -345,6 +345,7 @@
 									</div>
 								</div>
 							</div>
+							<input type="hidden" id="wid" name="wid">
 							<input type="hidden" name="recordversion"> <input
 								type="hidden" name="update"> 
 						</form>
@@ -353,7 +354,8 @@
 <!-- like欄位 -->
 <!-- 看過這張圖的也看過 -->
 				<div class="col-md-12">
-					<div>hahah</div>
+					<div id="recommend" class="row">
+					</div>
 				</div>
 <!-- 看過這張圖的也看過 -->
 			</div>
@@ -376,7 +378,7 @@
 											type="button" name="delete" value="delete"> <input
 											type="button" onclick="cancel()" value="cancel"> <span></span>
 									</div>
-									<input type="hidden" id="wid">
+									
 								</form>
 							</div>
 
