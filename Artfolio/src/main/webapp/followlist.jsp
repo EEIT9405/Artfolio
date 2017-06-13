@@ -120,14 +120,14 @@
 					    <li class="sortbtn" role="presentation"><a role="menuitem" class="btn timeup" tabindex="-1">遞增</a></li>
 					    <li class="sortbtn" role="presentation"><a role="menuitem" class="btn timedown" tabindex="-1">遞減</a></li>
 					    <li role="presentation" class="divider"></li>
-					    <li role="presentation" class="dropdown-header">依人氣：</li>
-					    <li class="sortbtn" role="presentation"><a role="menuitem" class="btn likeup" tabindex="-1">遞增</a></li>
-					    <li class="sortbtn" role="presentation"><a role="menuitem" class="btn likedown" tabindex="-1">遞減</a></li>
+					    <li role="presentation" class="dropdown-header">依名稱：</li>
+					    <li class="sortbtn" role="presentation"><a role="menuitem" class="btn nameup" tabindex="-1">遞增</a></li>
+					    <li class="sortbtn" role="presentation"><a role="menuitem" class="btn namedown" tabindex="-1">遞減</a></li>
 					    <li role="presentation" class="divider"></li>
 					  </ul>
 					</div>
 				  	<div style="margin-top:10px;">
-				    	<a id="wupload" class="btn btn-primary">上傳</a>
+
 				    	<a id="wedit" class="btn btn-default">編輯</a>
 				    </div>
 				  </div>
@@ -229,11 +229,11 @@
 <script>
 $(function(){
 	var wedit = $('#wedit');
-	var wupload = $('#wupload');
+
 	var sortbtn = $('#sortList').children('li.sortbtn');
 	var photoContainer = $('#photoContainer');
 	
-	listWork("alphabet" ,"ascending");	
+	list("date" ,"descending");	
 	//開啟編輯功能
 	wedit.click(function(){
 		var a1 = $('<a title="remove" class="btn btn-circle btn-danger glyphicon glyphicon-remove">');
@@ -259,8 +259,8 @@ $(function(){
 		var btn = $(this);
 		if(btn.attr('title') == "remove"){
 			var div=$(this).parents('div.img-box');
-			$.post('like/delete.controller',{wid:div.children('input[name=wid]').val()},function(data){
-				if(data!='' && !data.liked)
+			$.post('follow/delete.controller',{followid:div.children('input[name=mid]').val()},function(data){
+				if(data!='' && !data.followed)
 					div.parent().remove();
 				else
 					alert('error');
@@ -268,54 +268,41 @@ $(function(){
 		}
 	});
 	
-	//上傳
-	wupload.click(function(){
-		console.log("上傳");
-	});
+
 	
 	sortbtn.click(function(){
 		var sort = $(this).children('a');
 		if(sort.hasClass('timeup')){
-			listWork("date", "ascending");	
+			list("date", "ascending");	
 		}
 		if(sort.hasClass('timedown')){
-			listWork("date", "descending");	
+			list("date", "descending");	
 		}
-		if(sort.hasClass('likeup')){
-			listWork("like", "ascending");
+		if(sort.hasClass('nameup')){
+			list("alphabet", "ascending");
 		}
-		if(sort.hasClass('likedown')){
-			listWork("like", "descending");
+		if(sort.hasClass('namedown')){
+			list("alphabet", "descending");
 		}
 	});
 	
-	function listWork(orderby, order){
+	function list(orderby, order){
 			photoContainer.empty();
-		$.getJSON('like/get.controller', {orderby:orderby, order:order}, function(data){
+		$.getJSON('follow/get.controller', {orderby:orderby, order:order}, function(data){
 			var row = $('<div class="row">');
 			$.each(data, function(index, value){
 				var col = $('<div class="col-sm-12 col-md-3 padding-0">');
 				var imgbox = $('<div class="img-box">');
 				var img = $('<img>');
 				var edit = $('<div class="editer">');
-				var photowid = $('<input name="wid" type="hidden">').val(value.wid);
+				var photomid = $('<input name="mid" type="hidden">').val(value.mid);
 				var title = $('<div class="title">');
-				var h3 = $('<h3>');
-				if(orderby == "alphabet"){
-					h3.append(value.wtitle);
-				}
-				if(orderby == "date"){
-					h3.append($.formatDateTime('yy-mm-dd' ,(new Date(value.wstart))));
-				}
-				if(orderby == "like"){
-					h3.append("人氣：" + value.wlike);
-				}
-				title.append(h3);
-				img.attr('src', value.picurl);
-				img.attr('title',value.wtitle);
+				$('<h3>').append(value.name).appendTo(title);
+				img.attr('src', value.mphoto);
+				img.attr('title',value.name);
 				imgbox.append(img);
 				imgbox.append(edit);
-				imgbox.append(photowid);
+				imgbox.append(photomid);
 				col.append(imgbox);
 				col.append(title);
 				row.append(col);

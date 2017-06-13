@@ -39,7 +39,7 @@ public class LikeController {
 				wb.setWstart(lb.getLikedate());
 				list.add(wb);
 			}
-			return SearchController.sort(list,orderby,order);
+			return SearchController.sortWork(list,orderby,order);
 		}
 		return null;
 	}
