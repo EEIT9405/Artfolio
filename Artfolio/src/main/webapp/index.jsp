@@ -684,7 +684,13 @@
 				getAll();
 				showRecommendPhoto();
 				showWorkInfo();
+				saveUserBrowse();
 				$('input[name="mailtitle"]').val(thisWid+":圖片檢舉");
+			}
+			
+			function saveUserBrowse(){
+				$.post('browsed.controller', {wid:thisWid}, function(){
+				});
 			}
 			
 			function showWorkInfo(){

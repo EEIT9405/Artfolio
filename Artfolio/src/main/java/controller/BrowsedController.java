@@ -39,17 +39,18 @@ public class BrowsedController {
 
 	@RequestMapping(value = "/browsed.controller", method = RequestMethod.POST)
 	@ResponseBody
-	public void insert(@SessionAttribute("loginOK") MemberBean user, int wid) {
-		System.out.println(wid);
-		System.out.println(user.getMid());
-		
-		BrowsedBean bean = new BrowsedBean();
-		bean.setMid(user.getMid());
-		WorkBean wb = new WorkBean();
-		wb.setWid(wid);
-		bean.setWorkBean(workService.select(wb).get(0));
-		browsedService.insert(bean);
-		favoriteService.insertOrUpdate(user, tagService.getTags(wid));
+	public void insert(@SessionAttribute("loginOK") MemberBean user, Integer wid) {
+//		System.out.println(wid);
+//		System.out.println(user.getMid());
+		if(user != null && wid != null){
+			BrowsedBean bean = new BrowsedBean();
+			bean.setMid(user.getMid());
+			WorkBean wb = new WorkBean();
+			wb.setWid(wid);
+			bean.setWorkBean(workService.select(wb).get(0));
+			browsedService.insert(bean);
+			favoriteService.insertOrUpdate(user, tagService.getTags(wid));
+		}
 		return;
 	}
 
