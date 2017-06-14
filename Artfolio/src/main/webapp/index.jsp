@@ -1137,13 +1137,9 @@
 			});
 			$.get("tag/get.controller", {
 				wid : wid.val()
-			},function(){
+			},function(data){
 				$('form>ul','#tag').empty();
-<<<<<<< HEAD
-				showTags();
-=======
-				showTags(); 
->>>>>>> branch 'master' of https://github.com/EEIT9405/Artfolio.git
+				showTags(data); 
 			});
 			
 			$.get('record/getw.controller',{wid:wid.val()},function(data){
