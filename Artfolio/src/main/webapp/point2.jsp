@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -7,122 +7,71 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Point</title>
 <link href="/Artfolio/css/bootstrap.min.css" rel="stylesheet">
-<link href="/Artfolio/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link href="/Artfolio/css/style.css" rel="stylesheet">
-<link href="/Artfolio/css/pushBar.css" rel="stylesheet">
-<link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 <script src="/Artfolio/js/jquery-3.2.1.min.js"></script>
 <script src="/Artfolio/js/bootstrap.min.js"></script>
-<style type="text/css">
-.paging-nav {
-  text-align: right;
-  padding-top: 2px;
-}
-
-.paging-nav a {
-  margin: auto 1px;
-  text-decoration: none;
-  display: inline-block;
-  padding: 1px 7px;
-  background: #91b9e6;
-  color: white;
-  border-radius: 3px;
-}
-
-.paging-nav .selected-page {
-  background: #187ed5;
-  font-weight: bold;
-}
-
-.paging-nav,
-#tableData {
-  width: 400px;
-  margin: 0 auto;
-  font-family: Arial, sans-serif;
-}
-</style>
+<title>Insert title here</title>
 </head>
 <body>
-<!-- Navigation -->
-<jsp:include page="top/header.jsp"></jsp:include>
-	<c:if test="${!empty loginOK }">
-		<jsp:include page="top/pushPage.jsp"></jsp:include>
-	</c:if>
+<jsp:include page="/top/header.jsp"></jsp:include>
 <div class="container">
-        <!-- Page Heading/Breadcrumbs -->
+	<!-- Page Heading/Breadcrumbs -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Point
-                    <small>點數交易</small>
+                <h1 class="page-header">My folio
+                    <small>my folio</small>
                 </h1>
                 <ol class="breadcrumb">
-                    <li><a href="/Artfolio/index.jsp">Home</a>
+                    <li><a href="index.html">Home</a>
                     </li>
-                    <li class="active">點數區</li>
+                    <li class="active">我的作品</li>
                 </ol>
             </div>
         </div>
         <!-- /.row -->
-		     <!-- /.row -->
 	<div class="row">
-	<div class="col-md-2">
-		<div class="panel panel-default">
-			<div class="panel-body">
-				<div>
-					<img style="width:150px;" src="${loginOK.mphoto}">
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="col-md-10">
-		<div style="height:340px;">
-		<div id="point" >
-			<ul class="nav nav-tabs" role="tablist">
+	<div class="col-md-12">
+	<div id="point" >
+		<ul class="nav nav-tabs" role="tablist">
 			<li role="presentation" class="active"><a href="#exchange"
-				aria-controls="exchange" role="tab" data-toggle="tab">點數兌換</a></li>
+				aria-controls="exchange" role="tab" data-toggle="tab">exchange</a></li>
 			<li role="presentation"><a href="#log" aria-controls="log"
-				role="tab" data-toggle="tab">兌換記錄</a></li>
+				role="tab" data-toggle="tab">log</a></li>
 			<li role="presentation"><a href="#log2" aria-controls="log2"
-				role="tab" data-toggle="tab">贊助記錄</a></li>
+				role="tab" data-toggle="tab">log2</a></li>
 			<li role="presentation"><a href="#log3" aria-controls="log3"
-				role="tab" data-toggle="tab">受贈記錄</a></li>
+				role="tab" data-toggle="tab">log3</a></li>
 		</ul>
 		<div class="tab-content">
 			<div id="exchange" role="tabpanel" class="tab-pane active">
 				<form action="exchange.controller" method="post">
-					<table class="table table-striped">
+					<table>
 						<thead>
 							<tr>
-								<th>
-								<th colspan="2">交易</th>
+								<th colspan="2">exchange</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-							<td>
-								<td>現有點數</td>
+								<td>current point</td>
 								<td>${main.point}</td>
 							</tr>
 							<tr>
-							<td>
-								<td>交易形式</td>
+								<td>type</td>
 								<td>
 									<select name="type" required>
-										<option value="buy">購點</option>
-										<option value="sell">兌現</option>
+										<option value="buy">buy</option>
+										<option value="sell">sell</option>
 									</select>
 								</td>
 							</tr>
 							<tr>
-							<td>
-								<td>選擇點數</td>
+								<td>point</td>
 								<td><input name="point" style="width:5em" type="number" min="10" max="10000" step="10" required value="${param.point}"><span>${msg}</span></td>
 							</tr>
 							<tr>
-							<td>
-								<td colspan="2"><input style="margin-right:10px;" class="btn btn-primary" type="submit" value="submit"><input class="btn btn-danger" type="reset" value="reset"></td>
+								<td colspan="2"><input type="submit" value="submit"><input type="reset" value="reset"></td>
 							</tr>
 						</tbody>
 					</table>
@@ -131,23 +80,21 @@
 			<div id="log" role="tabpanel" class="tab-pane">
 				<c:choose>
 					<c:when test="${not empty exchangelog}">
-						<table id="exchageTable" class="table table-striped">
+						<table>
 							<thead>
 								<tr>
-									<th>
-									<th>點數</th>
-									<th>交易形式</th>
-									<th>日期</th>
+									<th>point</th>
+									<th>type</th>
+									<th>date</th>
 								</tr>
 							</thead>
 							<tbody>
 								<c:forEach items="${exchangelog}" var="item">
 									<tr>
-										<td>
 										<td>${item.point}</td>
 										<td><c:choose>
-												<c:when test="${item.ptype}">購點</c:when>
-												<c:otherwise>兌現</c:otherwise>
+												<c:when test="${item.ptype}">1</c:when>
+												<c:otherwise>0</c:otherwise>
 											</c:choose></td>
 										<td>${item.expointdate}</td>
 									</tr>
@@ -162,23 +109,21 @@
 			<div id="log2" role="tabpanel" class="tab-pane">
 				<c:choose>
 					<c:when test="${not empty donatelog}">
-						<table id="giftTable" class="table table-striped">
+						<table>
 							<thead>
 								<tr>
-									<th>
 									<th>icon</th>
-<!-- 									<th>id</th> -->
-									<th>對象</th>
-									<th>點數</th>
-									<th>日期</th>
+									<th>id</th>
+									<th>name</th>
+									<th>point</th>
+									<th>date</th>
 								</tr>
 							</thead>
 							<tbody>
 								<c:forEach items="${donatelog}" var="item">
 									<tr>
-										<td>
 										<td><img src="${item.mphoto}"></td>
-<%-- 										<td>${item.mid}</td> --%>
+										<td>${item.mid}</td>
 										<td>${item.name}</td>
 										<td>${item.point}</td>
 										<td>${item.date}</td>
@@ -194,23 +139,21 @@
 			<div id="log3" role="tabpanel" class="tab-pane">
 				<c:choose>
 					<c:when test="${not empty donatedlog}">
-						<table id="giftedTable" class="table table-striped">
+						<table>
 							<thead>
 								<tr>
-									<th>
 									<th>icon</th>
-<!-- 									<th>id</th> -->
-									<th>對象</th>
-									<th>點數</th>
-									<th>日期</th>
+									<th>id</th>
+									<th>name</th>
+									<th>point</th>
+									<th>date</th>
 								</tr>
 							</thead>
 							<tbody>
 								<c:forEach items="${donatedlog}" var="item">
 									<tr>
-										<td>
 										<td><img src="${item.mphoto}"></td>
-<%-- 										<td>${item.mid}</td> --%>
+										<td>${item.mid}</td>
 										<td>${item.name}</td>
 										<td>${item.point}</td>
 										<td>${item.date}</td>
@@ -224,21 +167,14 @@
 				</c:choose>
 			</div>
 		</div>
-	 </div>
 	</div>
-   </div>
- </div>
-        <hr>
-
+	</div>
+	</div>
 </div>
+<!-- container -->
 
-<jsp:include page="top/footer.jsp"></jsp:include>
-<!-- /.container -->
+<jsp:include page="/top/footer.jsp"></jsp:include>
 
-<!-- JS -->
-<script src="/Artfolio/js/jquery-ui.min.js"></script>
-<!-- <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script> -->
-<script src="../js/paging.js"></script>
 <script>
 	$('table','#point').addClass('table');
 	var etb=$('tbody','#exchange');
@@ -264,12 +200,8 @@
 			point.val('');
 		}
 	});
-
-	$(function(){
-		$('#exchageTable').paging({limit:5});
-		$('#giftTable').paging({limit:5});
-		$('#giftedTable').paging({limit:5});
-	});
 </script>
 </body>
 </html>
+
+

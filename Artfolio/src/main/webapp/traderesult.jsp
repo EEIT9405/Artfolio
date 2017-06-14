@@ -5,13 +5,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="refresh" content="3; url=point/log.controller">
 <title>Insert title here</title>
 </head>
 <body>
-	<p>${msg}</p>
+	<h4>${msg}</h4>
 	<c:choose>
 		<c:when test="${from=='exchange'}">
-			<a href="point/log.controller">back to point page</a>
+			<h5>3秒後自動跳轉回原畫面。如無跳轉，請點選一下連結。</h5>
+			<a href="point/log.controller">回點數頁面</a>
 		</c:when>
 		<c:when test="${from=='donate'}">
 			<form>

@@ -104,7 +104,7 @@ public class LogController {
 				return "感謝您的意見，客服將於24小時內回覆";
 			}
 		}
-		return "失敗，請重新寄送";
+		return "失敗，請登入後重新寄送";
 	}
 
 	@RequestMapping(value = "/mail/showAdminMails.controller", method = RequestMethod.GET, produces = "application/json;charset=utf-8")

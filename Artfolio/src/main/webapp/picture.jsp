@@ -42,7 +42,8 @@
 	<hr/>
 	
 	<input id="WorkRelational" type="button" value="相關圖">
-
+	<a href="index.jsp">index</a>
+	<a href="point/log.controller">point</a>
 	<script src="js/jquery-3.2.1.min.js"></script>
 	<script>
 		$("#p1").click(function() {

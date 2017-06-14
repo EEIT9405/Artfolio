@@ -365,6 +365,8 @@
 									</div>
 								</div>
 							</div>
+						
+							
 							<input type="hidden" id="wid" name="wid">
 							<input type="hidden" name="recordversion"> <input
 								type="hidden" name="update"> 
@@ -417,7 +419,7 @@
 							<div style="margin-top:15px;" id="wmsg" class="row">
 								<form>
 									<div class="form-group" style="margin-right: 5px;">
-										<textarea class="form-control" rows="3"
+										<textarea id="wmsgTextarea" class="form-control" rows="3"
 											cols="30"></textarea>
 										<div class="pull-right">
 											<input type="button" class="btn btn-primary disabled"
@@ -443,6 +445,38 @@
 			</div>
 		</div>
 	</div>
+	<div class="modal fade bs-example-modal-sm" id="reportmodal"
+								tabindex="-1" role="dialog" aria-labelledby="reportmodalLabel">
+							<div class="modal-dialog modal-sm" role="document">
+								<div class="modal-content">
+									<div class="modal-header" style="text-align: left">
+										<button type="button" class="close" id="closereport" aria-label="Close">
+										<span aria-hidden="true">&times;</span></button>
+										<h4 class="modal-title" id="reportmodalLabel">檢舉</h4>
+									</div>
+									<div class="modal-body">
+										<div class="row">
+											<form id='reportForm'>
+												<div class="form-group">
+													<span>檢舉事由：</span><br/><br/>
+													<textarea class="form-control" rows="5"
+														cols="30" name="mailcontent"></textarea>
+														<input type="hidden" name="toId" value="1">
+														<input type="hidden" name="mailtitle" value="">
+														<input type="hidden" name="mstatus" value="3">
+													<div class="pull-right">
+														<input type="button" class="btn btn-primary disabled"
+															name="reportSubmit" value="送出" disabled> <input
+															type="button" class="btn btn-default disabled"
+															name="reportCancel" value="取消" disabled>
+													</div>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 	<!-- 博超  -->
 	<!-- JS -->
 	<script src='js/bootstrap.min.js'></script>
@@ -468,7 +502,7 @@
 			var wmsgTable = $('.wmsgArea>table.table>tbody');
 			var wmsgSubmit = $('div.form-group>div.pull-right input[name="wmsgSubmit"]');
 			var wmsgCancel = $('div.form-group>div.pull-right input[name="wmsgCancel"]');
-			var wmsgTextarea = $('div.form-group textarea');
+			var wmsgTextarea = $('#wmsgTextarea');
 			//wmsg用
 
 			var modelTitle = $('#ImageModalLabel');
@@ -650,6 +684,7 @@
 				getAll();
 				showRecommendPhoto();
 				showWorkInfo();
+				$('input[name="mailtitle"]').val(thisWid+":圖片檢舉");
 			}
 			
 			function showWorkInfo(){
@@ -848,6 +883,10 @@
 								}
 							}	
 						});
+						if(stag.length==0){
+							addmsg.text("absorb since all existed");
+						}
+						else
 						if(current.length+stag.length<=20){
 							$.post("tag/add.controller", {
 								wid : wid.val(),
@@ -937,7 +976,7 @@
 			for (var i = 0; i < data.length; i++) {
 				if (data[i].lock)
 					data[i].tag+="*";
-				$('<li class="tag"><a href="" target="_blank">' + data[i].tag+ '</a></li>').appendTo(target);
+				$('<li class="tag"><a class="label label-default" href="" target="_blank">' + data[i].tag+ '</a></li>').appendTo(target);
 			}
 			if ($('li>a','#tag').length==10)
 				addtagbutton.prop("disabled",true);
@@ -969,13 +1008,57 @@
 		var cancel=$('input[name=cancel]','#rc');
 		var review=$('button[name=review]','#rc');
 		var message=cancel.next('span');
-		var report = $('button[name=report]');
 		
+		var report = $('button[name=report]');
+		var reportSubmit = $('input[name="reportSubmit"]');
+		var reportCancel = $('input[name="reportCancel"]');
+		var reportTextarea = $('#reportForm').find('textarea');
+	
+		function changeBtnDisableReport() {
+			if (reportTextarea.val().length <= 0) {
+				reportSubmit.addClass('disabled');
+				reportSubmit.prop('disabled', true);
+				reportCancel.addClass('disabled');
+				reportCancel.prop('disabled', true);
+			} else if (reportTextarea.val().length > 0) {
+				reportSubmit.removeClass('disabled');
+				reportSubmit.prop('disabled', false);
+				reportCancel.removeClass('disabled');
+				reportCancel.prop('disabled', false);
+			}
+		}
 		
 		report.click(function(){
-			
-			
+			$('#reportmodal').modal(
+					{backdrop : 'static'}
+			);
 		});
+		reportTextarea.keyup(function() {
+			changeBtnDisableReport();
+		});
+
+		reportTextarea.mouseout(function() {
+			changeBtnDisableReport();
+		});
+		
+		reportSubmit.click(function() {
+			if($('#user').val() != null){
+				$.post('sendToAdminMail.controller', $('#reportForm').serialize(), function(data){
+					$('#reportmodal').modal('hide');
+					alert(data);
+				});
+			}else {
+				alert("請登入！！");
+			}
+			
+			reportTextarea.val('');
+		});
+
+		reportCancel.click(function() {
+			reportTextarea.val('');
+			changeBtnDisable();
+		});
+		
 		
 		records.on('change',function(){
 			$(this).parent('td').next('td').text($(this).val());
@@ -1040,11 +1123,14 @@
 		});
 		
 		report.click(function(){
-			$('#reviewmodal').modal(
+			$('#reportmodal').modal(
 					{backdrop : 'static',keyboard:false}
 			);
 		});
-		
+		$('#closereport').click(function() {
+			reportTextarea.val('');
+			$('#reportmodal').modal('hide');
+		});
 		var like=$('button[name=like]','#rc');
 		var likes=$('#likes');
 		var follow=$('button[name=follow]','#rc');
@@ -1123,9 +1209,13 @@
 		$('#reviewmodal').on('hidden.bs.modal',function(){
 			$('body').addClass('modal-open');
 		});
+		$('#reportmodal').on('hidden.bs.modal',function(){
+			$('body').addClass('modal-open');
+		});
 		$('#closeimagemodal').click(function() {
 			$('#ImageModal').modal('hide');
 		});
+		
 		function getAll(){
 			$.get('follow/check.controller',{wid:wid.val()},function(data){
 				followers.text(data.followers);
