@@ -2,6 +2,7 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import model.tag.TagService;
 import model.work.WorkBean;
 import model.work.WorkService;
+import model.member.MemberInfo;
 
 @Controller
 @ResponseBody
@@ -59,7 +61,7 @@ public class SearchController {
 			return null;
 		
 		
-		list=sort(list,orderby,order);
+		list=sortWork(list,orderby,order);
 		
 		java.util.Date when;
 		if(period.equals("day"))
@@ -87,11 +89,11 @@ public class SearchController {
 			@RequestParam(name="order",defaultValue="descending")String order){
 		List<WorkBean> list=null;
 		if(mid!=null)
-			list=sort(workService.selectByMid(mid), orderby, order);
+			list=sortWork(workService.selectByMid(mid), orderby, order);
 		return list;
 	}
 	
-	public static List<WorkBean> sort(List<WorkBean> list,String orderby,String order){
+	public static List<WorkBean> sortWork(List<WorkBean> list,String orderby,String order){
 		boolean o=order.equals("ascending");
 		if(orderby.equals("like")){
 			list.sort(new Comparator<WorkBean>(){
@@ -118,4 +120,25 @@ public class SearchController {
 		}
 		return list;
 	}
+	
+	public static List<MemberInfo> sortMember(List<MemberInfo> list,String orderby,String order){
+		boolean o=order.equals("ascending");
+		if(orderby.equals("date")){
+			list.sort(new Comparator<MemberInfo>(){
+				public int compare(MemberInfo m1, MemberInfo m2) {
+					int c=m1.getMstart().compareTo(m2.getMstart());
+					return o?c:-c;
+				}
+			});
+		}else if(orderby.equals("alphabet")){
+			list.sort(new Comparator<MemberInfo>(){
+				public int compare(MemberInfo m1, MemberInfo m2) {
+					int c=m1.getName().compareTo(m2.getName());
+					return o?c:-c;
+				}
+			});
+		}
+		return list;
+	}
+	
 }

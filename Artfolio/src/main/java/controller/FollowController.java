@@ -1,7 +1,6 @@
 package controller;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -10,11 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import model.follow.FollowBean;
 import model.follow.FollowService;
 import model.member.MemberBean;
+import model.member.MemberInfo;
 import model.member.MemberService;
 import model.work.WorkService;
 
@@ -34,17 +35,16 @@ public class FollowController {
 	private MemberService memberService;
 	
 	@RequestMapping(path="get.controller",method=RequestMethod.GET)
-	public FollowList get(){
+	public List<MemberInfo> get(@RequestParam(name="orderby",defaultValue="alphabet")String orderby,
+			@RequestParam(name="order",defaultValue="ascending")String order){
 		Integer mid = (Integer) session.getAttribute("mid");
 		if (mid != null){
-			List<JointFollowBean> list=new ArrayList<>();
+			List<MemberInfo> list=new ArrayList<>();
 			for(FollowBean fb:followService.selectFollowing(mid)){
 				MemberBean mb=memberService.select(fb.getFollowid());
-				StringBuilder sb = new StringBuilder();
-				sb.append("data:image/png;base64,");
-				list.add(new JointFollowBean(mb.getMid(),mb.getName(),mb.getMphoto(),fb.getFollowdate()));
+				list.add(new MemberInfo(mb.getMid(), mb.getName(), mb.getInfo(), mb.getGender(), mb.getMphoto(), mb.getMstart()));
 			}
-			return new FollowList(list);
+			return SearchController.sortMember(list, orderby, order);
 		}
 		return null;
 	}
@@ -117,64 +117,5 @@ public class FollowController {
 		}
 		
 	}
-	class JointFollowBean{
-		private Integer mid;
-		private String name;
-		private String mphoto;
-		private java.util.Date date;
-		public JointFollowBean(){}
-		public JointFollowBean(Integer mid, String name, String mphoto, Date date) {
-			this.mid = mid;
-			this.name = name;
-			this.mphoto = mphoto;
-			this.date = date;
-		}
-
-		public Integer getMid() {
-			return mid;
-		}
-
-		public void setMid(Integer mid) {
-			this.mid = mid;
-		}
-
-		public String getName() {
-			return name;
-		}
-
-		public void setName(String name) {
-			this.name = name;
-		}
-
-		public String getMphoto() {
-			return mphoto;
-		}
-
-		public void setMphoto(String mphoto) {
-			this.mphoto = mphoto;
-		}
-
-		public java.util.Date getDate() {
-			return date;
-		}
-		public void setDate(java.util.Date date) {
-			this.date = date;
-		}	
-	}
-	class FollowList{
-		private List<JointFollowBean> list;
-		private final String str="Follow";
-		public FollowList(List<JointFollowBean> list){
-			this.list=list;
-		}
-		public List<JointFollowBean> getList() {
-			return list;
-		}
-		public void setList(List<JointFollowBean> list) {
-			this.list = list;
-		}
-		public String getStr() {
-			return str;
-		}
-	}
+	
 }

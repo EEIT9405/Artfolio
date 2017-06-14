@@ -127,7 +127,6 @@
 					  </ul>
 					</div>
 				  	<div style="margin-top:10px;">
-				    	<a id="wupload" class="btn btn-primary">上傳</a>
 				    	<a id="wedit" class="btn btn-default">編輯</a>
 				    </div>
 				  </div>
@@ -229,7 +228,6 @@
 <script>
 $(function(){
 	var wedit = $('#wedit');
-	var wupload = $('#wupload');
 	var sortbtn = $('#sortList').children('li.sortbtn');
 	var photoContainer = $('#photoContainer');
 	
@@ -268,10 +266,7 @@ $(function(){
 		}
 	});
 	
-	//上傳
-	wupload.click(function(){
-		console.log("上傳");
-	});
+
 	
 	sortbtn.click(function(){
 		var sort = $(this).children('a');
