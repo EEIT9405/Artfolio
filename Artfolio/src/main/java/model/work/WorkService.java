@@ -24,10 +24,10 @@ public class WorkService {
 		this.tbworkDao = tbworkDao;
 	}
 	@Transactional(readOnly=true)
-	public List<WorkBean> select(WorkBean bean) {
+	public List<WorkBean> select(Integer wid) {
 		List<WorkBean> result = null;
-		if(bean!=null && bean.getWid()!=0) {
-			WorkBean temp = tbworkDao.select(bean.getWid());
+		if(wid!=null) {
+			WorkBean temp = tbworkDao.select(wid);
 			if(temp!=null) {
 				result = new ArrayList<WorkBean>();
 				result.add(temp);
@@ -85,11 +85,11 @@ public class WorkService {
 	@Transactional(readOnly=true)
 	public WorkBean getWork(Integer wid){
 		if(wid!=null){
-			return this.select(new WorkBean(wid)).get(0);
+			return this.select(wid).get(0);
 		}		
 		return null;
 	}
-	
+	@Transactional(readOnly=true)
 	public List<WorkBean> selectByMid(Integer mid){
 		if(mid!=null)
 		return tbworkDao.searchByMid(mid);

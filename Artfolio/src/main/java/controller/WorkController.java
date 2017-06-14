@@ -41,6 +41,8 @@ public class WorkController {
 		File path =new File("C:\\EEIT94_05_Project\\" + mid);
 		if(!path.exists())path.mkdirs();
 		List<Map<String, String>> list = new ArrayList<>();
+		List<WorkBean> wblist=new ArrayList<>();
+		session.setAttribute("workList", wblist);
 		session.setAttribute("uploadmsg", list);
 
 		for (MultipartFile file : files) {
@@ -60,14 +62,15 @@ public class WorkController {
 				WorkBean bean = new WorkBean();
 				
 				String wtitle = params.get("wtitle_" + count);
-				if (wtitle != null && wtitle.trim().length() > 0) {
-					bean.setWtitle(wtitle);
+				if (wtitle != null && wtitle.length() > 0) {
+					bean.setWtitle(wtitle.trim());
 				} else {
 					errors.put("wtitle_" + count, "not null");
 				}
 
-				
-				bean.setWinfo(params.get("winfo_" + count));
+				String winfo =params.get("winfo_" + count);
+				if(winfo!=null)
+				bean.setWinfo(winfo.trim());
 				
 
 				Integer aid = null;
@@ -75,8 +78,8 @@ public class WorkController {
 				String said = params.get("aid_" + count);
 				if (said != null && said.trim().length() > 0) {
 					try {
-						aid = Integer.parseInt(said);
-						if ((ab = albumService.select(new AlbumBean(aid)).get(0)) != null)
+						aid = Integer.parseInt(said.trim());
+						if ((ab = albumService.select(aid).get(0)) != null)
 							bean.setAlbumBean(ab);
 						else {
 							errors.put("aid_" + count, "doesnt exist");
@@ -89,19 +92,43 @@ public class WorkController {
 					errors.put("aid_" + count, "not null");
 
 				String isscore = params.get("isscore_" + count);
-				bean.setIsscore(isscore != null && isscore.equals("true"));
-				String iswmsg = params.get("iswmsg_" + count);
-				bean.setIswmsg(iswmsg != null && iswmsg.equals("true"));
-
-				bean.setScore_1(params.get("score_1_" + count));
-				bean.setScore_2(params.get("score_2_" + count));
-				bean.setScore_3(params.get("score_3_" + count));
-				bean.setScore_4(params.get("score_4_" + count));
-				bean.setScore_5(params.get("score_5_" + count));
-				if (bean.getScore_1().length() > 0 || bean.getScore_2().length() > 0 || bean.getScore_3().length() > 0
-						|| bean.getScore_4().length() > 0 || bean.getScore_5().length() > 0)
-					bean.setScoreversion(1);
-
+				bean.setIsscore(isscore != null && isscore.trim().equals("true"));
+				String iswmsg = params.get("iswmsg_" + count).trim();
+				bean.setIswmsg(iswmsg != null && iswmsg.trim().equals("true"));
+				
+				int s=0;
+				String score_1=params.get("score_1_" + count);
+				if(score_1!=null && score_1.trim().length()>0){
+					bean.setScore_1(score_1.trim());
+					s++;
+				}
+				String score_2=params.get("score_2_" + count);
+				if(score_2!=null && score_2.trim().length()>0){
+					bean.setScore_2(score_2.trim());
+					s++;
+				}
+				String score_3=params.get("score_3_" + count);
+				if(score_3!=null && score_3.trim().length()>0){
+					bean.setScore_3(score_3.trim());
+					s++;
+				}
+				String score_4=params.get("score_4_" + count);
+				if(score_4!=null && score_4.trim().length()>0){
+					bean.setScore_4(score_4.trim());
+					s++;
+				}
+				String score_5=params.get("score_5_" + count);
+				if(score_5!=null && score_5.trim().length()>0){
+					bean.setScore_5(score_5.trim());
+					s++;
+				}
+				if(s>0) bean.setScoreversion(1);
+				else if(bean.getIsscore()){
+					bean.setIsscore(false);
+					errors.put("isscore_" + count, "close isscore since no scores have been set");
+				}
+				
+				
 				String type=file.getContentType();
 				String filename = String.valueOf(System.currentTimeMillis())+"."+type.substring(type.indexOf("/")+1);
 		
@@ -109,16 +136,17 @@ public class WorkController {
 					file.transferTo(new File(path, filename));
 					bean.setMid(mid);
 					bean.setPicurl("/" + mid + "/" + filename);
-					workService.insert(bean);
+					workService.insert(bean).getWid();
 				
 				} catch (IllegalStateException e) {
 					e.printStackTrace();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-
+				wblist.add(bean);
 			}
 			list.add(errors);
+			
 		}
 		return "work";
 	}

@@ -86,6 +86,14 @@ table {
 	var frm = document.querySelector('#wk>form');
 	var f = document.querySelector('input[type=file]');
 	var rawtable = document.querySelector('#wk table').cloneNode(true);
+	
+	$.get('album/get.controller',function(data){
+		var target=$('select[name=aid]',rawtable);
+		console.log(target);
+		for(var i=0;i<data.length;i++){
+			$('<option value="'+data[i].aid+'">'+data[i].aname+'</option>').appendTo(target);
+		}
+	});
 	$('form>img', '#wk').click(function() {
 		if (f)
 			f.click();

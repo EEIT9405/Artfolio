@@ -13,5 +13,7 @@ public interface AlbumDAO {
 	AlbumBean update( Integer aid,String aname,Integer wid,Integer mid,java.util.Date adate);
 	
 	boolean delete(Integer aid);
+	
+	List<AlbumBean> selectByMid(Integer mid);
 
 }

@@ -45,9 +45,7 @@ public class BrowsedController {
 		
 		BrowsedBean bean = new BrowsedBean();
 		bean.setMid(user.getMid());
-		WorkBean wb = new WorkBean();
-		wb.setWid(wid);
-		bean.setWorkBean(workService.select(wb).get(0));
+		bean.setWorkBean(workService.select(wid).get(0));
 		browsedService.insert(bean);
 		favoriteService.insertOrUpdate(user, tagService.getTags(wid));
 		return;
@@ -65,9 +63,7 @@ public class BrowsedController {
 					if (likeList != null && !likeList.isEmpty()) {
 						for (LikeBean likeBean : likeList) {
 							if (likeBean.getWid() != wid) {
-								WorkBean wb = new WorkBean();
-								wb.setWid(likeBean.getWid());
-								List<WorkBean> wl = workService.select(wb);
+								List<WorkBean> wl = workService.select(likeBean.getWid());
 								if (wl != null && !wl.isEmpty()) {
 									workSet.add(wl.get(0));
 								}

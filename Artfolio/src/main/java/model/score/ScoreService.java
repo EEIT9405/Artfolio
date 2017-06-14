@@ -21,7 +21,7 @@ public class ScoreService {
 			if(!lock){
 				if(checkFrequency(bean.getWid(),bean.getScoreversion()))
 					return null;
-				WorkBean current = workservice.select(bean).get(0);
+				WorkBean current = workservice.select(bean.getWid()).get(0);
 				scoredao.insert(new ScoreBean(current.getWid(),current.getScoreversion(),
 								current.getScore_1(),current.getScore_2(),current.getScore_3(),current.getScore_4(),current.getScore_5()));
 				bean.setScoreversion(bean.getScoreversion()+1);
