@@ -1,6 +1,5 @@
 package model.work;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,7 +18,6 @@ public class WorkBean {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer wid;
-	@Column(name ="mid",insertable=true, updatable=false)
 	private Integer mid;
 	private String picurl;
 	private String winfo;
@@ -28,18 +26,20 @@ public class WorkBean {
 	private Integer wlike;
 	@Column(insertable=false)
 	private Integer wissue;
-	private boolean iswmsg;
-	private boolean isscore;
-	@Column(name ="wstart",insertable=false, updatable=false)
+	@Column(insertable=false)
+	private Boolean iswmsg;
+	@Column(insertable=false)
+	private Boolean isscore;
+	@Column(insertable=false, updatable=false)
 	private java.util.Date wstart;
-	@Column(name ="wend",insertable=true, updatable=true)
+	@Column(insertable=true, updatable=true)
 	private java.util.Date wend;
 	private String score_1;
 	private String score_2;
 	private String score_3;
 	private String score_4;
 	private String score_5;
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name ="aid")
 	private AlbumBean albumBean;
 	@Column(insertable=false)
