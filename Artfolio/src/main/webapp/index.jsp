@@ -15,13 +15,13 @@
 <link rel="stylesheet" href="css/workWindow.css">
 <script src='js/jquery-3.2.1.min.js'></script>
 <style type="text/css">
-* {
-	border:solid 1px;
+*{
+	font-family:微軟正黑體;
 }
 .wmsgArea {
-	height: 400px;
-	overflow-y: auto;
-	overflow-x: hidden;
+	height: 350px;
+/* 	overflow-y: auto; */
+/* 	overflow-x: hidden; */
 }
 .recommendPhoto {
   overflow: hidden;
@@ -41,6 +41,24 @@
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
   width: 150%;
+}
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
+#ImageModalLabel {
+	color:#fff;
+}
+#likes {
+	color:#fff;
+}
+#followers{
+	color:#fff;
 }
 </style>
 
@@ -84,7 +102,7 @@
 				</div>
 			</div>
 			<div class="col-sm-12 col-md-8">
-				<h1>Top Pictures</h1>
+				<h1 id="topHeading">Top Pictures</h1>
 				<div class="row">
 					<div class="col-sm-12 col-md-6">
 						<div class="row">
@@ -259,11 +277,11 @@
 	<div class="modal fade" id="ImageModal" tabindex="-1" role="dialog"
 		aria-labelledby="ImageModalLabel">
 		<div class="modal-dialog" role="document">
-			<div class="modal-content">
+			<div style="background-color:#222;" class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
+					<button type="button" class="close" id="closeimagemodal"
 						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
+						<span style="color:white;" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 					</button>
 					<h4 class="modal-title" id="ImageModalLabel">Modal title</h4>
 				</div>
@@ -277,12 +295,13 @@
 								<div class="col-md-12">
 								<div id="rc">
 								<form>
-								<input type="button" name="like" value="like"> <label
-								id="likes"></label> <input type="button" name="follow"
-								value="follow"> <label id="followers"></label> <input
-								type="button" value="donate"> <input type="button"
-								name="review" value="review">
-
+								<button type="button" class="btn btn-default" name="like" value="like"><span style="font-size:15px;" class="glyphicon glyphicon-heart-empty">喜歡</span></button> <label
+								id="likes"></label> <button type="button" class="btn btn-default" name="follow"
+								value="follow"><span class="glyphicon glyphicon-star-empty" style="font-size:15px;">追踪</span></button> <label id="followers"></label> <button style="margin-right:7px;"
+								class="btn btn-default" type="button" value="donate"><span class="glyphicon glyphicon-usd" style="font-size:15px;">贊助</span></button><label></label><button style="margin-right:7px;" class="btn btn-default" type="button"
+								name="review" value="review"><span class="glyphicon glyphicon-edit" style="font-size:15px;">評分</span></button><label></label>
+								<button style="float:right;" class="btn btn-default" type="button"
+								name="report" value="report"><span class="glyphicon glyphicon-flag" style="font-size:15px;">檢舉</span></button><label></label>
 							<div class="modal fade bs-example-modal-sm" id="reviewmodal"
 								tabindex="-1" role="dialog" aria-labelledby="reviewmodalLabel">
 								<div class="modal-dialog modal-sm" role="document">
@@ -360,31 +379,42 @@
 				</div>
 <!-- 看過這張圖的也看過 -->
 			</div>
-						</div>
-						<div class="col-md-4">
-							<div id="tag" class="row">
+		</div>
+		
+<!-- 留言、標籤區 -->
+						<div style="overflow-y:auto; background-color:#fff;" class="col-md-4">
+							<div class="row">
+								<div class="col-md-12" id="memberName"></div>
+								<div class="col-md-12" id="workInfo"></div>
+							</div>
+							<div style="height:100px" id="tag" class="row">
+							<div class="col-md-10">
 								<form>
-									<ul>
-										<li class="tag"><input type="button" value="addtag"
-											onclick="addtags()"></li>
+									<ul style="height:60px;">
+										<li class="tag"></li>
 									</ul>
+
 									<div id="addtag" class="itagh">
-										<input type="text" name="tag" value=""> <input
-											type="button" name="add" value="add"> <input
-											type="button" onclick="addtags()" value="cancel"> <span></span>
+										<input type="text" name="tag" value="">
+										<button class="btn btn-primary" type="button" name="add" value="add"><span class="glyphicon glyphicon-plus"></span></button>
+										<button class="btn btn-danger" type="button" onclick="addtags()" value="cancel"><span class="glyphicon glyphicon-remove"></span></button>
+										<span></span>
 									</div>
 									<div id="edittag" class="itagh">
 										<input type="hidden" name="targettag"> <input
 											type="button" name="vote" value="vote">  <input
 											type="button" name="delete" value="delete"> <input
-											type="button" onclick="cancel()" value="cancel"> <span></span>
+											type="button" onclick="cancele()" value="cancel"> <span></span>
 									</div>
-									
 								</form>
-							</div>
-
-							<div class="row"></div>
-							<div id="wmsg" class="row">
+								</div>
+								<div style="margin-top:50px;" class="col-md-2">
+									<button style="margin-left:0;" class="btn btn-primary" type="button" value="addtag"
+											onclick="addtags()"><span style="font-size:15px;" class="glyphicon glyphicon-tag"></span></button>
+								</div>
+						</div>
+							
+							<div style="margin-top:15px;" id="wmsg" class="row">
 								<form>
 									<div class="form-group" style="margin-right: 5px;">
 										<textarea class="form-control" rows="3"
@@ -443,7 +473,9 @@
 
 			var modelTitle = $('#ImageModalLabel');
 			var recommend = $('#recommend');
-			
+			var memberName = $('#memberName');
+			var workInfo = $('#workInfo');
+			var ImageModalLabel = $('#ImageModalLabel');
 			showTop();
 			putIssueNo();
 
@@ -596,7 +628,7 @@
 
 				} else {
 					showTop(issue);
-					$('.col-sm-12.col-md-8').children('h1').text(
+					$('#topHeading').text(
 							'Top Pictures of the Issue ' + issue);
 				}
 			});
@@ -605,20 +637,31 @@
 			//博超--------
 
 			function showModal() {
-						thisWid = $(this).children('input[name="wid"]').val();
-						$('#wid').val(thisWid);
-						var mb = $('#modalbodyimage').empty();
-						$(this).children('img').clone().attr("style",
-								"max-width:100%;max-height:500px").addClass(
-								'img-fluid').appendTo(mb);
-						$('#ImageModal').modal({
-							backdrop : 'static'
-						});
-						showWmsg();
-						getAll();
-						showRecommendPhoto();
-					}
+				thisWid = $(this).children('input[name="wid"]').val();
+				$('#wid').val(thisWid);
+				var mb = $('#modalbodyimage').empty();
+				$(this).children('img').clone().attr("style",
+							"max-width:100%;max-height:500px").addClass(
+							'img-fluid').appendTo(mb);
+				$('#ImageModal').modal(
+					{backdrop : 'static',keyboard:false}
+				);
+				showWmsg();
+				getAll();
+				showRecommendPhoto();
+				showWorkInfo();
+			}
 			
+			function showWorkInfo(){
+				memberName.empty();
+				workInfo.empty();
+				ImageModalLabel.empty();
+				$.getJSON('getWorkById.controller', {wid:thisWid}, function(data){
+					memberName.append($('<h5>').append($('<a>').text(data.memberBean.name).attr('href','#')));
+					workInfo.append(data.workBean.winfo);
+					ImageModalLabel.append(data.workBean.wtitle);
+				});
+			}
 			
 			$('.img-box').click(showModal);
 			//博超-----------
@@ -638,7 +681,7 @@
 					var documentFrag = $(document.createDocumentFragment());
 					recommend.append($('<div class="col-md-1">'));
 					$.each(data, function(index, value){
-						var div = $('<div class="col-md-2 recommendPhoto">');
+						var div = $('<div class="col-md-2 recommendPhoto">').addClass('img-rounded');
 						var img = $('<img>').attr('src', value.picurl);
 						var widhidden = $('<input name="wid" type="hidden">').val(value.wid);
 						div.append(img);
@@ -652,58 +695,28 @@
 			
 			//wmsg
 			function showWmsg() {
-				$
-						.getJSON(
-								'showWmsg.controller',
-								{
-									wid : thisWid
-								},
-								function(data) {
-									wmsgTable.empty();
-									var docFrag = $(document
-											.createDocumentFragment());
-									$
-											.each(
-													data,
-													function(index, value) {
-														//var td1 = $('<td>').append($('<img>').attr('src',value.memberBean.mphoto));
-														var td2 = $('<td>')
-																.text(
-																		value.memberBean.name);
-														var td3 = $('<td>')
-																.html(
-																		value.wmsgcontent);
-														var td4 = $('<td>')
-																.text(
-																		$
-																				.formatDateTime(
-																						'yy-mm-dd gg:ii:ss a',
-																						new Date(
-																								value.wmsgdate)));
-														var td6 = $(
-																'<input type="hidden">')
-																.val(
-																		value.wmsgid);
-														var row = $('<tr>');
-														if (value.memberBean.mid == $(
-																'#user').val()) {
-															var td5 = $('<td>')
-																	.append(
-																			$('<a title="delete" class="btn glyphicon glyphicon-remove-circle">'));
-															td5
-																	.append($('<a title="edit" class="btn glyphicon glyphicon-pencil">'));
-															row.append([ td2,
-																	td3, td4,
-																	td5, td6 ]);
-														} else {
-															row.append([ td2,
-																	td3, td4,
-																	td6 ]);
-														}
-														docFrag.prepend(row);
-													});
-									wmsgTable.append(docFrag);
-								});
+				$.getJSON('showWmsg.controller', {wid:thisWid}, function(data) {
+					wmsgTable.empty();
+					var docFrag = $(document.createDocumentFragment());
+					$.each(data, function(index, value) {
+						var td1 = $('<td width="10%">').append($('<img>').attr('src',value.memberBean.mphoto));
+						var td2 = $('<td width="15%">').text(value.memberBean.name);
+						var td3 = $('<td width="40%">').html(value.wmsgcontent);
+						var td4 = $('<td width="30%">').text($.formatDateTime('yy-mm-dd gg:ii:ss a',new Date(value.wmsgdate)));
+						var td6 = $('<input type="hidden">').val(value.wmsgid);
+						var row = $('<tr>');
+						if (value.memberBean.mid == $('#user').val()) {
+							var td5 = $('<td width="5%">').append($('<a title="delete" class="btn glyphicon glyphicon-remove-circle">'));
+								td5.append($('<a title="edit" class="btn glyphicon glyphicon-pencil">'));
+							row.append([td1, td2, td3, td4, td5, td6 ]);
+						}else {
+							var td5 = $('<td width="5%">');
+							row.append([td1, td2, td3, td4, td5, td6]);
+						}
+						docFrag.prepend(row);
+					});
+					wmsgTable.append(docFrag);
+				});
 			}
 
 			function changeBtnDisable() {
@@ -728,55 +741,32 @@
 				changeBtnDisable();
 			});
 
-			wmsgSubmit
-					.click(function() {
-						var msg = wmsgTextarea.val();
-						$
-								.post(
-										'insertWmsg.controller',
-										{
-											wmsgcontent : msg,
-											wid : thisWid
-										},
-										function(data) {
-											//var td1 = $('<td>').append($('<img>').attr('src',value.memberBean.mphoto));
-											var td2 = $('<td>').text(
-													data.memberBean.name);
-											var td3 = $('<td>').html(
-													data.wmsgcontent);
-											var td4 = $('<td>')
-													.text(
-															$
-																	.formatDateTime(
-																			'yy-mm-dd gg:ii:ss a',
-																			new Date(
-																					data.wmsgdate)));
-											var td6 = $('<input type="hidden">')
-													.val(data.wmsgid);
-											var row = $('<tr>');
-											if (data.memberBean.mid == $(
-													'#user').val()) {
-												var td5 = $('<td>')
-														.append(
-																$('<a title="delete" class="btn glyphicon glyphicon-remove-circle">'));
-												td5
-														.append($('<a title="edit" class="btn glyphicon glyphicon-pencil">'));
-												row.append([ td2, td3, td4,
-														td5, td6 ]);
-											} else {
-												row
-														.append([ td2, td3,
-																td4, td6 ]);
-											}
-											wmsgTable.prepend(row);
-										});
-						wmsgTextarea.val('');
-						changeBtnDisable()
-					});
+			wmsgSubmit.click(function() {
+				var msg = wmsgTextarea.val();
+				$.post('insertWmsg.controller',	{wmsgcontent : msg,	wid : thisWid},function(data) {
+					var td1 = $('<td width="10%">').append($('<img>').attr('src',data.memberBean.mphoto));
+					var td2 = $('<td width="15%">').text(data.memberBean.name);
+					var td3 = $('<td width="40%">').html(data.wmsgcontent);
+					var td4 = $('<td width="30%">').text($.formatDateTime('yy-mm-dd gg:ii:ss a', new Date(data.wmsgdate)));
+					var td6 = $('<input type="hidden">').val(data.wmsgid);
+					var row = $('<tr>');
+					if (data.memberBean.mid == $('#user').val()) {
+						var td5 = $('<td width="5%">').append($('<a title="delete" class="btn glyphicon glyphicon-remove-circle">'));
+							td5.append($('<a title="edit" class="btn glyphicon glyphicon-pencil">'));
+							row.append([ td1, td2, td3, td4, td5, td6 ]);
+					} else {
+						var td5 = $('<td width="5%">');
+						row.append([ td1, td2, td3, td4, td5,td6 ]);
+					}
+					wmsgTable.prepend(row);
+				});
+				wmsgTextarea.val('');
+				changeBtnDisable();
+			});
 
 			wmsgCancel.click(function() {
 				wmsgTextarea.val('');
-				changeBtnDisable()
+				changeBtnDisable();
 			});
 
 			wmsgTable.on('click', 'a[title="edit"]',
@@ -785,7 +775,7 @@
 						var id = thiz.parent('td').parent('tr').children(
 								'input').val();
 						var td = thiz.parent('td').parent('tr').children('td')
-								.eq(1);
+								.eq(2);
 						var msg = td.text();
 						if (thiz.hasClass('glyphicon-pencil')) {
 							td.empty();
@@ -795,8 +785,6 @@
 							thiz.addClass('glyphicon-ok-circle');
 						} else if (thiz.hasClass('glyphicon-ok-circle')) {
 							var wmsgcontent = td.children('textarea').val();
-							console.log(wmsgcontent);
-							console.log(thisWid);
 							$.get('updateWmsg.controller', {
 								wmsgid : id,
 								wmsgcontent : wmsgcontent
@@ -831,7 +819,7 @@
 		var divedit = $('#edittag');
 		var deltagbutton = divedit.find('input[name=delete]');	
 		var itag = divadd.find('input[name=tag]');
-		var addtagbutton = divadd.find('input[name=add]');
+		var addtagbutton = divadd.find('button[name=add]');
 		var addmsg = divadd.children('span');
 		var editmsg = divedit.children('span');
 		var targettag=divedit.find('input[name=targettag]');
@@ -935,7 +923,7 @@
 
 		});
 		
-		function cancel(){
+		function cancele(){
 			addmsg.text('');
 			divedit.toggleClass("itags itagh").find('span').text("");
 		}
@@ -945,7 +933,7 @@
 			itag.val("");
 		}
 		function showTags(data) {
-			var target = $('form>ul>li>input','#tag').parent('li');
+			var target = $('form>ul li:nth-child(1)','#tag');
 			for (var i = 0; i < data.length; i++) {
 				if (data[i].lock)
 					data[i].tag+="*";
@@ -975,12 +963,19 @@
 		var values=$('tbody>tr>td:last-child','#rc');
 		var frm=$('form', '#rc');
 		var records=$('input[name^=record]','#rc');
-		
+
 		var update=$('input[name=update]','#rc');
 		var submit=$('input[name=submit]','#rc');
 		var cancel=$('input[name=cancel]','#rc');
-		var review=$('input[name=review]','#rc');
+		var review=$('button[name=review]','#rc');
 		var message=cancel.next('span');
+		var report = $('button[name=report]');
+		
+		
+		report.click(function(){
+			
+			
+		});
 		
 		records.on('change',function(){
 			$(this).parent('td').next('td').text($(this).val());
@@ -1029,20 +1024,40 @@
 			}
 		});
 		review.click(function(){
-			$('#reviewmodal').modal({
-				backdrop : 'static'
-			});
+			$('#reviewmodal').modal(
+					{backdrop : 'static',keyboard:false}
+			);
 		});
-		var like=$('input[name=like]','#rc');
+		
+		review.mousedown(function(){
+			$(this).addClass('btn-success');
+		});
+		review.mouseup(function(){
+			$(this).removeClass('btn-success');
+		});
+		review.mouseout(function(){
+			$(this).removeClass('btn-success');
+		});
+		
+		report.click(function(){
+			$('#reviewmodal').modal(
+					{backdrop : 'static',keyboard:false}
+			);
+		});
+		
+		var like=$('button[name=like]','#rc');
 		var likes=$('#likes');
-		var follow=$('input[name=follow]','#rc');
+		var follow=$('button[name=follow]','#rc');
 		var followers=$('#followers');
+		var donate = $('button[value=donate]');
 		
 		like.click(function(){
 			if(like.val()=='like'){
 				$.post('like/insert.controller',{wid:wid.val()},function(data){
 					if(data.liked){
 						like.val('unlike');
+						like.removeClass('btn-default');
+						like.addClass('btn-danger');
 						likes.text(data.likes);
 					}else{
 						alert('error');
@@ -1052,6 +1067,8 @@
 				$.post('like/delete.controller',{wid:wid.val()},function(data){
 					if(data!='' && !data.liked){
 						like.val('like');
+						like.removeClass('btn-danger');
+						like.addClass('btn-default');
 						likes.text(data.likes);
 					}else{
 						alert('error');
@@ -1065,6 +1082,8 @@
 				$.post('follow/insert.controller',{wid:wid.val()},function(data){
 					if(data.followed){
 						follow.val('unfollow');
+						follow.removeClass('btn-default');
+						follow.addClass('btn-info');
 						followers.text(data.followers);
 					}else{
 						alert('error');
@@ -1074,6 +1093,8 @@
 				$.post('follow/deleteByWid.controller',{wid:wid.val()},function(data){
 					if(data!='' && !data.followed){
 						follow.val('follow');
+						follow.removeClass('btn-info');
+						follow.addClass('btn-default');
 						followers.text(data.followers);
 					}else{
 						alert('error');
@@ -1082,19 +1103,36 @@
 			}
 		});
 		
-		$('input[value=donate]').on('click',function(){
+		donate.on('click',function(){
 			window.open('point/donate.controller?wid='+wid.val(),'donate','height=300,width=300');
+		});
+		
+		donate.on('mousedown', function(){
+			$(this).addClass('btn-warning');
+		});
+		donate.on('mouseup', function(){
+			$(this).removeClass('btn-warning');
+		});
+		donate.on('mouseout', function(){
+			$(this).removeClass('btn-warning');
 		});
 		
 		$('#closereview').click(function() {
 			$('#reviewmodal').modal('hide');
 		});
-		
+		$('#reviewmodal').on('hidden.bs.modal',function(){
+			$('body').addClass('modal-open');
+		});
+		$('#closeimagemodal').click(function() {
+			$('#ImageModal').modal('hide');
+		});
 		function getAll(){
 			$.get('follow/check.controller',{wid:wid.val()},function(data){
 				followers.text(data.followers);
 				if(data.followed){
 					follow.val('unfollow');
+					follow.removeClass('btn-default');
+					follow.addClass('btn-info');
 				}
 			});
 			$.get("tag/get.controller", {
@@ -1140,6 +1178,8 @@
 				likes.text(data.likes);
 				if(data.liked){
 					like.val('unlike');
+					like.removeClass('btn-default');
+					like.addClass('btn-danger');
 				}
 			});
 		}

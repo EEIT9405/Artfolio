@@ -48,9 +48,21 @@
   line-height: 1.428571429;
   border-radius: 15px;
 }
-.editer {
-	position:absolute;
-	right:0;
+.footer {
+  padding-top: 40px;
+  padding-bottom: 10px;
+  background-color: #222;
+  color: #999;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+.footer hr {
+  background-color: #222;
+  opacity: 0.1;
+}
+
+.title h3{
+	text-align:center;
 }
 </style>
 
@@ -200,10 +212,9 @@
 <!-- /.container -->
 
 <!-- JS -->
+<script src="js/jquery.formatDateTime.min.js"></script>
 <script>
 $(function(){
-	var wedit = $('#wedit');
-	var wupload = $('#wupload');
 	var sortbtn = $('#sortList').children('li.sortbtn');
 	var photoContainer = $('#photoContainer');
 	
@@ -211,41 +222,7 @@ $(function(){
 	
 	//載入作者資訊
 	
-	//開啟編輯功能
-	wedit.click(function(){
-		var a1 = $('<a title="remove" class="btn btn-circle btn-danger glyphicon glyphicon-remove">');
-		var a2 = $('<a title="edit" class="btn btn-circle btn-primary glyphicon glyphicon-pencil">');
-		var editer = $('#photoContainer div.editer');
-		if(wedit.text() == "編輯"){
-			for(var i=0; i<editer.length; i++){
-				editer.eq(i).empty();
-				editer.eq(i).append(a1.clone());
-				editer.eq(i).append(a2.clone());
-			}
-			wedit.text('取消');
-		}else {
-			for(var i=0; i<editer.length; i++){
-				editer.eq(i).empty();
-			}
-			wedit.text('編輯');
-		}
-	});
-	//刪除或編輯
-
-	$('#photoContainer').on('click', 'div.editer a', function(){
-		var btn = $(this);
-		if(btn.attr('title') == "remove"){
-			console.log("remove");
-		}
-		if(btn.attr('title') == "edit"){
-			console.log("edit");
-		}
-	});
 	
-	//上傳
-	wupload.click(function(){
-		console.log("上傳");
-	});
 	
 	sortbtn.click(function(){
 		var sort = $(this).children('a');
@@ -275,7 +252,17 @@ $(function(){
 				var photowid = $('<input name="wid" type="hidden">').val(value.wid);
 				var title = $('<div class="title">');
 				var h3 = $('<h3>');
-				h3.append(value.wtitle);
+				if(orderby == "alphabet"){
+					h3.append(value.wtitle);
+				}
+				if(orderby == "date"){
+					h3.append($.formatDateTime('yy-mm-dd' ,(new Date(value.wstart))));
+				}
+				if(orderby == "like"){
+					h3.append("人氣：" + value.wlike);
+				}
+				
+				
 				title.append(h3);
 				img.attr('src', value.picurl);
 				img.attr('title',value.wtitle);

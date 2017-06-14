@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import misc.schedule.WorkTopScheduler;
+import model.member.MemberBean;
 import model.member.MemberService;
 import model.work.WorkBean;
+import model.work.WorkService;
 import model.work.WorkTopService;
 
 @Controller
@@ -27,6 +29,8 @@ public class WorkTopControlller {
 	private WorkTopService workTopService;
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private WorkService workService;
 
 	@RequestMapping(value = "/workTop.controller", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
 	@ResponseBody
@@ -79,10 +83,10 @@ public class WorkTopControlller {
 				issue = s;
 			}
 		}
-		if (issue > 0){
+		if (issue > 0) {
 			List<WorkBean> workList = workTopService.selectTop(issue);
 			List<Map<String, Object>> mapList = new ArrayList<>();
-			for(WorkBean work : workList){
+			for (WorkBean work : workList) {
 				Map<String, Object> map = new HashMap<>();
 				map.put("memberBean", memberService.select(work.getMid()));
 				map.put("workBean", work);
@@ -92,14 +96,14 @@ public class WorkTopControlller {
 		}
 		return null;
 	}
-	
+
 	@RequestMapping(value = "/showAllIssueNo.controller", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
 	@ResponseBody
-	public List<Integer> getAllIssueNo(){
+	public List<Integer> getAllIssueNo() {
 		Set<Integer> set = workTopService.selectIssueNO(false);
 		Iterator<Integer> iterator = set.iterator();
-		while(iterator.hasNext()){
-			if(iterator.next().equals(0)){
+		while (iterator.hasNext()) {
+			if (iterator.next().equals(0)) {
 				iterator.remove();
 			}
 		}
@@ -110,5 +114,35 @@ public class WorkTopControlller {
 	@ResponseBody
 	public Map<Integer, List<WorkBean>> showAllTop() {
 		return workTopService.selectAllTop();
+	}
+
+	@RequestMapping(value = "/getWorkById.controller", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> getWorkById(Integer wid) {
+		if (wid != null) {
+			Map<String, Object> map = new HashMap<>();
+			WorkBean work = new WorkBean();
+			work.setWid(wid);
+			List<WorkBean> list = workService.select(work);
+			if (list != null && !list.isEmpty())
+				map.put("workBean", list.get(0));
+			MemberBean member = memberService.select(list.get(0).getMid());
+			if (member != null){
+				member.setFavorites(null);
+				member.setIsgender(null);
+				member.setIsinfo(null);
+				member.setIsmail(null);
+				member.setIsname(null);
+				member.setMend(null);
+				member.setMstart(null);
+				member.setMupdate(null);
+				member.setPoint(null);
+				member.setPwd(null);
+				map.put("memberBean", member);
+			}
+			if (map.size() == 2)
+				return map;
+		}
+		return null;
 	}
 }
