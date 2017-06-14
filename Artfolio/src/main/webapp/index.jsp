@@ -1139,7 +1139,7 @@
 				wid : wid.val()
 			},function(){
 				$('form>ul','#tag').empty();
-				showTags();
+				showTags(); 
 			});
 			
 			$.get('record/getw.controller',{wid:wid.val()},function(data){
