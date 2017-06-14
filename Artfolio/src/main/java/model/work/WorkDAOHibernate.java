@@ -27,7 +27,7 @@ public class WorkDAOHibernate implements WorkDAO {
 		return sessionFactory.getCurrentSession();
 	}
 	@Override
-	public WorkBean select(int wid) {
+	public WorkBean select(Integer wid) {
 		return getSession().get(WorkBean.class, wid);
 	}
 	@Override
@@ -38,7 +38,7 @@ public class WorkDAOHibernate implements WorkDAO {
 	@Override
 	public WorkBean insert(WorkBean bean) {
 		if(bean!=null) {
-			if(bean.getWid()==0){
+			if(bean.getWid()==null){
 				this.getSession().save(bean);
 			}
 			return bean;
@@ -46,8 +46,8 @@ public class WorkDAOHibernate implements WorkDAO {
 		return null;
 	}
 	@Override
-	public WorkBean update(int wid, int mid, String picurl, int aid, String winfo, String wtitle, int wlike, int wissue,
-			boolean iswmsg, boolean isscore, Date wstart, Date wend, String score_1, String score_2, String score_3,
+	public WorkBean update(Integer wid, Integer mid, String picurl, Integer aid, String winfo, String wtitle, Integer wlike, Integer wissue,
+			Boolean iswmsg, Boolean isscore, Date wstart, Date wend, String score_1, String score_2, String score_3,
 			String score_4, String score_5,Integer scoreversion) {
 		WorkBean bean = this.select(wid);
 		if(bean!=null) {
@@ -72,7 +72,7 @@ public class WorkDAOHibernate implements WorkDAO {
 		return bean;
 	}
 	@Override
-	public boolean delete(int wid) {
+	public boolean delete(Integer wid) {
 		WorkBean bean = this.select(wid);
 		if(bean!=null) {
 			this.getSession().delete(bean);

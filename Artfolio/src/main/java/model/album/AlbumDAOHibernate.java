@@ -24,7 +24,7 @@ public class AlbumDAOHibernate implements AlbumDAO {
 		return sessionFactory.getCurrentSession();
 	}
 	@Override
-	public AlbumBean select(int aid) {
+	public AlbumBean select(Integer aid) {
 		return getSession().get(AlbumBean.class, aid);
 	}
 	@Override
@@ -40,7 +40,7 @@ public class AlbumDAOHibernate implements AlbumDAO {
 		return null;
 	}
 	@Override
-	public AlbumBean update(int aid, String aname, int wid, int mid, Date adate) {
+	public AlbumBean update(Integer aid, String aname, Integer wid, Integer mid, Date adate) {
 		AlbumBean bean = this.select(aid);
 		if(bean!=null) {
 			bean.setAid(aid);
@@ -52,7 +52,7 @@ public class AlbumDAOHibernate implements AlbumDAO {
 		return bean;
 	}
 	@Override
-	public boolean delete(int aid) {
+	public boolean delete(Integer aid) {
 		AlbumBean bean = this.select(aid);
 		if(bean!=null) {
 			this.getSession().delete(bean);
