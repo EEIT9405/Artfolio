@@ -933,11 +933,11 @@
 			itag.val("");
 		}
 		function showTags(data) {
-			var target = $('form>ul li:nth-child(1)','#tag');
+			var target = $('form>ul','#tag');
 			for (var i = 0; i < data.length; i++) {
 				if (data[i].lock)
 					data[i].tag+="*";
-				$('<li class="tag"><a href="" target="_blank">' + data[i].tag+ '</a></li>').insertBefore(target);
+				$('<li class="tag"><a href="" target="_blank">' + data[i].tag+ '</a></li>').appendTo(target);
 			}
 			if ($('li>a','#tag').length==10)
 				addtagbutton.prop("disabled",true);
@@ -1137,7 +1137,10 @@
 			});
 			$.get("tag/get.controller", {
 				wid : wid.val()
-			},showTags);
+			},function(){
+				$('form>ul','#tag').empty();
+				showTags();
+			});
 			
 			$.get('record/getw.controller',{wid:wid.val()},function(data){
 				if(data.isscore){
