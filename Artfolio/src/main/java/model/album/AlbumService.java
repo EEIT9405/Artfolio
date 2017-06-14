@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -25,10 +24,10 @@ public class AlbumService {
 	}
 	
 	@Transactional(readOnly=true)
-	public List<AlbumBean> select(AlbumBean bean) {
+	public List<AlbumBean> select(Integer aid) {
 		List<AlbumBean> result = null;
-		if(bean!=null && bean.getWid()!=0) {
-			AlbumBean temp = albumDao.select(bean.getAid());
+		if(aid!=null) {
+			AlbumBean temp = albumDao.select(aid);
 			if(temp!=null) {
 				result = new ArrayList<AlbumBean>();
 				result.add(temp);
@@ -60,5 +59,10 @@ public class AlbumService {
 		}
 		return result;
 	}
-	
+	@Transactional(readOnly=true)
+	public List<AlbumBean> selectByMid(Integer mid){
+		if(mid!=null)
+			return albumDao.selectByMid(mid);
+		return null;
+	}
 }

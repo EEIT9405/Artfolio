@@ -20,6 +20,8 @@ public class AlbumBean {
 	private Integer mid;
 	@Column(name ="adate",insertable=false, updatable=false)
 	private java.util.Date adate;
+	public AlbumBean(){}
+	public AlbumBean(Integer aid){this.aid=aid;}
 	public Integer getAid() {
 		return aid;
 	}

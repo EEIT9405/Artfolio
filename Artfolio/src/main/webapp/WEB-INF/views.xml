@@ -34,6 +34,9 @@
 	<bean id="donate" class="org.springframework.web.servlet.view.InternalResourceView">
 		<property name="url" value="/donate.jsp"/>
 	</bean> 
-	
+	<bean id="work" class="org.springframework.web.servlet.view.RedirectView">
+		<property name="contextRelative" value="true" />
+		<property name="url" value="/work.jsp"/>
+	</bean> 
 	
 </beans>

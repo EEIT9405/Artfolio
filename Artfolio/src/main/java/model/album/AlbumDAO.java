@@ -4,14 +4,16 @@ import java.util.List;
 
 public interface AlbumDAO {
 
-	AlbumBean select(int aid);
+	AlbumBean select(Integer aid);
 	
 	List<AlbumBean> select();
 
 	AlbumBean insert(AlbumBean bean);
 	
-	AlbumBean update( int aid,String aname,int wid,int mid,java.util.Date adate);
+	AlbumBean update( Integer aid,String aname,Integer wid,Integer mid,java.util.Date adate);
 	
-	boolean delete(int aid);
+	boolean delete(Integer aid);
+	
+	List<AlbumBean> selectByMid(Integer mid);
 
 }

@@ -70,7 +70,7 @@ aid int primary key identity,
 aname varchar(100),
 wid int, --封面作品id
 mid int foreign key references tb_member(mid) not null,
-adate datetime
+adate datetime default getdate()
 );
 
 --作品

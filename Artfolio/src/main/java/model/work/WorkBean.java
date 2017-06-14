@@ -26,13 +26,11 @@ public class WorkBean {
 	private Integer wlike;
 	@Column(insertable=false)
 	private Integer wissue;
-	@Column(insertable=false)
 	private Boolean iswmsg;
-	@Column(insertable=false)
 	private Boolean isscore;
 	@Column(insertable=false, updatable=false)
 	private java.util.Date wstart;
-	@Column(insertable=true, updatable=true)
+	@Column(insertable=false, updatable=true)
 	private java.util.Date wend;
 	private String score_1;
 	private String score_2;
@@ -42,8 +40,7 @@ public class WorkBean {
 	@ManyToOne
 	@JoinColumn(name ="aid")
 	private AlbumBean albumBean;
-	@Column(insertable=false)
-	private Integer scoreversion;
+	private Integer scoreversion=0;
 	public Integer getScoreversion() {
 		return scoreversion;
 	}

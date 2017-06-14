@@ -121,9 +121,7 @@ public class WorkTopControlller {
 	public Map<String, Object> getWorkById(Integer wid) {
 		if (wid != null) {
 			Map<String, Object> map = new HashMap<>();
-			WorkBean work = new WorkBean();
-			work.setWid(wid);
-			List<WorkBean> list = workService.select(work);
+			List<WorkBean> list = workService.select(wid);
 			if (list != null && !list.isEmpty())
 				map.put("workBean", list.get(0));
 			MemberBean member = memberService.select(list.get(0).getMid());
