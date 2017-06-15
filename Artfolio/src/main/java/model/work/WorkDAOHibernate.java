@@ -2,7 +2,6 @@ package model.work;
 
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
@@ -46,28 +45,28 @@ public class WorkDAOHibernate implements WorkDAO {
 		return null;
 	}
 	@Override
-	public WorkBean update(Integer wid, Integer mid, String picurl, Integer aid, String winfo, String wtitle, Integer wlike, Integer wissue,
-			Boolean iswmsg, Boolean isscore, Date wstart, Date wend, String score_1, String score_2, String score_3,
-			String score_4, String score_5,Integer scoreversion) {
-		WorkBean bean = this.select(wid);
+	public WorkBean update(WorkBean wb) {
+		WorkBean bean = this.select(wb.getWid());
 		if(bean!=null) {
-			bean.setWid(wid);
-			bean.setMid(mid);
-			bean.setPicurl(picurl);
-			bean.setWinfo(winfo);
-			bean.setWtitle(wtitle);
-			bean.setWlike(wlike);
-			bean.setWissue(wissue);
-			bean.setIswmsg(iswmsg);
-			bean.setIsscore(isscore);
-			bean.setWstart(wstart);
-			bean.setWend(wend);
-			bean.setScore_1(score_1);
-			bean.setScore_2(score_2);
-			bean.setScore_3(score_3);
-			bean.setScore_4(score_4);
-			bean.setScore_5(score_5);
-			bean.setScoreversion(scoreversion);
+			bean.setWid(wb.getWid());
+			bean.setMid(wb.getMid());
+			bean.setPicurl(wb.getPicurl());
+			bean.setWinfo(wb.getWinfo());
+			bean.setWtitle(wb.getWtitle());
+			bean.setWlike(wb.getWlike());
+			bean.setWissue(wb.getWissue());
+			bean.setIswmsg(wb.getIswmsg());
+			bean.setIsscore(wb.getIsscore());
+			bean.setWstart(wb.getWstart());
+			bean.setWend(wb.getWend());
+			bean.setScore_1(wb.getScore_1());
+			bean.setScore_2(wb.getScore_2());
+			bean.setScore_3(wb.getScore_3());
+			bean.setScore_4(wb.getScore_4());
+			bean.setScore_5(wb.getScore_5());
+			bean.setScoreversion(wb.getScoreversion());
+			bean.setAlbumBean(wb.getAlbumBean());
+			bean.setWorder(wb.getWorder());
 		}
 		return bean;
 	}
