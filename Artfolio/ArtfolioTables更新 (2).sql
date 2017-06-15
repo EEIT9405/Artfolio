@@ -34,7 +34,7 @@ gender bit not null, --男1,女0
 isgender bit default 1,
 info varchar(1024), --自我介紹
 isinfo bit default 1,
-mphoto varbinary(max),--大頭貼
+mphoto varchar(256),--大頭貼
 point int default 0, --點數
 mstart datetime default getDate(), --開始日 
 mend datetime default '9999-12-31', --結束日
