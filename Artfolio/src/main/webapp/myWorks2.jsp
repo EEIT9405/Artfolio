@@ -9,6 +9,7 @@
 <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <script src="js/jquery-3.2.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="css/workWindow.css">
 <style type="text/css">
 .img-box {
   overflow: hidden;
@@ -274,6 +275,32 @@
 		</form>
 		
 	</div>
+	<div style="height:100px" id="tag" class="row">
+							<div class="col-md-10">
+								<form>
+									<ul style="height:60px;">
+										<li class="tag"></li>
+									</ul>
+
+									<div id="addtag" class="itagh">
+										<input type="text" name="tag" value="">
+										<button class="btn btn-primary" type="button" name="add" value="add"><span class="glyphicon glyphicon-plus"></span></button>
+										<button class="btn btn-danger" type="button" value="cancel"><span class="glyphicon glyphicon-remove"></span></button>
+										<span></span>
+									</div>
+									<div id="edittag" class="itagh">
+										<input type="hidden" name="targettag"> 
+										<input type="button" name="lock" value="lock"> 
+										<input type="button" name="delete" value="delete"> 
+										<input type="button" value="cancel"> <span></span>
+									</div>
+								</form>
+								</div>
+								<div style="margin-top:50px;" class="col-md-2">
+									<button style="margin-left:0;" class="btn btn-primary" type="button" value="addtag"
+											><span style="font-size:15px;" class="glyphicon glyphicon-tag"></span></button>
+								</div>
+						</div>
 	<div>
 		<form id="stats">
 			<select name="selectedversion"></select>
@@ -559,6 +586,12 @@ $(function(){
 	var datatb=frm.find('tbody:first');
 	function showModal(i){
 		wid.val(i);
+		$.get("tag/get.controller", {
+			wid : wid.val()
+		},function(data){
+			$('form>ul','#tag').empty();
+			showTags(data); 
+		});
 		$.get("record/getw.controller", { //get work 
 			wid : wid.val()
 		}, function(work) {
@@ -618,6 +651,163 @@ $(function(){
 				alert('blank')
 		}
 	});
+	var divadd = $('#addtag');
+	var divedit = $('#edittag');
+	var deltagbutton = divedit.find('input[name=delete]');
+	var locktagbutton = divedit.find('input[name=lock]');	
+	var itag = divadd.find('input[name=tag]');
+	var addtagbutton = divadd.find('button[name=add]');
+	var addmsg = divadd.children('span');
+	var editmsg = divedit.children('span');
+	var targettag=divedit.find('input[name=targettag]');
+	
+	divadd.find('button[value=cancel]').click(addtags);
+	$('button[value=addtag]','#tag').click(addtags);
+	addtagbutton.on(
+			'click',
+			function() {
+				editmsg.text('');
+				var tags = itag.val();
+				if (/^[A-Za-z \u4E00-\u9FFF]+[A-Za-z ,\u4E00-\u9FFF]*[A-Za-z \u4E00-\u9FFF]+$/.test(tags) && tags.trim() != "") {
+					var stag = tags.trim().split(",");
+					for (var i=0;i<stag.length;i++){
+						if(stag[i].length>20){
+							addmsg.text("length of tag must be less than or equal to 20.");
+							return;
+						}
+					}
+					var message="";
+					var current=$('form>ul>li>a','#tag');
+					current.each(function(){
+						var ctag=$(this).text();
+						for(var i=0;i<stag.length;i++){
+							if(stag[i]==ctag){
+								message=message+stag.splice(i,1)[0]+" ";
+								i=i-1;
+							}
+						}	
+					});
+					if(stag.length==0){
+						addmsg.text("absorb since all existed");
+					}
+					else
+					if(current.length+stag.length<=20){
+						$.post("tag/add.controller", {
+							wid : wid.val(),
+							tags : stag
+						}, function(data){
+							if(data){
+								showTags(data);
+								if(message!="")
+									addmsg.text("ignored following tags:"+message+"since existed");
+								else
+									addmsg.text("done");
+								itag.val("");
+							}else
+								addmsg.text("error");
+						});
+					}else
+						addmsg.text("number of tags is limited to 10");
+				} else
+					addmsg.text("format error,must begin and end with letters "+ 
+							"and contain only letters,space and comma,at least two letters.");
+			});
+	
+	
+	
+	$('form>ul','#tag').on('click', 'li>a', function(e) {
+		e.preventDefault();
+		addmsg.text('');
+		var s = $(this).text();
+		var i=s.indexOf('*');
+		var ls;
+		if(i>=0){
+			s=s.substring(0,i);
+			deltagbutton.prop("disabled",true);
+			ls = "unlock "+s;
+		}else{
+			deltagbutton.prop("disabled",false);
+			ls = "lock "+s;
+		}
+		targettag.val(s);
+		var ds = "delete " +s;
+		if (divedit.hasClass("itagh")) {
+			divedit.toggleClass("itags itagh").find('span').text("");
+			deltagbutton.val(ds);
+			locktagbutton.val(ls);
+		} else if (deltagbutton.val() != ds || locktagbutton.val()!=ls) {
+			deltagbutton.val(ds);
+			locktagbutton.val(ls);
+		} else
+			divedit.toggleClass("itags itagh").find('span').text("");
+		
+		
+
+	});
+	deltagbutton.on('click', function() {
+		addmsg.text('');
+		var tag = deltagbutton.val().substr(7);
+		$.ajax({
+			url : "tag/del.controller",
+			data : {
+				wid : wid.val(),
+				tag : tag
+			}
+		}).done(function(data) {				
+			if (data) {
+				$('form>ul>li>a:contains("' + tag + '")','#tag').parent('li').remove();
+				divedit.toggleClass("itags itagh").find('span').text("");
+				deltagbutton.val("delete");
+				locktagbutton.val("lock");
+				addtagbutton.prop("disabled",false);
+			} else
+				editmsg.text("failed to delete");
+		});
+
+	});
+	locktagbutton.on('click',function(){
+		addmsg.text('');
+		var rtag = locktagbutton.val();
+		var tag = rtag.substring(rtag.indexOf("lock")+5);
+		var target = $('form>ul>li>a:contains("'+tag+'")','#tag');
+		var islock = deltagbutton.prop("disabled");
+		$.get('tag/lock.controller',{wid:wid.val(),tag:tag,islock:islock},function(data){
+			if(data){
+				deltagbutton.prop("disabled",!islock);
+				if(islock){
+					locktagbutton.val("lock "+tag);
+					target.text(tag);
+					editmsg.text('unlocked');
+				}
+				else{
+					locktagbutton.val("unlock "+tag);
+					target.text(tag+"*");
+					editmsg.text('locked');
+				}
+			}else
+				editmsg.text('failed to lock or unlock');
+		});
+		
+	});
+	deltagbutton.next('input[value=cancel]').click(function cancele(){
+		addmsg.text('');
+		divedit.toggleClass("itags itagh").find('span').text("");
+	});
+	function addtags() {
+		editmsg.text('');
+		divadd.toggleClass("itags itagh").find('span').text("");
+		itag.val("");
+	}
+	function showTags(data) {
+		var target = $('form>ul','#tag');
+		for (var i = 0; i < data.length; i++) {
+			if (data[i].lock)
+				data[i].tag+="*";
+			$('<li class="tag"><a class="label label-default" href="" target="_blank">' + data[i].tag+ '</a></li>').appendTo(target);
+		}
+		if ($('li>a','#tag').length==10)
+			addtagbutton.prop("disabled",true);
+	}
 });
 </script>
 </body>

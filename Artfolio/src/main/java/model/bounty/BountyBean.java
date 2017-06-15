@@ -22,6 +22,8 @@ import org.springframework.stereotype.Component;
 @Table(name="TB_BOUNTY")
 public class BountyBean implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+
 	public BountyBean(){
 	}
 	

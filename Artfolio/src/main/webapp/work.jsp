@@ -60,12 +60,17 @@
 					</tr>
 					<tr>
 						<td>標題</td>
-						<td><input type="text" name="wtitle" required></td>
+						<td><input type="text" name="wtitle"></td>
 					</tr>
 					<tr>
 						<td>內文</td>
 						<td><textarea name="winfo"></textarea></td>
 					</tr>
+					<tr>
+						<td>tags</td>
+						<td><input type="text" name="tags" ></td>
+					</tr>
+					<tr><td colspan="2">(以逗點分隔，限中英文與空白，且輸入兩字以上，最多10個，每個最多20字元)</td></tr>
 					<tr>
 						<td>相簿</td>
 						<td><select name="aid"></select><input type="hidden" name="aname"><input class="btn btn-primary btn-sm" style="float:right; margin-right:5px;" type="button"
@@ -167,7 +172,7 @@
 		var sl=aname.prev('select[name^=aid]');
 		if(t.val()=='新增'){
 			t.val('確認');
-			aname.attr('type','text');
+			aname.attr('type','text').attr('placeholder','input here then click check');
 			sl.hide();
 		}else if(t.val()=='確認'){
 			if(aname.val().trim()!='')
@@ -189,24 +194,53 @@
 	$('input[type=submit]').click(
 		function(e){
 			e.preventDefault();
-			var c=0;
-			$('tbody','#wk').each(function(i,e){
-		  		var check=$(e).find('input[name^=isscore]');
+			var c=[],t=[],tg=[],msg='';
+			$('tbody','#wk').each(function(i){
+				var filename=$(this).find('input[name^=filename]').val();
+				var tags=$(this).find('input[name^=tags]').val().trim();
+				if(tags!='' && !/^[A-Za-z \u4E00-\u9FFF]+[A-Za-z ,\u4E00-\u9FFF]*[A-Za-z \u4E00-\u9FFF]+$/
+						.test(tags))
+					tg.push(filename);
+				else if(tags!=''){
+					var stag = tags.trim().split(",");
+					if(stag.length>10)
+						tg.push(filename);
+					else
+					for (var i=0;i<stag.length;i++){
+						if(stag[i].trim().length>20){
+							tg.push(filename);
+							break;
+						}
+					}
+				}
+				if($(this).find('input[name^=wtitle]').val().trim()=='')
+					t.push(filename);
+		  		var check=$(this).find('input[name^=isscore]');
 		  		if(check.prop('checked')){
-		  			var f=false;
-		  			$(this).find('input[name^=score]').each(function(i,e){
-		  				if($(e).val().trim()!='')
-		  					f=true;
+		  			var f=true;
+		  			$(this).find('input[name^=score]').each(function(i){
+		  				if($(this).val().trim()!='')
+		  					f=false;
 		  			});
-		  			if(!f){
+		  			if(f){
 		  				check.prop('checked',false);
-		  				c++;
+		  				c.push(filename);
 		  			}
 		  		}
 		  	});
-			if(c>0){
-				alert('cannot check isscore without scores')
-			}else
+			if(tg.length>0){
+				msg=msg+'tag格式錯誤:'+tg.toString()+'\n';
+			}
+			if(t.length>0){
+				msg=msg+'須輸入標題:'+t.toString()+'\n';
+			}
+			if(c.length>0){
+				msg=msg+'開放評分必須有項目，已強制關閉:'+c.toString();
+			}
+			if(msg!=''){
+				alert(msg);
+			}
+			else
 				frm.submit();
 		}
 	);

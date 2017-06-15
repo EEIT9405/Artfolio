@@ -39,8 +39,8 @@ public class WorkDAOHibernate implements WorkDAO {
 		if(bean!=null) {
 			if(bean.getWid()==null){
 				this.getSession().save(bean);
+				return bean;
 			}
-			return bean;
 		}
 		return null;
 	}

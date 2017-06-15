@@ -16,17 +16,11 @@
 					<th>errors</th>
 				</tr>
 				<c:forEach items="${uploadmsg}" var="item">
-					<tr><th>${item.filename}</th></tr>
 					<c:forEach items="${item}" var="entry">
-						<c:choose>
-							<c:when test="${entry.key=='filename'}">
-							</c:when>
-							<c:otherwise>
-								<tr>
-									<td>${entry.value}</td>
-								</tr>
-							</c:otherwise>
-						</c:choose>
+						<tr>
+							<td>${entry}</td>
+						</tr>
+
 					</c:forEach>
 				</c:forEach>
 			</table>

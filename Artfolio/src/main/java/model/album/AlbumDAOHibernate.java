@@ -33,8 +33,10 @@ public class AlbumDAOHibernate implements AlbumDAO {
 	@Override
 	public AlbumBean insert(AlbumBean bean) {
 		if (bean != null) {
-			this.getSession().save(bean);
-			return bean;
+			if(bean.getAid()==null){
+				this.getSession().save(bean);
+				return bean;
+			}
 		}
 		return null;
 	}

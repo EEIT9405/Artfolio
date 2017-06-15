@@ -24,7 +24,7 @@ public class TagService{
 			return null;
 		List<TagBean> result=new ArrayList<>();
 		List<TagBean> current=getTags(wid);
-		if (current.size()>=10 || tags.length>10)
+		if (current == null || current.size()>=10 || tags.length>10)
 			return null;
 		for (int i=0;i<tags.length;i++)
 		{	
