@@ -95,4 +95,9 @@ public class WorkService {
 		return tbworkDao.searchByMid(mid);
 		return null;
 	}
+	
+	public List<WorkBean> selectRecent(){
+		return tbworkDao.searchRecent();
+	}
+	
 }

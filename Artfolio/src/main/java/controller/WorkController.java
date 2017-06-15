@@ -38,7 +38,7 @@ public class WorkController {
 			return "work";
 		}
 		
-		File path =new File("D:/temp/img/" + mid);
+		File path =new File("C:\\EEIT94_05_Project\\" + mid);
 		if(!path.exists())path.mkdirs();
 		List<Map<String, String>> list = new ArrayList<>();
 		List<WorkBean> wblist=new ArrayList<>();

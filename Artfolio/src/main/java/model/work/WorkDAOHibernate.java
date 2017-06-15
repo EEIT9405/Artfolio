@@ -199,6 +199,11 @@ public class WorkDAOHibernate implements WorkDAO {
 		}
 		return list;
 	}
+	private static final String SELECT_RECENT="from WorkBean order by wstart desc";
+	@Override
+	public List<WorkBean> searchRecent() {
+		return this.getSession().createQuery(SELECT_RECENT,WorkBean.class).setMaxResults(100).list();
+	}
 
 }
 

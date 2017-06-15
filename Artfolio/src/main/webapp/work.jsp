@@ -186,5 +186,29 @@
 				alert('blank')
 		}
 	});
+	$('input[type=submit]').click(
+		function(e){
+			e.preventDefault();
+			var c=0;
+			$('tbody','#wk').each(function(i,e){
+		  		var check=$(e).find('input[name^=isscore]');
+		  		if(check.prop('checked')){
+		  			var f=false;
+		  			$(this).find('input[name^=score]').each(function(i,e){
+		  				if($(e).val().trim()!='')
+		  					f=true;
+		  			});
+		  			if(!f){
+		  				check.prop('checked',false);
+		  				c++;
+		  			}
+		  		}
+		  	});
+			if(c>0){
+				alert('cannot check isscore without scores')
+			}else
+				frm.submit();
+		}
+	);
 </script>
 </html>
