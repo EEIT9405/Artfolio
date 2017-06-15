@@ -30,7 +30,6 @@ public class WorkBean {
 	private Boolean isscore;
 	@Column(insertable=false, updatable=false)
 	private java.util.Date wstart;
-	@Column(insertable=false, updatable=true)
 	private java.util.Date wend;
 	private String score_1;
 	private String score_2;
@@ -41,16 +40,29 @@ public class WorkBean {
 	@JoinColumn(name ="aid")
 	private AlbumBean albumBean;
 	private Integer scoreversion=0;
+	private Integer worder=0;
+	
+	public Boolean getIswmsg() {
+		return iswmsg;
+	}
+	public void setIswmsg(Boolean iswmsg) {
+		this.iswmsg = iswmsg;
+	}
+	public Integer getWorder() {
+		return worder;
+	}
+	public void setWorder(Integer worder) {
+		this.worder = worder;
+	}
+	public void setIsscore(Boolean isscore) {
+		this.isscore = isscore;
+	}
 	public Integer getScoreversion() {
 		return scoreversion;
 	}
 	public void setScoreversion(Integer scoreversion) {
 		this.scoreversion = scoreversion;
 	}
-	
-	public WorkBean(){}
-	public WorkBean(Integer wid){this.wid=wid;}
-	
 	
 	@Override
 	public int hashCode() {
@@ -116,21 +128,11 @@ public class WorkBean {
 	public void setWissue(Integer wissue) {
 		this.wissue = wissue;
 	}
-	public boolean isIswmsg() {
-		return iswmsg;
-	}
-	public void setIswmsg(boolean iswmsg) {
-		this.iswmsg = iswmsg;
-	}
-	public boolean isIsscore() {
-		return isscore;
-	}
+	
 	public Boolean getIsscore() {
 		return isscore;
 	}
-	public void setIsscore(boolean isscore) {
-		this.isscore = isscore;
-	}
+
 	public java.util.Date getWstart() {
 		return wstart;
 	}

@@ -1,5 +1,7 @@
 package model.album;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,7 +23,15 @@ public class AlbumBean {
 	@Column(name ="adate",insertable=false, updatable=false)
 	private java.util.Date adate;
 	public AlbumBean(){}
-	public AlbumBean(Integer aid){this.aid=aid;}
+	
+	public AlbumBean(Integer aid, String aname, Integer wid, Integer mid, Date adate) {
+		this.aid = aid;
+		this.aname = aname;
+		this.wid = wid;
+		this.mid = mid;
+		this.adate = adate;
+	}
+
 	public Integer getAid() {
 		return aid;
 	}

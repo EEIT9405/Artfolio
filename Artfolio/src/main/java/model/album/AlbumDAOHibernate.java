@@ -1,6 +1,5 @@
 package model.album;
 
-import java.util.Date;
 import java.util.List;
 
 
@@ -40,14 +39,14 @@ public class AlbumDAOHibernate implements AlbumDAO {
 		return null;
 	}
 	@Override
-	public AlbumBean update(Integer aid, String aname, Integer wid, Integer mid, Date adate) {
-		AlbumBean bean = this.select(aid);
+	public AlbumBean update(AlbumBean ab) {
+		AlbumBean bean = this.select(ab.getAid());
 		if(bean!=null) {
-			bean.setAid(aid);
-			bean.setAname(aname);
-			bean.setWid(wid);
-			bean.setMid(mid);
-			bean.setAdate(adate);
+			bean.setAid(ab.getAid());
+			bean.setAname(ab.getAname());
+			bean.setWid(ab.getWid());
+			bean.setMid(ab.getMid());
+			bean.setAdate(ab.getAdate());
 		}
 		return bean;
 	}

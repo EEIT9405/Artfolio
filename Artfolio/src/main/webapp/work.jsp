@@ -45,8 +45,8 @@ table {
 					</tr>
 					<tr>
 						<td>album</td>
-						<td><select name="aid"></select><input type="button"
-							value="new"></td>
+						<td><select name="aid"></select><input type="hidden" name="aname"><input type="button"
+							name="new" value="new"></td>
 					</tr>
 					<tr>
 						<td>iswmsg</td>
@@ -83,17 +83,21 @@ table {
 	</div>
 </body>
 <script>
+	function listalbum(){
+		$.get('album/get.controller',function(data){
+			var target=$('select[name^=aid]','#wk');
+			target.empty();
+			for(var i=0;i<data.length;i++){
+				$('<option value="'+data[i].aid+'">'+data[i].aname+'</option>').appendTo(target);
+			}
+		});
+	}
 	var frm = document.querySelector('#wk>form');
 	var f = document.querySelector('input[type=file]');
-	var rawtable = document.querySelector('#wk table').cloneNode(true);
+	var raw =document.querySelector('#wk table');
+	var rawtable = raw.cloneNode(true);
+	$(raw).hide();
 	
-	$.get('album/get.controller',function(data){
-		var target=$('select[name=aid]',rawtable);
-		console.log(target);
-		for(var i=0;i<data.length;i++){
-			$('<option value="'+data[i].aid+'">'+data[i].aname+'</option>').appendTo(target);
-		}
-	});
 	$('form>img', '#wk').click(function() {
 		if (f)
 			f.click();
@@ -128,6 +132,32 @@ table {
 			}
 			frm.appendChild(clone);
 		}
+		listalbum();
 	};
+	$('#wk').on('click','input[name^=new]',function(){
+		var t=$(this);
+		var aname=t.prev('input[name^=aname]');
+		var sl=aname.prev('select[name^=aid]');
+		if(t.val()=='new'){
+			t.val('submit');
+			aname.attr('type','text');
+			sl.hide();
+		}else if(t.val()=='submit'){
+			if(aname.val().trim()!='')
+			$.post('album/insert.controller',{aname:aname.val()},function(data){
+				if(data){
+					$('<option value="'+data.aid+'">'+data.aname+'</option>').appendTo($('select[name^=aid]','#wk'));
+					t.val('new');
+					aname.attr('type','hidden');
+					sl.show();
+				}else if(data===''){
+					alert('login');
+				}else
+					alert('failed')
+			});
+			else
+				alert('blank')
+		}
+	});
 </script>
 </html>

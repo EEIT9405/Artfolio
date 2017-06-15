@@ -47,8 +47,7 @@ public class AlbumService {
 	public AlbumBean update(AlbumBean bean) {
 		AlbumBean result = null;
 		if(bean!=null) {
-			result = albumDao.update(bean.getAid(), bean.getAname(),
-					bean.getWid(), bean.getMid(), bean.getAdate());
+			result = albumDao.update(bean);
 		}
 		return result;
 	}

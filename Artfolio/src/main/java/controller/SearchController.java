@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +25,8 @@ public class SearchController {
 	private TagService tagService;
 	@Autowired
 	private WorkService workService;
-	
+	@Autowired
+	HttpSession session;
 	
 	@RequestMapping(path="search.controller",method=RequestMethod.GET)
 	public List<WorkBean> search(String type,
@@ -89,6 +92,10 @@ public class SearchController {
 		List<WorkBean> list=null;
 		if(mid!=null)
 			list=sortWork(workService.selectByMid(mid), orderby, order);
+		Integer login = (Integer) session.getAttribute("mid");
+		if(!mid.equals(login)){
+			
+		}
 		return list;
 	}
 	

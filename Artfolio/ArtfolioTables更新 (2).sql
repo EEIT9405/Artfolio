@@ -34,7 +34,7 @@ gender bit not null, --男1,女0
 isgender bit default 1,
 info varchar(1024), --自我介紹
 isinfo bit default 1,
-mphoto varbinary(max),--大頭貼
+mphoto varchar(256),--大頭貼
 point int default 0, --點數
 mstart datetime default getDate(), --開始日 
 mend datetime default '9999-12-31', --結束日
@@ -73,6 +73,8 @@ mid int foreign key references tb_member(mid) not null,
 adate datetime default getdate()
 );
 
+insert into tb_album (aname,mid) values('a',1),('b',1),('c',2)
+
 --作品
 create table tb_work(
 wid int primary key identity, --作品編號
@@ -92,7 +94,8 @@ score_2 varchar(20),
 score_3 varchar(20),
 score_4 varchar(20),
 score_5 varchar(20),
-scoreversion int default 0 not null
+scoreversion int default 0 not null,
+worder int
 );
 
 insert into tb_member (pwd,name,email,gender) values ('','a','1',0),('','b','2',1),('','c','3',0)
