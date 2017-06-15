@@ -24,10 +24,10 @@
 		</mvc:interceptor>
 		
 		<!--作品推播過濾器 -->
-<!-- 		<mvc:interceptor> -->
-<!-- 			<mvc:mapping path="/workInser.controller"/> -->
-<!-- 			<bean class="misc.websocket.PushInterceptor"></bean> -->
-<!-- 		</mvc:interceptor> -->
+		<mvc:interceptor>
+			<mvc:mapping path="/work/upload.controller"/>
+			<bean class="misc.websocket.PushInterceptor"></bean>
+		</mvc:interceptor>
 	</mvc:interceptors>
 	
 	<!--輪播TOP系統自動獲取定時器 -->

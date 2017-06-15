@@ -40,8 +40,8 @@ public class BrowsedController {
 	@RequestMapping(value = "/browsed.controller", method = RequestMethod.POST)
 	@ResponseBody
 	public void insert(@SessionAttribute("loginOK") MemberBean user, Integer wid) {
-		System.out.println(wid);
-		System.out.println(user.getMid());
+//		System.out.println(wid);
+//		System.out.println(user.getMid());
 		if(user != null && wid != null){
 			BrowsedBean bean = new BrowsedBean();
 			bean.setMid(user.getMid());
@@ -54,7 +54,7 @@ public class BrowsedController {
 
 	@RequestMapping(value = "/showRelationalWork.controller", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
 	@ResponseBody
-	public Set<WorkBean> getAllRelational(@SessionAttribute("loginOK") MemberBean user, int wid) {
+	public Set<WorkBean> getAllRelational(@SessionAttribute("loginOK") MemberBean user, Integer wid) {
 		if (user != null) {
 			List<BrowsedBean> browsedList = browsedService.selectTop5Relational(user.getMid(), wid);
 			if (browsedList != null && !browsedList.isEmpty()) {

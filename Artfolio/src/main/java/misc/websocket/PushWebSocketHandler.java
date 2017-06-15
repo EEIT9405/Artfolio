@@ -69,8 +69,10 @@ public class PushWebSocketHandler extends TextWebSocketHandler {
 		if (!userSocketSessionMap.isEmpty()) {
 			//將message(json)轉回WrokBean物件
 			ObjectMapper mapper = new ObjectMapper();
-			WorkBean workBean = mapper.readValue(message.getPayload().toString(), WorkBean.class);
-			//List<WorkBean> workList = mapper.readValue(message.getPayload().toString(), mapper.getTypeFactory().constructParametricType(ArrayList.class, WorkBean.class));
+			//WorkBean workBean = mapper.readValue(message.getPayload().toString(), WorkBean.class);
+			List<WorkBean> workList = mapper.readValue(message.getPayload().toString(), mapper.getTypeFactory().constructParametricType(ArrayList.class, WorkBean.class));
+			for(WorkBean workBean : workList){
+				TextMessage msg = new TextMessage(new ObjectMapper().writeValueAsString(workBean));
 			//取得此bean所有tag
 	//		List<TagBean> tags = tagService.getTags(workBean.getWid());
 			//for(WorkBean workBean: workList){
@@ -99,7 +101,7 @@ public class PushWebSocketHandler extends TextWebSocketHandler {
 //						for (TagBean tagBean : tags) {
 //							if(ftag.equals(tagBean.getTag())){
 								System.out.println("send message");
-								entry.getValue().sendMessage(message);
+								entry.getValue().sendMessage(msg);
 								//entry.getValue().sendMessage(new TextMessage(mapper.writeValueAsString(workBean)));
 							}
 //						}
@@ -107,6 +109,7 @@ public class PushWebSocketHandler extends TextWebSocketHandler {
 //				}
 //			}
 		//}
+		}
 		}
 	}
 }
