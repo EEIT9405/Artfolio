@@ -7,5 +7,5 @@ public interface RecordDAO {
 	boolean update(RecordBean bean);
 	RecordBean select(RecordBean bean);
 	boolean delete(RecordBean bean);
-	List<RecordBean> calStat(Integer wid,Integer recordversion);
+	List<RecordBean> get(Integer wid,Integer recordversion);
 }

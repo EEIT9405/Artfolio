@@ -1,5 +1,7 @@
 package model.work;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,8 +15,9 @@ import model.album.AlbumBean;
 
 @Entity
 @Table(name="TB_WORK")
-public class WorkBean {
+public class WorkBean implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer wid;

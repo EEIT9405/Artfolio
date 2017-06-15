@@ -86,7 +86,7 @@
                 <ol class="breadcrumb">
                     <li><a href="index.html">Home</a>
                     </li>
-                    <li class="active">LikeList</li>
+                    <li class="active">FollewList</li>
                 </ol>
             </div>
         </div>

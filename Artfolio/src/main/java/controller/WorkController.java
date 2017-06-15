@@ -49,8 +49,9 @@ public class WorkController {
 			
 			Map<String, String> errors = new HashMap<String, String>();
 			int count = -1;
+			String errorin=null;
 			for (int i = 0; i < files.length; i++) {
-				if (file.getOriginalFilename().equals(params.get("filename_" + i))) {
+				if (file.getOriginalFilename().equals((errorin=params.get("filename_" + i)))) {
 					count = i;
 					break;
 				}
@@ -65,7 +66,7 @@ public class WorkController {
 				if (wtitle != null && wtitle.length() > 0) {
 					bean.setWtitle(wtitle.trim());
 				} else {
-					errors.put("wtitle_" + count, "not null");
+					errors.put("title", "not null");
 				}
 
 				String winfo =params.get("winfo_" + count);
@@ -82,14 +83,14 @@ public class WorkController {
 						if ((ab = albumService.select(aid).get(0)) != null)
 							bean.setAlbumBean(ab);
 						else {
-							errors.put("aid_" + count, "doesnt exist");
+							errors.put("aid", "doesnt exist");
 						}
 					} catch (Exception e) {
 						e.printStackTrace();
-						errors.put("aid_" + count, "type error");
+						errors.put("aid", "type error");
 					}
 				} else
-					errors.put("aid_" + count, "not null");
+					errors.put("aid", "not null");
 
 				String isscore = params.get("isscore_" + count);
 				bean.setIsscore(isscore != null && isscore.trim().equals("true"));
@@ -125,7 +126,7 @@ public class WorkController {
 				if(s>0) bean.setScoreversion(1);
 				else if(bean.getIsscore()){
 					bean.setIsscore(false);
-					errors.put("isscore_" + count, "close isscore since no scores have been set");
+					errors.put("isscore", "close isscore since no scores have been set");
 				}
 				
 				
@@ -145,10 +146,14 @@ public class WorkController {
 				}
 				wblist.add(bean);
 			}
-			list.add(errors);
+			if(!errors.isEmpty()){
+				errors.put("filename", errorin);
+				list.add(errors);
+			}
+
 			
 		}
-		return "work";
+		return "upload";
 	}
 
 }

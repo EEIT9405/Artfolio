@@ -114,9 +114,8 @@ public class RecordController {
 	}
 	@RequestMapping(path="getst.controller",method=RequestMethod.GET)
 	public List<RecordBean> getStats(Integer wid,Integer scoreversion){
-		if(wid!=null && scoreversion!=null){
+		if(wid!=null && scoreversion!=null)
 			return recordService.calStat(wid, scoreversion);
-		}
 		return null;
 	}
 	

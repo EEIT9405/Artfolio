@@ -73,7 +73,6 @@ mid int foreign key references tb_member(mid) not null,
 adate datetime default getdate()
 );
 
-insert into tb_album (aname,mid) values('a',1),('b',1),('c',2)
 
 --作品
 create table tb_work(
@@ -104,6 +103,8 @@ insert into tb_work (mid,picurl,wtitle) values(1,'/','ab'),(1,'/','bb'),(1,'/','
 insert into tb_work (mid,picurl,wtitle) values(1,'/','ac'),(1,'/','bc'),(1,'/','cc'),(1,'/','dc'),(1,'/','ec')
 insert into tb_work (mid,picurl,wtitle) values(1,'/','ad'),(1,'/','bd'),(1,'/','cd'),(1,'/','dd'),(1,'/','ed')
 insert into tb_work (mid,picurl,wtitle) values(1,'/','ae'),(1,'/','be'),(1,'/','ce'),(1,'/','de'),(1,'/','ee')
+
+insert into tb_album (aname,mid) values('a',1),('b',1),('c',2)
 
 create table tb_tag(
 wid int foreign key references tb_work(wid) not null,
@@ -163,7 +164,6 @@ wmsgdate datetime default getDate()
 
 --評分紀錄 --5/27更新
 create table tb_record(
-recordid int primary key identity,
 mid int foreign key references tb_member(mid) not null,
 wid int foreign key references tb_work(wid) not null,
 record_1 decimal(2), --評分1~10
@@ -172,8 +172,8 @@ record_3 decimal(2),
 record_4 decimal(2),
 record_5 decimal(2),
 recordversion int,
-recorddate datetime default getDate()
-
+recorddate datetime default getDate(),
+primary key(mid,wid,recordversion)
 );
 
 --作家追蹤 --5/27更新
