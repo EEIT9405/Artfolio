@@ -38,7 +38,7 @@ public class WorkController {
 			return "work";
 		}
 		
-		File path =new File("C:\\EEIT94_05_Project\\" + mid);
+		File path =new File("D:/temp/img/" + mid);
 		if(!path.exists())path.mkdirs();
 		List<Map<String, String>> list = new ArrayList<>();
 		List<WorkBean> wblist=new ArrayList<>();
@@ -135,7 +135,7 @@ public class WorkController {
 				try {
 					file.transferTo(new File(path, filename));
 					bean.setMid(mid);
-					bean.setPicurl("/" + mid + "/" + filename);
+					bean.setPicurl("/img/" + mid + "/" + filename);
 					workService.insert(bean).getWid();
 				
 				} catch (IllegalStateException e) {

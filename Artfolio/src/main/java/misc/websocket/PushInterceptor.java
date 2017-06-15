@@ -29,17 +29,20 @@ public class PushInterceptor implements HandlerInterceptor {
 	}
 
 	@Override
-	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView)
-			throws Exception {
+	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
+			ModelAndView modelAndView) throws Exception {
 		List<Transport> transports = new ArrayList<>(2);
 		transports.add(new WebSocketTransport(new StandardWebSocketClient()));
 		transports.add(new RestTemplateXhrTransport());
 		SockJsClient sockJsClient = new SockJsClient(transports);
 		
-		WebSocketSession session =  sockJsClient.doHandshake(new PushWebSocketHandler(), "ws://localhost:8080"+request.getContextPath()+"/ws/push").get();
-		//List<WorkBean> workList = (List<WorkBean>) request.getSession().getAttribute("");
-		WorkBean workBean = (WorkBean) request.getSession().getAttribute("");
-		session.sendMessage(new TextMessage(new ObjectMapper().writeValueAsString(workBean)));
+		WebSocketSession session = sockJsClient.doHandshake(new PushWebSocketHandler(),
+				"ws://localhost:8080" + request.getContextPath() + "/ws/push").get();
+		List<WorkBean> workList = (List<WorkBean>) request.getSession().getAttribute("workList");
+		if (workList != null && !workList.isEmpty()) {
+			session.sendMessage(new TextMessage(new ObjectMapper().writeValueAsString(workList)));
+		}
+		session.close();
 	}
 
 	@Override

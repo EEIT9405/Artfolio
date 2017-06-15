@@ -29,7 +29,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import model.work.WorkBean;
 import model.work.WorkService;
 
-@WebFilter("/Upload/tbwork.controller")
+//@WebFilter("/Upload/tbwork.controller")
 public class PushFilter implements Filter {
 
 	private WorkService workService;
