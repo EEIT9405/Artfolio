@@ -51,7 +51,7 @@ public class BlockController {
 	
 	@RequestMapping(value="/listBlock.controller", method=RequestMethod.GET, produces="application/json;charset=utf-8")
 	@ResponseBody
-	public List<BlockBean> listBlock(@SessionAttribute("loginOK") MemberBean user, String email){
+	public List<BlockBean> listBlock(@SessionAttribute("loginOK") MemberBean user){
 		
 		return blockService.getList(user, null);
 	}

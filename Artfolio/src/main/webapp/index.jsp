@@ -19,7 +19,7 @@
 	font-family:微軟正黑體;
 }
 .wmsgArea {
-	height: 350px;
+	height: 270px;
 /* 	overflow-y: auto; */
 /* 	overflow-x: hidden; */
 }
@@ -387,7 +387,7 @@
 						<div style="overflow-y:auto; background-color:#fff;" class="col-md-4">
 							<div class="row">
 								<div class="col-md-12" id="memberName"></div>
-								<div class="col-md-12" id="workInfo"></div>
+								<div style="height:100px;" class="col-md-12" id="workInfo"></div>
 							</div>
 							<div style="height:100px" id="tag" class="row">
 							<div class="col-md-10">
@@ -684,7 +684,13 @@
 				getAll();
 				showRecommendPhoto();
 				showWorkInfo();
+				saveUserBrowse();
 				$('input[name="mailtitle"]').val(thisWid+":圖片檢舉");
+			}
+			
+			function saveUserBrowse(){
+				$.post('browsed.controller', {wid:thisWid}, function(){
+				});
 			}
 			
 			function showWorkInfo(){
