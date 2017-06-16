@@ -12,6 +12,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import controller.SearchController;
+
 @Service
 @Transactional
 public class WorkTopService {
@@ -43,7 +45,7 @@ public class WorkTopService {
 		if (newIssue > 0) {
 			Map<Integer, List<WorkBean>> topMap = new HashMap<>();
 			for (int i = 1; i <= newIssue; i++) {
-				List<WorkBean> top = workTopDAO.selectTop(i);
+				List<WorkBean> top = SearchController.checkisHidden(workTopDAO.selectTop(i));
 				if(top != null && !top.isEmpty()){
 					topMap.put(i, top);
 				}

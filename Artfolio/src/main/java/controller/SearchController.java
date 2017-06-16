@@ -124,7 +124,7 @@ public class SearchController {
 				}
 			});
 		}
-		return list;
+		return checkisHidden(list);
 	}
 	
 	public static List<MemberInfo> sortMember(List<MemberInfo> list,String orderby,String order){
@@ -148,6 +148,14 @@ public class SearchController {
 	}
 	@RequestMapping(path="searchRecent.controller",method=RequestMethod.GET)
 	public List<WorkBean> searchRecent(){
-		return workService.selectRecent();
+		return checkisHidden(workService.selectRecent());
+	}
+	
+	public static List<WorkBean> checkisHidden(List<WorkBean> list){
+		for(int i=0;i<list.size();i++){
+			if(list.get(i).getWend().before(new java.util.Date()))
+				list.remove(i--);
+		}
+		return list; 
 	}
 }

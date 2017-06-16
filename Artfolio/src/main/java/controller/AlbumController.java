@@ -34,9 +34,22 @@ public class AlbumController {
 	@RequestMapping(path = "insert.controller", method = RequestMethod.POST)
 	public AlbumBean insert(String aname,@RequestParam(required=false)Integer wid){
 		Integer mid = (Integer) session.getAttribute("mid");
-		if(mid==null || aname==null)
+		if(mid==null || aname==null || aname.trim().length()==0)
 			return null;
-		return albumService.insert(new AlbumBean(null, aname, wid, mid, null));
+		return albumService.insert(new AlbumBean(null, aname.trim(), wid, mid, null));
 	}
 	
+	@RequestMapping(path = "update.controller", method = RequestMethod.POST)
+	public boolean update(Integer aid,String aname,@RequestParam(required=false)Integer wid){
+		Integer mid = (Integer) session.getAttribute("mid");
+		if(mid!=null && aid!=null && aname!=null && aname.trim().length()!=0){
+			AlbumBean bean=albumService.select(aid).get(0);
+			if(bean.getMid().equals(mid) && bean.getAid().equals(aid)){
+				bean.setAname(aname);
+				bean.setWid(wid);
+				return albumService.update(bean)!=null;
+			}	
+		}
+		return false;
+	}
 }
