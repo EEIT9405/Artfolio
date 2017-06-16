@@ -92,7 +92,7 @@ public class PushWebSocketHandler extends TextWebSocketHandler {
 //							TreeSet<FavoriteBean> favorites = (TreeSet<FavoriteBean>) entry.getKey().getFavorites();
 							Set<FavoriteBean> set = entry.getKey().getFavorites();
 //							TreeSet<FavoriteBean> favorites = new TreeSet<FavoriteBean>(set);
-							HashSet<FavoriteBean> topFavo = new HashSet<>();
+							//HashSet<FavoriteBean> topFavo = new HashSet<>();
 							
 							for(FavoriteBean fb : set){
 								String ftag = fb.getTag();
