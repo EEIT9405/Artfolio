@@ -42,7 +42,6 @@ public class PushInterceptor implements HandlerInterceptor {
 		if (workList != null && !workList.isEmpty()) {
 			session.sendMessage(new TextMessage(new ObjectMapper().writeValueAsString(workList)));
 		}
-		session.close();
 	}
 
 	@Override
