@@ -45,15 +45,13 @@
 							style="display: none" required multiple> <img
 							style="width: 50px; cursor: pointer;" src="img/icon-upload.png">
 						<input class="btn btn-success" type="submit" value="確認">
-						<input type="hidden" name="max">
 						<hr>
 					</div>
 					<table class="table"
 						style="float: left; width: 350px; border: solid 2px silver; margin-right: 15px;">
 						<thead>
 							<tr>
-								<th>圖片</th>
-								<td style="text-align: right"><input type="button" value="cancel"></td>
+								<th colspan="2">圖片</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -63,7 +61,7 @@
 							</tr>
 							<tr>
 								<td>檔名</td>
-								<td><input type="text" name="filename" readonly><input type="hidden" name="order"></td>
+								<td><input type="text" name="filename" readonly></td>
 							</tr>
 							<tr>
 								<td>標題</td>
@@ -146,30 +144,17 @@
 	});
 	f.onchange = function() {
 		var files = f.files;
+		var tables = frm.querySelectorAll('table');
+		for (var i = 0; i < tables.length; i++) {
+			frm.removeChild(tables[i]);
+		}
 		for (var i = 0; i < files.length; i++) {
-			var order=0,list=[];
-			$(frm).find('input[name^=order]').each(function(){
-				list.push($(this).val());
-			});
-			list.sort()
-			for(var x=0;x<list.length;x++){
-				if(order==list[x])
-					order+=1;
-			}
 			
 			var file = files[i];
 			if (!/^image\//.test(file.type)) {
 				continue;
 			}
-			var exist=false;
-			$(frm).find('input[name^=filename]').each(function(){
-				if(this.value==file.name)
-					exist=true;
-			});
-			if(exist) continue;
-			
-			
-			
+					
 			var clone = rawtable.cloneNode(true);
 			
 			var img = document.createElement("img");
@@ -187,12 +172,10 @@
 			var trs = $('tbody>tr', clone);
 			div.appendChild(img);
 			trs.eq(0).children('td:last-child').get(0).appendChild(div);
-			var fn=trs.eq(1).find('td>input');
-			fn.val(file.name);
-			fn.next('input[type=hidden]').val(order);
+			trs.eq(1).find('td>input').val(file.name);
 			var inputs = clone.querySelectorAll('*[name]');
 			for (var j = 0; j < inputs.length; j++) {
-				inputs[j].name = inputs[j].name + "_" + order;
+				inputs[j].name = inputs[j].name + "_" + i;
 			}
 			frm.appendChild(clone);
 		}
@@ -273,6 +256,9 @@
 		  			}
 		  		}
 		  	});
+			if(f.files.length<=0){
+				msg='選擇圖片\n';
+			}
 			if(tg.length>0){
 				msg=msg+'tag格式錯誤:'+tg.toString()+'\n';
 			}
@@ -285,19 +271,10 @@
 			if(msg!=''){
 				alert(msg);
 			}
-			else{
-				var max=-1;
-				$(frm).find('input[name^=order]').each(function(){
-					if($(this).val()>max)
-						max=$(this).val();
-				});
-				$(frm).find('input[name=max]').val(max);
+			else
 				frm.submit();
-			}	
 		}
 	);
-	$(frm).on('click','input[value=cancel]',function(){
-		$(this).parents('table').remove();
-	});
+	
 </script>
 </html>
