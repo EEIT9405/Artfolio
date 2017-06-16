@@ -96,8 +96,15 @@ public class WorkService {
 		return null;
 	}
 	
+	@Transactional(readOnly=true)
 	public List<WorkBean> selectRecent(){
 		return tbworkDao.searchRecent();
 	}
 	
+	@Transactional(readOnly=true)
+	public List<WorkBean> selectByAid(Integer aid){
+		if(aid!=null)
+		return tbworkDao.searchByMid(aid);
+		return null;
+	}
 }

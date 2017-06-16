@@ -37,7 +37,7 @@ public class WorkController {
 	HttpSession session;
 
 	@RequestMapping(path = "upload.controller", method = RequestMethod.POST)
-	public String upload(MultipartFile[] files, @RequestParam Map<String, String> params) {
+	public String upload(MultipartFile[] files, @RequestParam Map<String, String> params,Integer max) {
 		Integer mid = (Integer) session.getAttribute("mid");
 		if (mid == null) {
 			return "upload";
@@ -50,13 +50,14 @@ public class WorkController {
 		List<WorkBean> wblist = new ArrayList<>();
 		session.setAttribute("workList", wblist);
 		session.setAttribute("uploadmsg", list);
-
+		
+		if(max!=null && params!=null && files!=null)
 		for (MultipartFile file : files) {
 
 			LinkedList<String> errors = new LinkedList<>();
 			int count = -1;
 			String errorin = null;
-			for (int i = 0; i < files.length; i++) {
+			for (int i = 0; i < max; i++) {
 				if (file.getOriginalFilename().equals((errorin = params.get("filename_" + i)))) {
 					count = i;
 					break;
