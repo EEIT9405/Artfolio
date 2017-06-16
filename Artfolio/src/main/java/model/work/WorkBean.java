@@ -33,6 +33,7 @@ public class WorkBean implements Serializable{
 	private Boolean isscore;
 	@Column(insertable=false, updatable=false)
 	private java.util.Date wstart;
+	@Column(insertable=false)
 	private java.util.Date wend;
 	private String score_1;
 	private String score_2;
