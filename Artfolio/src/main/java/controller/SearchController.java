@@ -151,6 +151,11 @@ public class SearchController {
 		return checkisHidden(workService.selectRecent());
 	}
 	
+	@RequestMapping(path="searchByAid.controller",method=RequestMethod.GET)
+	public List<WorkBean> searchByAid(Integer aid){
+		return checkisHidden(workService.selectByAid(aid));
+	}
+	
 	public static List<WorkBean> checkisHidden(List<WorkBean> list){
 		for(int i=0;i<list.size();i++){
 			if(list.get(i).getWend().before(new java.util.Date()))

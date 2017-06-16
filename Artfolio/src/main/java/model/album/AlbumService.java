@@ -70,7 +70,7 @@ public class AlbumService {
 					boolean update=true;
 					for(WorkBean wb:workService.selectByAid(aid)){
 						wb.setAlbumBean(bean);
-						update=update && workService.updatedependency(wb);
+						update=update && workService.updateDependency(wb);
 					}return update && albumDao.delete(aid);
 				}else
 					return null;
