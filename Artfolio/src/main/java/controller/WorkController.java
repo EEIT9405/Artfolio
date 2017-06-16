@@ -191,9 +191,10 @@ public class WorkController {
 	@RequestMapping(path = "update.controller", method = RequestMethod.POST)
 	@ResponseBody
 	public boolean update(Integer wid,String wtitle,String winfo,Integer aid,Boolean iswmsg){
-		if(wid!=null && wtitle!=null && wtitle.trim().length()>0){
+		Integer mid = (Integer) session.getAttribute("mid");
+		if(mid!=null && wid!=null && wtitle!=null && wtitle.trim().length()>0){
 			WorkBean bean=workService.getWork(wid);
-			if(bean!=null){
+			if(bean!=null && bean.getMid().equals(mid)){
 				bean.setWtitle(wtitle.trim());
 				if(winfo!=null)
 				bean.setWinfo(winfo.trim());
@@ -206,4 +207,17 @@ public class WorkController {
 		return false;
 	}
 
+	@RequestMapping(path = "delete.controller", method = RequestMethod.POST)
+	@ResponseBody
+	public boolean hide(Integer wid){
+		Integer mid = (Integer) session.getAttribute("mid");
+		if(mid!=null && wid!=null){
+			WorkBean bean=workService.getWork(wid);
+			if(bean.getMid().equals(mid)){
+				bean.setWend(new java.util.Date());
+				return workService.update(bean)!=null;
+			}
+		}
+		return false;
+	}
 }

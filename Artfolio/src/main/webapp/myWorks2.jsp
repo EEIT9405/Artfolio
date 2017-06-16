@@ -468,7 +468,17 @@ $(function(){
 	$('#photoContainer').on('click', 'div.editer a', function(){
 		var btn = $(this);
 		if(btn.attr('title') == "remove"){
-			console.log("remove");
+			var div=$(this).parents('div.img-box');
+			var wid=div.children('input[name=wid]').val();
+			if(window.confirm("Do you really want to delete it?"))
+			$.post('work/delete.controller',{wid:wid},function(data){
+				if(data){
+					div.parent().remove();
+					alert('deleted');
+				}
+				else
+					alert('failed to delete');
+			});
 		}
 		if(btn.attr('title') == "edit"){
 			var mb = $('#modalimage').empty();
