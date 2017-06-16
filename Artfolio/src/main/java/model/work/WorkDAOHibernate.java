@@ -39,8 +39,8 @@ public class WorkDAOHibernate implements WorkDAO {
 		if(bean!=null) {
 			if(bean.getWid()==null){
 				this.getSession().save(bean);
+				return bean;
 			}
-			return bean;
 		}
 		return null;
 	}
@@ -198,6 +198,11 @@ public class WorkDAOHibernate implements WorkDAO {
 			list=this.getSession().createQuery(SELECT_BY_MID,WorkBean.class).setParameter(0, mid).list();
 		}
 		return list;
+	}
+	private static final String SELECT_RECENT="from WorkBean order by wstart desc";
+	@Override
+	public List<WorkBean> searchRecent() {
+		return this.getSession().createQuery(SELECT_RECENT,WorkBean.class).setMaxResults(100).list();
 	}
 
 }

@@ -92,10 +92,10 @@ public class SearchController {
 		List<WorkBean> list=null;
 		if(mid!=null)
 			list=sortWork(workService.selectByMid(mid), orderby, order);
-		Integer login = (Integer) session.getAttribute("mid");
-		if(!mid.equals(login)){
-			
-		}
+//		Integer login = (Integer) session.getAttribute("mid");
+//		if(!mid.equals(login)){
+//			
+//		}
 		return list;
 	}
 	
@@ -146,5 +146,8 @@ public class SearchController {
 		}
 		return list;
 	}
-	
+	@RequestMapping(path="searchRecent.controller",method=RequestMethod.GET)
+	public List<WorkBean> searchRecent(){
+		return workService.selectRecent();
+	}
 }

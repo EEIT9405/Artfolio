@@ -18,7 +18,14 @@ public class ScoreService {
 	@Transactional
 	public Boolean updateScore(WorkBean bean,Boolean lock){
 		if(bean!=null && lock!=null){
-			if(!lock){
+			if(lock){
+				WorkBean raw=workservice.getWork(bean.getWid());
+				if(raw==null)
+					return false;
+				raw.setIsscore(bean.getIsscore());
+				bean=raw;
+			}
+			else{
 				if(checkFrequency(bean.getWid(),bean.getScoreversion()))
 					return null;
 				WorkBean current = workservice.select(bean.getWid()).get(0);

@@ -12,7 +12,6 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import model.work.WorkBean;
 
 @Repository
 public class RecordDAOJdbc implements RecordDAO {
@@ -128,29 +127,22 @@ public class RecordDAOJdbc implements RecordDAO {
 	}
 	
 	private static final String SELECT_STATS=
-			"select max(record_1),max(record_2),max(record_3),max(record_4),max(record_5),"
-			+ "min(record_1),min(record_2),min(record_3),min(record_4),min(record_5),"
-			+ "avg(record_1),avg(record_2),avg(record_3),avg(record_4),avg(record_5) from tb_record "
+			"select mid,record_1,record_2,record_3,record_4,record_5 from tb_record "
 			+ "where wid=? and recordversion=?";
 	@Override
-	public List<RecordBean> calStat(Integer wid, Integer recordversion) {
+	public List<RecordBean> get(Integer wid, Integer recordversion) {
 		ResultSet rset = null;
+		List<RecordBean> list=null;
 		try (Connection conn = dataSource.getConnection();
 				PreparedStatement stmt = conn.prepareStatement(SELECT_STATS);) {
 			if (wid != null && recordversion!=null) {
 				stmt.setInt(1, wid);
 				stmt.setInt(2, recordversion);
 				rset = stmt.executeQuery();
-				
-				if(rset.next()) {
-					List<RecordBean> list=new ArrayList<>();
-					list.add(new RecordBean(-1,wid,rset.getDouble(1),rset.getDouble(2),rset.getDouble(3),
-							rset.getDouble(4),rset.getDouble(5),recordversion));
-					list.add(new RecordBean(-2,wid,rset.getDouble(6),rset.getDouble(7),rset.getDouble(8),
-							rset.getDouble(9),rset.getDouble(10),recordversion));
-					list.add(new RecordBean(-3,wid,rset.getDouble(11),rset.getDouble(12),rset.getDouble(13),
-							rset.getDouble(14),rset.getDouble(15),recordversion));
-					return list;
+				list=new ArrayList<>();
+				while(rset.next()) {
+					list.add(new RecordBean(rset.getInt(1),wid,rset.getDouble(2),rset.getDouble(3),rset.getDouble(4),
+							rset.getDouble(5),rset.getDouble(6),recordversion));
 				}
 			}
 
@@ -166,7 +158,7 @@ public class RecordDAOJdbc implements RecordDAO {
 				}
 			}
 		}
-		return null;
+		return list;
 	}
 
 }
