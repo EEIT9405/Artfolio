@@ -90,13 +90,11 @@
                 <ol class="breadcrumb">
                     <li><a href="index.jsp">Home</a>
                     </li>
-<<<<<<< HEAD
+
                     <li class="active"><a href="myWorks.jsp">我的作品</a></li>
                     <li class="active"><a href="likelist.jsp">喜愛作品</a></li>
                     <li class="active"><a href="followlist.jsp">追踪作家</a></li>
-=======
-                    <li class="active">FollewList</li>
->>>>>>> branch 'master' of https://github.com/EEIT9405/Artfolio.git
+
                 </ol>
             </div>
         </div>
