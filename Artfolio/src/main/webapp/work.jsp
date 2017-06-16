@@ -147,14 +147,15 @@
 	f.onchange = function() {
 		var files = f.files;
 		for (var i = 0; i < files.length; i++) {
-			var order=0;
+			var order=0,list=[];
 			$(frm).find('input[name^=order]').each(function(){
-				if($(this).val()==order)
-					order=order+1;
-				console.log(order+":"+$(this).val());
-				
+				list.push($(this).val());
 			});
-			
+			list.sort()
+			for(var x=0;x<list.length;x++){
+				if(order==list[x])
+					order+=1;
+			}
 			
 			var file = files[i];
 			if (!/^image\//.test(file.type)) {
