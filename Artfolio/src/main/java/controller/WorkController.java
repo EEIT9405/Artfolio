@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import model.album.AlbumBean;
@@ -185,6 +186,24 @@ public class WorkController {
 
 		}
 		return "upload";
+	}
+	
+	@RequestMapping(path = "update.controller", method = RequestMethod.POST)
+	@ResponseBody
+	public boolean update(Integer wid,String wtitle,String winfo,Integer aid,Boolean iswmsg){
+		if(wid!=null && wtitle!=null && wtitle.trim().length()>0){
+			WorkBean bean=workService.getWork(wid);
+			if(bean!=null){
+				bean.setWtitle(wtitle.trim());
+				if(winfo!=null)
+				bean.setWinfo(winfo.trim());
+				if(aid!=null)
+				bean.setAlbumBean(albumService.select(aid).get(0));
+				bean.setIswmsg(iswmsg!=null && iswmsg);
+				return workService.update(bean)!=null;
+			}
+		}
+		return false;
 	}
 
 }
