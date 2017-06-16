@@ -21,4 +21,5 @@ public interface WorkDAO {
 	boolean updateLike(Integer wid,Integer wlike);
 	List<WorkBean> searchByMid(Integer mid);
 	List<WorkBean> searchRecent();
+	List<WorkBean> searchByAid(Integer aid);
 }

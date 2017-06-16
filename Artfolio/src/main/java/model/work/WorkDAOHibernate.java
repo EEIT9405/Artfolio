@@ -204,6 +204,16 @@ public class WorkDAOHibernate implements WorkDAO {
 	public List<WorkBean> searchRecent() {
 		return this.getSession().createQuery(SELECT_RECENT,WorkBean.class).setMaxResults(100).list();
 	}
+	
+	private static final String SELECT_BY_AID="from WorkBean where aid=?";
+	@Override
+	public List<WorkBean> searchByAid(Integer aid) {
+		List<WorkBean> list=null;
+		if(aid!=null){
+			list=this.getSession().createQuery(SELECT_BY_AID,WorkBean.class).setParameter(0, aid).list();
+		}
+		return list;
+	}
 
 }
 

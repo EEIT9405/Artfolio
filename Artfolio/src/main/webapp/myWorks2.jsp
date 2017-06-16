@@ -119,7 +119,7 @@
 							<ul id="sortList" class="dropdown-menu" role="menu"
 								aria-labelledby="dropdownMenu1">
 								<li class="sortbtn" role="presentation"><a role="menuitem"
-									class="btn" tabindex="-1">依相簿</a></li>
+									class="btn album" tabindex="-1">依相簿</a></li>
 								<li role="presentation" class="divider"></li>
 								<li role="presentation" class="dropdown-header">依時間：</li>
 								<li class="sortbtn" role="presentation"><a role="menuitem"
@@ -496,6 +496,9 @@ $(function(){
 	
 	sortbtn.click(function(){
 		var sort = $(this).children('a');
+		if(sort.hasClass('album')){
+			listWork(1, "date", "ascending");	
+		}
 		if(sort.hasClass('timeup')){
 			listWork(1, "date", "ascending");	
 		}

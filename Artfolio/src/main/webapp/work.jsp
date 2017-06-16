@@ -45,6 +45,7 @@
 							style="display: none" required multiple> <img
 							style="width: 50px; cursor: pointer;" src="img/icon-upload.png">
 						<input class="btn btn-success" type="submit" value="確認">
+						<input type="hidden" name="max">
 						<hr>
 					</div>
 					<table class="table"
@@ -62,7 +63,7 @@
 							</tr>
 							<tr>
 								<td>檔名</td>
-								<td><input type="text" name="filename" readonly></td>
+								<td><input type="text" name="filename" readonly><input type="hidden" name="order"></td>
 							</tr>
 							<tr>
 								<td>標題</td>
@@ -146,16 +147,27 @@
 	f.onchange = function() {
 		var files = f.files;
 		for (var i = 0; i < files.length; i++) {
+			var order=0;
+			$(frm).find('input[name^=order]').each(function(){
+				if($(this).val()==order)
+					order=order+1;
+				console.log(order+":"+$(this).val());
+				
+			});
+			
+			
 			var file = files[i];
 			if (!/^image\//.test(file.type)) {
 				continue;
 			}
 			var exist=false;
-			$(frm).find('input[name^=filename]').each(function(i){
+			$(frm).find('input[name^=filename]').each(function(){
 				if(this.value==file.name)
 					exist=true;
 			});
 			if(exist) continue;
+			
+			
 			
 			var clone = rawtable.cloneNode(true);
 			
@@ -174,10 +186,12 @@
 			var trs = $('tbody>tr', clone);
 			div.appendChild(img);
 			trs.eq(0).children('td:last-child').get(0).appendChild(div);
-			trs.eq(1).find('td>input').val(file.name);
+			var fn=trs.eq(1).find('td>input');
+			fn.val(file.name);
+			fn.next('input[type=hidden]').val(order);
 			var inputs = clone.querySelectorAll('*[name]');
 			for (var j = 0; j < inputs.length; j++) {
-				inputs[j].name = inputs[j].name + "_" + i;
+				inputs[j].name = inputs[j].name + "_" + order;
 			}
 			frm.appendChild(clone);
 		}
@@ -270,8 +284,15 @@
 			if(msg!=''){
 				alert(msg);
 			}
-			else
+			else{
+				var max=-1;
+				$(frm).find('input[name^=order]').each(function(){
+					if($(this).val()>max)
+						max=$(this).val();
+				});
+				$(frm).find('input[name=max]').val(max);
 				frm.submit();
+			}	
 		}
 	);
 	$(frm).on('click','input[value=cancel]',function(){
