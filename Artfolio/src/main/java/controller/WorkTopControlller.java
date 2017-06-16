@@ -9,9 +9,11 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import misc.schedule.WorkTopScheduler;
 import model.member.MemberBean;
@@ -22,6 +24,7 @@ import model.work.WorkTopService;
 
 @Controller
 @RequestMapping
+@SessionAttributes({"targetBean"})
 public class WorkTopControlller {
 	@Autowired
 	private WorkTopScheduler workTopScheduler;
@@ -142,5 +145,16 @@ public class WorkTopControlller {
 				return map;
 		}
 		return null;
+	}
+	
+	@RequestMapping(value="/getAuthor.controller", method=RequestMethod.GET)
+	public String getAuthor(Integer targetId, Model model){
+		
+		if(targetId != null){
+			MemberBean targetBean = memberService.select(targetId);
+			model.addAttribute("targetBean", targetBean);
+			return "targetPage";
+		}
+		return "index";
 	}
 }

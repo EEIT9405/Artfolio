@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html >
 <html>
 <head>
@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.datatables.net/u/bs/jq-2.2.3,dt-1.10.12/datatables.min.css">
-<link href="css/modern-business.css" rel="stylesheet">
+<!-- <link href="css/modern-business.css" rel="stylesheet"> -->
 <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <script src="js/jquery-3.2.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
@@ -31,7 +31,9 @@
 </head>
 <body>
 <jsp:include page="top/header.jsp"></jsp:include>
-          
+<c:if test="${!empty loginOK }">
+		<jsp:include page="top/pushPage.jsp"></jsp:include>
+	</c:if>
 	<!-- Page Content -->
 	<div class="container">
 
@@ -209,7 +211,7 @@
 						"aoColumns":[
 							{"data":"targetBean.mphoto",
 							    "render": function(mphoto, type, row) {
-							        return '<img src="'+mphoto+'" class="img-rounded" style="width:35px; box-shadow: 3px 3px 5px 3px;" />';
+							        return '<img src="'+mphoto+'" class="img-rounded" style="width:35px; box-shadow: 3px 3px 5px 3px gray;" />';
 							    }},
 						    {"data":"targetBean.name"},
 							{"data":"blockdate", "type":"date", "render":function(data){

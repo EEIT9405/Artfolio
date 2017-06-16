@@ -1,8 +1,11 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,7 @@ import model.follow.FollowService;
 import model.member.MemberBean;
 import model.member.MemberInfo;
 import model.member.MemberService;
+import model.work.WorkBean;
 import model.work.WorkService;
 
 
@@ -66,6 +70,41 @@ public class FollowController {
 		return null;
 	}
 	
+	@RequestMapping(path="check2.controller",method=RequestMethod.GET)
+	public int check2(){
+		Integer mid=(Integer) session.getAttribute("mid");
+		MemberBean targetBean = (MemberBean) session.getAttribute("targetBean");
+		Integer followid = null;
+		if(targetBean != null){
+			followid = targetBean.getMid();
+		}
+		if(followid != null){
+			List<FollowBean> list = followService.selectFollowed(followid);
+			for (FollowBean bean:list){
+				if(bean.getMid().equals(mid)){
+					return 1;
+				}	
+			}
+		}
+		return 0;
+	}
+	
+	@RequestMapping(value="/getFollowCount.controller", method=RequestMethod.GET)
+	public Map<String, Integer> getFollowCount(Integer mid){
+		Map<String, Integer> map = new HashMap<>();
+		if(mid != null){
+			List<FollowBean> follow = followService.selectFollowed(mid);
+			if(follow != null){
+				map.put("followCount", follow.size());
+			}
+			List<WorkBean> work = workService.selectByMid(mid);
+			if(work != null){
+				map.put("workCount", work.size());
+			}
+		}
+		return map;
+	}
+	
 	@RequestMapping(path="insert.controller",method=RequestMethod.POST)
 	public Info insert(Integer wid){
 		if(wid!=null){
@@ -75,6 +114,19 @@ public class FollowController {
 				return new Info(followService.selectFollowed(followid).size(),true);
 		}
 		return null;
+	}
+	
+	@RequestMapping(value="/create.controller", method=RequestMethod.POST, produces="text/plain;charset=utf-8")
+	@ResponseBody
+	public String follow(){
+		Integer mid = (Integer) session.getAttribute("mid");
+		MemberBean targetBean = (MemberBean) session.getAttribute("targetBean");
+		Integer followid = targetBean.getMid();
+		boolean result = followService.insert(new FollowBean(mid, followid, null));
+		if(result){
+			return "追踪成功";
+		}
+		return "追踪失敗，請重新登入後再試";
 	}
 	
 	@RequestMapping(path="deleteByWid.controller",method=RequestMethod.POST)

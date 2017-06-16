@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="css/pushBar.css">
 <style type="text/css">
   .pushbefore img {
-  	width:150%;
+  	width:170%;
   	position:absolute;
   	top:50%;
   	left:50%;
@@ -67,16 +67,13 @@
 	var push = $('#push');
 	
 	window.onunload = function() {
-		console.log("onunload");
 		if (messageArray.length != 0) {
 			sessionStorage.setItem("work" , JSON.stringify(messageArray));
 		}
 	}
 
 	window.onload = function() {
-		console.log("onload");
 		var data = JSON.parse(sessionStorage.getItem('work'));
-		console.log("data=" + data);
 		if(data){
 			for(var i = 0 ; i < data.length ; i++){
 				messageArray.push(data[i]);
@@ -103,7 +100,6 @@
 		var message = JSON.parse(event.data);
 		var widhidden = $('<input type="hidden" name="wid">');
 		messageArray.push(message);
-		console.log(message);
 		img.attr("src", message.picurl);
 		widhidden.val(message.wid);
 		frame.append(img);
@@ -116,7 +112,6 @@
 	}
 	
 	webSocket.onmessage = function(event) {
-		console.log("onmessage");
 		onMessage(event);
 	}
 	

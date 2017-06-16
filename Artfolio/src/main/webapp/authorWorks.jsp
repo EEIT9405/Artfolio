@@ -1,15 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/modern-business.css" rel="stylesheet">
-<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-<script src="js/jquery-3.2.1.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
+<link href="/Artfolio/css/bootstrap.min.css" rel="stylesheet">
+<!-- <link href="/Artfolio/css/style.css" rel="stylesheet"> -->
+<link href="/Artfolio/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<script src="/Artfolio/js/jquery-3.2.1.min.js"></script>
+<script src="/Artfolio/js/bootstrap.min.js"></script>
 <style type="text/css">
 .img-box {
   overflow: hidden;
@@ -70,18 +71,21 @@
 <body>
 <!-- Navigation -->
 <jsp:include page="top/header.jsp"></jsp:include>
-<div class="container">
+<c:if test="${!empty loginOK }">
+		<jsp:include page="top/pushPage.jsp"></jsp:include>
+	</c:if>
+<div class="container" style="height:auto; min-height:500px; margin-bottom:30px;">
 
         <!-- Page Heading/Breadcrumbs -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">My folio
+                <h1 class="page-header">${targetBean.name} folio
                     <small>my folio</small>
                 </h1>
                 <ol class="breadcrumb">
-                    <li><a href="index.html">Home</a>
+                    <li><a href="/Artfolio/index.jsp">Home</a>
                     </li>
-                    <li class="active">我的作品</li>
+                    <li class="active">${targetBean.name}的作品集</li>
                 </ol>
             </div>
         </div>
@@ -93,8 +97,19 @@
             	<div class="panel panel-default">
   					<div class="panel-body">
     					<div>
-    						<img style="width:150px;" src="/img/designer-512.png">
+    						<img style="width:150px;" src="/img/${targetBean.mphoto}">
     					</div>
+    					<div id="followCount">人氣：</div>
+    					<div id="workCount">作品：</div>
+  					</div>
+				</div>
+				
+				<div class="panel panel-default">
+  					<div class="panel-body">
+    					<div style="margin-top:10px;">
+					    	<button id="follow" class="btn btn-default" value="follow">追踪</button>
+					    	<button id="block" class="btn btn-default">黑名單</button>
+				    	</div>
   					</div>
 				</div>
 
@@ -127,123 +142,100 @@
 	<div id="photoContainer" class="col-md-10" style="overflow-y:auto; height:450px;">
          <!-- Projects Row -->
         <div class="row">
-	        <div class="col-sm-12 col-md-3 padding-0">
-	          <div class="img-box"><img src="http://bit.ly/2qYyyVS " alt=""/>
-		          <div class="editer"></div>
-	          </div>
-	        </div>
-	        <div class="col-sm-12 col-md-3 padding-0">
-	          <div class="img-box"><img src="http://bit.ly/2qYyyVS " alt=""/>
-	          	<div class="editer"></div>
-	          </div>
-	        </div>
-	        <div class="col-sm-12 col-md-3 padding-0">
-	          <div class="img-box"><img src="http://bit.ly/2qYyyVS " alt=""/>
-	          	<div class="editer"></div>
-	          </div>
-	        </div>
-	        <div class="col-sm-12 col-md-3 padding-0">
-	          <div class="img-box"><img src="http://bit.ly/2qYyyVS " alt=""/>
-	          	<div class="editer"></div>
-	          </div>
-	        </div>
-        </div>
-        <!-- /.row -->
-        
-	        <div class="col-sm-12 col-md-3 padding-0">
-	          <div class="img-box"><img src="http://bit.ly/2qYyyVS " alt=""/>
-		          <div class="editer"></div>
-	          </div>
-	        </div>
-	        <div class="col-sm-12 col-md-3 padding-0">
-	          <div class="img-box"><img src="http://bit.ly/2qYyyVS " alt=""/>
-	          	<div class="editer"></div>
-	          </div>
-	        </div>
-	        <div class="col-sm-12 col-md-3 padding-0">
-	          <div class="img-box"><img src="http://bit.ly/2qYyyVS " alt=""/>
-	          	<div class="editer"></div>
-	          </div>
-	        </div>
-	        <div class="col-sm-12 col-md-3 padding-0">
-	          <div class="img-box"><img src="http://bit.ly/2qYyyVS " alt=""/>
-	          	<div class="editer"></div>
-	          </div>
-	        </div>
-
-	        <div class="col-sm-12 col-md-3 padding-0">
-	          <div class="img-box"><img src="http://bit.ly/2qYyyVS " alt=""/>
-		          <div class="editer"></div>
-	          </div>
-	        </div>
-	        <div class="col-sm-12 col-md-3 padding-0">
-	          <div class="img-box"><img src="http://bit.ly/2qYyyVS " alt=""/>
-	          	<div class="editer"></div>
-	          </div>
-	        </div>
-	        <div class="col-sm-12 col-md-3 padding-0">
-	          <div class="img-box"><img src="http://bit.ly/2qYyyVS " alt=""/>
-	          	<div class="editer"></div>
-	          </div>
-	        </div>
-	        <div class="col-sm-12 col-md-3 padding-0">
-	          <div class="img-box"><img src="http://bit.ly/2qYyyVS " alt=""/>
-	          	<div class="editer"></div>
-	          </div>
-	        </div>
+	        
         </div>
         <!-- /.row -->
 	</div>
 	
 	
         <hr>
-
-        <!-- Footer -->
-        <footer>
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>Copyright &copy; Your Website 2014</p>
-                </div>
-            </div>
-        </footer>
-
 </div>
-
+</div>
 <!-- /.container -->
+<jsp:include page="top/footer.jsp"></jsp:include>
 
 <!-- JS -->
-<script src="js/jquery.formatDateTime.min.js"></script>
+<script src="/Artfolio/js/jquery.formatDateTime.min.js"></script>
 <script>
 $(function(){
 	var sortbtn = $('#sortList').children('li.sortbtn');
-	var photoContainer = $('#photoContainer');
+	var photoContainer = $('#photoContainer>div.row');
+	var mid = "${targetBean.mid}";
+	var follow = $('#follow');
+	var block = $('#block');
 	
-	listWork(1, "alphabet", "ascending");
-	
+	listWork(mid, "alphabet", "ascending");
+	getFollowCount();
+	check();
 	//載入作者資訊
 	
 	
+	function check(){
+		$.get('follow/check2.controller', function(data){
+			if(data == 1){
+				follow.val('unfollow');
+				follow.removeClass('btn-default');
+				follow.addClass('btn-info');
+			}else {
+				follow.val('follow');
+				follow.removeClass('btn-info');
+				follow.addClass('btn-default');
+			}
+		});
+		
+		
+	}
+	
+	follow.click(function(){
+		if(follow.val() == "follow"){
+			$.post('follow/create.controller',function(data){
+				alert(data);
+				follow.val('unfollow');
+				follow.removeClass('btn-default');
+				follow.addClass('btn-info');
+			});
+		}else {
+			$.post('follow/delete.controller', {followid:mid}, function(){
+				follow.val('follow');
+				follow.removeClass('btn-info');
+				follow.addClass('btn-default');
+			});	
+		}
+	});
+	
+	block.click(function(){
+		$.post('block.controller', {mid:mid}, function(data){
+			$.post('follow/delete.controller', {followid:mid}, function(){
+				follow.val('follow');
+				follow.removeClass('btn-info');
+				follow.addClass('btn-default');
+			});	
+			alert(data);
+			window.location.href='/Artfolio/index.jsp';
+		});
+	});
 	
 	sortbtn.click(function(){
 		var sort = $(this).children('a');
 		if(sort.hasClass('timeup')){
-			listWork(1, "date", "ascending");	
+			listWork(mid, "date", "ascending");	
 		}
 		if(sort.hasClass('timedown')){
-			listWork(1, "date", "descending");	
+			listWork(mid, "date", "descending");	
 		}
 		if(sort.hasClass('likeup')){
-			listWork(1, "like", "ascending");
+			listWork(mid, "like", "ascending");
 		}
 		if(sort.hasClass('likedown')){
-			listWork(1, "like", "descending");
+			listWork(mid, "like", "descending");
 		}
 	});
 	
 	function listWork(mid, orderby, order){
 			photoContainer.empty();
 		$.getJSON('searchByMid.controller', {mid:mid, orderby:orderby, order:order}, function(data){
-			var row = $('<div class="row">');
+
+			var documentFrag = $(document.createDocumentFragment());
 			$.each(data, function(index, value){
 				var col = $('<div class="col-sm-12 col-md-3 padding-0">');
 				var imgbox = $('<div class="img-box">');
@@ -271,11 +263,20 @@ $(function(){
 				imgbox.append(photowid);
 				col.append(imgbox);
 				col.append(title);
-				row.append(col);
+				documentFrag.append(col);
 			});
-			photoContainer.append(row);
+			photoContainer.append(documentFrag);
 		});
 	}
+	
+	function getFollowCount() {
+		$.get('follow/getFollowCount.controller', {mid:mid}, function(data){
+			$('#followCount').append(data.followCount);
+			$('#workCount').append(data.workCount);
+		});
+	}
+	
+	
 });
 </script>
 </body>

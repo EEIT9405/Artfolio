@@ -41,8 +41,8 @@ public class PushWebSocketHandler extends TextWebSocketHandler {
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		MemberBean user = (MemberBean) session.getAttributes().get("user");
-		if (user != null){
-			System.out.println("user connect="+ user.getName());
+		if (user != null) {
+			System.out.println("user connect=" + user.getName());
 			userSocketSessionMap.put(user, session);
 		}
 	}
@@ -53,7 +53,7 @@ public class PushWebSocketHandler extends TextWebSocketHandler {
 		MemberBean user = (MemberBean) session.getAttributes().get("user");
 		if (user != null)
 			System.out.println("user unconnect");
-			userSocketSessionMap.remove(user);
+		userSocketSessionMap.remove(user);
 	}
 
 	@Override
@@ -64,52 +64,56 @@ public class PushWebSocketHandler extends TextWebSocketHandler {
 		sendMessage(message);
 	}
 
-	//判斷傳入之圖片
+	// 判斷傳入之圖片
 	private void sendMessage(TextMessage message) throws IOException {
 		if (!userSocketSessionMap.isEmpty()) {
-			//將message(json)轉回WrokBean物件
+			// 將message(json)轉回WrokBean/list物件
 			ObjectMapper mapper = new ObjectMapper();
-			//WorkBean workBean = mapper.readValue(message.getPayload().toString(), WorkBean.class);
-			List<WorkBean> workList = mapper.readValue(message.getPayload().toString(), mapper.getTypeFactory().constructParametricType(ArrayList.class, WorkBean.class));
-			for(WorkBean workBean : workList){
-				TextMessage msg = new TextMessage(new ObjectMapper().writeValueAsString(workBean));
-			//取得此bean所有tag
-	//		List<TagBean> tags = tagService.getTags(workBean.getWid());
-			//for(WorkBean workBean: workList){
-				//List<TagBean> tags = tagService.getTags(workBean.getWid());
-//			if (tags != null && !tags.isEmpty()) {
-				Iterator<Map.Entry<MemberBean, WebSocketSession>> iterator = userSocketSessionMap.entrySet().iterator();
-				
-				while (iterator.hasNext()) {
-					Map.Entry<MemberBean, WebSocketSession> entry = iterator.next();
-					//取得user的所有看過的標籤
-//					TreeSet<FavoriteBean> favorites = (TreeSet<FavoriteBean>) entry.getKey().getFavorites();
-//					HashSet<FavoriteBean> topFavo = new HashSet<>();
-					//取得前三喜歡標籤
-//					if (favorites != null && !favorites.isEmpty()) {
-//						topFavo.add(favorites.pollFirst());
-//						if (!favorites.isEmpty()) {
-//							topFavo.add(favorites.pollFirst());
-//						}
-//						if (!favorites.isEmpty()) {
-//							topFavo.add(favorites.pollFirst());
-//						}
-//					}
-					//如此workBean包含user喜歡的標籤，就push
-//					for (FavoriteBean fb : topFavo) {
-//						String ftag = fb.getTag();
-//						for (TagBean tagBean : tags) {
-//							if(ftag.equals(tagBean.getTag())){
-								System.out.println("send message");
-								entry.getValue().sendMessage(msg);
-								//entry.getValue().sendMessage(new TextMessage(mapper.writeValueAsString(workBean)));
+			// WorkBean workBean =
+			// mapper.readValue(message.getPayload().toString(),
+			// WorkBean.class);
+			List<WorkBean> workList = mapper.readValue(message.getPayload().toString(),
+					mapper.getTypeFactory().constructParametricType(ArrayList.class, WorkBean.class));
+			for (WorkBean workBean : workList) {
+				// 取得此bean所有tag
+				List<TagBean> tags = tagService.getTags(workBean.getWid());
+
+				if (tags != null && !tags.isEmpty()) {
+					Iterator<Map.Entry<MemberBean, WebSocketSession>> iterator = userSocketSessionMap.entrySet()
+							.iterator();
+					while (iterator.hasNext()) {
+						Map.Entry<MemberBean, WebSocketSession> entry = iterator.next();
+						//如果不是自己上傳的作品才繼續
+						if (!entry.getKey().getMid().equals(workBean.getMid())) {
+							// 取得user的所有看過的標籤
+							TreeSet<FavoriteBean> favorites = (TreeSet<FavoriteBean>) entry.getKey().getFavorites();
+							HashSet<FavoriteBean> topFavo = new HashSet<>();
+							// 取得前三喜歡標籤
+							if (favorites != null && !favorites.isEmpty()) {
+								topFavo.add(favorites.pollFirst());
+								if (!favorites.isEmpty()) {
+									topFavo.add(favorites.pollFirst());
+								}
+								if (!favorites.isEmpty()) {
+									topFavo.add(favorites.pollFirst());
+								}
 							}
-//						}
-//					}
-//				}
-//			}
-		//}
-		}
+							// 如此workBean包含user喜歡的標籤，就push
+							for (FavoriteBean fb : topFavo) {
+								String ftag = fb.getTag();
+								for (TagBean tagBean : tags) {
+									if (ftag.equals(tagBean.getTag())) {
+										System.out.println("send message");
+										TextMessage msg = new TextMessage(
+												new ObjectMapper().writeValueAsString(workBean));
+										entry.getValue().sendMessage(msg);
+									}
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 }

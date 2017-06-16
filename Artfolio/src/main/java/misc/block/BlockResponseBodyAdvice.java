@@ -14,7 +14,6 @@ import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
-import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -23,6 +22,7 @@ import model.block.BlockService;
 import model.bounty.BountyBean;
 import model.member.MemberBean;
 import model.wmsg.WmsgBean;
+import model.work.WorkBean;
 
 @ControllerAdvice
 public class BlockResponseBodyAdvice implements ResponseBodyAdvice<Object> {
@@ -64,6 +64,10 @@ public class BlockResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 					List<WmsgBean> wmsgList = (List<WmsgBean>) returnValue;
 					return BlockUtils.filterWmsg(blockList, wmsgList, mid);
 				}
+				if ("search".equals(methodName) || "searchByMid".equals(methodName)){
+					List<WorkBean> workList = (List<WorkBean>) returnValue;
+					return BlockUtils.filterWork(blockList, workList, mid);
+				}
 			}
 			return returnValue;
 		}
@@ -79,6 +83,9 @@ public class BlockResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 			return true;
 		}
 		if ("getAllWmsg".equals(methodName)) {
+			return true;
+		}
+		if("search".equals(methodName) || "searchByMid".equals(methodName)){
 			return true;
 		}
 		return false;

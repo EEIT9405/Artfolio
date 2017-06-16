@@ -91,7 +91,7 @@
 		</ul>
 		<div class="tab-content">
 			<div id="exchange" role="tabpanel" class="tab-pane active">
-				<form action="exchange.controller" method="post">
+				<form action="point/exchange.controller" method="post">
 					<table class="table table-striped">
 						<thead>
 							<tr>
@@ -238,7 +238,7 @@
 <!-- JS -->
 <script src="/Artfolio/js/jquery-ui.min.js"></script>
 <!-- <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script> -->
-<script src="../js/paging.js"></script>
+<script src="/Artfolio/js/paging.js"></script>
 <script>
 	$('table','#point').addClass('table');
 	var etb=$('tbody','#exchange');

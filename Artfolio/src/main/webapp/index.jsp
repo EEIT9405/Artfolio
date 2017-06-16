@@ -16,7 +16,7 @@
 <script src='js/jquery-3.2.1.min.js'></script>
 <style type="text/css">
 *{
-	font-family:微軟正黑體;
+	font-family:monospace 微軟正黑體;
 }
 .wmsgArea {
 	height: 270px;
@@ -229,42 +229,12 @@
 			<div class="col-sm-0 col-md-2"></div>
 		</div>
 	</section>
-	<section class="container-fluid new-picture">
+	<section id="showWorksArea" class="container-fluid new-picture">
 		<div class="row">
 			<div class="col-sm-0 col-md-2"></div>
 			<div class="col-sm-12 col-md-8">
 				<h1>New Picture</h1>
-				<div class="row">
-					<div class="col-sm-12 col-md-2 padding-0">
-						<div class="img-box">
-							<img src="http://bit.ly/2qYyyVS " alt="" />
-						</div>
-					</div>
-					<div class="col-sm-12 col-md-2 padding-0">
-						<div class="img-box">
-							<img src="http://bit.ly/2qYyyVS " alt="" />
-						</div>
-					</div>
-					<div class="col-sm-12 col-md-2 padding-0">
-						<div class="img-box">
-							<img src="http://bit.ly/2qYyyVS " alt="" />
-						</div>
-					</div>
-					<div class="col-sm-12 col-md-2 padding-0">
-						<div class="img-box">
-							<img src="http://bit.ly/2qYyyVS " alt="" />
-						</div>
-					</div>
-					<div class="col-sm-12 col-md-2 padding-0">
-						<div class="img-box">
-							<img src="http://bit.ly/2qYyyVS " alt="" />
-						</div>
-					</div>
-					<div class="col-sm-12 col-md-2 padding-0">
-						<div class="img-box">
-							<img src="http://bit.ly/2qYyyVS " alt="" />
-						</div>
-					</div>
+				<div id="searchResult" class="row">
 				</div>
 				<div class="col-sm-0 col-md-2"></div>
 			</div>
@@ -419,7 +389,7 @@
 							<div style="margin-top:15px;" id="wmsg" class="row">
 								<form>
 									<div class="form-group" style="margin-right: 5px;">
-										<textarea id="wmsgTextarea" class="form-control" rows="3"
+										<textarea wrap="physical" id="wmsgTextarea" class="form-control" rows="3"
 											cols="30"></textarea>
 										<div class="pull-right">
 											<input type="button" class="btn btn-primary disabled"
@@ -483,6 +453,13 @@
 	<script src='js/jquery.formatDateTime.min.js'></script>
 	<script>
 		$(function() {
+			
+			var searchToken = "${searchToken}";
+			
+			if(searchToken == 1){
+				$.getJSON('');
+			}
+			
 			//top區
 			var top1 = $('#top1');
 			var top2 = $('#top2');
@@ -527,6 +504,7 @@
 									.text(value.memberBean.name);
 							top1.children('div').children('div').children('h2')
 									.text(value.workBean.wtitle);
+							top1.children('input[name="wid"]').remove();
 							top1.append($(
 									'<input type="hidden" name="wid"></input>')
 									.val(value.workBean.wid));
@@ -538,6 +516,7 @@
 									.text(value.memberBean.name);
 							top2.children('div').children('div').children('h2')
 									.text(value.workBean.wtitle);
+							top2.children('input[name="wid"]').remove();
 							top2.append($(
 									'<input type="hidden" name="wid"></input>')
 									.val(value.workBean.wid));
@@ -549,6 +528,7 @@
 									.text(value.memberBean.name);
 							top3.children('div').children('div').children('h2')
 									.text(value.workBean.wtitle);
+							top3.children('input[name="wid"]').remove();
 							top3.append($(
 									'<input type="hidden" name="wid"></input>')
 									.val(value.workBean.wid));
@@ -560,6 +540,7 @@
 									.text(value.memberBean.name);
 							top4.children('div').children('div').children('h2')
 									.text(value.workBean.wtitle);
+							top4.children('input[name="wid"]').remove();
 							top4.append($(
 									'<input type="hidden" name="wid"></input>')
 									.val(value.workBean.wid));
@@ -571,6 +552,7 @@
 									.text(value.memberBean.name);
 							top5.children('div').children('div').children('h2')
 									.text(value.workBean.wtitle);
+							top5.children('input[name="wid"]').remove();
 							top5.append($(
 									'<input type="hidden" name="wid"></input>')
 									.val(value.workBean.wid));
@@ -582,6 +564,7 @@
 									.text(value.memberBean.name);
 							top6.children('div').children('div').children('h2')
 									.text(value.workBean.wtitle);
+							top6.children('input[name="wid"]').remove();
 							top6.append($(
 									'<input type="hidden" name="wid"></input>')
 									.val(value.workBean.wid));
@@ -593,6 +576,7 @@
 									.text(value.memberBean.name);
 							top7.children('div').children('div').children('h2')
 									.text(value.workBean.wtitle);
+							top7.children('input[name="wid"]').remove();
 							top7.append($(
 									'<input type="hidden" name="wid"></input>')
 									.val(value.workBean.wid));
@@ -600,6 +584,7 @@
 						case 7:
 							top8.children('img').attr('src',
 									value.workBean.picurl);
+							top8.children('input[name="wid"]').remove();
 							top8.append($(
 									'<input type="hidden" name="wid"></input>')
 									.val(value.workBean.wid));
@@ -607,6 +592,7 @@
 						case 8:
 							top9.children('img').attr('src',
 									value.workBean.picurl);
+							top9.children('input[name="wid"]').remove();
 							top9.append($(
 									'<input type="hidden" name="wid"></input>')
 									.val(value.workBean.wid));
@@ -614,6 +600,7 @@
 						case 9:
 							top10.children('img').attr('src',
 									value.workBean.picurl);
+							top10.children('input[name="wid"]').remove();
 							top10.append($(
 									'<input type="hidden" name="wid"></input>')
 									.val(value.workBean.wid));
@@ -621,6 +608,7 @@
 						case 10:
 							top11.children('img').attr('src',
 									value.workBean.picurl);
+							top11.children('input[name="wid"]').remove();
 							top11.append($(
 									'<input type="hidden" name="wid"></input>')
 									.val(value.workBean.wid));
@@ -657,7 +645,6 @@
 
 			issueMenu.on('click', 'div.circle', function() {
 				var issue = $(this).children('div').text();
-				console.log(issue);
 				if (issue == "more") {
 
 				} else {
@@ -681,9 +668,9 @@
 					{backdrop : 'static',keyboard:false}
 				);
 				showWmsg();
+				showWorkInfo();
 				getAll();
 				showRecommendPhoto();
-				showWorkInfo();
 				saveUserBrowse();
 				$('input[name="mailtitle"]').val(thisWid+":圖片檢舉");
 			}
@@ -698,13 +685,13 @@
 				workInfo.empty();
 				ImageModalLabel.empty();
 				$.getJSON('getWorkById.controller', {wid:thisWid}, function(data){
-					memberName.append($('<h5>').append($('<a>').text(data.memberBean.name).attr('href','#')));
+					memberName.append($('<h5>').append($('<a>').text(data.memberBean.name).attr('href','/Artfolio/getAuthor.controller?targetId='+data.memberBean.mid)));
 					workInfo.append(data.workBean.winfo);
 					ImageModalLabel.append(data.workBean.wtitle);
 				});
 			}
 			
-			$('.img-box').click(showModal);
+			$(document).on('click','div.img-box',showModal);
 			//博超-----------
 			
 			//推薦欄點擊
@@ -1239,6 +1226,11 @@
 			});
 			
 			$.get('record/getw.controller',{wid:wid.val()},function(data){
+				if(!data.iswmsg){
+					$('#wmsgTextarea').prop('disabled', true);
+				}else{
+					$('#wmsgTextarea').prop('disabled', false);
+				}
 				if(data.isscore){
 					version.val(data.scoreversion);
 					titles.each(function(i){

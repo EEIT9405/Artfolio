@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>My Space</title>
 <link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/modern-business.css" rel="stylesheet">
+<!-- <link href="css/modern-business.css" rel="stylesheet"> -->
 <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <script src="js/jquery-3.2.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
@@ -75,6 +76,9 @@
 <body>
 <!-- Navigation -->
 <jsp:include page="top/header.jsp"></jsp:include>
+<c:if test="${!empty loginOK }">
+		<jsp:include page="top/pushPage.jsp"></jsp:include>
+	</c:if>
 <div class="container">
 
         <!-- Page Heading/Breadcrumbs -->
@@ -84,9 +88,11 @@
                     <small>my folio</small>
                 </h1>
                 <ol class="breadcrumb">
-                    <li><a href="index.html">Home</a>
+                   <li><a href="index.jsp">Home</a>
                     </li>
-                    <li class="active">LikeList</li>
+                    <li class="active"><a href="myWorks.jsp">我的作品</a></li>
+                    <li class="active"><a href="likelist.jsp">喜愛作品</a></li>
+                    <li class="active"><a href="followlist.jsp">追踪作家</a></li>
                 </ol>
             </div>
         </div>
@@ -98,7 +104,7 @@
             	<div class="panel panel-default">
   					<div class="panel-body">
     					<div>
-    						<img style="width:150px;" src="/img/designer-512.png">
+    						<img style="width:150px;" src="/img/${loginOK.mphoto }">
     					</div>
   					</div>
 				</div>

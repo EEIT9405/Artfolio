@@ -12,6 +12,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
+*{
+	font-family:monospace 微軟正黑體;
+}
 .img-style {
   overflow: hidden;
   width: 200px;
@@ -34,15 +37,16 @@
 
 <jsp:include page="top/header.jsp"></jsp:include>
 
-<div class="container" style="margin-top:100px;">
-  <div class="row" style="position:absolute;">
+<div class="container" style="margin-top:100px; height:auto; min-height:450px; position:relative;">
+  <div class="row" >
 	<div id="wk">
 		<form role="form" action="work/upload.controller" method="post" enctype="multipart/form-data">
-			<div style="position:relative;">
+			<a href="myWorks.jsp"><i class="glyphicon glyphicon-arrow-left" style="display:inline-block; font-size:40px; cursor:pointer;"></i></a>
+			<div style="position:absolute; width:108px; left:50%; transform:translateX(-50%); display:inline-block;">
 				<input type="file" name="files" accept="image/*" style="display: none" required multiple> <img style="width:50px; cursor:pointer;" src="img/icon-upload.png">
 				<input class="btn btn-success" type="submit" value="確認">
-				<hr>
 			</div>
+			<hr>
 			<table class="table" style="float:left; width:350px; border:solid 2px silver; margin-right:15px;">
 				<thead>
 					<tr>
@@ -105,7 +109,7 @@
 	</div>
   </div>
 </div>
-
+<jsp:include page="top/footer.jsp"></jsp:include>
 </body>
 <script>
 	function listalbum(){
