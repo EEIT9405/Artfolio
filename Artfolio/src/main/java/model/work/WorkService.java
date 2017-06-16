@@ -107,4 +107,11 @@ public class WorkService {
 		return tbworkDao.searchByMid(aid);
 		return null;
 	}
+	
+	@Transactional(propagation=Propagation.MANDATORY)
+	public boolean updatedependency(WorkBean bean){
+		if(bean!=null)
+			return tbworkDao.update(bean)!=null;
+		return false;
+	}
 }

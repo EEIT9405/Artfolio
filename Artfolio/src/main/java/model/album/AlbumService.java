@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
+import model.work.WorkBean;
+import model.work.WorkService;
+
 @Service
 @Transactional(
 		transactionManager="transactionManager",
@@ -19,6 +22,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class AlbumService {
 	@Autowired
 	private AlbumDAO albumDao;
+	@Autowired
+	private WorkService workService;
 	public AlbumService(AlbumDAO albumDao) {
 		this.albumDao = albumDao;
 	}
@@ -51,12 +56,27 @@ public class AlbumService {
 		}
 		return result;
 	}
-	public boolean delete(AlbumBean bean) {
-		boolean result = false;
-		if(bean!=null) {
-			result = albumDao.delete(bean.getAid());
+	public Boolean delete(Integer aid,Integer mid) {
+		if(aid!=null && mid!=null){
+			AlbumBean bean=select(aid).get(0);
+			if(bean!=null && bean.getMid().equals(mid)){
+				if(!bean.getAname().equals("default")){
+					for(AlbumBean ab:selectByMid(mid)){
+						if(ab.getAname().equals("default") && ab.getAid()!=aid){
+							bean=ab;
+							break;
+						}
+					}
+					boolean update=true;
+					for(WorkBean wb:workService.selectByAid(aid)){
+						wb.setAlbumBean(bean);
+						update=update && workService.updatedependency(wb);
+					}return update && albumDao.delete(aid);
+				}else
+					return null;
+			}
 		}
-		return result;
+		return false;
 	}
 	@Transactional(readOnly=true)
 	public List<AlbumBean> selectByMid(Integer mid){
