@@ -10,7 +10,6 @@
 <title>Point</title>
 <link href="/Artfolio/css/bootstrap.min.css" rel="stylesheet">
 <link href="/Artfolio/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-<link href="/Artfolio/css/style.css" rel="stylesheet">
 <link href="/Artfolio/css/pushBar.css" rel="stylesheet">
 <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 <script src="/Artfolio/js/jquery-3.2.1.min.js"></script>
@@ -63,6 +62,31 @@
           transform: translate(-50%, -50%);
   width: 160%;
 }
+.top-colleciton {
+  background-image: url(https://livedemo00.template-help.com/magento_52963/skin/frontend/default/theme323k/images/bg_index.jpg);
+  background-size: 100%;
+  padding-top: 60px;
+}
+.footer {
+	padding-top: 40px;
+	padding-bottom: 10px;
+	background-color: #222;
+	color: #999;
+	font-size: 10px;
+	letter-spacing: 1px;
+}
+
+.footer hr {
+	background-color: #222;
+	opacity: 0.1;
+}
+
+.title h3 {
+	text-align: center;
+}
+.active{
+	font-size:16px;
+}
 </style>
 </head>
 <body>
@@ -71,17 +95,25 @@
 	<c:if test="${!empty loginOK }">
 		<jsp:include page="top/pushPage.jsp"></jsp:include>
 	</c:if>
-<div class="container">
+	
+<div class="container-fluid top-colleciton">
+   <div class="row">
+   	 <div class="col-md-1"></div>
+   	 <div class="col-md-10">
+		<h1 class="page-header">My point <small>點數區</small></h1>
+     </div>   
+     <div class="col-md-1"></div>        
+   </div>             
+</div>
+<br/> 
+<div class="container" style="height:auto; min-height:500px; margin-bottom:30px;">
         <!-- Page Heading/Breadcrumbs -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Point
-                    <small>點數交易</small>
-                </h1>
                 <ol class="breadcrumb">
                     <li><a href="/Artfolio/index.jsp">Home</a>
                     </li>
-                    <li class="active">點數區</li>
+                    <li class="active">點數交易</li>
                 </ol>
             </div>
         </div>

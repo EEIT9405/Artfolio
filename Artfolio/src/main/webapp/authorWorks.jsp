@@ -7,7 +7,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <link href="/Artfolio/css/bootstrap.min.css" rel="stylesheet">
-<!-- <link href="/Artfolio/css/style.css" rel="stylesheet"> -->
 <link href="/Artfolio/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <script src="/Artfolio/js/jquery-3.2.1.min.js"></script>
 <script src="/Artfolio/js/bootstrap.min.js"></script>
@@ -16,57 +15,82 @@
 	font-family:monospace 微軟正黑體;
 }
 .img-box {
-  overflow: hidden;
-  width: 180px;
-  height: 180px;
-  margin-top: 12px;
-  margin-bottom: 12px;
-  position: relative;
-  box-shadow: 0px 15px 50px -15px;
-  cursor:pointer;
+	overflow: hidden;
+	width: 180px;
+	height: 180px;
+	margin-top: 12px;
+	position: relative;
+	box-shadow: 0px 15px 50px -15px;
+	cursor: pointer;
 }
+
 .img-box img {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-  width: 160%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	width: 160%;
+}
+.wave {
+	animation: wave 0.2s infinite;
+}
+
+@keyframes wave {
+  0% {
+    -webkit-transform: rotateZ(1deg);
+            transform: rotateZ(1deg);
+  }
+  50% {
+    -webkit-transform: rotateZ(-1deg);
+            transform: rotateZ(-1deg);
+  }
+  100% {
+    -webkit-transform: rotateZ(1deg);
+            transform: rotateZ(1deg);
+  }
 }
 
 .btn-circle.btn-lg {
-  width: 50px;
-  height: 50px;
-  padding: 10px 16px;
-  font-size: 18px;
-  line-height: 1.33;
-  border-radius: 25px;
+	width: 50px;
+	height: 50px;
+	padding: 10px 16px;
+	font-size: 18px;
+	line-height: 1.33;
+	border-radius: 25px;
 }
 
 .btn-circle {
-  width: 30px;
-  height: 30px;
-  text-align: center;
-  padding: 6px 0;
-  font-size: 12px;
-  line-height: 1.428571429;
-  border-radius: 15px;
-}
-.footer {
-  padding-top: 40px;
-  padding-bottom: 10px;
-  background-color: #222;
-  color: #999;
-  font-size: 10px;
-  letter-spacing: 1px;
-}
-.footer hr {
-  background-color: #222;
-  opacity: 0.1;
+	width: 30px;
+	height: 30px;
+	text-align: center;
+	padding: 6px 0;
+	font-size: 12px;
+	line-height: 1.428571429;
+	border-radius: 15px;
 }
 
-.title h3{
-	text-align:center;
+.editer {
+	position: absolute;
+	right: 0;
+}
+
+.footer {
+	padding-top: 40px;
+	padding-bottom: 10px;
+	background-color: #222;
+	color: #999;
+	font-size: 10px;
+	letter-spacing: 1px;
+}
+
+.footer hr {
+	background-color: #222;
+	opacity: 0.1;
+}
+
+.title h3 {
+	text-align: center;
 }
 
 .authorimg {
@@ -75,7 +99,6 @@
   height: 0;
   padding-bottom: 100%;
   margin-top: 12px;
-  margin-bottom: 12px;
   position: relative;
 }
 .authorimg img {
@@ -86,6 +109,17 @@
           transform: translate(-50%, -50%);
   width: 160%;
 }
+.active{
+	font-size:16px;
+}
+.padding-0 {
+	text-align:center;
+}
+.top-colleciton {
+  background-image: url(https://livedemo00.template-help.com/magento_52963/skin/frontend/default/theme323k/images/bg_index.jpg);
+  background-size: 100%;
+  padding-top: 60px;
+}
 </style>
 
 </head>
@@ -95,14 +129,24 @@
 <c:if test="${!empty loginOK }">
 		<jsp:include page="top/pushPage.jsp"></jsp:include>
 	</c:if>
+	
+<div class="container-fluid top-colleciton">
+   <div class="row">
+   	 <div class="col-md-1"></div>
+   	 <div class="col-md-10">
+		<h1 class="page-header">${targetBean.name}'s folio <small>作品集</small>
+                </h1>
+     </div>   
+     <div class="col-md-1"></div>        
+   </div>             
+</div>
+<br/> 
 <div class="container" style="height:auto; min-height:500px; margin-bottom:30px;">
 
         <!-- Page Heading/Breadcrumbs -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">${targetBean.name}'s folio
-                    <small>${targetBean.name}的作品集</small>
-                </h1>
+                
                 <ol class="breadcrumb">
                     <li><a href="/Artfolio/index.jsp">Home</a>
                     </li>
@@ -265,7 +309,7 @@ $(function(){
 			var documentFrag = $(document.createDocumentFragment());
 			$.each(data, function(index, value){
 				var col = $('<div class="col-sm-12 col-md-3 padding-0">');
-				var imgbox = $('<div class="img-box">');
+				var imgbox = $('<div class="img-box img-thumbnail">');
 				var img = $('<img>');
 				var edit = $('<div class="editer">');
 				var photowid = $('<input name="wid" type="hidden">').val(value.wid);

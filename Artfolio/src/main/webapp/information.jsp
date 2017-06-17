@@ -28,6 +28,30 @@
    vertical-align:middle; 
    text-align:left;
 }
+.top-colleciton {
+  background-image: url(https://livedemo00.template-help.com/magento_52963/skin/frontend/default/theme323k/images/bg_index.jpg);
+  background-size: 100%;
+  padding-top: 60px;
+}
+.active{
+	font-size:16px;
+}
+.footer {
+  padding-top: 40px;
+  padding-bottom: 10px;
+  background-color: #222;
+  color: #999;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+.footer hr {
+  background-color: #222;
+  opacity: 0.1;
+}
+
+.title h3{
+	text-align:center;
+}
 </style>
 
 
@@ -37,20 +61,26 @@
 <c:if test="${!empty loginOK }">
 		<jsp:include page="top/pushPage.jsp"></jsp:include>
 	</c:if>
+<div class="container-fluid top-colleciton">
+   <div class="row">
+   	 <div class="col-md-1"></div>
+   	 <div class="col-md-10">
+		<h1 class="page-header">My info <small>關於我</small></h1>
+     </div>   
+     <div class="col-md-1"></div>        
+   </div>             
+</div>
+<br/> 
 	<!-- Page Content -->
-	<div class="container">
+	<div class="container" style="height:auto; min-height:500px; margin-bottom:30px;">
 
 		<!-- Page Heading/Breadcrumbs -->
 
 
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">
-					My information<small>個人資訊</small>
-				</h1>
-
 				<ol class="breadcrumb">
-					<li><a href="index.html">Home</a></li>
+					<li><a href="/Artfolio/index.jsp">Home</a></li>
 					<li class="active">個人資訊</li>
 				</ol>
 
@@ -184,17 +214,10 @@
 		<hr>
 
 		<!-- Footer -->
-		<footer>
-			<div class="row">
-				<div class="col-lg-12">
-					<p align="center">歡來到Artfolio</p>
-				</div>
-			</div>
-		</footer>
 
 	</div>
 	<!-- /.container -->
-
+<jsp:include page="top/footer.jsp"></jsp:include>
 <script src="https://cdn.datatables.net/u/bs/jq-2.2.3,dt-1.10.12/datatables.min.js"></script>
 <script src="js/jquery.formatDateTime.min.js"></script>
 <script type="text/javascript">

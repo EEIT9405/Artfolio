@@ -6,18 +6,19 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>My Space</title>
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<!-- <link href="css/modern-business.css" rel="stylesheet"> -->
-<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-<script src="js/jquery-3.2.1.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
+<link href="/Artfolio/css/jquery.ui.css" rel="stylesheet">
+<link href="/Artfolio/css/bootstrap.min.css" rel="stylesheet">
+<link href="/Artfolio/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<script src="/Artfolio/js/jquery-3.2.1.min.js"></script>
+<script src="/Artfolio/js/jquery-ui.min.js"></script>
+<script src="/Artfolio/js/bootstrap.min.js"></script>
 <style type="text/css">
 .img-box {
   overflow: hidden;
   width: 180px;
   height: 180px;
+  margin:0 auto;
   margin-top: 12px;
-  margin-bottom: 12px;
   position: relative;
   box-shadow: 0px 15px 50px -15px;
   cursor:pointer;
@@ -70,6 +71,51 @@
 .title h3{
 	text-align:center;
 }
+.authorimg {
+  overflow: hidden;
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%;
+  margin-top: 12px;
+  position: relative;
+}
+.authorimg img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 160%;
+}
+.active{
+	font-size:16px;
+}
+.wave {
+	animation: wave 0.2s infinite;
+}
+
+@keyframes wave {
+  0% {
+    -webkit-transform: rotateZ(1deg);
+            transform: rotateZ(1deg);
+  }
+  50% {
+    -webkit-transform: rotateZ(-1deg);
+            transform: rotateZ(-1deg);
+  }
+  100% {
+    -webkit-transform: rotateZ(1deg);
+            transform: rotateZ(1deg);
+  }
+}
+.padding-0 {
+	text-align:center;
+}
+.top-colleciton {
+  background-image: url(https://livedemo00.template-help.com/magento_52963/skin/frontend/default/theme323k/images/bg_index.jpg);
+  background-size: 100%;
+  padding-top: 60px;
+}
 </style>
 
 </head>
@@ -77,22 +123,28 @@
 <!-- Navigation -->
 <jsp:include page="top/header.jsp"></jsp:include>
 <c:if test="${!empty loginOK }">
-		<jsp:include page="top/pushPage.jsp"></jsp:include>
-	</c:if>
-<div class="container">
+	<jsp:include page="top/pushPage.jsp"></jsp:include>
+</c:if>
 
+<div class="container-fluid top-colleciton">
+   <div class="row">
+   	 <div class="col-md-1"></div>
+   	 <div class="col-md-10">
+		<h1 class="page-header">My folio <small>收藏集</small></h1>
+     </div>   
+     <div class="col-md-1"></div>        
+   </div>             
+</div>
+<br/> 
+<div class="container" style="height:auto; min-height:500px; margin-bottom:30px;">
         <!-- Page Heading/Breadcrumbs -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">My folio
-                    <small>my folio</small>
-                </h1>
                 <ol class="breadcrumb">
-                   <li><a href="index.jsp">Home</a>
-                    </li>
-                    <li class="active"><a href="myWorks.jsp">我的作品</a></li>
-                    <li class="active"><a href="likelist.jsp">喜愛作品</a></li>
-                    <li class="active"><a href="followlist.jsp">追踪作家</a></li>
+                   <li><a href="index.jsp">Home</a></li>
+                    <li><a href="myWorks.jsp">我的作品</a></li>
+                    <li class="active">喜愛作品</li>
+                    <li><a href="followlist.jsp">追踪作家</a></li>
                 </ol>
             </div>
         </div>
@@ -102,10 +154,12 @@
         <div class="row">
             <div class="col-md-2">
             	<div class="panel panel-default">
-  					<div class="panel-body">
-    					<div>
-    						<img style="width:150px;" src="/img/${loginOK.mphoto }">
+  						<div style="font-size:18px;" class="panel-body">
+    					<div class="authorimg">
+    						<img style="width:150px;" src="${loginOK.mphoto }">
     					</div>
+    						<div id="followCount">人氣：</div>
+    						<div id="workCount">作品：</div>
   					</div>
 				</div>
 
@@ -139,121 +193,45 @@
 				</div>
             </div>
             
-	<div id="photoContainer" class="col-md-10" style="overflow-y:auto; height:450px;">
-         <!-- Projects Row -->
-        <div class="row">
-	        <div class="col-sm-12 col-md-3 padding-0">
-	          <div class="img-box"><img src="http://bit.ly/2qYyyVS " alt=""/>
-		          <div class="editer"></div>
-	          </div>
+<div id="photoContainer" class="col-md-10" style="overflow-y:auto; height:500px;">
+	        <!-- Projects Row -->
+	        <div class="row">   
 	        </div>
-	        <div class="col-sm-12 col-md-3 padding-0">
-	          <div class="img-box"><img src="http://bit.ly/2qYyyVS " alt=""/>
-	          	<div class="editer"></div>
-	          </div>
-	        </div>
-	        <div class="col-sm-12 col-md-3 padding-0">
-	          <div class="img-box"><img src="http://bit.ly/2qYyyVS " alt=""/>
-	          	<div class="editer"></div>
-	          </div>
-	        </div>
-	        <div class="col-sm-12 col-md-3 padding-0">
-	          <div class="img-box"><img src="http://bit.ly/2qYyyVS " alt=""/>
-	          	<div class="editer"></div>
-	          </div>
-	          <div><h3>ahah</h3></div>
-	        </div>
-        </div>
-        <!-- /.row -->
-        
-	        <div class="col-sm-12 col-md-3 padding-0">
-	          <div class="img-box"><img src="http://bit.ly/2qYyyVS " alt=""/>
-		          <div class="editer"></div>
-	          </div>
-	        </div>
-	        <div class="col-sm-12 col-md-3 padding-0">
-	          <div class="img-box"><img src="http://bit.ly/2qYyyVS " alt=""/>
-	          	<div class="editer"></div>
-	          </div>
-	        </div>
-	        <div class="col-sm-12 col-md-3 padding-0">
-	          <div class="img-box"><img src="http://bit.ly/2qYyyVS " alt=""/>
-	          	<div class="editer"></div>
-	          </div>
-	        </div>
-	        <div class="col-sm-12 col-md-3 padding-0">
-	          <div class="img-box"><img src="http://bit.ly/2qYyyVS " alt=""/>
-	          	<div class="editer"></div>
-	          </div>
-	        </div>
-
-	        <div class="col-sm-12 col-md-3 padding-0">
-	          <div class="img-box"><img src="http://bit.ly/2qYyyVS " alt=""/>
-		          <div class="editer"></div>
-	          </div>
-	        </div>
-	        <div class="col-sm-12 col-md-3 padding-0">
-	          <div class="img-box"><img src="http://bit.ly/2qYyyVS " alt=""/>
-	          	<div class="editer"></div>
-	          </div>
-	        </div>
-	        <div class="col-sm-12 col-md-3 padding-0">
-	          <div class="img-box"><img src="http://bit.ly/2qYyyVS " alt=""/>
-	          	<div class="editer"></div>
-	          </div>
-	        </div>
-	        <div class="col-sm-12 col-md-3 padding-0">
-	          <div class="img-box"><img src="http://bit.ly/2qYyyVS " alt=""/>
-	          	<div class="editer"></div>
-	          	<div><h3>ahah</h3></div>
-	          </div>
-	          
-	        </div>
-        </div>
-        <!-- /.row -->
-	</div>
-	
-	
-        <hr>
-
-        <!-- Footer -->
-        <footer>
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>Copyright &copy; Your Website 2014</p>
-                </div>
-            </div>
-        </footer>
-
+	        <!-- /.row -->
+		</div>
+    <hr>
+ </div>
 </div>
-
+<jsp:include page="top/footer.jsp"></jsp:include>
 <!-- /.container -->
-
 <!-- JS -->
 <script src="js/jquery.formatDateTime.min.js"></script>
 <script>
 $(function(){
 	var wedit = $('#wedit');
 	var sortbtn = $('#sortList').children('li.sortbtn');
-	var photoContainer = $('#photoContainer');
+	var photoContainer = $('#photoContainer>div.row');
+	var mid = "${loginOK.mid}";
 	
 	listWork("alphabet" ,"ascending");	
 	//開啟編輯功能
 	wedit.click(function(){
 		var a1 = $('<a title="remove" class="btn btn-circle btn-danger glyphicon glyphicon-remove">');
-		
 		var editer = $('#photoContainer div.editer');
+		var imgbox = photoContainer.find('div.img-box');
+		
 		if(wedit.text() == "編輯"){
 			for(var i=0; i<editer.length; i++){
 				editer.eq(i).empty();
 				editer.eq(i).append(a1.clone());
-				
 			}
+			imgbox.addClass('wave');
 			wedit.text('取消');
 		}else {
 			for(var i=0; i<editer.length; i++){
 				editer.eq(i).empty();
 			}
+			imgbox.removeClass('wave');
 			wedit.text('編輯');
 		}
 	});
@@ -293,10 +271,10 @@ $(function(){
 	function listWork(orderby, order){
 			photoContainer.empty();
 		$.getJSON('like/get.controller', {orderby:orderby, order:order}, function(data){
-			var row = $('<div class="row">');
+			var documentFrag = $(document.createDocumentFragment());
 			$.each(data, function(index, value){
 				var col = $('<div class="col-sm-12 col-md-3 padding-0">');
-				var imgbox = $('<div class="img-box">');
+				var imgbox = $('<div class="img-box img-thumbnail">');
 				var img = $('<img>');
 				var edit = $('<div class="editer">');
 				var photowid = $('<input name="wid" type="hidden">').val(value.wid);
@@ -319,9 +297,9 @@ $(function(){
 				imgbox.append(photowid);
 				col.append(imgbox);
 				col.append(title);
-				row.append(col);
+				documentFrag.append(col);
 			});
-			photoContainer.append(row);
+			photoContainer.append(documentFrag);
 		});
 	}
 });

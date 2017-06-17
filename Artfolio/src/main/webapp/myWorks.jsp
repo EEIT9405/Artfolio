@@ -22,7 +22,6 @@
 	width: 180px;
 	height: 180px;
 	margin-top: 12px;
-	margin-bottom: 12px;
 	position: relative;
 	box-shadow: 0px 15px 50px -15px;
 	cursor: pointer;
@@ -103,7 +102,6 @@
   height: 0;
   padding-bottom: 100%;
   margin-top: 12px;
-  margin-bottom: 12px;
   position: relative;
 }
 .authorimg img {
@@ -114,6 +112,17 @@
           transform: translate(-50%, -50%);
   width: 160%;
 }
+.active{
+	font-size:16px;
+}
+.padding-0 {
+	text-align:center;
+}
+.top-colleciton {
+  background-image: url(https://livedemo00.template-help.com/magento_52963/skin/frontend/default/theme323k/images/bg_index.jpg);
+  background-size: 100%;
+  padding-top: 60px;
+}
 </style>
 
 </head>
@@ -123,18 +132,23 @@
 <c:if test="${!empty loginOK }">
 		<jsp:include page="top/pushPage.jsp"></jsp:include>
 	</c:if>
+<div class="container-fluid top-colleciton">
+   <div class="row">
+   	 <div class="col-md-1"></div>
+   	 <div class="col-md-10">
+		<h1 class="page-header">My folio <small>作品集</small></h1>
+     </div>   
+     <div class="col-md-1"></div>        
+   </div>             
+</div>
+<br/> 
 <div class="container" style="height:auto; min-height:500px; margin-bottom:30px;">
-
         <!-- Page Heading/Breadcrumbs -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">My folio
-                    <small>我的作品集</small>
-                </h1>
                 <ol class="breadcrumb">
-                    <li><a href="/Artfolio/index.jsp">Home</a>
-                    </li>
-                    <li><a href="/Artfolio/myWorks.jsp">我的作品</a></li>
+                    <li><a href="/Artfolio/index.jsp">Home</a></li>
+                    <li class="active">我的作品</li>
                     <li><a href="/Artfolio/likelist.jsp">喜愛作品</a></li>
                     <li><a href="/Artfolio/followlist.jsp">追踪作家</a></li>
                 </ol>
@@ -479,7 +493,7 @@ $(function(){
 			var documentFrag = $(document.createDocumentFragment());
 			$.each(data, function(index, value){
 				var col = $('<div class="col-sm-12 col-md-3 padding-0">');
-				var imgbox = $('<div class="img-box">');
+				var imgbox = $('<div class="img-box img-thumbnail">');
 				var img = $('<img>');
 				var edit = $('<div class="editer">');
 				var photowid = $('<input name="wid" type="hidden">').val(value.wid);
