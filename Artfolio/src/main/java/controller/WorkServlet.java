@@ -144,8 +144,8 @@ public class WorkServlet extends HttpServlet {
 			if (aname_temp != null && aname_temp.length() != 0) {
 				albumbean.setAname(aname_temp);
 				albumbean.setMid(bean.getMid());
-				AlbumBean result = albumService.insert(albumbean);
-				if (result == null) {
+				AlbumBean albumResult = albumService.insert(albumbean);
+				if (albumResult==null || albumResult.getAid()==null) {
 					errors.put("action", "相簿建立失敗");
 				} else {
 					bean.setAlbumBean(albumbean);
@@ -163,8 +163,8 @@ public class WorkServlet extends HttpServlet {
 
 				} else if (picurl_temp != null) {
 					// 新增圖片
-					WorkBean result1 = workService.insert(bean);
-					if (result1 == null) {
+					WorkBean workResult=workService.insert(bean);
+					if (workResult==null ||workResult.getWid()==null) {
 						errors.put("action", "作品資料新增失敗");
 					} else {
 						// 回傳新相冊預設圖片值為剛剛新增的圖片

@@ -104,7 +104,14 @@ public class WorkService {
 	@Transactional(readOnly=true)
 	public List<WorkBean> selectByAid(Integer aid){
 		if(aid!=null)
-		return tbworkDao.searchByMid(aid);
+		return tbworkDao.searchByAid(aid);
 		return null;
+	}
+	
+	@Transactional(propagation=Propagation.MANDATORY)
+	public boolean updateDependency(WorkBean bean){
+		if(bean!=null)
+			return tbworkDao.update(bean)!=null;
+		return false;
 	}
 }

@@ -28,7 +28,11 @@ public class AlbumController {
 		Integer mid = (Integer) session.getAttribute("mid");
 		if(mid==null)
 			return null;
-		return albumService.selectByMid(mid);
+		List<AlbumBean> list=albumService.selectByMid(mid);
+		if(list.isEmpty()){
+			list.add(albumService.insert(new AlbumBean(null,"default",null,mid,null)));
+		}
+		return list;
 	}
 	
 	@RequestMapping(path = "insert.controller", method = RequestMethod.POST)
@@ -49,6 +53,16 @@ public class AlbumController {
 				bean.setWid(wid);
 				return albumService.update(bean)!=null;
 			}	
+		}
+		return false;
+	}
+	
+	public Boolean delete(Integer aid){
+		if(aid!=null){
+			Integer mid = (Integer) session.getAttribute("mid");
+			if(mid!=null){ 
+				return albumService.delete(aid,mid);
+			}
 		}
 		return false;
 	}
