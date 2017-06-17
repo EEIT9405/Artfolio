@@ -14,6 +14,9 @@
 <script src="js/bootstrap.min.js"></script>
 
 <style type="text/css">
+*{
+	font-family:monospace 微軟正黑體;
+}
 .img-responsive {
 	width: 400px;
 	height: 200px;
@@ -43,13 +46,12 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<h1 class="page-header">
-					Artfolio<small>My portfolio</small>
+					My information<small>個人資訊</small>
 				</h1>
 
 				<ol class="breadcrumb">
 					<li><a href="index.html">Home</a></li>
-					<li class="active">我的作品集</li>
-
+					<li class="active">個人資訊</li>
 				</ol>
 
 			</div>
@@ -122,10 +124,9 @@
 							<div class="col-md-4">
 
 								<div class="form-group">
-									<a href="portfolio-item.html"> <img
-									 
+									<a href=""> <img
 										class="img-responsive img-hover img-circle" style="width:200px"
-										src="/memberPhoto/${loginOK.mphoto.substring(loginOK.mphoto.lastIndexOf('/')+1)}" alt="">
+										src="${loginOK.mphoto}" alt="">
 									</a>
 								</div>
 								
@@ -198,41 +199,41 @@
 <script src="js/jquery.formatDateTime.min.js"></script>
 <script type="text/javascript">
 
-	$(function(){
-		var blockTable = $('#blockTable');
-		showBlock();
-		function showBlock(){
-			$.getJSON('listBlock.controller', function(data){
-					blockTable.DataTable({
-						"data":data,
-						"columnDefs": [
-						    {"width": "10%", "targets": 3}
-						  ],
-						"aoColumns":[
-							{"data":"targetBean.mphoto",
-							    "render": function(mphoto, type, row) {
-							        return '<img src="'+mphoto+'" class="img-rounded" style="width:35px; box-shadow: 3px 3px 5px 3px gray;" />';
-							    }},
-						    {"data":"targetBean.name"},
-							{"data":"blockdate", "type":"date", "render":function(data){
-								return $.formatDateTime('yy-mm-dd gg:ii:ss a',new Date(data));
-							}},
-							{"data":null,"defaultContent":"<input class='btn btn-danger' name='unBlock' type='button' value='解除'>"},
-							{"data":"targetBean.mid", "class":"hidden"}
-						]
-					});
-			});
-		}
-		
-		blockTable.on('click', 'input[name="unBlock"]', function(){
-			var mid = $(this).parent('td').parent('tr').children('td:last').text();
-			$.get('unBlock.controller', {mid:mid}, function(data){
-				alert(data);
-				blockTable.children('tbody').empty();
-			});
+$(function(){
+	var blockTable = $('#blockTable');
+	showBlock();
+	function showBlock(){
+		$.getJSON('listBlock.controller', function(data){
+				blockTable.DataTable({
+					"data":data,
+					"columnDefs": [
+					    {"width": "10%", "targets": 3}
+					  ],
+					"aoColumns":[
+						{"data":"targetBean.mphoto",
+						    "render": function(mphoto, type, row) {
+						        return '<img src="'+mphoto+'" class="img-rounded" style="width:35px; box-shadow: 3px 3px 5px 3px gray;" />';
+						    }},
+					    {"data":"targetBean.name"},
+						{"data":"blockdate", "type":"date", "render":function(data){
+							return $.formatDateTime('yy-mm-dd hh:ii',new Date(data));
+						}},
+						{"data":null,"defaultContent":"<input class='btn btn-danger' name='unBlock' type='button' value='解除'>"},
+						{"data":"targetBean.mid", "class":"hidden"}
+					]
+				});
 		});
-		
+	}
+	
+	blockTable.on('click', 'input[name="unBlock"]', function(){
+		var mid = $(this).parent('td').parent('tr').children('td:last').text();
+		$.get('unBlock.controller', {mid:mid}, function(data){
+			alert(data);
+		});
+			$(this).parent('td').parent('tr').remove();
 	});
+	
+});
 </script>
 </body>
 </html>

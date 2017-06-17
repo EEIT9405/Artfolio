@@ -16,6 +16,9 @@
 <script src="/Artfolio/js/jquery-3.2.1.min.js"></script>
 <script src="/Artfolio/js/bootstrap.min.js"></script>
 <style type="text/css">
+*{
+	font-family:monospace 微軟正黑體;
+}
 .paging-nav {
   text-align: right;
   padding-top: 2px;
@@ -41,6 +44,24 @@
   width: 400px;
   margin: 0 auto;
   font-family: Arial, sans-serif;
+}
+
+.authorimg {
+  overflow: hidden;
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  position: relative;
+}
+.authorimg img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 160%;
 }
 </style>
 </head>
@@ -70,7 +91,7 @@
 	<div class="col-md-2">
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<div>
+				<div class="authorimg">
 					<img style="width:150px;" src="${loginOK.mphoto}">
 				</div>
 			</div>

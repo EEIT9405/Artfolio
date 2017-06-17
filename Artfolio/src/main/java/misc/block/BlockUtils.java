@@ -4,11 +4,19 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+
 import model.block.BlockBean;
+import model.block.BlockService;
 import model.bmsg.BmsgBean;
 import model.bounty.BountyBean;
+import model.member.MemberBean;
 import model.wmsg.WmsgBean;
 import model.work.WorkBean;
+import model.work.WorkService;
 
 public class BlockUtils {
 
@@ -43,10 +51,11 @@ public class BlockUtils {
 		return bountyBean;
 	}
 
-	public static List<WmsgBean> filterWmsg(List<BlockBean> blockList, List<WmsgBean> wmsgList, Integer mid) {
+	public static List<WmsgBean> filterWmsg(List<BlockBean> blockList, List<WmsgBean> wmsgList, Integer mid, HttpServletRequest request) {
 
 		for (Iterator<WmsgBean> iterator = wmsgList.iterator(); iterator.hasNext();) {
-			int wmsgMid = iterator.next().getMemberBean().getMid();
+			WmsgBean wmsgBean = iterator.next();
+			int wmsgMid = wmsgBean.getMemberBean().getMid();
 			for (int j = 0; j < blockList.size(); j++) {
 				int myId = blockList.get(j).getMyBean().getMid();
 				int targetId = blockList.get(j).getTargetBean().getMid();
@@ -56,6 +65,22 @@ public class BlockUtils {
 					}
 				}
 			}
+
+//			WebApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(request.getServletContext());
+//			WorkService workService = (WorkService) context.getBean("workService");
+//			WorkBean workBean = workService.select(wmsgBean.getWid()).get(0);
+//			BlockService blockService = (BlockService) context.getBean("blockService");
+//			MemberBean thisAuthor = new MemberBean();
+//			int thisMid = workBean.getMid();
+//			thisAuthor.setMid(thisMid);
+//			List<BlockBean> thisWorkBlockList = blockService.getAllList(thisAuthor);
+//			for (int j = 0; j < thisWorkBlockList.size(); j++) {
+//				int myId = thisWorkBlockList.get(j).getMyBean().getMid();
+//				int targetId = thisWorkBlockList.get(j).getTargetBean().getMid();
+//					if (wmsgMid == myId || wmsgMid == targetId) {
+//						iterator.remove();
+//					}
+//			}
 		}
 		return wmsgList;
 	}

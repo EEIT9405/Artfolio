@@ -60,6 +60,24 @@
 #followers{
 	color:#fff;
 }
+.wmsgimg {
+  overflow: hidden;
+  width: 30px;
+  height: 0;
+  padding-bottom: 100%;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  position: relative;
+  box-shadow: 3px 15px 50px -15px;
+}
+.wmsgimg img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 160%;
+}
 </style>
 
 </head>
@@ -281,13 +299,13 @@
 												aria-label="Close">
 												<span aria-hidden="true">&times;</span>
 											</button>
-											<h4 class="modal-title" id="reviewmodalLabel">review</h4>
+											<h4 class="modal-title" id="reviewmodalLabel">評分作品</h4>
 										</div>
 										<div class="modal-body">
-											<table>
+											<table class="table" style="font-size:16px;">
 												<thead>
 													<tr>
-														<th colspan="3">record</th>
+														<th colspan="3">項目</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -325,8 +343,8 @@
 												<tfoot>
 													<tr>
 														<td colspan="3" style="text-align: center"><input
-															type="button" name="submit" value="submit"> <input
-															type="button" name="cancel" value="reset"> <span></span>
+															type="button" name="submit" value="送出"> <input
+															type="button" name="cancel" value="重置"><span></span>
 														<td>
 													</tr>
 												</tfoot>
@@ -357,26 +375,26 @@
 						<div style="overflow-y:auto; background-color:#fff;" class="col-md-4">
 							<div class="row">
 								<div class="col-md-12" id="memberName"></div>
-								<div style="height:100px;" class="col-md-12" id="workInfo"></div>
+								<div style="height:auto; min-height:100px;padding-left:15px;" id="workInfo"></div>
 							</div>
-							<div style="height:100px" id="tag" class="row">
+							<div style="height:auto; min-height:100px" id="tag" class="row">
 							<div class="col-md-10">
 								<form>
-									<ul style="height:60px;">
+									<ul style="padding-left:0px;height:auto; min-height:60px;">
 										<li class="tag"></li>
 									</ul>
 
 									<div id="addtag" class="itagh">
 										<input type="text" name="tag" value="">
-										<button class="btn btn-primary" type="button" name="add" value="add"><span class="glyphicon glyphicon-plus"></span></button>
-										<button class="btn btn-danger" type="button" onclick="addtags()" value="cancel"><span class="glyphicon glyphicon-remove"></span></button>
+										<button class="btn btn-primary btn-sm" type="button" name="add" value="add"><span class="glyphicon glyphicon-plus"></span></button>
+										<button class="btn btn-danger btn-sm" type="button" onclick="addtags()" value="cancel"><span class="glyphicon glyphicon-remove"></span></button>
 										<span></span>
 									</div>
 									<div id="edittag" class="itagh">
-										<input type="hidden" name="targettag"> <input
-											type="button" name="vote" value="vote">  <input
-											type="button" name="delete" value="delete"> <input
-											type="button" onclick="cancele()" value="cancel"> <span></span>
+										<input type="hidden" name="targettag"> <input class="btn btn-sm btn-warning"
+											type="button" name="vote" value="vote">  <input class="btn btn-sm btn-danger"
+											type="button" name="delete" value="delete"> <input class="btn btn-sm btn-default"
+											type="button" onclick="cancele()" value="關閉"> <span></span>
 									</div>
 								</form>
 								</div>
@@ -685,7 +703,7 @@
 				workInfo.empty();
 				ImageModalLabel.empty();
 				$.getJSON('getWorkById.controller', {wid:thisWid}, function(data){
-					memberName.append($('<h5>').append($('<a>').text(data.memberBean.name).attr('href','/Artfolio/getAuthor.controller?targetId='+data.memberBean.mid)));
+					memberName.append($('<h4>').append($('<a>').text(data.memberBean.name).attr('href','/Artfolio/getAuthor.controller?targetId='+data.memberBean.mid)));
 					workInfo.append(data.workBean.winfo);
 					ImageModalLabel.append(data.workBean.wtitle);
 				});
@@ -727,18 +745,18 @@
 					wmsgTable.empty();
 					var docFrag = $(document.createDocumentFragment());
 					$.each(data, function(index, value) {
-						var td1 = $('<td width="10%">').append($('<img>').attr('src',value.memberBean.mphoto));
-						var td2 = $('<td width="15%">').text(value.memberBean.name);
+						var td1 = $('<td width="10%">').append($('<div class="wmsgimg">').append($('<img>').attr('src',value.memberBean.mphoto)));
+						var td2 = $('<td width="12%">').append($('<a>').attr('href','/Artfolio/getAuthor.controller?targetId='+value.memberBean.mid).text(value.memberBean.name));
 						var td3 = $('<td width="40%">').html(value.wmsgcontent);
-						var td4 = $('<td width="30%">').text($.formatDateTime('yy-mm-dd gg:ii:ss a',new Date(value.wmsgdate)));
+						var td4 = $('<td width="35%">').text($.formatDateTime('yy-mm-dd hh:ii',new Date(value.wmsgdate)));
 						var td6 = $('<input type="hidden">').val(value.wmsgid);
 						var row = $('<tr>');
 						if (value.memberBean.mid == $('#user').val()) {
-							var td5 = $('<td width="5%">').append($('<a title="delete" class="btn glyphicon glyphicon-remove-circle">'));
+							var td5 = $('<td width="3%">').append($('<a title="delete" class="btn glyphicon glyphicon-remove-circle">'));
 								td5.append($('<a title="edit" class="btn glyphicon glyphicon-pencil">'));
 							row.append([td1, td2, td3, td4, td5, td6 ]);
 						}else {
-							var td5 = $('<td width="5%">');
+							var td5 = $('<td width="3%">');
 							row.append([td1, td2, td3, td4, td5, td6]);
 						}
 						docFrag.prepend(row);
@@ -773,17 +791,17 @@
 				var msg = wmsgTextarea.val();
 				$.post('insertWmsg.controller',	{wmsgcontent : msg,	wid : thisWid},function(data) {
 					var td1 = $('<td width="10%">').append($('<img>').attr('src',data.memberBean.mphoto));
-					var td2 = $('<td width="15%">').text(data.memberBean.name);
+					var td2 = $('<td width="12%">').text(data.memberBean.name);
 					var td3 = $('<td width="40%">').html(data.wmsgcontent);
-					var td4 = $('<td width="30%">').text($.formatDateTime('yy-mm-dd gg:ii:ss a', new Date(data.wmsgdate)));
+					var td4 = $('<td width="35%">').text($.formatDateTime('yy-mm-dd hh:ii', new Date(data.wmsgdate)));
 					var td6 = $('<input type="hidden">').val(data.wmsgid);
 					var row = $('<tr>');
 					if (data.memberBean.mid == $('#user').val()) {
-						var td5 = $('<td width="5%">').append($('<a title="delete" class="btn glyphicon glyphicon-remove-circle">'));
+						var td5 = $('<td width="3%">').append($('<a title="delete" class="btn glyphicon glyphicon-remove-circle">'));
 							td5.append($('<a title="edit" class="btn glyphicon glyphicon-pencil">'));
 							row.append([ td1, td2, td3, td4, td5, td6 ]);
 					} else {
-						var td5 = $('<td width="5%">');
+						var td5 = $('<td width="3%">');
 						row.append([ td1, td2, td3, td4, td5,td6 ]);
 					}
 					wmsgTable.prepend(row);
@@ -916,7 +934,7 @@
 				deltagbutton.prop("disabled",false);
 			}
 			targettag.val(s);
-			var ds = "delete " +s;
+			var ds = "刪除 " +s;
 			if (divedit.hasClass("itagh")) {
 				divedit.toggleClass("itags itagh").find('span').text("");
 				deltagbutton.val(ds);
@@ -927,16 +945,16 @@
 			
 			$.get('tag/voted.controller',{wid:wid.val(),tag:s},function(data){
 				if(data){
-					vote.val("unvote");
+					vote.val("廢票");
 				}else{
-					vote.val("vote");
+					vote.val("投票");
 				}
 			});
 
 		});
 		deltagbutton.on('click', function() {
 			addmsg.text('');
-			var tag = deltagbutton.val().substr(7);
+			var tag = deltagbutton.val().substr(3);
 			$.ajax({
 				url : "tag/del.controller",
 				data : {
@@ -978,12 +996,12 @@
 		
 		
 		vote.click(function(){
-			var c=vote.val()=='vote';
+			var c=vote.val()=='投票';
 				$.post('tag/vote.controller',{wid:wid.val(),tag:targettag.val(),check:c},function(data){
 					if(data && c)
-						vote.val('unvote');
+						vote.val('廢票');
 					else if(data)
-						vote.val('vote');
+						vote.val('投票');
 					else
 						alert('error');
 				});
@@ -1001,7 +1019,6 @@
 		var cancel=$('input[name=cancel]','#rc');
 		var review=$('button[name=review]','#rc');
 		var message=cancel.next('span');
-		
 		var report = $('button[name=report]');
 		var reportSubmit = $('input[name="reportSubmit"]');
 		var reportCancel = $('input[name="reportCancel"]');
@@ -1060,15 +1077,15 @@
 			$.post('record/insert.controller',frm.serialize(),function(data){
 				if(data){
 					if(update.val()=='true'){
-						message.text('updated');
+						alert('已更新');
 					}else{
-						message.text('done');
+						alert('完成');
 						update.val('true');
-						submit.val('update');
-						cancel.val('delete');
+						submit.val('更新');
+						cancel.val('刪除');
 					}
 				}else{
-					message.text('error');
+					alert('error');
 				}
 					
 			});
@@ -1088,13 +1105,13 @@
 			}else{
 				$.post('record/delete.controller',frm.serialize(),function(data){
 					if(data){
-						message.text('deleted');
+						alert('已刪除');
 						update.val('false');
-						submit.val('submit');
-						cancel.val('reset');
+						submit.val('送出');
+						cancel.val('重置');
 						resetform();
 					}else{
-						message.text('failed to delete');
+						alert('刪除失敗');
 					}	
 				});
 			}
@@ -1207,6 +1224,8 @@
 		});
 		$('#closeimagemodal').click(function() {
 			$('#ImageModal').modal('hide');
+// 			addtags();
+// 			cancele();
 		});
 		
 		function getAll(){
@@ -1246,8 +1265,8 @@
 					$.get('record/getr.controller',frm.serialize(),function(data){
 						if(data){
 							update.val('true');
-							submit.val('update');
-							cancel.val('delete');
+							submit.val('更新');
+							cancel.val('刪除');
 							values.each(function(i){
 								var current=records.eq(i);
 								if(current.val()>=0){

@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import misc.schedule.WorkTopScheduler;
+import model.block.BlockBean;
+import model.block.BlockService;
 import model.member.MemberBean;
 import model.member.MemberService;
 import model.work.WorkBean;
@@ -24,7 +28,7 @@ import model.work.WorkTopService;
 
 @Controller
 @RequestMapping
-@SessionAttributes({"targetBean"})
+@SessionAttributes({ "targetBean" })
 public class WorkTopControlller {
 	@Autowired
 	private WorkTopScheduler workTopScheduler;
@@ -34,6 +38,10 @@ public class WorkTopControlller {
 	private MemberService memberService;
 	@Autowired
 	private WorkService workService;
+	@Autowired
+	private HttpSession session;
+	@Autowired
+	private BlockService blockService;
 
 	@RequestMapping(value = "/workTop.controller", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
 	@ResponseBody
@@ -128,7 +136,7 @@ public class WorkTopControlller {
 			if (list != null && !list.isEmpty())
 				map.put("workBean", list.get(0));
 			MemberBean member = memberService.select(list.get(0).getMid());
-			if (member != null){
+			if (member != null) {
 				member.setFavorites(null);
 				member.setIsgender(null);
 				member.setIsinfo(null);
@@ -146,11 +154,27 @@ public class WorkTopControlller {
 		}
 		return null;
 	}
-	
-	@RequestMapping(value="/getAuthor.controller", method=RequestMethod.GET)
-	public String getAuthor(Integer targetId, Model model){
-		
-		if(targetId != null){
+
+	@RequestMapping(value = "/getAuthor.controller", method = RequestMethod.GET)
+	public String getAuthor(Integer targetId, Model model) {
+		if (targetId != null) {
+			MemberBean user = (MemberBean) session.getAttribute("loginOK");
+			if (user != null) {
+				List<BlockBean> blockList = blockService.getAllList(user);
+				if (blockList != null && !blockList.isEmpty()) {
+					for (BlockBean block : blockList) {
+						if (!targetId.equals(user.getMid())) {
+							if (targetId.equals(block.getMyBean().getMid())
+									|| targetId.equals(block.getTargetBean().getMid())) {
+								return "index";
+							}
+						}
+					}
+				}
+				if (targetId.equals(user.getMid())) {
+					return "myWorks";
+				}
+			}
 			MemberBean targetBean = memberService.select(targetId);
 			model.addAttribute("targetBean", targetBean);
 			return "targetPage";

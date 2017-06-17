@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
@@ -35,15 +37,15 @@ public class BlockResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
 		if (returnValue != null && methodParameter != null) {
 			String methodName = methodParameter.getMethod().getName();
-			MemberBean user = (MemberBean) ((ServletServerHttpRequest) req).getServletRequest().getSession(false)
-					.getAttribute("loginOK");
+			HttpServletRequest request = ((ServletServerHttpRequest) req).getServletRequest();
+			MemberBean user = (MemberBean) request.getSession(false).getAttribute("loginOK");
 			if(user == null){
 				return null;
 			}
 			Integer mid = user.getMid();
 			List<BlockBean> blockList = blockService.getAllList(user);
 			ObjectMapper mapper = new ObjectMapper();
-			if (blockList != null && !blockList.isEmpty()) {
+			if (blockList != null) {
 				if ("BountyDisplay".equals(methodName)) {
 					 List<BountyBean> bountyList = null;
 					try {
@@ -62,7 +64,7 @@ public class BlockResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 				}
 				if ("getAllWmsg".equals(methodName)) {
 					List<WmsgBean> wmsgList = (List<WmsgBean>) returnValue;
-					return BlockUtils.filterWmsg(blockList, wmsgList, mid);
+					return BlockUtils.filterWmsg(blockList, wmsgList, mid, request);
 				}
 				if ("search".equals(methodName) || "searchByMid".equals(methodName)){
 					List<WorkBean> workList = (List<WorkBean>) returnValue;

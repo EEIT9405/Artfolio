@@ -12,6 +12,9 @@
 <script src="/Artfolio/js/jquery-3.2.1.min.js"></script>
 <script src="/Artfolio/js/bootstrap.min.js"></script>
 <style type="text/css">
+*{
+	font-family:monospace 微軟正黑體;
+}
 .img-box {
   overflow: hidden;
   width: 180px;
@@ -65,6 +68,24 @@
 .title h3{
 	text-align:center;
 }
+
+.authorimg {
+  overflow: hidden;
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  position: relative;
+}
+.authorimg img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 160%;
+}
 </style>
 
 </head>
@@ -79,13 +100,13 @@
         <!-- Page Heading/Breadcrumbs -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">${targetBean.name} folio
-                    <small>my folio</small>
+                <h1 class="page-header">${targetBean.name}'s folio
+                    <small>${targetBean.name}的作品集</small>
                 </h1>
                 <ol class="breadcrumb">
                     <li><a href="/Artfolio/index.jsp">Home</a>
                     </li>
-                    <li class="active">${targetBean.name}的作品集</li>
+                    <li class="active">${targetBean.name}的作品</li>
                 </ol>
             </div>
         </div>
@@ -95,12 +116,12 @@
         <div class="row">
             <div class="col-md-2">
             	<div class="panel panel-default">
-  					<div class="panel-body">
-    					<div>
-    						<img style="width:150px;" src="/img/${targetBean.mphoto}">
+  					<div style="font-size:18px;" class="panel-body">
+    					<div class="authorimg">
+    						<img style="width:150px;" src="${targetBean.mphoto}">
     					</div>
-    					<div id="followCount">人氣：</div>
-    					<div id="workCount">作品：</div>
+    					<div id="followCount">人氣：<span></span></div>
+    					<div id="workCount">作品：<span></span></div>
   					</div>
 				</div>
 				
@@ -139,7 +160,7 @@
 				</div>
             </div>
             
-	<div id="photoContainer" class="col-md-10" style="overflow-y:auto; height:450px;">
+	<div id="photoContainer" class="col-md-10" style="overflow-y:auto; height:500px;">
          <!-- Projects Row -->
         <div class="row">
 	        
@@ -193,14 +214,19 @@ $(function(){
 				follow.val('unfollow');
 				follow.removeClass('btn-default');
 				follow.addClass('btn-info');
+				getFollowCount();
 			});
 		}else {
 			$.post('follow/delete.controller', {followid:mid}, function(){
 				follow.val('follow');
 				follow.removeClass('btn-info');
 				follow.addClass('btn-default');
+				getFollowCount();
 			});	
 		}
+// 		followCount.empty();
+// 		workCount.empty();
+		
 	});
 	
 	block.click(function(){
@@ -213,6 +239,7 @@ $(function(){
 			alert(data);
 			window.location.href='/Artfolio/index.jsp';
 		});
+		getFollowCount();
 	});
 	
 	sortbtn.click(function(){
@@ -269,10 +296,13 @@ $(function(){
 		});
 	}
 	
+	var followCount = $('#followCount>span');
+	var workCount = $('#workCount>span');
+	
 	function getFollowCount() {
 		$.get('follow/getFollowCount.controller', {mid:mid}, function(data){
-			$('#followCount').append(data.followCount);
-			$('#workCount').append(data.workCount);
+			followCount.text(data.followCount);
+			workCount.text(data.workCount);
 		});
 	}
 	
