@@ -77,6 +77,7 @@
   height: 0;
   padding-bottom: 100%;
   margin-top: 12px;
+  margin-bottom: 12px;
   position: relative;
 }
 .authorimg img {
@@ -174,8 +175,6 @@
 					    <span class="caret"></span>
 					  </button>
 					  <ul id="sortList" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-					    <li class="sortbtn" role="presentation"><a role="menuitem" class="btn" tabindex="-1">依相簿</a></li>
-					    <li role="presentation" class="divider"></li>
 					    <li role="presentation" class="dropdown-header">依時間：</li>
 					    <li class="sortbtn" role="presentation"><a role="menuitem" class="btn timeup" tabindex="-1">遞增</a></li>
 					    <li class="sortbtn" role="presentation"><a role="menuitem" class="btn timedown" tabindex="-1">遞減</a></li>
@@ -212,8 +211,15 @@ $(function(){
 	var sortbtn = $('#sortList').children('li.sortbtn');
 	var photoContainer = $('#photoContainer>div.row');
 	var mid = "${loginOK.mid}";
-	
+	getFollowCount();
 	listWork("alphabet" ,"ascending");	
+	
+	function getFollowCount() {
+		$.get('follow/getFollowCount.controller', {mid:mid}, function(data){
+			$('#followCount').append(data.followCount);
+			$('#workCount').append(data.workCount);
+		});
+	}
 	//開啟編輯功能
 	wedit.click(function(){
 		var a1 = $('<a title="remove" class="btn btn-circle btn-danger glyphicon glyphicon-remove">');

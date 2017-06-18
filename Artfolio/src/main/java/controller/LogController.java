@@ -106,6 +106,19 @@ public class LogController {
 		}
 		return "失敗，請登入後重新寄送";
 	}
+	
+	@RequestMapping(value = "/sendToAuthorMail.controller", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
+	@ResponseBody
+	public String sendToAuthor(@SessionAttribute("loginOK") MemberBean user, MailBean mail,
+			BindingResult bindingResult) {
+		if (user != null && mail != null && !bindingResult.hasErrors()) {
+			mail.setMemberBean(user);
+			if (mailService.insert(mail) != null) {
+				return "已成功寄出";
+			}
+		}
+		return "失敗，請登入後重新寄送";
+	}
 
 	@RequestMapping(value = "/mail/showAdminMails.controller", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
 	@ResponseBody

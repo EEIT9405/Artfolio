@@ -51,6 +51,7 @@ public class LikeController {
 			if (mid == null)
 				return null;
 			List<LikeBean> list = likeService.selectLiked(wid);
+			System.out.println("likeList="+ list);
 			Info info = new Info(list.size(), false);
 			for (LikeBean bean : list) {
 				if (bean.getMid().equals(mid))

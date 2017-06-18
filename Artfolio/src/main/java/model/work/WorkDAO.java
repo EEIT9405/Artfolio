@@ -22,4 +22,6 @@ public interface WorkDAO {
 	List<WorkBean> searchByMid(Integer mid);
 	List<WorkBean> searchRecent();
 	List<WorkBean> searchByAid(Integer aid);
+	
+	java.util.Date getNewWorkDate(Integer mid);
 }

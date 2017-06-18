@@ -249,13 +249,14 @@
 	</section>
 	<section id="showWorksArea" class="container-fluid new-picture">
 		<div class="row">
-			<div class="col-sm-0 col-md-2"></div>
-			<div class="col-sm-12 col-md-8">
-				<h1>New Picture</h1>
-				<div id="searchResult" class="row">
+			<div class="col-sm-0 col-md-1"></div>
+			<div class="col-sm-12 col-md-10">
+				<h1>New Pictures</h1>
+				<hr/>
+				<div id="searchResult" class="row" style="height:auto;">
 				</div>
-				<div class="col-sm-0 col-md-2"></div>
 			</div>
+			<div class="col-sm-0 col-md-1"></div>
 		</div>
 	</section>
 	<jsp:include page="top/footer.jsp"></jsp:include>
@@ -446,7 +447,7 @@
 										<div class="row">
 											<form id='reportForm'>
 												<div class="form-group">
-													<span>檢舉事由：</span><br/><br/>
+													<h5><span>檢舉事由：</span></h5><br/>
 													<textarea class="form-control" rows="5"
 														cols="30" name="mailcontent"></textarea>
 														<input type="hidden" name="toId" value="1">
@@ -469,11 +470,11 @@
 	<!-- JS -->
 	<script src='js/bootstrap.min.js'></script>
 	<script src='js/jquery.formatDateTime.min.js'></script>
+	
 	<script>
 		$(function() {
-			
+
 			var searchToken = "${searchToken}";
-			
 			if(searchToken == 1){
 				$.getJSON('');
 			}
@@ -639,7 +640,6 @@
 			function putIssueNo() {
 				$.getJSON('showAllIssueNo.controller', function(datas) {
 					if (datas.length < 5) {
-						console.log("length<5");
 						$.each(datas, function(index, value) {
 							issueMenu.children(
 									'div:nth-child(' + (index + 1) + ')')
@@ -708,6 +708,8 @@
 					ImageModalLabel.append(data.workBean.wtitle);
 				});
 			}
+			
+			$(document).on('click','div.search-box', showModal);
 			
 			$(document).on('click','div.img-box',showModal);
 			//博超-----------
@@ -1231,10 +1233,15 @@
 		function getAll(){
 			$.get('follow/check.controller',{wid:wid.val()},function(data){
 				followers.text(data.followers);
+				console.log("data.followed=" + data.followed);
 				if(data.followed){
 					follow.val('unfollow');
 					follow.removeClass('btn-default');
 					follow.addClass('btn-info');
+				}else {
+					follow.val('follow');
+					follow.removeClass('btn-info');
+					follow.addClass('btn-default');
 				}
 			});
 			$.get("tag/get.controller", {

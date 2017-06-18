@@ -171,9 +171,10 @@
 				
 				<div class="panel panel-default">
   					<div class="panel-body">
-    					<div style="margin-top:10px;">
-					    	<button id="follow" class="btn btn-default" value="follow">追踪</button>
-					    	<button id="block" class="btn btn-default">黑名單</button>
+    					<div style="margin-top:10px; text-align:center;">
+					    	<button id="follow" class="btn btn-default" value="follow" style="margin-bottom:5px;">追踪</button>
+					    	<button id="block" class="btn btn-default" style="margin-bottom:5px;">封鎖</button>
+					    	<button id="mail" class="btn btn-success">寄信</button>
 				    	</div>
   					</div>
 				</div>
@@ -182,7 +183,7 @@
 				  <div class="panel-heading">
 				    <h3 class="panel-title">導航</h3>
 				  </div>
-				  <div class="panel-body">
+				  <div class="panel-body" >
 				  	<div class="dropdown">
 					  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
 					 	  排序
@@ -217,6 +218,38 @@
 </div>
 </div>
 <!-- /.container -->
+	<div class="modal fade bs-example-modal-sm" id="mailmodal"
+								tabindex="-1" role="dialog" aria-labelledby="mailmodalLabel">
+							<div class="modal-dialog modal-sm" role="document">
+								<div class="modal-content">
+									<div class="modal-header" style="text-align: left">
+										<button type="button" class="close" id="closemail" aria-label="Close">
+										<span aria-hidden="true">&times;</span></button>
+										<h4 class="modal-title" id="mailmodalLabel">郵件</h4>
+									</div>
+									<div class="modal-body">
+										<div class="row">
+											<form id='mailForm'>
+												<div class="form-group">
+													<span>主旨：</span>
+													<input type="text" name="mailtitle" value=""><br><br>
+													<textarea class="form-control" rows="5"
+														cols="30" name="mailcontent"></textarea>
+														<input type="hidden" name="toId" value="1">
+														<input type="hidden" name="mstatus" value="1">
+													<div class="pull-right">
+														<input type="button" class="btn btn-primary disabled"
+															name="mailSubmit" value="送出" disabled> <input
+															type="button" class="btn btn-default disabled"
+															name="mailCancel" value="取消" disabled>
+													</div>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 <jsp:include page="top/footer.jsp"></jsp:include>
 
 <!-- JS -->
@@ -228,12 +261,26 @@ $(function(){
 	var mid = "${targetBean.mid}";
 	var follow = $('#follow');
 	var block = $('#block');
+	var mail = $('#mail');
+	var closemail = $('#closemail');
+	var mailcontent = $('textarea[name="mailcontent"]');
 	
 	listWork(mid, "alphabet", "ascending");
 	getFollowCount();
 	check();
 	//載入作者資訊
 	
+	
+	mail.click(function(){
+		$('#mailmodal').modal(
+				{backdrop : 'static'}
+		);
+	});
+	
+	closemail.click(function() {
+		mailcontent.val('');
+		$('#mailmodal').modal('hide');
+	});
 	
 	function check(){
 		$.get('follow/check2.controller', function(data){

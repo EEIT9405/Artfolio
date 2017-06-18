@@ -3,6 +3,7 @@ package controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -217,5 +218,14 @@ public class WorkController {
 			}
 		}
 		return false;
+	}
+	
+	@RequestMapping(path = "getNewDate.controller", method = RequestMethod.GET)
+	@ResponseBody
+	public Date getNewWorkDate(Integer mid){
+		if(mid != null){
+			return workService.getNewWorkDate(mid);
+		}
+		return null;
 	}
 }

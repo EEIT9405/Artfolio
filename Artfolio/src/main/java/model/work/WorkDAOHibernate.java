@@ -2,6 +2,7 @@ package model.work;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -214,6 +215,15 @@ public class WorkDAOHibernate implements WorkDAO {
 		}
 		return list;
 	}
-
+	
+	private static final String SELECT_DATE_BY_MID = "select wstart from WorkBean where mid=? order by wstart desc";
+	@Override
+	public Date getNewWorkDate(Integer mid) {
+		List<Date> newDates = getSession().createQuery(SELECT_DATE_BY_MID, Date.class).setParameter(0, mid).setMaxResults(1).getResultList();
+		if(newDates != null && !newDates.isEmpty()){
+			return newDates.get(0);
+		}
+		return null;
+	}
 }
 

@@ -38,7 +38,6 @@ public class SearchController {
 			@RequestParam(name="period",defaultValue="week")String period){
 		if(type==null || ((and==null || and.length()==0) && (or==null || or.length()==0) && (not==null || not.length()==0)))
 		return null;
-		
 		List<WorkBean> list=null;
 		String[] andConditions=null,orConditions=null,notConditions=null;
 		if(and!=null && and.length()>0)
@@ -81,7 +80,6 @@ public class SearchController {
 				list.remove(i--);
 			}		
 		}
-		
 		return list;
 	}
 	

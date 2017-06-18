@@ -1,6 +1,7 @@
 package model.work;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -113,5 +114,13 @@ public class WorkService {
 		if(bean!=null)
 			return tbworkDao.update(bean)!=null;
 		return false;
+	}
+	
+	@Transactional(readOnly=true)
+	public Date getNewWorkDate(Integer mid){
+		if(mid != null){
+			return tbworkDao.getNewWorkDate(mid);
+		}
+		return null;
 	}
 }

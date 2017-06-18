@@ -40,7 +40,7 @@ public class BlockResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 			HttpServletRequest request = ((ServletServerHttpRequest) req).getServletRequest();
 			MemberBean user = (MemberBean) request.getSession(false).getAttribute("loginOK");
 			if(user == null){
-				return null;
+				return returnValue;
 			}
 			Integer mid = user.getMid();
 			List<BlockBean> blockList = blockService.getAllList(user);

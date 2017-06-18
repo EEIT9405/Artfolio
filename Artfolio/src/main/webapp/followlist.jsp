@@ -76,6 +76,7 @@
   height: 0;
   padding-bottom: 100%;
   margin-top: 12px;
+  margin-bottom: 12px;
   position: relative;
 }
 .authorimg img {
@@ -174,8 +175,6 @@
 					    <span class="caret"></span>
 					  </button>
 					  <ul id="sortList" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-					    <li class="sortbtn" role="presentation"><a role="menuitem" class="btn" tabindex="-1">依相簿</a></li>
-					    <li role="presentation" class="divider"></li>
 					    <li role="presentation" class="dropdown-header">依時間：</li>
 					    <li class="sortbtn" role="presentation"><a role="menuitem" class="btn timeup" tabindex="-1">遞增</a></li>
 					    <li class="sortbtn" role="presentation"><a role="menuitem" class="btn timedown" tabindex="-1">遞減</a></li>
@@ -216,6 +215,15 @@ $(function(){
 	var mid = "${loginOK.mid}";
 	
 	list("date" ,"descending");	
+	
+	getFollowCount();
+	
+	function getFollowCount() {
+		$.get('follow/getFollowCount.controller', {mid:mid}, function(data){
+			$('#followCount').append(data.followCount);
+			$('#workCount').append(data.workCount);
+		});
+	}
 	//開啟編輯功能
 	wedit.click(function(){
 		var a1 = $('<a title="remove" class="btn btn-circle btn-danger glyphicon glyphicon-remove">');
@@ -275,21 +283,26 @@ $(function(){
 		$.getJSON('follow/get.controller', {orderby:orderby, order:order}, function(data){
 			var documentFrag = $(document.createDocumentFragment());
 			$.each(data, function(index, value){
-				var col = $('<div class="col-sm-12 col-md-3 padding-0">');
-				var imgbox = $('<div class="img-box img-thumbnail">');
-				var img = $('<img>');
-				var edit = $('<div class="editer">');
-				var photomid = $('<input name="mid" type="hidden">').val(value.mid);
-				var title = $('<div class="title">');
-				$('<h3>').append(value.name).appendTo(title);
-				img.attr('src', value.mphoto);
-				img.attr('title',value.name);
-				imgbox.append(img);
-				imgbox.append(edit);
-				imgbox.append(photomid);
-				col.append(imgbox);
-				col.append(title);
-				documentFrag.append(col);
+					var col = $('<div class="col-sm-12 col-md-3 padding-0">');
+					var imgbox = $('<div class="img-box img-thumbnail">');
+					var edit = $('<div class="editer">');
+					var photomid = $('<input name="mid" type="hidden">').val(value.mid);
+					var title = $('<div class="title">');
+					var img = $('<img>');
+				$.getJSON('work/getNewDate.controller', {mid:value.mid}, function(newDate){
+					img.attr('title','最後更新日: '+ $.formatDateTime('yy-mm-dd' ,new Date(newDate)));
+					if((new Date() - newDate) < 604800000){
+						imgbox.append($('<img style="width:25%; top:20px; left:20px; background-color:white; border-radius:100%;">').attr('src', '/Artfolio/img/new.svg'));
+					}
+				});	
+					title.append($('<h3>').append($('<a>').text(value.name).attr('href','/Artfolio/getAuthor.controller?targetId='+value.mid)));
+					img.attr('src', value.mphoto);
+					imgbox.append(img);
+					imgbox.append(edit);
+					imgbox.append(photomid);
+					col.append(imgbox);
+					col.append(title);
+					documentFrag.append(col);
 			});
 			photoContainer.append(documentFrag);
 		});
