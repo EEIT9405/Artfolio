@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import model.tagvote.TagvoteService;
+import model.work.WorkService;
 
 
 
@@ -18,6 +19,8 @@ public class TagService{
 	private TagDAO tagdao;
 	@Autowired
 	private TagvoteService tagvoteService;
+	@Autowired
+	private WorkService workService;
 	@Transactional
 	public List<TagBean> addTag(Integer wid,String[] tags){
 		if(wid==null || tags==null)
@@ -62,8 +65,8 @@ public class TagService{
 	}
 	
 	@Transactional
-	public boolean lockTag(TagBean bean){
-		if(bean==null)
+	public boolean lockTag(TagBean bean,Integer mid){
+		if(bean==null || mid==null || !workService.getWork(bean.getWid()).getMid().equals(mid))
 			return false;
 		bean.setLock(!bean.getLock());
 		return tagdao.lock(bean);

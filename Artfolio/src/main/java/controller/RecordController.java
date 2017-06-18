@@ -43,6 +43,7 @@ public class RecordController {
 	@RequestMapping(path="update.controller",method=RequestMethod.POST)
 	public Boolean updateScore(WorkBean bean,Boolean lock){
 		if(bean!=null){
+			Integer mid=(Integer) session.getAttribute("mid");
 			if(bean.getWid()!=null && bean.getScoreversion()!=null){
 				if(bean.getIsscore()==null)
 					bean.setIsscore(false);
@@ -51,7 +52,7 @@ public class RecordController {
 				   bean.getScore_3().trim().length()>0 || 
 				   bean.getScore_4().trim().length()>0 || 
 				   bean.getScore_5().trim().length()>0)
-				return scoreService.updateScore(bean,lock); 
+				return scoreService.updateScore(bean,lock,mid); 
 			}
 		}
 		return false;

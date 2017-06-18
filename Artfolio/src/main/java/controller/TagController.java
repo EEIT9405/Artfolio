@@ -68,8 +68,7 @@ public class TagController {
 	public boolean lockTag(Integer wid,String tag,Boolean islock){
 		if(wid!=null && tag.length()!=0 && islock!=null){
 			Integer mid=(Integer) session.getAttribute("mid");
-			if(workService.getWork(wid).getMid().equals(mid))
-			return tagService.lockTag(new TagBean(wid,tag,islock));
+			return tagService.lockTag(new TagBean(wid,tag,islock),mid);
 		}
 		return false;
 	}

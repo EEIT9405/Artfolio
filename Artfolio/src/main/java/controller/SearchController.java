@@ -151,7 +151,9 @@ public class SearchController {
 	
 	@RequestMapping(path="searchByAid.controller",method=RequestMethod.GET)
 	public List<WorkBean> searchByAid(Integer aid){
-		return checkisHidden(workService.selectByAid(aid));
+		List<WorkBean> list=workService.selectByAid(aid);
+		list.sort((w1,w2)->w1.getWorder().compareTo(w2.getWorder()));
+		return checkisHidden(list);
 	}
 	
 	public static List<WorkBean> checkisHidden(List<WorkBean> list){

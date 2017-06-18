@@ -180,7 +180,7 @@
 					    <span class="caret"></span>
 					  </button>
 					  <ul id="sortList" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-					    <li class="sortbtn" role="presentation"><a role="menuitem" class="btn" tabindex="-1">依相簿</a></li>
+					    <li class="sortbtn" role="presentation"><a role="menuitem" class="btn album" tabindex="-1">依相簿</a></li>
 					    <li role="presentation" class="divider"></li>
 					    <li role="presentation" class="dropdown-header">依時間：</li>
 					    <li class="sortbtn" role="presentation"><a role="menuitem" class="btn timeup" tabindex="-1">遞增</a></li>
@@ -189,6 +189,10 @@
 					    <li role="presentation" class="dropdown-header">依人氣：</li>
 					    <li class="sortbtn" role="presentation"><a role="menuitem" class="btn likeup" tabindex="-1">遞增</a></li>
 					    <li class="sortbtn" role="presentation"><a role="menuitem" class="btn likedown" tabindex="-1">遞減</a></li>
+					     <li role="presentation" class="divider"></li>
+					    <li role="presentation" class="dropdown-header">依標題：</li>
+					    <li class="sortbtn" role="presentation"><a role="menuitem" class="btn abup" tabindex="-1">遞增</a></li>
+					    <li class="sortbtn" role="presentation"><a role="menuitem" class="btn abdown" tabindex="-1">遞減</a></li>
 					  </ul>
 					</div>
 				  	<div style="margin-top:10px;">
@@ -420,12 +424,19 @@ $(function(){
 		var a2 = $('<a title="edit" class="btn btn-circle btn-primary glyphicon glyphicon-pencil">');
 		var editer = $('#photoContainer div.editer');
 		var imgbox = photoContainer.find('div.img-box');
+		a1.click(doDelete);
+		a2.click(doEdit);
 		
 		if(wedit.text() == "編輯"){
 			for(var i=0; i<editer.length; i++){
-				editer.eq(i).empty();
-				editer.eq(i).append(a1.clone());
-				editer.eq(i).append(a2.clone());
+				var current=editer.eq(i);
+				current.empty();
+				if(current.next('input[name=aid]').length && current.prev('img').attr('title')=='default')
+					;
+				else{
+					current.append(a1.clone(true));
+					current.append(a2.clone(true));
+				}
 			}
 			imgbox.addClass('wave');
 			photoContainer.sortable({stop: function(event, ui) {
@@ -443,473 +454,647 @@ $(function(){
 		}
 	});
 	//刪除或編輯
-
-	photoContainer.on('click', 'div.editer a', function(){
+	
+	//	photoContainer.on('click', 'div.editer a',doEdit );
+	
+	function doDelete(e){
+		e.stopPropagation();
 		var btn = $(this);
-		if(btn.attr('title') == "remove"){
-			var div=$(this).parents('div.img-box');
-			var wid=div.children('input[name=wid]').val();
-			if(window.confirm("真的要刪除此作品嗎？"))
-			$.post('work/delete.controller',{wid:wid},function(data){
-				if(data){
-					div.parent().remove();
-					alert('刪除成功');
-				}
-				else
-					alert('刪除失敗');
-			});
-		}
-		if(btn.attr('title') == "edit"){
-			var mb = $('#modalimage').empty();
-			var div=$(this).parents('div.img-box');
-			div.children('img').clone().attr("style","max-width:100%;max-height:500px").addClass(
-			'img-fluid').appendTo(mb);
-			showModal(div.children('input[name=wid]').val());
-		}
-	});
-	
-	sortbtn.click(function(){
-		var sort = $(this).children('a');
-		if(sort.hasClass('album')){
-			listWork(1, "date", "ascending");	
-		}
-		if(sort.hasClass('timeup')){
-			listWork(1, "date", "ascending");	
-		}
-		if(sort.hasClass('timedown')){
-			listWork(1, "date", "descending");	
-		}
-		if(sort.hasClass('likeup')){
-			listWork(1, "like", "ascending");
-		}
-		if(sort.hasClass('likedown')){
-			listWork(1, "like", "descending");
-		}
-	});
-	
-	function listWork(mid, orderby, order){
-			photoContainer.empty();
-		$.getJSON('searchByMid.controller', {mid:mid, orderby:orderby, order:order}, function(data){
-			var documentFrag = $(document.createDocumentFragment());
-			$.each(data, function(index, value){
-				var col = $('<div class="col-sm-12 col-md-3 padding-0">');
-				var imgbox = $('<div class="img-box img-thumbnail">');
-				var img = $('<img>');
-				var edit = $('<div class="editer">');
-				var photowid = $('<input name="wid" type="hidden">').val(value.wid);
-				var title = $('<div class="title">');
-				var h3 = $('<h3>');
-				if(orderby == "alphabet"){
-					h3.append(value.wtitle);
-				}
-				if(orderby == "date"){
-					h3.append($.formatDateTime('yy-mm-dd' ,(new Date(value.wstart))));
-				}
-				if(orderby == "like"){
-					h3.append("人氣：" + value.wlike);
-				}
-				
-				
-				title.append(h3);
-				img.attr('src', value.picurl);
-				img.attr('title',value.wtitle);
-				imgbox.append(img);
-				imgbox.append(edit);
-				imgbox.append(photowid);
-				col.append(imgbox);
-				col.append(title);
-				documentFrag.append(col);
-			});
-			photoContainer.append(documentFrag);
-		});
-	}
-	
-	function getFollowCount() {
-		$.get('follow/getFollowCount.controller', {mid:mid}, function(data){
-			$('#followCount').append(data.followCount);
-			$('#workCount').append(data.workCount);
-		});
-	}
-	
-	var frm = $('form','#sc');
-	var wid = frm.find('input[name=wid]');
-	var check = frm.find('input[name=isscore]');
-	var sctb = frm.find('tbody');
-	var score = frm.find('input[type=text][name^=score]');
-	var ms = frm.children('span').eq(0);
-	var version = frm.find('input[name=scoreversion]');
-	function setversion(v) {
-		version.val(v);
-		version.next('span').text(v);
-	}
-	check.on('change', function() {
-		sctb.toggleClass('show hide');
-		updateScore(true);
-	});
-	frm.find('input[value=submit]').on(
-			'click',function(){
-				updateScore(false);
-			}
-			);
-	function  updateScore(lock) {
-		var valid=false;
-		if(check.prop('checked'))
-			score.each(function(){
-				if($(this).val().trim()!='')
-					valid=true;
-			});
-		else
-			valid=true;
-		if(valid)
-			$.post("record/update.controller", frm.serialize()
-					+ "&lock="+lock, function(data) {
-				if (data) {
-					ms.text('done');
-					if(!lock)
-					setversion(version.val() * 1 + 1);
-				} else if(data==="")
-					alert('24小時之內只能修改三次');
-				else
-					alert('error');
-			});
-		else
-			alert('開啟評分須有項目');
-	}
-	var statfrm=$('form#stats');
-	var selectversion=statfrm.find('select[name=selectedversion]');
-	var stattb=statfrm.find('table');
-	var items=stattb.find('tbody>tr>td:first-child');
-	statfrm.children('button[name=switch]').on('click',function(){
-		stattb.toggleClass('show hide');
-		if ($(this).val()=='showstats'){
-			$(this).val('close');
-			$(this).empty();
-			$(this).append('<i class="glyphicon glyphicon-remove">');
-		}	
-		else{
-			$(this).val('showstats');
-			$(this).empty();
-			$(this).append('<i class="glyphicon glyphicon-info-sign">');
-		}
-	}).one('click',function(){
-		var ver=selectversion.val();
-		if(ver==version.val()){
-			setCurrent();
-		}else{
-			setScore(ver);
-		}
-		setStat(ver);
-	});
-	
-	selectversion.on('change',function(){
-		var ver=$(this).val();
-		if(ver!=version.val()){ //get scores from tb_score
-			setScore(ver);
-		}else{
-			setCurrent();
-		}
-		setStat(ver);
-	});
-	function setCurrent(){ //get scores from tb_work
-		$.get("record/getw.controller", {
-			wid : wid.val()
-		}, setItem);
-	}
-	function setScore(ver){
-		$.get('record/gets.controller',{wid:wid.val(),scoreversion:ver},setItem);
-	}
-	function setItem(data){
-		items.each(function(i){
-			var item=data['score_'+(i+1)];
-			if (item!=null && item.trim()!=""){
-				$(this).parent('tr').show();
-				$(this).text(item);
-			}else{
-				$(this).parent('tr').hide();
-			}
-		});
-	}
-	function setStat(ver){ //getstats and set to table
-		$.get('record/getst.controller',{wid:wid.val(),scoreversion:ver},function(data){
-			for(var i=0;i<data.length;i++){ //max,min,avg
-				for(var j=0;j<items.length;j++){ //record1-5
-					stattb.find('tbody>tr>td:nth-child('+(i+2)+')').eq(j).text(data[i]['record_'+(j+1)]);
-				}
-			}
-		});
-	}
-	var datatb=$('tbody','#dt');
-	var title=datatb.find('input[name=wtitle]');
-	var info=datatb.find('textarea[name=winfo]');
-	var wmsg=datatb.find('input[name=iswmsg]');
-	var sl=datatb.find('select[name=aid]');
-	var datamsg=$('form>span','#dt');
-	$('input[value=submit]',datatb).click(function(){
-		if(title.val().trim()!='')
-			$.post('work/update.controller',$('form','#dt').serialize()+'&wid='+wid.val(),function(data){
-				if(data)
-					datamsg.text('done');
-				else
-					datamsg.text('failed');
-			});
-		else
-			datamsg.text("where's your fucking title?");
-	});
-	function showModal(i){
-		wid.val(i);
-		clearMsg();
-		$.get("tag/get.controller", {
-			wid : wid.val()
-		},function(data){
-			$('form>ul','#tag').empty();
-			showTags(data); 
-		});
-		$.get("record/getw.controller", { //get work 
-			wid : wid.val()
-		}, function(work) {
-			title.val(work.wtitle);
-			info.val(work.winfo);
-			wmsg.prop('checked',work.iswmsg);
-			$.get('album/get.controller',function(data){
-				var target=$('select[name=aid]',datatb);
-				target.empty();
-				for(var i=0;i<data.length;i++){
-					$('<option value="'+data[i].aid+'">'+data[i].aname+'</option>').appendTo(target);
-				}
-			});
-			if (work.isscore) {
-				check.prop("checked", true);
-				sctb.removeClass().addClass('show');
-			}else{
-				check.prop("checked", false);
-				sctb.removeClass().addClass('hide');
-			}
-			for (var i = 0; i < score.length; i++) {
-				score.eq(i).val(work['score_'+(i+1)]);
-			}
-			setversion(work.scoreversion);
-		});
-		$.get('record/getsv.controller',{wid:wid.val()},function(data){
-			selectversion.empty();
-			for(var i=1;i<=data;i++){
-				if(i==data)
-				$('<option value="'+i+'"selected>'+i+'</option>').prependTo(selectversion);
-				else
-				$('<option value="'+i+'">'+i+'</option>').prependTo(selectversion);
-			}
-		});
-		$.get('album/get.controller',function(data){
-			var target=$('select[name=aid]','#dt');
-			target.empty();
-			for(var i=0;i<data.length;i++){
-				$('<option value="'+data[i].aid+'">'+data[i].aname+'</option>').appendTo(target);
-			}
-		});
-		$('#EditModal').modal();
-	}
-	$('input[name=new]',datatb).click(function(){
-		var t=$(this);
-		var aname=t.prev('input[name=aname]');
-		
-		if(t.val()=='新增'){
-			t.val('確認');
-			aname.attr('type','text');
-			sl.hide();
-		}else if(t.val()=='確認'){
-			if(aname.val().trim()!=''){
-				var nex=true;
-				sl.children('option').each(function(){
-					if($(this).text()==aname.val().trim())
-						nex=false;
-				});
-				if(nex){
-					$.post('album/insert.controller',{aname:aname.val()},function(data){
-						if(data){
-							$('<option value="'+data.aid+'">'+data.aname+'</option>').appendTo(sl);
-							t.val('新增');
-							aname.attr('type','hidden').val('');
-							sl.show();
-							alert('新增相簿成功');
-						}else if(data===''){
-							alert('請登入');
-						}else
-							alert('新增相簿失敗')
-					});
-				}else
-					alert('相簿已存在')
-			}
-			else{
-				alert('相簿已刪除')
-				t.val('新增');
-				aname.attr('type','hidden');
-				sl.show();
-			}		
-		}
-	});
-	var divadd = $('#addtag');
-	var divedit = $('#edittag');
-	var deltagbutton = divedit.find('input[name=delete]');
-	var locktagbutton = divedit.find('input[name=lock]');	
-	var itag = divadd.find('input[name=tag]');
-	var addtagbutton = divadd.find('button[name=add]');
-	var addmsg = divadd.children('span');
-	var editmsg = divedit.children('span');
-	var targettag=divedit.find('input[name=targettag]');
-	
-	divadd.find('button[value=cancel]').click(addtags);
-	$('button[value=addtag]','#tag').click(addtags);
-	addtagbutton.on(
-			'click',
-			function() {
-				clearMsg();
-				var tags = itag.val();
-				if (/^[A-Za-z \u4E00-\u9FFF]+[A-Za-z ,\u4E00-\u9FFF]*[A-Za-z \u4E00-\u9FFF]+$/.test(tags) && tags.trim() != "") {
-					var stag = tags.trim().split(",");
-					for (var i=0;i<stag.length;i++){
-						if(stag[i].length>20){
-							alert("標籤必須在20字以下");
-							return;
-						}
-					}
-					var message="";
-					var current=$('form>ul>li>a','#tag');
-					current.each(function(){
-						var ctag=$(this).text();
-						for(var i=0;i<stag.length;i++){
-							if(stag[i]==ctag){
-								message=message+stag.splice(i,1)[0]+" ";
-								i=i-1;
-							}
-						}	
-					});
-					if(stag.length==0){
-						addmsg.text("absorb since all existed");
+		var div=$(this).parents('div.img-box');
+		var aid=div.children('input[name=aid]').val();
+		if(aid){
+				if(window.confirm("真的要刪除此相簿嗎？"))
+				$.post('album/delete.controller',{aid:aid},function(data){
+					if(data){
+						div.parent().remove();
+						alert('刪除成功');
 					}
 					else
-					if(current.length+stag.length<=20){
-						$.post("tag/add.controller", {
-							wid : wid.val(),
-							tags : stag
-						}, function(data){
-							if(data){
-								showTags(data);
-								if(message!="")
-									addmsg.text("ignored following tags:"+message+"since existed");
-								else
-									addmsg.text("done");
-								itag.val("");
-							}else
-								addmsg.text("error");
-						});
-					}else
-						addmsg.text("number of tags is limited to 10");
-				} else
-					addmsg.text("format error,must begin and end with letters "+ 
-							"and contain only letters,space and comma,at least two letters.");
-			});
-	
-	
-	
-	$('form>ul','#tag').on('click', 'li>a', function(e) {
-		e.preventDefault();
-		clearMsg();
-		var s = $(this).text();
-		var i=s.indexOf('*');
-		var ls;
-		if(i>=0){
-			s=s.substring(0,i);
-			deltagbutton.prop("disabled",true);
-			ls = "unlock "+s;
-		}else{
-			deltagbutton.prop("disabled",false);
-			ls = "lock "+s;
+						alert('刪除失敗');
+				});
 		}
-		targettag.val(s);
-		var ds = "delete " +s;
-		if (divedit.hasClass("itagh")) {
-			divedit.toggleClass("itags itagh").find('span').text("");
-			deltagbutton.val(ds);
-			locktagbutton.val(ls);
-		} else if (deltagbutton.val() != ds || locktagbutton.val()!=ls) {
-			deltagbutton.val(ds);
-			locktagbutton.val(ls);
-		} else
-			divedit.toggleClass("itags itagh").find('span').text("");
-		
-		
-
-	});
-	deltagbutton.on('click', function() {
-		clearMsg();
-		var tag = deltagbutton.val().substr(7);
-		$.ajax({
-			url : "tag/del.controller",
-			data : {
-				wid : wid.val(),
-				tag : tag
-			}
-		}).done(function(data) {				
-			if (data) {
-				$('form>ul>li>a:contains("' + tag + '")','#tag').parent('li').remove();
-				divedit.toggleClass("itags itagh").find('span').text("");
-				deltagbutton.val("delete");
-				locktagbutton.val("lock");
-				addtagbutton.prop("disabled",false);
-			} else
-				editmsg.text("failed to delete");
-		});
-
-	});
-	locktagbutton.on('click',function(){
-		clearMsg();
-		var rtag = locktagbutton.val();
-		var tag = rtag.substring(rtag.indexOf("lock")+5);
-		var target = $('form>ul>li>a:contains("'+tag+'")','#tag');
-		var islock = deltagbutton.prop("disabled");
-		$.get('tag/lock.controller',{wid:wid.val(),tag:tag,islock:islock},function(data){
-			if(data){
-				deltagbutton.prop("disabled",!islock);
-				if(islock){
-					locktagbutton.val("lock "+tag);
-					target.text(tag);
-					editmsg.text('unlocked');
-				}
+		else{
+				var wid=div.children('input[name=wid]').val();
+				if(window.confirm("真的要刪除此作品嗎？"))
+				$.post('work/delete.controller',{wid:wid},function(data){
+					if(data){
+						div.parent().remove();
+						alert('刪除成功');
+					}
+					else
+						alert('刪除失敗');
+				});
+		}
+	}
+	function doEdit(e){
+			e.stopPropagation();
+			var btn = $(this);
+			var div=$(this).parents('div.img-box');
+			var aid=div.children('input[name=aid]').val();
+			if(aid){
+				var newname=window.prompt('新相簿名稱',div.parent().find('h3').text());
+				if(newname===null)
+					;
 				else{
-					locktagbutton.val("unlock "+tag);
-					target.text(tag+"*");
-					editmsg.text('locked');
+					newname=newname.trim();
+					if(newname!=='' && newname!=='default'){
+						$.post('album/update.controller',{aid:aid,aname:newname},function(data){
+							if(data){
+								div.children('img').attr('title',newname);
+								div.next('.title').children('h3').text(newname);
+								alert('done');
+							}else
+								alert('failed');
+						});
+					}else if(newname=='')
+						alert('cannot be blank');
+					else if(newname=='default')
+						alert('cannot use this name');
+					else
+						alert('unknown error');
 				}
-			}else
-				editmsg.text('failed');
-		});
-		
-	});
-	deltagbutton.next('button[value=cancel]').click(function cancele(){
-		clearMsg();
-		divedit.toggleClass("itags itagh");
-	});
-	function addtags() {
-		clearMsg();
-		divadd.toggleClass("itags itagh");
-		itag.val("");
-	}
-	function showTags(data) {
-		var target = $('form>ul','#tag');
-		for (var i = 0; i < data.length; i++) {
-			if (data[i].lock)
-				data[i].tag+="*";
-			$('<li class="tag"><a class="label label-default" href="" target="_blank">' + data[i].tag+ '</a></li>').appendTo(target);
+			}
+			else{
+				var mb = $('#modalimage').empty();
+				div.children('img').clone().attr("style","max-width:100%;max-height:500px")
+					.addClass('img-fluid').appendTo(mb);
+				showModal(div.children('input[name=wid]').val());
+			}
 		}
-		if ($('li>a','#tag').length==10)
-			addtagbutton.prop("disabled",true);
-	}
-	function clearMsg(){
-		editmsg.text('');
-		addmsg.text('');
-		datamsg.text('');
-		ms.text('');
-	}
-});
+	
+	function listWorkByAid(aid) {
+			photoContainer.empty();
+			$.getJSON('searchByAid.controller', {
+				aid : aid
+			}, function(data) {
+				var documentFrag = $(document.createDocumentFragment());
+				$.each(data, function(index, value) {
+					var col = $('<div class="col-sm-12 col-md-3 padding-0">');
+					var imgbox = $('<div class="img-box img-thumbnail">');
+					var img = $('<img>');
+					var edit = $('<div class="editer">');
+					var photowid = $('<input name="wid" type="hidden">').val(
+							value.wid);
+					var title = $('<div class="title">');
+					var h3 = $('<h3>');
+					h3.append(value.wtitle);
+					title.append(h3);
+					img.attr('src', value.picurl);
+					img.attr('title', value.wtitle);
+					imgbox.append(img);
+					imgbox.append(edit);
+					imgbox.append(photowid);
+					col.append(imgbox);
+					col.append(title);
+					documentFrag.append(col);
+				});
+				photoContainer.append(documentFrag);
+			});
+		}
+
+		function album(mid) {
+			photoContainer.empty();
+			$.get('album/get.controller', {
+				mid : mid
+			}, function(data) {
+				var documentFrag = $(document.createDocumentFragment());
+				$.each(data, function(index, value) {
+					var col = $('<div class="col-sm-12 col-md-3 padding-0">');
+					var imgbox = $('<div class="img-box img-thumbnail">');
+					var img = $('<img>');
+					var edit = $('<div class="editer">');
+					var photowid = $('<input name="aid" type="hidden">').val(
+							value.aid);
+					var title = $('<div class="title">');
+					var h3 = $('<h3>');
+					h3.append(value.aname);
+					title.append(h3);
+					$.get('record/getw.controller', {
+						wid : value.wid
+					}, function(data) {
+						img.attr('src', data.picurl);
+					});
+					img.attr('title', value.aname);
+					imgbox.append(img);
+					imgbox.append(edit);
+					imgbox.append(photowid);
+					imgbox.click(function() {
+						listWorkByAid(value.aid);
+					});
+					col.append(imgbox);
+					col.append(title);
+					documentFrag.append(col);
+				});
+				photoContainer.append(documentFrag);
+			});
+		}
+
+		sortbtn.click(function() {
+			var sort = $(this).children('a');
+			if (sort.hasClass('album')) {
+				album(mid);
+			}
+			if (sort.hasClass('timeup')) {
+				listWork(mid, "date", "ascending");
+			}
+			if (sort.hasClass('timedown')) {
+				listWork(mid, "date", "descending");
+			}
+			if (sort.hasClass('likeup')) {
+				listWork(mid, "like", "ascending");
+			}
+			if (sort.hasClass('likedown')) {
+				listWork(mid, "like", "descending");
+			}
+			if (sort.hasClass('abup')) {
+				listWork(mid, "alphabet", "ascending");
+			}
+			if (sort.hasClass('abdown')) {
+				listWork(mid, "alphabet", "descending");
+			}
+		});
+
+		function listWork(mid, orderby, order) {
+			photoContainer.empty();
+			$.getJSON('searchByMid.controller', {
+				mid : mid,
+				orderby : orderby,
+				order : order
+			}, function(data) {
+				var documentFrag = $(document.createDocumentFragment());
+				$.each(data, function(index, value) {
+					var col = $('<div class="col-sm-12 col-md-3 padding-0">');
+					var imgbox = $('<div class="img-box img-thumbnail">');
+					var img = $('<img>');
+					var edit = $('<div class="editer">');
+					var photowid = $('<input name="wid" type="hidden">').val(
+							value.wid);
+					var title = $('<div class="title">');
+					var h3 = $('<h3>');
+					if (orderby == "alphabet") {
+						h3.append(value.wtitle);
+					}
+					if (orderby == "date") {
+						h3.append($.formatDateTime('yy-mm-dd', (new Date(
+								value.wstart))));
+					}
+					if (orderby == "like") {
+						h3.append("人氣：" + value.wlike);
+					}
+					title.append(h3);
+					img.attr('src', value.picurl);
+					img.attr('title', value.wtitle);
+					imgbox.append(img);
+					imgbox.append(edit);
+					imgbox.append(photowid);
+					col.append(imgbox);
+					col.append(title);
+					documentFrag.append(col);
+				});
+				photoContainer.append(documentFrag);
+			});
+		}
+
+		function getFollowCount() {
+			$.get('follow/getFollowCount.controller', {
+				mid : mid
+			}, function(data) {
+				$('#followCount').append(data.followCount);
+				$('#workCount').append(data.workCount);
+			});
+		}
+
+		var frm = $('form', '#sc');
+		var wid = frm.find('input[name=wid]');
+		var check = frm.find('input[name=isscore]');
+		var sctb = frm.find('tbody');
+		var score = frm.find('input[type=text][name^=score]');
+		var ms = frm.children('span').eq(0);
+		var version = frm.find('input[name=scoreversion]');
+		function setversion(v) {
+			version.val(v);
+			version.next('span').text(v);
+		}
+		check.on('change', function() {
+			sctb.toggleClass('show hide');
+			updateScore(true);
+		});
+		frm.find('input[value=submit]').on('click', function() {
+			updateScore(false);
+		});
+		function updateScore(lock) {
+			var valid = false;
+			if (check.prop('checked'))
+				score.each(function() {
+					if ($(this).val().trim() != '')
+						valid = true;
+				});
+			else
+				valid = true;
+			if (valid)
+				$.post("record/update.controller", frm.serialize() + "&lock="
+						+ lock, function(data) {
+					if (data) {
+						ms.text('done');
+						if (!lock)
+							setversion(version.val() * 1 + 1);
+					} else if (data === "")
+						alert('24小時之內只能修改三次');
+					else
+						alert('error');
+				});
+			else
+				alert('開啟評分須有項目');
+		}
+		var statfrm = $('form#stats');
+		var selectversion = statfrm.find('select[name=selectedversion]');
+		var stattb = statfrm.find('table');
+		var items = stattb.find('tbody>tr>td:first-child');
+		statfrm.children('button[name=switch]').on('click', function() {
+			stattb.toggleClass('show hide');
+			if ($(this).val() == 'showstats') {
+				$(this).val('close');
+				$(this).empty();
+				$(this).append('<i class="glyphicon glyphicon-remove">');
+			} else {
+				$(this).val('showstats');
+				$(this).empty();
+				$(this).append('<i class="glyphicon glyphicon-info-sign">');
+			}
+		}).one('click', function() {
+			var ver = selectversion.val();
+			if (ver == version.val()) {
+				setCurrent();
+			} else {
+				setScore(ver);
+			}
+			setStat(ver);
+		});
+
+		selectversion.on('change', function() {
+			var ver = $(this).val();
+			if (ver != version.val()) { //get scores from tb_score
+				setScore(ver);
+			} else {
+				setCurrent();
+			}
+			setStat(ver);
+		});
+		function setCurrent() { //get scores from tb_work
+			$.get("record/getw.controller", {
+				wid : wid.val()
+			}, setItem);
+		}
+		function setScore(ver) {
+			$.get('record/gets.controller', {
+				wid : wid.val(),
+				scoreversion : ver
+			}, setItem);
+		}
+		function setItem(data) {
+			items.each(function(i) {
+				var item = data['score_' + (i + 1)];
+				if (item != null && item.trim() != "") {
+					$(this).parent('tr').show();
+					$(this).text(item);
+				} else {
+					$(this).parent('tr').hide();
+				}
+			});
+		}
+		function setStat(ver) { //getstats and set to table
+			$.get('record/getst.controller', {
+				wid : wid.val(),
+				scoreversion : ver
+			}, function(data) {
+				for (var i = 0; i < data.length; i++) { //max,min,avg
+					for (var j = 0; j < items.length; j++) { //record1-5
+						stattb.find('tbody>tr>td:nth-child(' + (i + 2) + ')')
+								.eq(j).text(data[i]['record_' + (j + 1)]);
+					}
+				}
+			});
+		}
+		var datatb = $('tbody', '#dt');
+		var title = datatb.find('input[name=wtitle]');
+		var info = datatb.find('textarea[name=winfo]');
+		var wmsg = datatb.find('input[name=iswmsg]');
+		var sl = datatb.find('select[name=aid]');
+		var datamsg = $('form>span', '#dt');
+		$('input[value=submit]', datatb).click(
+				function() {
+					if (title.val().trim() != '')
+						$.post('work/update.controller', $('form', '#dt')
+								.serialize()
+								+ '&wid=' + wid.val(), function(data) {
+							if (data){
+								var targets=$('input[name=wid]','#photoContainer');
+								for(var i=0;i<targets.length;i++){
+									var current=targets.eq(i);
+									if(current.val()==wid.val()){
+										var div=current.parent('div.img-box');	
+										div.children('img').attr('title',title.val());
+										div.next('.title').children('h3').text(title.val());
+										break;
+									}	
+								}
+								datamsg.text('done');
+							}
+							else
+								datamsg.text('failed');
+						});
+					else
+						datamsg.text("where's your fucking title?");
+				});
+		function showModal(i) {
+			wid.val(i);
+			clearMsg();
+			$.get("tag/get.controller", {
+				wid : wid.val()
+			}, function(data) {
+				$('form>ul', '#tag').empty();
+				showTags(data);
+			});
+			$.get("record/getw.controller", { //get work 
+				wid : wid.val()
+			}, function(work) {
+				$.get('album/get.controller', {
+					mid : mid
+				},
+						function(data) {
+							var target = $('select[name=aid]', datatb);
+							target.empty();
+							for (var i = 0; i < data.length; i++) {
+								if (work.albumBean
+										&& work.albumBean.aid == data[i].aid)
+									$(
+											'<option value="'+data[i].aid+'" selected>'
+													+ data[i].aname
+													+ '</option>').appendTo(
+											target);
+								else
+									$(
+											'<option value="'+data[i].aid+'">'
+													+ data[i].aname
+													+ '</option>').appendTo(
+											target);
+							}
+						});
+				title.val(work.wtitle);
+				info.val(work.winfo);
+				wmsg.prop('checked', work.iswmsg);
+				if (work.isscore) {
+					check.prop("checked", true);
+					sctb.removeClass().addClass('show');
+				} else {
+					check.prop("checked", false);
+					sctb.removeClass().addClass('hide');
+				}
+				for (var i = 0; i < score.length; i++) {
+					score.eq(i).val(work['score_' + (i + 1)]);
+				}
+				setversion(work.scoreversion);
+			});
+			$.get('record/getsv.controller', {
+				wid : wid.val()
+			}, function(data) {
+				selectversion.empty();
+				for (var i = 1; i <= data; i++) {
+					if (i == data)
+						$('<option value="'+i+'"selected>' + i + '</option>')
+								.prependTo(selectversion);
+					else
+						$('<option value="'+i+'">' + i + '</option>')
+								.prependTo(selectversion);
+				}
+			});
+			$('#EditModal').modal();
+		}
+		$('input[name=new]', datatb).click(
+				function() {
+					var t = $(this);
+					var aname = t.prev('input[name=aname]');
+
+					if (t.val() == '新增') {
+						t.val('確認');
+						aname.attr('type', 'text');
+						sl.hide();
+					} else if (t.val() == '確認') {
+						if (aname.val().trim() != '') {
+							var nex = true;
+							sl.children('option').each(function() {
+								if ($(this).text() == aname.val().trim())
+									nex = false;
+							});
+							if (nex) {
+								$.post('album/insert.controller', {
+									aname : aname.val()
+								}, function(data) {
+									if (data) {
+										$(
+												'<option value="'+data.aid+'">'
+														+ data.aname
+														+ '</option>')
+												.appendTo(sl);
+										t.val('新增');
+										aname.attr('type', 'hidden').val('');
+										sl.show();
+										alert('新增相簿成功');
+									} else
+										alert('新增相簿失敗')
+								});
+							} else
+								alert('相簿已存在')
+						} else {
+							alert('相簿已刪除')
+							t.val('新增');
+							aname.attr('type', 'hidden');
+							sl.show();
+						}
+					}
+				});
+		var divadd = $('#addtag');
+		var divedit = $('#edittag');
+		var deltagbutton = divedit.find('input[name=delete]');
+		var locktagbutton = divedit.find('input[name=lock]');
+		var itag = divadd.find('input[name=tag]');
+		var addtagbutton = divadd.find('button[name=add]');
+		var addmsg = divadd.children('span');
+		var editmsg = divedit.children('span');
+		var targettag = divedit.find('input[name=targettag]');
+
+		divadd.find('button[value=cancel]').click(addtags);
+		$('button[value=addtag]', '#tag').click(addtags);
+		addtagbutton
+				.on(
+						'click',
+						function() {
+							clearMsg();
+							var tags = itag.val();
+							if (/^[A-Za-z \u4E00-\u9FFF]+[A-Za-z ,\u4E00-\u9FFF]*[A-Za-z \u4E00-\u9FFF]+$/
+									.test(tags)
+									&& tags.trim() != "") {
+								var stag = tags.trim().split(",");
+								for (var i = 0; i < stag.length; i++) {
+									if (stag[i].length > 20) {
+										alert("標籤必須在20字以下");
+										return;
+									}
+								}
+								var message = "";
+								var current = $('form>ul>li>a', '#tag');
+								current.each(function() {
+									var ctag = $(this).text();
+									for (var i = 0; i < stag.length; i++) {
+										if (stag[i] == ctag) {
+											message = message
+													+ stag.splice(i, 1)[0]
+													+ " ";
+											i = i - 1;
+										}
+									}
+								});
+								if (stag.length == 0) {
+									addmsg.text("absorb since all existed");
+								} else if (current.length + stag.length <= 20) {
+									$
+											.post(
+													"tag/add.controller",
+													{
+														wid : wid.val(),
+														tags : stag
+													},
+													function(data) {
+														if (data) {
+															showTags(data);
+															if (message != "")
+																addmsg
+																		.text("ignored following tags:"
+																				+ message
+																				+ "since existed");
+															else
+																addmsg
+																		.text("done");
+															itag.val("");
+														} else
+															addmsg
+																	.text("error");
+													});
+								} else
+									addmsg
+											.text("number of tags is limited to 10");
+							} else
+								addmsg
+										.text("format error,must begin and end with letters "
+												+ "and contain only letters,space and comma,at least two letters.");
+						});
+
+		$('form>ul', '#tag').on('click', 'li>a', function(e) {
+			e.preventDefault();
+			clearMsg();
+			var s = $(this).text();
+			var i = s.indexOf('*');
+			var ls;
+			if (i >= 0) {
+				s = s.substring(0, i);
+				deltagbutton.prop("disabled", true);
+				ls = "unlock " + s;
+			} else {
+				deltagbutton.prop("disabled", false);
+				ls = "lock " + s;
+			}
+			targettag.val(s);
+			var ds = "delete " + s;
+			if (divedit.hasClass("itagh")) {
+				divedit.toggleClass("itags itagh").find('span').text("");
+				deltagbutton.val(ds);
+				locktagbutton.val(ls);
+			} else if (deltagbutton.val() != ds || locktagbutton.val() != ls) {
+				deltagbutton.val(ds);
+				locktagbutton.val(ls);
+			} else
+				divedit.toggleClass("itags itagh").find('span').text("");
+
+		});
+		deltagbutton.on('click', function() {
+			clearMsg();
+			var tag = deltagbutton.val().substr(7);
+			$.ajax({
+				url : "tag/del.controller",
+				data : {
+					wid : wid.val(),
+					tag : tag
+				}
+			}).done(
+					function(data) {
+						if (data) {
+							$('form>ul>li>a:contains("' + tag + '")', '#tag')
+									.parent('li').remove();
+							divedit.toggleClass("itags itagh").find('span')
+									.text("");
+							deltagbutton.val("delete");
+							locktagbutton.val("lock");
+							addtagbutton.prop("disabled", false);
+						} else
+							editmsg.text("failed to delete");
+					});
+
+		});
+		locktagbutton.on('click', function() {
+			clearMsg();
+			var rtag = locktagbutton.val();
+			var tag = rtag.substring(rtag.indexOf("lock") + 5);
+			var target = $('form>ul>li>a:contains("' + tag + '")', '#tag');
+			var islock = deltagbutton.prop("disabled");
+			$.get('tag/lock.controller', {
+				wid : wid.val(),
+				tag : tag,
+				islock : islock
+			}, function(data) {
+				if (data) {
+					deltagbutton.prop("disabled", !islock);
+					if (islock) {
+						locktagbutton.val("lock " + tag);
+						target.text(tag);
+						editmsg.text('unlocked');
+					} else {
+						locktagbutton.val("unlock " + tag);
+						target.text(tag + "*");
+						editmsg.text('locked');
+					}
+				} else
+					editmsg.text('failed');
+			});
+
+		});
+		deltagbutton.next('button[value=cancel]').click(function cancele() {
+			clearMsg();
+			divedit.toggleClass("itags itagh");
+		});
+		function addtags() {
+			clearMsg();
+			divadd.toggleClass("itags itagh");
+			itag.val("");
+		}
+		function showTags(data) {
+			var target = $('form>ul', '#tag');
+			for (var i = 0; i < data.length; i++) {
+				if (data[i].lock)
+					data[i].tag += "*";
+				$(
+						'<li class="tag"><a class="label label-default" href="" target="_blank">'
+								+ data[i].tag + '</a></li>').appendTo(target);
+			}
+			if ($('li>a', '#tag').length == 10)
+				addtagbutton.prop("disabled", true);
+		}
+		function clearMsg() {
+			editmsg.text('');
+			addmsg.text('');
+			datamsg.text('');
+			ms.text('');
+		}
+	});
 </script>
 </body>
 </html>

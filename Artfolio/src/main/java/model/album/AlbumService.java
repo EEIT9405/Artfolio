@@ -45,6 +45,10 @@ public class AlbumService {
 	public AlbumBean insert(AlbumBean bean) {
 		AlbumBean result = null;
 		if(bean!=null) {
+			for(AlbumBean exist:selectByMid(bean.getMid())){
+				if(exist.getAname().equals(bean.getAname()))
+					return null;
+			}
 			result = albumDao.insert(bean);
 		}
 		return result;
@@ -52,6 +56,10 @@ public class AlbumService {
 	public AlbumBean update(AlbumBean bean) {
 		AlbumBean result = null;
 		if(bean!=null) {
+			for(AlbumBean exist:selectByMid(bean.getMid())){
+				if(exist.getAname().equals(bean.getAname()))
+					return null;
+			}
 			result = albumDao.update(bean);
 		}
 		return result;

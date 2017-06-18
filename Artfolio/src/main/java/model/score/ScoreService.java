@@ -16,19 +16,18 @@ public class ScoreService {
 	
 	
 	@Transactional
-	public Boolean updateScore(WorkBean bean,Boolean lock){
-		if(bean!=null && lock!=null){
+	public Boolean updateScore(WorkBean bean,Boolean lock,Integer mid){
+		if(bean!=null && lock!=null && mid!=null){
+			WorkBean current = workservice.getWork(bean.getWid());
+			if(current==null || !current.getMid().equals(mid))
+				return false;
 			if(lock){
-				WorkBean raw=workservice.getWork(bean.getWid());
-				if(raw==null)
-					return false;
-				raw.setIsscore(bean.getIsscore());
-				bean=raw;
+				current.setIsscore(bean.getIsscore());
+				bean=current;
 			}
 			else{
 				if(checkFrequency(bean.getWid(),bean.getScoreversion()))
 					return null;
-				WorkBean current = workservice.select(bean.getWid()).get(0);
 				scoredao.insert(new ScoreBean(current.getWid(),current.getScoreversion(),
 								current.getScore_1(),current.getScore_2(),current.getScore_3(),current.getScore_4(),current.getScore_5()));
 				bean.setScoreversion(bean.getScoreversion()+1);
