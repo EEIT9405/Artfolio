@@ -13,6 +13,9 @@
 <script src="/Artfolio/js/jquery-ui.min.js"></script>
 <script src="/Artfolio/js/bootstrap.min.js"></script>
 <style type="text/css">
+*{
+	font-family:monospace 微軟正黑體;
+}
 .img-box {
   overflow: hidden;
   width: 180px;

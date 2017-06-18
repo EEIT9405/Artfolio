@@ -18,6 +18,7 @@
 	overflow: hidden;
 	width: 180px;
 	height: 180px;
+	margin:0 auto;
 	margin-top: 12px;
 	position: relative;
 	box-shadow: 0px 15px 50px -15px;
@@ -99,6 +100,7 @@
   height: 0;
   padding-bottom: 100%;
   margin-top: 12px;
+  margin-bottom: 12px;
   position: relative;
 }
 .authorimg img {
@@ -190,7 +192,7 @@
 					    <span class="caret"></span>
 					  </button>
 					  <ul id="sortList" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-					    <li class="sortbtn" role="presentation"><a role="menuitem" class="btn" tabindex="-1">依相簿</a></li>
+					    <li class="sortbtn" role="presentation"><a role="menuitem" class="btn album" tabindex="-1">依相簿</a></li>
 					    <li role="presentation" class="divider"></li>
 					    <li role="presentation" class="dropdown-header">依時間：</li>
 					    <li class="sortbtn" role="presentation"><a role="menuitem" class="btn timeup" tabindex="-1">遞增</a></li>
@@ -235,7 +237,7 @@
 													<input type="text" name="mailtitle" value=""><br><br>
 													<textarea class="form-control" rows="5"
 														cols="30" name="mailcontent"></textarea>
-														<input type="hidden" name="toId" value="1">
+														<input type="hidden" name="toId" value="${targetBean.mid}">
 														<input type="hidden" name="mstatus" value="1">
 													<div class="pull-right">
 														<input type="button" class="btn btn-primary disabled"
@@ -264,6 +266,9 @@ $(function(){
 	var mail = $('#mail');
 	var closemail = $('#closemail');
 	var mailcontent = $('textarea[name="mailcontent"]');
+	var mailSubmit = $('input[name="mailSubmit"]');
+	var mailCancel = $('input[name="mailCancel"]');
+	var mailtitle = $('input[name="mailtitle"]');
 	
 	listWork(mid, "alphabet", "ascending");
 	getFollowCount();
@@ -279,8 +284,51 @@ $(function(){
 	
 	closemail.click(function() {
 		mailcontent.val('');
+		mailtitle.val('');
 		$('#mailmodal').modal('hide');
 	});
+	
+	mailcontent.keyup(function() {
+		changeBtnDisableMail();
+	});
+
+	mailcontent.mouseout(function() {
+		changeBtnDisableMail();
+	});
+	
+	mailSubmit.click(function() {
+		if(mid != null){
+			$.post('/Artfolio/sendToAuthorMail.controller', $('#mailForm').serialize(), function(data){
+				$('#mailmodal').modal('hide');
+				alert(data);
+			});
+		}else {
+			alert("請登入！！");
+		}
+		mailtitle.val('');
+		mailcontent.val('');
+		$('#mailmodal').modal('hide');
+	});
+
+	mailCancel.click(function() {
+		mailcontent.val('');
+		mailtitle.val('');
+		changeBtnDisableMail();
+	});
+	
+	function changeBtnDisableMail() {
+		if (mailcontent.val().length <= 0) {
+			mailSubmit.addClass('disabled');
+			mailSubmit.prop('disabled', true);
+			mailCancel.addClass('disabled');
+			mailCancel.prop('disabled', true);
+		} else if (mailcontent.val().length > 0) {
+			mailSubmit.removeClass('disabled');
+			mailSubmit.prop('disabled', false);
+			mailCancel.removeClass('disabled');
+			mailCancel.prop('disabled', false);
+		}
+	}
 	
 	function check(){
 		$.get('follow/check2.controller', function(data){
@@ -333,6 +381,73 @@ $(function(){
 		getFollowCount();
 	});
 	
+	function album(mid) {
+		photoContainer.empty();
+		$.get('album/get.controller', {
+			mid : mid
+		}, function(data) {
+			var documentFrag = $(document.createDocumentFragment());
+			$.each(data, function(index, value) {
+				var col = $('<div class="col-sm-12 col-md-3 padding-0">');
+				var imgbox = $('<div class="img-box img-thumbnail">');
+				var img = $('<img>');
+				var edit = $('<div class="editer">');
+				var photowid = $('<input name="aid" type="hidden">').val(
+						value.aid);
+				var title = $('<div class="title">');
+				var h3 = $('<h3>');
+				h3.append(value.aname);
+				title.append(h3);
+				$.get('record/getw.controller', {
+					wid : value.wid
+				}, function(data) {
+					img.attr('src', data.picurl);
+				});
+				img.attr('title', value.aname);
+				imgbox.append(img);
+				imgbox.append(edit);
+				imgbox.append(photowid);
+				imgbox.click(function() {
+					listWorkByAid(value.aid);
+				});
+				col.append(imgbox);
+				col.append(title);
+				documentFrag.append(col);
+			});
+			photoContainer.append(documentFrag);
+		});
+	}
+
+	function listWorkByAid(aid) {
+		photoContainer.empty();
+		$.getJSON('searchByAid.controller', {
+			aid : aid
+		}, function(data) {
+			var documentFrag = $(document.createDocumentFragment());
+			$.each(data, function(index, value) {
+				var col = $('<div id="'+value.wid+'" class="col-sm-12 col-md-3 padding-0">');
+				var imgbox = $('<div class="img-box img-thumbnail">');
+				var img = $('<img>');
+				var edit = $('<div class="editer">');
+				var photowid = $('<input name="wid" type="hidden">').val(
+						value.wid);
+				var title = $('<div class="title">');
+				var h3 = $('<h3>');
+				h3.append(value.wtitle);
+				title.append(h3);
+				img.attr('src', value.picurl);
+				img.attr('title', value.wtitle);
+				imgbox.append(img);
+				imgbox.append(edit);
+				imgbox.append(photowid);
+				col.append(imgbox);
+				col.append(title);
+				documentFrag.append(col);
+			});
+			photoContainer.append(documentFrag);
+		});
+	}
+	
 	sortbtn.click(function(){
 		var sort = $(this).children('a');
 		if(sort.hasClass('timeup')){
@@ -346,6 +461,9 @@ $(function(){
 		}
 		if(sort.hasClass('likedown')){
 			listWork(mid, "like", "descending");
+		}
+		if (sort.hasClass('album')) {
+			album(mid);
 		}
 	});
 	

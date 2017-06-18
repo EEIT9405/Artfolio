@@ -21,6 +21,7 @@
 	overflow: hidden;
 	width: 180px;
 	height: 180px;
+	margin:0 auto;
 	margin-top: 12px;
 	position: relative;
 	box-shadow: 0px 15px 50px -15px;
@@ -102,6 +103,7 @@
   height: 0;
   padding-bottom: 100%;
   margin-top: 12px;
+  margin-bottom: 12px;
   position: relative;
 }
 .authorimg img {
@@ -450,7 +452,13 @@ $(function(){
 			wedit.text('編輯');
 			imgbox.removeClass('wave');
 			photoContainer.sortable('destroy');
-			console.log(result);
+			if(result[0].trim().length != 0){
+				console.log(result);
+				jQuery.ajaxSettings.traditional = true;
+				$.post('album/sortAlbum.controller', {albumSort:result}, function(data){
+					console.log(data);
+				});
+			}
 		}
 	});
 	//刪除或編輯
@@ -529,7 +537,7 @@ $(function(){
 			}, function(data) {
 				var documentFrag = $(document.createDocumentFragment());
 				$.each(data, function(index, value) {
-					var col = $('<div class="col-sm-12 col-md-3 padding-0">');
+					var col = $('<div id="'+value.wid+'" class="col-sm-12 col-md-3 padding-0">');
 					var imgbox = $('<div class="img-box img-thumbnail">');
 					var img = $('<img>');
 					var edit = $('<div class="editer">');

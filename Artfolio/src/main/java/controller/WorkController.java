@@ -199,8 +199,10 @@ public class WorkController {
 				bean.setWtitle(wtitle.trim());
 				if(winfo!=null)
 				bean.setWinfo(winfo.trim());
-				if(aid!=null)
-				bean.setAlbumBean(albumService.select(aid).get(0));
+				if(aid!=null){
+					bean.setAlbumBean(albumService.select(aid).get(0));
+					bean.setWorder(9999999);
+				}
 				bean.setIswmsg(iswmsg!=null && iswmsg);
 				return workService.update(bean)!=null;
 			}

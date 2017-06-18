@@ -12,6 +12,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
+*{
+	font-family:monospace 微軟正黑體;
+}
 .img-style {
 	overflow: hidden;
 	width: 200px;
@@ -29,18 +32,35 @@
 	transform: translate(-50%, -50%);
 	width: 100%;
 }
+.footer {
+  padding-top: 40px;
+  padding-bottom: 10px;
+  background-color: #222;
+  color: #999;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+.footer hr {
+  background-color: #222;
+  opacity: 0.1;
+}
+
+.title h3{
+	text-align:center;
+}
 </style>
 </head>
 <body>
 
 	<jsp:include page="top/header.jsp"></jsp:include>
 
-	<div class="container" style="margin-top: 100px;">
-		<div class="row" style="position: absolute;">
+	<div class="container" style="margin-top: 100px; min-height:500px; height:auto;">
+		<div class="row">
 			<div id="wk">
 				<form role="form" action="work/upload.controller" method="post"
 					enctype="multipart/form-data">
-					<div style="position: relative;">
+					<div class="col-md-12" style="text-align:center;">
+						<a style="position:absolute; left:5px; font-size:50px;" href="/Artfolio/myWorks.jsp"><i class="glyphicon glyphicon-arrow-left"></i></a>
 						<input type="file" name="files" accept="image/*"
 							style="display: none" required multiple> <img
 							style="width: 50px; cursor: pointer;" src="img/icon-upload.png">
@@ -72,7 +92,7 @@
 								<td><textarea name="winfo"></textarea></td>
 							</tr>
 							<tr>
-								<td>tags</td>
+								<td>標籤</td>
 								<td><input type="text" name="tags"></td>
 							</tr>
 							<tr>
@@ -120,7 +140,7 @@
 			</div>
 		</div>
 	</div>
-
+<jsp:include page="top/footer.jsp"></jsp:include>
 </body>
 <script>
 	function listalbum(){

@@ -44,7 +44,7 @@ public class WorkBean implements Serializable{
 	@JoinColumn(name ="aid")
 	private AlbumBean albumBean;
 	private Integer scoreversion=0;
-	private Integer worder=0;
+	private Integer worder=9999999;
 	
 	public Boolean getIswmsg() {
 		return iswmsg;

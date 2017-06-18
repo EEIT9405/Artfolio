@@ -694,8 +694,10 @@
 			}
 			
 			function saveUserBrowse(){
-				$.post('browsed.controller', {wid:thisWid}, function(){
-				});
+				if($('#user').val()){
+					$.post('browsed.controller', {wid:thisWid}, function(){
+					});
+				}
 			}
 			
 			function showWorkInfo(){
@@ -725,20 +727,22 @@
 
 			function showRecommendPhoto(){
 				recommend.empty();
-				$.getJSON('showRelationalWork.controller', {wid:thisWid}, function(data){
-					var documentFrag = $(document.createDocumentFragment());
-					recommend.append($('<div class="col-md-1">'));
-					$.each(data, function(index, value){
-						var div = $('<div class="col-md-2 recommendPhoto">').addClass('img-rounded');
-						var img = $('<img>').attr('src', value.picurl);
-						var widhidden = $('<input name="wid" type="hidden">').val(value.wid);
-						div.append(img);
-						div.append(widhidden);
-						documentFrag.append(div);
+				if($('#user').val()){
+					$.getJSON('showRelationalWork.controller', {wid:thisWid}, function(data){
+						var documentFrag = $(document.createDocumentFragment());
+						recommend.append($('<div class="col-md-1">'));
+						$.each(data, function(index, value){
+							var div = $('<div class="col-md-2 recommendPhoto">').addClass('img-rounded');
+							var img = $('<img>').attr('src', value.picurl);
+							var widhidden = $('<input name="wid" type="hidden">').val(value.wid);
+							div.append(img);
+							div.append(widhidden);
+							documentFrag.append(div);
+						});
+						recommend.append(documentFrag);
+						recommend.append($('<div class="col-md-1">'));
 					});
-					recommend.append(documentFrag);
-					recommend.append($('<div class="col-md-1">'));
-				});
+				}
 			}
 			
 			//wmsg
@@ -1068,7 +1072,7 @@
 
 		reportCancel.click(function() {
 			reportTextarea.val('');
-			changeBtnDisable();
+			changeBtnDisableReport();
 		});
 		
 		
