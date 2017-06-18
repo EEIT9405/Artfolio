@@ -124,7 +124,7 @@
 </body>
 <script>
 	function listalbum(){
-		$.get('album/get.controller',function(data){
+		$.get('album/get.controller',{mid:'${loginOK.mid}'},function(data){
 			var target=$('select[name^=aid]','#wk');
 			target.empty();
 			for(var i=0;i<data.length;i++){
@@ -203,8 +203,6 @@
 							t.val('新增');
 							aname.attr('type','hidden').val('');
 							sl.show();
-						}else if(data===''){
-							alert('login');
 						}else
 							alert('failed')
 					});

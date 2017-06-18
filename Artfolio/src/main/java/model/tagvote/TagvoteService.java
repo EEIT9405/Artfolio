@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import model.tag.TagBean;
 import model.tag.TagService;
+import model.work.WorkService;
 
 @Service
 public class TagvoteService {
@@ -16,17 +17,18 @@ public class TagvoteService {
 	private TagvoteDAO tagvotedao;
 	@Autowired
 	private TagService tagService;
-	
+	@Autowired
+	private WorkService workService;
 	@Transactional
 	public boolean insert(TagvoteBean bean){
-		if(bean!=null)
+		if(bean!=null && !workService.getWork(bean.getWid()).getMid().equals(bean.getMid()))
 			return tagvotedao.insert(bean) && tagService.voteTag(new TagBean(bean.getWid(),bean.getTag(),null,select(bean.getWid(),bean.getTag()).size()));
 		return false;
 	}
 	
 	@Transactional
 	public boolean delete(TagvoteBean bean){
-		if(bean!=null)
+		if(bean!=null && !workService.getWork(bean.getWid()).getMid().equals(bean.getMid()))
 			return tagvotedao.delete(bean) && tagService.voteTag(new TagBean(bean.getWid(),bean.getTag(),null,select(bean.getWid(),bean.getTag()).size()));
 		return false;
 	}
