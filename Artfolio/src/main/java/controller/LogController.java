@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.ServletContext;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -100,6 +101,8 @@ public class LogController {
 			BindingResult bindingResult) {
 		if (user != null && mail != null && !bindingResult.hasErrors()) {
 			mail.setMemberBean(user);
+			String mailContent = StringEscapeUtils.escapeHtml4(mail.getMailcontent());
+			mail.setMailcontent(mailContent.replaceAll("\\n|\\r\\n", "<br>"));
 			if (mailService.insert(mail) != null) {
 				return "感謝您的意見，客服將於24小時內回覆";
 			}
@@ -113,6 +116,8 @@ public class LogController {
 			BindingResult bindingResult) {
 		if (user != null && mail != null && !bindingResult.hasErrors()) {
 			mail.setMemberBean(user);
+			String mailContent = StringEscapeUtils.escapeHtml4(mail.getMailcontent());
+			mail.setMailcontent(mailContent.replaceAll("\\n|\\r\\n", "<br>"));
 			if (mailService.insert(mail) != null) {
 				return "已成功寄出";
 			}

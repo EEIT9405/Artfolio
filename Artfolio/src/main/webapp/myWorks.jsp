@@ -121,7 +121,7 @@
 	text-align:center;
 }
 .top-colleciton {
-  background-image: url(https://livedemo00.template-help.com/magento_52963/skin/frontend/default/theme323k/images/bg_index.jpg);
+  background-image: url(/Artfolio/img/bg_index.jpg);
   background-size: 100%;
   padding-top: 60px;
 }
@@ -182,8 +182,6 @@
 					    <span class="caret"></span>
 					  </button>
 					  <ul id="sortList" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-					    <li class="sortbtn" role="presentation"><a role="menuitem" class="btn album" tabindex="-1">依相簿</a></li>
-					    <li role="presentation" class="divider"></li>
 					    <li role="presentation" class="dropdown-header">依時間：</li>
 					    <li class="sortbtn" role="presentation"><a role="menuitem" class="btn timeup" tabindex="-1">遞增</a></li>
 					    <li class="sortbtn" role="presentation"><a role="menuitem" class="btn timedown" tabindex="-1">遞減</a></li>
@@ -198,6 +196,8 @@
 					  </ul>
 					</div>
 				  	<div style="margin-top:10px;">
+				  		<a id="works" style="margin-bottom:5px;" class="btn btn-default">作品</a>
+				  		<a id="album" style="margin-bottom:5px;" class="btn btn-info">相簿</a>
 				    	<a id="wupload" href="/Artfolio/work.jsp" class="btn btn-primary">上傳</a>
 				    	<a id="wedit" class="btn btn-default">編輯</a>
 				    </div>
@@ -418,6 +418,7 @@ $(function(){
 	var sortbtn = $('#sortList').children('li.sortbtn');
 	var photoContainer = $('#photoContainer>div.row');
 	var mid = "${loginOK.mid}";
+	
 	listWork(mid, "alphabet", "ascending");
 	getFollowCount();
 	//開啟編輯功能
@@ -596,12 +597,16 @@ $(function(){
 				photoContainer.append(documentFrag);
 			});
 		}
-
+		$('#album').click(function(){
+			album(mid);
+		});
+		
+		$('#works').click(function(){
+			listWork(mid, "alphabet", "ascending");
+		});
+		
 		sortbtn.click(function() {
 			var sort = $(this).children('a');
-			if (sort.hasClass('album')) {
-				album(mid);
-			}
 			if (sort.hasClass('timeup')) {
 				listWork(mid, "date", "ascending");
 			}

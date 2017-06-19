@@ -126,11 +126,11 @@
 						<div class="row">
 							<div class="col-sm-12 col-md-12 padding-0">
 								<div id="top1" class="img-box">
-									<img src="http://bit.ly/2qYyyVS " alt="" />
+									<img src="/Artfolio/img/User_47571025.jpg" alt="" />
 									<div class="title-box">
 										<div class="info">
-											<h3 class="author">louis</h3>
-											<h2 class="pic-title">cat vary cute</h2>
+											<h3 class="author"></h3>
+											<h2 class="pic-title">error</h2>
 											<div class="goto-pic">show view</div>
 										</div>
 									</div>
@@ -140,23 +140,23 @@
 								<div class="row">
 									<div class="col-sm-6 col-md-12 padding-0">
 										<div id="top8" class="img-box tobig">
-											<img src="http://bit.ly/2qYyyVS " alt="" />
+											<img src="/Artfolio/img/User_47571025.jpg" alt="" />
 										</div>
 									</div>
 									<div class="col-sm-6 col-md-12 padding-0">
 										<div id="top9" class="img-box tobig">
-											<img src="http://bit.ly/2qYyyVS " alt="" />
+											<img src="/Artfolio/img/User_47571025.jpg" alt="" />
 										</div>
 									</div>
 								</div>
 							</div>
 							<div class="col-sm-12 col-md-8 padding-0">
 								<div id="top3" class="img-box">
-									<img src="http://bit.ly/2qYyyVS " alt="" />
+									<img src="/Artfolio/img/User_47571025.jpg" alt="" />
 									<div class="title-box">
 										<div class="info">
-											<h3 class="author">louis</h3>
-											<h2 class="pic-title">cat vary cute</h2>
+											<h3 class="author"></h3>
+											<h2 class="pic-title">error</h2>
 											<div class="goto-pic">show view</div>
 										</div>
 									</div>
@@ -168,11 +168,11 @@
 						<div class="row">
 							<div class="col-sm-6 padding-0">
 								<div id="top4" class="img-box">
-									<img src="http://bit.ly/2qYyyVS " alt="" />
+									<img src="/Artfolio/img/User_47571025.jpg" alt="" />
 									<div class="title-box">
 										<div class="info">
-											<h3 class="author">louis</h3>
-											<h2 class="pic-title">cat vary cute</h2>
+											<h3 class="author"></h3>
+											<h2 class="pic-title">error</h2>
 											<div class="goto-pic">show view</div>
 										</div>
 									</div>
@@ -180,11 +180,11 @@
 							</div>
 							<div class="col-sm-6 padding-0">
 								<div id="top5" class="img-box">
-									<img src="http://bit.ly/2qYyyVS " alt="" />
+									<img src="/Artfolio/img/User_47571025.jpg" alt="" />
 									<div class="title-box">
 										<div class="info">
-											<h3 class="author">louis</h3>
-											<h2 class="pic-title">cat vary cute</h2>
+											<h3 class="author"></h3>
+											<h2 class="pic-title">error</h2>
 											<div class="goto-pic">show view</div>
 										</div>
 									</div>
@@ -192,11 +192,11 @@
 							</div>
 							<div class="col-sm-12 col-md-8 padding-0">
 								<div id="top2" class="img-box">
-									<img src="http://bit.ly/2qYyyVS " alt="" />
+									<img src="/Artfolio/img/User_47571025.jpg" alt="" />
 									<div class="title-box">
 										<div class="info">
-											<h3 class="author">louis</h3>
-											<h2 class="pic-title">cat vary cute</h2>
+											<h3 class="author"></h3>
+											<h2 class="pic-title">error</h2>
 											<div class="goto-pic">show view</div>
 										</div>
 									</div>
@@ -206,23 +206,23 @@
 								<div class="row">
 									<div class="col-sm-6 col-md-12 padding-0">
 										<div id="top10" class="img-box tobig">
-											<img src="http://bit.ly/2qYyyVS " alt="" />
+											<img src="/Artfolio/img/User_47571025.jpg" alt="" />
 										</div>
 									</div>
 									<div class="col-sm-6 col-md-12 padding-0">
 										<div id="top11" class="img-box tobig">
-											<img src="http://bit.ly/2qYyyVS " alt="" />
+											<img src="/Artfolio/img/User_47571025.jpg" alt="" />
 										</div>
 									</div>
 								</div>
 							</div>
 							<div class="col-sm-6 padding-0">
 								<div id="top6" class="img-box">
-									<img src="http://bit.ly/2qYyyVS " alt="" />
+									<img src="/Artfolio/img/User_47571025.jpg" alt="" />
 									<div class="title-box">
 										<div class="info">
-											<h3 class="author">louis</h3>
-											<h2 class="pic-title">cat vary cute</h2>
+											<h3 class="author"></h3>
+											<h2 class="pic-title">error</h2>
 											<div class="goto-pic">show view</div>
 										</div>
 									</div>
@@ -230,11 +230,11 @@
 							</div>
 							<div class="col-sm-6 padding-0">
 								<div id="top7" class="img-box">
-									<img src="http://bit.ly/2qYyyVS " alt="" />
+									<img src="/Artfolio/img/User_47571025.jpg" alt="" />
 									<div class="title-box">
 										<div class="info">
-											<h3 class="author">louis</h3>
-											<h2 class="pic-title">cat vary cute</h2>
+											<h3 class="author"></h3>
+											<h2 class="pic-title">error</h2>
 											<div class="goto-pic">show view</div>
 										</div>
 									</div>
@@ -253,7 +253,7 @@
 			<div class="col-sm-12 col-md-10">
 				<h1>New Pictures</h1>
 				<hr/>
-				<div id="searchResult" class="row" style="height:auto;">
+				<div id="searchResult" class="row" >
 				</div>
 			</div>
 			<div class="col-sm-0 col-md-1"></div>
@@ -472,6 +472,7 @@
 	<script src='js/jquery.formatDateTime.min.js'></script>
 	
 	<script>
+
 		$(function() {
 
 			var searchToken = "${searchToken}";
@@ -673,6 +674,26 @@
 			});
 			//顯示最新top
 
+			var searchResult = $('#searchResult');
+			
+			showNews();
+			function showNews(){
+				$.get('searchRecent.controller',function(data){
+					var docFrag = $(document.createDocumentFragment()); 
+					$.each(data, function(index, value){
+						var div = $('<div class="col-sm-12 col-md-3 padding-0" style="margin-bottom:12px;">');
+						var imgbox = $('<div style="cursor:pointer;" class="img-box">');
+						var img = $('<img class="lazy">').attr('data-original', value.picurl);
+						var widHidden = $('<input type="hidden" name="wid">').val(value.wid);
+						imgbox.append(img);
+						imgbox.append(widHidden);
+						div.append(imgbox);
+						docFrag.append(div);
+					});
+					searchResult.append(docFrag);
+				})
+			}
+			
 			//博超--------
 
 			function showModal() {
@@ -794,24 +815,28 @@
 			});
 
 			wmsgSubmit.click(function() {
-				var msg = wmsgTextarea.val();
-				$.post('insertWmsg.controller',	{wmsgcontent : msg,	wid : thisWid},function(data) {
-					var td1 = $('<td width="10%">').append($('<img>').attr('src',data.memberBean.mphoto));
-					var td2 = $('<td width="12%">').text(data.memberBean.name);
-					var td3 = $('<td width="40%">').html(data.wmsgcontent);
-					var td4 = $('<td width="35%">').text($.formatDateTime('yy-mm-dd hh:ii', new Date(data.wmsgdate)));
-					var td6 = $('<input type="hidden">').val(data.wmsgid);
-					var row = $('<tr>');
-					if (data.memberBean.mid == $('#user').val()) {
-						var td5 = $('<td width="3%">').append($('<a title="delete" class="btn glyphicon glyphicon-remove-circle">'));
-							td5.append($('<a title="edit" class="btn glyphicon glyphicon-pencil">'));
-							row.append([ td1, td2, td3, td4, td5, td6 ]);
-					} else {
-						var td5 = $('<td width="3%">');
-						row.append([ td1, td2, td3, td4, td5,td6 ]);
-					}
-					wmsgTable.prepend(row);
-				});
+				if($('#user').val()){
+					var msg = wmsgTextarea.val();
+					$.post('insertWmsg.controller',	{wmsgcontent : msg,	wid : thisWid},function(data) {
+						var td1 = $('<td width="10%">').append($('<div class="wmsgimg">').append($('<img>').attr('src',data.memberBean.mphoto)));
+						var td2 = $('<td width="12%">').append($('<a>').attr('href','/Artfolio/getAuthor.controller?targetId='+data.memberBean.mid).text(data.memberBean.name));
+						var td3 = $('<td width="40%">').html(data.wmsgcontent);
+						var td4 = $('<td width="35%">').text($.formatDateTime('yy-mm-dd hh:ii', new Date(data.wmsgdate)));
+						var td6 = $('<input type="hidden">').val(data.wmsgid);
+						var row = $('<tr>');
+						if (data.memberBean.mid == $('#user').val()) {
+							var td5 = $('<td width="3%">').append($('<a title="delete" class="btn glyphicon glyphicon-remove-circle">'));
+								td5.append($('<a title="edit" class="btn glyphicon glyphicon-pencil">'));
+								row.append([ td1, td2, td3, td4, td5, td6 ]);
+						} else {
+							var td5 = $('<td width="3%">');
+							row.append([ td1, td2, td3, td4, td5,td6 ]);
+						}
+						wmsgTable.prepend(row);
+					});
+				}else{
+					alert('請登入');
+				}
 				wmsgTextarea.val('');
 				changeBtnDisable();
 			});
@@ -828,11 +853,12 @@
 								'input').val();
 						var td = thiz.parent('td').parent('tr').children('td')
 								.eq(2);
-						var msg = td.text();
+						var msg = td.html().replace(/<br>/g,"\n");
+						
 						if (thiz.hasClass('glyphicon-pencil')) {
 							td.empty();
 							td.append($('<textarea rows="3" cols="18">').val(
-									msg));
+									htmldecode(msg)));
 							thiz.removeClass('glyphicon-pencil');
 							thiz.addClass('glyphicon-ok-circle');
 						} else if (thiz.hasClass('glyphicon-ok-circle')) {
@@ -842,13 +868,19 @@
 								wmsgcontent : wmsgcontent
 							}, function(data) {
 								td.empty();
-								td.text(data.wmsgcontent);
+								td.html(data.wmsgcontent.replace(/\n/g,'<br>'));
 								thiz.removeClass('glyphicon-ok-circle');
 								thiz.addClass('glyphicon-pencil');
 							});
 						}
 					});
 
+			function htmldecode(s){  
+			    var div = document.createElement('div');  
+			    div.innerHTML = s;  
+			    return div.innerText || div.textContent;  
+			}  
+			
 			wmsgTable.on('click', 'a[title="delete"]',
 					function() {
 						var thiz = $(this);

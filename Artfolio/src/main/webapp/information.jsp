@@ -29,7 +29,7 @@
    text-align:left;
 }
 .top-colleciton {
-  background-image: url(https://livedemo00.template-help.com/magento_52963/skin/frontend/default/theme323k/images/bg_index.jpg);
+  background-image: url(/Artfolio/img/bg_index.jpg);
   background-size: 100%;
   padding-top: 60px;
 }
