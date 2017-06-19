@@ -193,7 +193,7 @@ public class WorkController {
 		Integer mid = (Integer) session.getAttribute("mid");
 		if(mid!=null && wid!=null && wtitle!=null && wtitle.trim().length()>0){
 			
-			//this part should move to service
+			//this part should be moved to service
 			WorkBean bean=workService.getWork(wid);
 			if(bean!=null && bean.getMid().equals(mid)){
 				bean.setWtitle(wtitle.trim());
@@ -216,7 +216,7 @@ public class WorkController {
 		Integer mid = (Integer) session.getAttribute("mid");
 		if(mid!=null && wid!=null){
 			
-			//this part should move to service,and maybe create a new method
+			//this part should be moved to service,and maybe create a new method
 			WorkBean bean=workService.getWork(wid);
 			if(bean.getMid().equals(mid)){
 				bean.setWend(new java.util.Date());
