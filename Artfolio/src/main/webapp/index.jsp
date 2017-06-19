@@ -676,7 +676,14 @@
 
 			var searchResult = $('#searchResult');
 			
-			showNews();
+			var fromTag='${param.tag}';
+			if(fromTag){
+				$('input[name="searchContent"]').val(fromTag);
+				$('#searceBar').find('select').val('tag');
+				$('#searchButton').get(0).click();
+			}else
+				showNews();
+			
 			function showNews(){
 				$.get('searchRecent.controller',function(data){
 					var docFrag = $(document.createDocumentFragment()); 
@@ -1022,9 +1029,10 @@
 		function showTags(data) {
 			var target = $('form>ul','#tag');
 			for (var i = 0; i < data.length; i++) {
+				var tag=data[i].tag;
 				if (data[i].lock)
 					data[i].tag+="*";
-				$('<li class="tag"><a class="label label-default" href="" target="_blank">' + data[i].tag+ '</a></li>').appendTo(target);
+				$('<li class="tag"><a class="label label-default" href="/Artfolio/index.jsp?tag='+tag+'" target="_blank">' + data[i].tag+ '</a></li>').appendTo(target);
 			}
 			if ($('li>a','#tag').length==10)
 				addtagbutton.prop("disabled",true);
