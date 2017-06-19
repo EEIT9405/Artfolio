@@ -124,23 +124,33 @@ public class DonateController {
 			@RequestParam(name="targetid",required=false)Integer targetid){
 		Integer mid=(Integer) session.getAttribute("mid");
 		String msg=null;
-		model.addAttribute("ermsg",msg);
 		if(mid==null){
 			msg="must login first";
+			targetid=null;
 		}
-		if((wid==null && targetid==null) || (wid!=null && targetid!=null)){
-			msg="error";
+		else if((wid==null && targetid==null) || (wid!=null && targetid!=null)){
+			msg="target error";
+			targetid=null;
 		}
-		if(wid!=null){
+		else if(wid!=null){
 			targetid=workService.getWork(wid).getMid();
 		}
-		if(mid.equals(targetid)){
+		if(mid!=null && mid.equals(targetid)){
 			msg="you cannot donate to yourself";
+			targetid=null;
 		}
-		model.addAttribute("targetid", targetid);
-		System.out.println(targetid+":"+memberService.select(targetid).getName());
-		model.addAttribute("targetname", memberService.select(targetid).getName());
-		model.addAttribute("point", memberService.select(mid).getPoint());
+		if(targetid!=null){
+			model.addAttribute("targetid", targetid);
+			
+			MemberBean target=memberService.select(targetid);
+			if(target!=null){
+				model.addAttribute("targetname", target.getName());
+				MemberBean m=memberService.select(mid);
+				if(m!=null)
+				model.addAttribute("point", m.getPoint());	
+			}
+		}
+		model.addAttribute("ermsg",msg);
 		return "donate";
 	}
 	@RequestMapping(method=RequestMethod.POST,path="donate.controller")

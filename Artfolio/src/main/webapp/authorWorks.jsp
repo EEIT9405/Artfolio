@@ -177,6 +177,7 @@
 					    	<button id="follow" class="btn btn-default" value="follow" style="margin-bottom:5px;">追踪</button>
 					    	<button id="block" class="btn btn-default" style="margin-bottom:5px;">封鎖</button>
 					    	<button id="mail" class="btn btn-success">寄信</button>
+					    	<button id="donate" class="btn btn-default">贊助</button>
 				    	</div>
   					</div>
 				</div>
@@ -264,6 +265,7 @@ $(function(){
 	var follow = $('#follow');
 	var block = $('#block');
 	var mail = $('#mail');
+	var donate = $('#donate');
 	var closemail = $('#closemail');
 	var mailcontent = $('textarea[name="mailcontent"]');
 	var mailSubmit = $('input[name="mailSubmit"]');
@@ -280,6 +282,10 @@ $(function(){
 		$('#mailmodal').modal(
 				{backdrop : 'static'}
 		);
+	});
+	
+	donate.click(function(){
+		window.open('point/donate.controller?targetid='+mid,'donate','height=300,width=300');
 	});
 	
 	closemail.click(function() {
