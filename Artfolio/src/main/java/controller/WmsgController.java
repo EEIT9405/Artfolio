@@ -70,9 +70,12 @@ public class WmsgController {
 			String encodeWmsg = StringEscapeUtils.escapeHtml4(wmsgcontent);
 			WmsgBean bean = new WmsgBean();
 			bean.setWmsgid(wmsgid);
-			bean.setWmsgcontent(encodeWmsg);
+			bean.setWmsgcontent(encodeWmsg.replaceAll("\\n|\\r\\n", "<br>"));
 			
-			return wmsgService.update(bean);
+			bean = wmsgService.update(bean);
+			bean.setWmsgcontent(bean.getWmsgcontent().replaceAll("<br>", "\n"));
+			
+			return bean;
 		}
 		return null;
 	}

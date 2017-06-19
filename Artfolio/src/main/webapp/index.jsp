@@ -796,8 +796,8 @@
 			wmsgSubmit.click(function() {
 				var msg = wmsgTextarea.val();
 				$.post('insertWmsg.controller',	{wmsgcontent : msg,	wid : thisWid},function(data) {
-					var td1 = $('<td width="10%">').append($('<img>').attr('src',data.memberBean.mphoto));
-					var td2 = $('<td width="12%">').text(data.memberBean.name);
+					var td1 = $('<td width="10%">').append($('<div class="wmsgimg">').append($('<img>').attr('src',data.memberBean.mphoto)));
+					var td2 = $('<td width="12%">').append($('<a>').attr('href','/Artfolio/getAuthor.controller?targetId='+data.memberBean.mid).text(data.memberBean.name));
 					var td3 = $('<td width="40%">').html(data.wmsgcontent);
 					var td4 = $('<td width="35%">').text($.formatDateTime('yy-mm-dd hh:ii', new Date(data.wmsgdate)));
 					var td6 = $('<input type="hidden">').val(data.wmsgid);
@@ -828,11 +828,12 @@
 								'input').val();
 						var td = thiz.parent('td').parent('tr').children('td')
 								.eq(2);
-						var msg = td.text();
+						var msg = td.html().replace(/<br>/g,"\n");
+						
 						if (thiz.hasClass('glyphicon-pencil')) {
 							td.empty();
 							td.append($('<textarea rows="3" cols="18">').val(
-									msg));
+									htmldecode(msg)));
 							thiz.removeClass('glyphicon-pencil');
 							thiz.addClass('glyphicon-ok-circle');
 						} else if (thiz.hasClass('glyphicon-ok-circle')) {
@@ -842,13 +843,19 @@
 								wmsgcontent : wmsgcontent
 							}, function(data) {
 								td.empty();
-								td.text(data.wmsgcontent);
+								td.html(data.wmsgcontent.replace(/\n/g,'<br>'));
 								thiz.removeClass('glyphicon-ok-circle');
 								thiz.addClass('glyphicon-pencil');
 							});
 						}
 					});
 
+			function htmldecode(s){  
+			    var div = document.createElement('div');  
+			    div.innerHTML = s;  
+			    return div.innerText || div.textContent;  
+			}  
+			
 			wmsgTable.on('click', 'a[title="delete"]',
 					function() {
 						var thiz = $(this);
