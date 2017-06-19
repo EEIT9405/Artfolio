@@ -951,7 +951,7 @@
 			
 			$.get('tag/voted.controller',{wid:wid.val(),tag:s},function(data){
 				if(data){
-					vote.val("廢票");
+					vote.val("撤銷");
 				}else{
 					vote.val("投票");
 				}
@@ -1005,7 +1005,7 @@
 			var c=vote.val()=='投票';
 				$.post('tag/vote.controller',{wid:wid.val(),tag:targettag.val(),check:c},function(data){
 					if(data && c)
-						vote.val('廢票');
+						vote.val('撤銷');
 					else if(data)
 						vote.val('投票');
 					else
@@ -1230,6 +1230,8 @@
 		});
 		$('#closeimagemodal').click(function() {
 			$('#ImageModal').modal('hide');
+			divedit.removeClass().addClass('itagh').find('span').text("");
+			divadd.removeClass().addClass('itagh').find('span').text("");
 // 			addtags();
 // 			cancele();
 		});
