@@ -54,7 +54,7 @@ public class AlbumController {
 		Integer mid = (Integer) session.getAttribute("mid");
 		if(mid!=null && aid!=null && aname!=null && aname.trim().length()!=0){
 			
-			//this part should move to service
+			//this part should be moved to service
 			AlbumBean bean=albumService.select(aid).get(0);
 			if(bean.getAname().equals("default") || aname.equals("default"))
 				return false;
