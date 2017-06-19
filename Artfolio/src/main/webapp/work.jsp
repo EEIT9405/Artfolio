@@ -261,6 +261,9 @@
 				}
 				if($(this).find('input[name^=wtitle]').val().trim()=='')
 					t.push(filename);
+				
+				var info=$(this).find('textarea[name^=winfo]');
+				info.val(info.val().replace(/\r?\n/g, '<br />'));
 		  		var check=$(this).find('input[name^=isscore]');
 		  		if(check.prop('checked')){
 		  			var f=true;
