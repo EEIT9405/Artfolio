@@ -171,13 +171,14 @@
 <script src='/Artfolio/js/jquery.lazyload.min.js'></script>
 <script>
 	$(document).ajaxStop(function(){
+		
 		$("img.lazy").lazyload({
 		    effect : "fadeIn",
 		    load:f_masonry
 		});
 		
 		var searchResult = $('#searchResult');
-		
+		searchResult.masonry('destroy');
 		function f_masonry() {
 			searchResult.imagesLoaded(function(){
 				searchResult.masonry({        
@@ -214,6 +215,7 @@
 		});
 		
 		$('button[value=submit]','#search').click(function(){
+			searchResult.empty();
 			$.get('search.controller',$('form','#search').serialize(),function(data){
 				var docFrag = $(document.createDocumentFragment()); 
 				searchTitle.text('Search results: ' + data.length + ' items.');
@@ -228,7 +230,7 @@
 					docFrag.append(div);
 				});
 				searchResult.append(docFrag);
-				searchResult.removeAttr('style');
+				
 			})
 			$('#searchmodal').modal('hide');
 			var search = $('#search');

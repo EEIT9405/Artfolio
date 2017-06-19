@@ -571,6 +571,10 @@ $(function(){
 					var col = $('<div class="col-sm-12 col-md-3 padding-0">');
 					var imgbox = $('<div class="img-box img-thumbnail">');
 					var img = $('<img>');
+					var imgbox2 = $('<div style="position:absolute; top:-7px; left:24px; z-index:-1;" class="img-box img-thumbnail">');
+					var img2 = $('<img>').attr('src','/Artfolio/img/white2.jpg');
+					var imgbox3 = $('<div style="position:absolute; top:-17px; left:18px; z-index:-2;" class="img-box img-thumbnail">');
+					var img3 = $('<img>').attr('src','/Artfolio/img/gray.jpg');
 					var edit = $('<div class="editer">');
 					var photowid = $('<input name="aid" type="hidden">').val(
 							value.aid);
@@ -583,6 +587,8 @@ $(function(){
 					}, function(data) {
 						img.attr('src', data.picurl);
 					});
+					imgbox2.append(img2);
+					imgbox3.append(img3);
 					img.attr('title', value.aname);
 					imgbox.append(img);
 					imgbox.append(edit);
@@ -591,6 +597,8 @@ $(function(){
 						listWorkByAid(value.aid);
 					});
 					col.append(imgbox);
+					col.append(imgbox2);
+					col.append(imgbox3);
 					col.append(title);
 					documentFrag.append(col);
 				});
