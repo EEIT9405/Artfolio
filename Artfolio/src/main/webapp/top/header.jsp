@@ -228,6 +228,7 @@
 					docFrag.append(div);
 				});
 				searchResult.append(docFrag);
+				searchResult.removeAttr('style');
 			})
 			$('#searchmodal').modal('hide');
 			var search = $('#search');
@@ -264,7 +265,11 @@
 			$('#testA>a')[0].click();
 			$('input[name="searchContent"]').val('');
 		});
-		
-		
+		var fromtag='${param.fromTag}';
+		if(fromtag){
+			$('input[name="searchContent"]').val('${param.tag}');
+			searceBar.find('select').val('tag');
+			searchButton.get(0).click();
+		}
 	});
 </script>
