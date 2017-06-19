@@ -9,10 +9,12 @@
 <link href="/Artfolio/css/jquery.ui.css" rel="stylesheet">
 <link href="/Artfolio/css/bootstrap.min.css" rel="stylesheet">
 <link href="/Artfolio/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/Artfolio/css/workWindow.css">
+<link rel="stylesheet" href="/Artfolio/css/sweetalert.css">
 <script src="/Artfolio/js/jquery-3.2.1.min.js"></script>
 <script src="/Artfolio/js/jquery-ui.min.js"></script>
 <script src="/Artfolio/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="/Artfolio/css/workWindow.css">
+<script src='/Artfolio/js/sweetalert.min.js'></script>
 <style type="text/css">
 *{
 	font-family:monospace 微軟正黑體;
@@ -472,26 +474,48 @@ $(function(){
 		var div=$(this).parents('div.img-box');
 		var aid=div.children('input[name=aid]').val();
 		if(aid){
-				if(window.confirm("真的要刪除此相簿嗎？"))
-				$.post('album/delete.controller',{aid:aid},function(data){
-					if(data){
-						div.parent().remove();
-						alert('刪除成功');
+			swal({
+				  title: "真的要刪除此相簿嗎？",
+				  text: "刪除後將無法復原",
+				  type: "warning",
+				  showCancelButton: true,
+				  confirmButtonColor: "#DD6B55",
+				  confirmButtonText: "Yes, delete it!",
+				  closeOnConfirm: false
+				},function(isConfirm){
+					if(isConfirm){
+						$.post('album/delete.controller',{aid:aid},function(data){
+							if(data){
+								div.parent().remove();
+								alert('刪除成功');
+							}
+							else
+								alert('刪除失敗');
+						});
 					}
-					else
-						alert('刪除失敗');
 				});
 		}
 		else{
-				var wid=div.children('input[name=wid]').val();
-				if(window.confirm("真的要刪除此作品嗎？"))
-				$.post('work/delete.controller',{wid:wid},function(data){
-					if(data){
-						div.parent().remove();
-						alert('刪除成功');
+			var wid=div.children('input[name=wid]').val();
+			swal({
+				  title: "真的要刪除此作品嗎？",
+				  text: "刪除後將無法復原",
+				  type: "warning",
+				  showCancelButton: true,
+				  confirmButtonColor: "#DD6B55",
+				  confirmButtonText: "Yes, delete it!",
+				  closeOnConfirm: false
+				},function(isConfirm){
+					if(isConfirm){
+						$.post('work/delete.controller',{wid:wid},function(data){
+							if(data){
+								div.parent().remove();
+								swal('成功','刪除成功','success');
+							}
+							else
+								swal('失敗','刪除失敗','error');
+						});
 					}
-					else
-						alert('刪除失敗');
 				});
 		}
 	}
@@ -501,27 +525,40 @@ $(function(){
 			var div=$(this).parents('div.img-box');
 			var aid=div.children('input[name=aid]').val();
 			if(aid){
-				var newname=window.prompt('新相簿名稱',div.parent().find('h3').text());
-				if(newname===null)
-					;
-				else{
-					newname=newname.trim();
-					if(newname!=='' && newname!=='default'){
-						$.post('album/update.controller',{aid:aid,aname:newname},function(data){
-							if(data){
-								div.children('img').attr('title',newname);
-								div.next('.title').children('h3').text(newname);
-								alert('done');
-							}else
-								alert('failed');
-						});
-					}else if(newname=='')
-						alert('cannot be blank');
-					else if(newname=='default')
-						alert('cannot use this name');
-					else
-						alert('unknown error');
-				}
+				swal({
+					  title: "請輸入",
+					  text: "請在下方輸入新名稱:",
+					  type: "input",
+					  showCancelButton: true,
+					  closeOnConfirm: false,
+					  animation: "slide-from-top",
+					  inputValue: div.parent().find('h3').text()
+					},
+					function(newname){
+						if(newname===null)
+							;
+						else{
+							if(newname===false){
+								return;
+							}
+							newname=newname.trim();
+							if(newname!=='' && newname!=='default'){
+								$.post('album/update.controller',{aid:aid,aname:newname},function(data){
+									if(data){
+										div.children('img').attr('title',newname);
+										div.next('.title').children('h3').text(newname);
+										swal('成功','相簿名稱修改完成','success');
+									}else
+										swal('失敗','相簿名稱修改失敗','error');
+								});
+							}else if(newname=='')
+								swal('警告','相簿名稱不得為空白','warning');
+							else if(newname=='default')
+								swal('警告','不得使用預設名稱『default』','warning');
+							else
+								swal('錯誤','不知名的錯誤','error');
+						}
+					});
 			}
 			else{
 				var mb = $('#modalimage').empty();
@@ -716,16 +753,16 @@ $(function(){
 				$.post("record/update.controller", frm.serialize() + "&lock="
 						+ lock, function(data) {
 					if (data) {
-						ms.text('done');
+						swal('成功','評分切換','success');//？
 						if (!lock)
 							setversion(version.val() * 1 + 1);
 					} else if (data === "")
-						alert('24小時之內只能修改三次');
+						swal('警告','24小時之內只能修改三次','warning');
 					else
-						alert('error');
+						swal('錯誤','error','error');
 				});
 			else
-				alert('開啟評分須有項目');
+				swal('開啟評分須有項目','請選填至少一欄評分項目','warning');
 		}
 		var statfrm = $('form#stats');
 		var selectversion = statfrm.find('select[name=selectedversion]');
@@ -821,14 +858,14 @@ $(function(){
 									}	
 								}
 								info.val(info.val().replace(/<br \/>/g,'\n'));
-								datamsg.text('done');
+								swal('成功','編輯完成','success');
 							}
 							else
-								datamsg.text('failed');
+								swal('失敗','編輯失敗','error');
 						});
 					}
 					else
-						datamsg.text("where's your fucking title?");
+						swal('警告',"標題未輸入",'warning');
 				});
 		function showModal(i) {
 			wid.val(i);
@@ -923,14 +960,14 @@ $(function(){
 										t.val('新增');
 										aname.attr('type', 'hidden').val('');
 										sl.show();
-										alert('新增相簿成功');
+										swal('成功','新增相簿成功','success');
 									} else
-										alert('新增相簿失敗')
+										swal('失敗','新增相簿失敗','error');
 								});
 							} else
-								alert('相簿已存在')
+								swal('錯誤','相簿已存在','error');
 						} else {
-							alert('相簿已刪除')
+							swal('成功','相簿已刪除','success');
 							t.val('新增');
 							aname.attr('type', 'hidden');
 							sl.show();
@@ -961,7 +998,7 @@ $(function(){
 								var stag = tags.trim().split(",");
 								for (var i = 0; i < stag.length; i++) {
 									if (stag[i].length > 20) {
-										alert("標籤必須在20字以下");
+										swal('錯誤',"標籤必須在20字以下",'error');
 										return;
 									}
 								}
@@ -979,7 +1016,7 @@ $(function(){
 									}
 								});
 								if (stag.length == 0) {
-									addmsg.text("全部重複");
+									swal('標籤重複',"全部重複",'error');
 								} else if (current.length + stag.length <= 20) {
 									$
 											.post(
@@ -992,22 +1029,17 @@ $(function(){
 														if (data) {
 															showTags(data);
 															if (message != "")
-																addmsg
-																		.text("標籤已存在: "+message);
+																swal('標籤重複',"標籤已存在: "+message,'warning');
 															else
-																addmsg
-																		.text("完成");
+																swal("成功",'新增標籤成功','success');
 															itag.val("");
 														} else
-															addmsg
-																	.text("錯誤");
+															swal('錯誤',"error",'error');
 													});
 								} else
-									addmsg
-											.text("標籤不能超過10個");
+									swal('警告',"標籤不能超過10個",'warning');
 							} else
-								addmsg
-										.text("以逗點分隔，限中英文與空白，且輸入兩字以上，最多10個，每個最多20字元");
+								swal('格式錯誤',"以逗點分隔，限中英文與空白，且輸入兩字以上，最多10個，每個最多20字元",'error');
 						});
 
 		$('form>ul', '#tag').on('click', 'li>a', function(e) {

@@ -9,9 +9,11 @@
 <link href="/Artfolio/css/jquery.ui.css" rel="stylesheet">
 <link href="/Artfolio/css/bootstrap.min.css" rel="stylesheet">
 <link href="/Artfolio/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/Artfolio/css/sweetalert.css">
 <script src="/Artfolio/js/jquery-3.2.1.min.js"></script>
 <script src="/Artfolio/js/jquery-ui.min.js"></script>
 <script src="/Artfolio/js/bootstrap.min.js"></script>
+<script src='/Artfolio/js/sweetalert.min.js'></script>
 <style type="text/css">
 *{
 	font-family:monospace 微軟正黑體;
@@ -258,7 +260,7 @@ $(function(){
 				if(data!='' && !data.followed)
 					div.parent().remove();
 				else
-					alert('error');
+					swal('錯誤','error','error');
 			});
 		}
 	});

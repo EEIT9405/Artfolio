@@ -5,14 +5,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Information</title>
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.datatables.net/u/bs/jq-2.2.3,dt-1.10.12/datatables.min.css">
-<!-- <link href="css/modern-business.css" rel="stylesheet"> -->
 <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/Artfolio/css/sweetalert.css">
 <script src="js/jquery-3.2.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
-
+<script src='/Artfolio/js/sweetalert.min.js'></script>
 <style type="text/css">
 *{
 	font-family:monospace 微軟正黑體;
@@ -251,7 +251,11 @@ $(function(){
 	blockTable.on('click', 'input[name="unBlock"]', function(){
 		var mid = $(this).parent('td').parent('tr').children('td:last').text();
 		$.get('unBlock.controller', {mid:mid}, function(data){
-			alert(data);
+			if(data == '錯誤'){
+				swal('錯誤','error','error');
+			}else{
+				swal('成功',data,'success');
+			}
 		});
 			$(this).parent('td').parent('tr').remove();
 	});

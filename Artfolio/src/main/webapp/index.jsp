@@ -13,7 +13,9 @@
 <link rel='css/bootstrap-theme.min.css'>
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/workWindow.css">
-<script src='js/jquery-3.2.1.min.js'></script>
+<link rel="stylesheet" href="/Artfolio/css/sweetalert.css">
+<script src='/Artfolio/js/jquery-3.2.1.min.js'></script>
+<script src='/Artfolio/js/sweetalert.min.js'></script>
 <style type="text/css">
 *{
 	font-family:monospace 微軟正黑體;
@@ -408,8 +410,8 @@
 							<div style="margin-top:15px;" id="wmsg" class="row">
 								<form>
 									<div class="form-group" style="margin-right: 5px;">
-										<textarea wrap="physical" id="wmsgTextarea" class="form-control" rows="3"
-											cols="30"></textarea>
+										<textarea wrap="hard" id="wmsgTextarea" class="form-control" rows="3"
+											cols="20"></textarea>
 										<div class="pull-right">
 											<input type="button" class="btn btn-primary disabled"
 												name="wmsgSubmit" value="留言" disabled> <input
@@ -842,7 +844,7 @@
 						wmsgTable.prepend(row);
 					});
 				}else{
-					alert('請登入');
+					swal('警告','請登入後重試','warning');
 				}
 				wmsgTextarea.val('');
 				changeBtnDisable();
@@ -1048,7 +1050,7 @@
 					else if(data)
 						vote.val('投票');
 					else
-						alert('error');
+						swal('錯誤','error','error');
 				});
 		});
 		
@@ -1100,10 +1102,10 @@
 			if($('#user').val() != null){
 				$.post('sendToAdminMail.controller', $('#reportForm').serialize(), function(data){
 					$('#reportmodal').modal('hide');
-					alert(data);
+					swal('成功',data,'success');
 				});
 			}else {
-				alert("請登入！！");
+				swal('錯誤',"請登入後重試",'error');
 			}
 			
 			reportTextarea.val('');
@@ -1122,15 +1124,15 @@
 			$.post('record/insert.controller',frm.serialize(),function(data){
 				if(data){
 					if(update.val()=='true'){
-						alert('已更新');
+						swal('已更新','','success');
 					}else{
-						alert('完成');
+						swal('已評分','','success');
 						update.val('true');
 						submit.val('更新');
 						cancel.val('刪除');
 					}
 				}else{
-					alert('error');
+					swal('錯誤','error','error');
 				}
 					
 			});
@@ -1150,13 +1152,13 @@
 			}else{
 				$.post('record/delete.controller',frm.serialize(),function(data){
 					if(data){
-						alert('已刪除');
+						swal('已刪除','','success');
 						update.val('false');
 						submit.val('送出');
 						cancel.val('重置');
 						resetform();
 					}else{
-						alert('刪除失敗');
+						swal('刪除失敗','','error');
 					}	
 				});
 			}
@@ -1201,7 +1203,7 @@
 						like.addClass('btn-danger');
 						likes.text(data.likes);
 					}else{
-						alert('error');
+						swal('錯誤','error','error');
 					}
 				});
 			}else{
@@ -1212,7 +1214,7 @@
 						like.addClass('btn-default');
 						likes.text(data.likes);
 					}else{
-						alert('error');
+						swal('錯誤','error','error');
 					}
 				});
 			}
@@ -1227,7 +1229,7 @@
 						follow.addClass('btn-info');
 						followers.text(data.followers);
 					}else{
-						alert('error');
+						swal('錯誤','error','error');
 					}
 				});
 			}else{
@@ -1238,7 +1240,7 @@
 						follow.addClass('btn-default');
 						followers.text(data.followers);
 					}else{
-						alert('error');
+						swal('錯誤','error','error');
 					}
 				});
 			}

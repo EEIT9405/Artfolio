@@ -5,11 +5,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>${targetBean.name}'s folio</title>
 <link href="/Artfolio/css/bootstrap.min.css" rel="stylesheet">
 <link href="/Artfolio/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="/Artfolio/css/sweetalert.css">
 <script src="/Artfolio/js/jquery-3.2.1.min.js"></script>
 <script src="/Artfolio/js/bootstrap.min.js"></script>
+<script src='/Artfolio/js/sweetalert.min.js'></script>
 <style type="text/css">
 *{
 	font-family:monospace 微軟正黑體;
@@ -308,10 +310,12 @@ $(function(){
 		if(mid != null){
 			$.post('/Artfolio/sendToAuthorMail.controller', $('#mailForm').serialize(), function(data){
 				$('#mailmodal').modal('hide');
-				alert(data);
+				if(data == "已成功寄出"){
+					swal('成功',data,'success');
+				}
 			});
 		}else {
-			alert("請登入！！");
+			swal('錯誤',"請登入後重試",'error');
 		}
 		mailtitle.val('');
 		mailcontent.val('');
@@ -357,7 +361,11 @@ $(function(){
 	follow.click(function(){
 		if(follow.val() == "follow"){
 			$.post('follow/create.controller',function(data){
-				alert(data);
+				if(data == "追踪成功"){
+					swal('成功',data,'success');
+				}else {
+					swal('錯誤',data,'error');
+				}
 				follow.val('unfollow');
 				follow.removeClass('btn-default');
 				follow.addClass('btn-info');
@@ -383,8 +391,11 @@ $(function(){
 				follow.removeClass('btn-info');
 				follow.addClass('btn-default');
 			});	
-			alert(data);
-			window.location.href='/Artfolio/index.jsp';
+			if(data == '錯誤'){
+				swal('錯誤','error','error');
+			}else{
+				window.location.href='/Artfolio/index.jsp';
+			}
 		});
 		getFollowCount();
 	});

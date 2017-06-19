@@ -4,13 +4,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>upload</title>
 <link rel='stylesheet prefetch' href='css/bootstrap.min.css'>
 <link href='css/bootstrap-theme.min.css'>
 <link href='css/style.css' rel='stylesheet'>
+<link rel="stylesheet" href="/Artfolio/css/sweetalert.css">
 <script src='js/jquery-3.2.1.min.js'></script>
 <script src='js/bootstrap.min.js'></script>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<script src='/Artfolio/js/sweetalert.min.js'></script>
 <style>
 *{
 	font-family:monospace 微軟正黑體;
@@ -224,13 +226,13 @@
 							aname.attr('type','hidden').val('');
 							sl.show();
 						}else
-							alert('failed')
+							swal("失敗", 'Something went wrong!', "error");
 					});
 				}else
-				 	alert('existed')
+					swal('相簿已存在', '請輸入其他名稱', "warning");
 			}
 			else{
-				alert('canceled')
+				swal('錯誤', '相簿名稱不得為空白', "warning");
 				t.val('新增');
 				aname.attr('type','hidden');
 				sl.show();
@@ -290,7 +292,7 @@
 				msg=msg+'開放評分必須有項目，已強制關閉:'+c.toString();
 			}
 			if(msg!=''){
-				alert(msg);
+				swal('錯誤',msg,'error');
 			}
 			else
 				frm.submit();
