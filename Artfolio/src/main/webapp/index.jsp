@@ -676,7 +676,14 @@
 
 			var searchResult = $('#searchResult');
 			
-			showNews();
+			var fromTag='${param.tag}';
+			if(fromTag){
+				$('input[name="searchContent"]').val(fromTag);
+				$('#searceBar').find('select').val('tag');
+				$('#searchButton').get(0).click();
+			}else
+				showNews();
+			
 			function showNews(){
 				$.get('searchRecent.controller',function(data){
 					var docFrag = $(document.createDocumentFragment()); 
@@ -1338,12 +1345,7 @@
 				}
 			});
 		}
-		var tag='${param.tag}';
-		if(tag){
-			$('input[name="searchContent"]').val(tag);
-			searceBar.find('select').val('tag');
-			searchButton.get(0).click();
-		}
+		
 	</script>
 	
 </body>
