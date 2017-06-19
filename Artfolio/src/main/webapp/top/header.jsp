@@ -228,6 +228,7 @@
 					docFrag.append(div);
 				});
 				searchResult.append(docFrag);
+				searchResult.removeAttr('style');
 			})
 			$('#searchmodal').modal('hide');
 			var search = $('#search');
