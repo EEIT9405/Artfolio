@@ -791,7 +791,8 @@ $(function(){
 		var datamsg = $('form>span', '#dt');
 		$('input[value=submit]', datatb).click(
 				function() {
-					if (title.val().trim() != '')
+					if (title.val().trim() != ''){
+						info.val(info.val().replace(/\r?\n/g, '<br />'));
 						$.post('work/update.controller', $('form', '#dt')
 								.serialize()
 								+ '&wid=' + wid.val(), function(data) {
@@ -806,11 +807,13 @@ $(function(){
 										break;
 									}	
 								}
+								info.val(info.val().replace(/<br \/>/g,'\n'));
 								datamsg.text('done');
 							}
 							else
 								datamsg.text('failed');
 						});
+					}
 					else
 						datamsg.text("where's your fucking title?");
 				});
@@ -849,7 +852,7 @@ $(function(){
 							}
 						});
 				title.val(work.wtitle);
-				info.val(work.winfo);
+				info.val(work.winfo.replace(/<br \/>/g,'\n'));
 				wmsg.prop('checked', work.iswmsg);
 				if (work.isscore) {
 					check.prop("checked", true);
