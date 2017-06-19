@@ -32,6 +32,9 @@ public class TagController {
 	HttpSession session;
 	@RequestMapping(method=RequestMethod.POST,path="add.controller")
 	public List<TagBean> addTag(Integer wid,@RequestParam("tags[]") String[] tags){
+		Integer mid = (Integer) session.getAttribute("mid");
+		if(mid==null)
+			return null;
 		if (wid!=null){
 			for (String tag:tags){
 				if(tag.matches("[A-Za-z \u4E00-\u9FFF]+") && tag.trim().length()!=0 && tag.trim().length()<=20)
@@ -60,6 +63,9 @@ public class TagController {
 	}
 	@RequestMapping(method=RequestMethod.GET,path="del.controller")
 	public boolean delTag(Integer wid,String tag){
+		Integer mid = (Integer) session.getAttribute("mid");
+		if(mid==null)
+			return false;
 		if(wid!=null)
 		return tagService.delTag(wid, tag);
 		return false;

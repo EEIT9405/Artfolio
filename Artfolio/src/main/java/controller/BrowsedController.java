@@ -55,7 +55,7 @@ public class BrowsedController {
 	@RequestMapping(value = "/showRelationalWork.controller", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public Set<WorkBean> getAllRelational(@SessionAttribute("loginOK") MemberBean user, Integer wid) {
-		if (user != null) {
+		if (user != null && wid!=null) {
 			List<BrowsedBean> browsedList = browsedService.selectTop5Relational(user.getMid(), wid);
 			if (browsedList != null && !browsedList.isEmpty()) {
 				Set<WorkBean> workSet = new HashSet<>();
