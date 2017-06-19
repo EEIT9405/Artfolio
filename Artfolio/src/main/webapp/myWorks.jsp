@@ -971,7 +971,7 @@ $(function(){
 									}
 								});
 								if (stag.length == 0) {
-									addmsg.text("absorb since all existed");
+									addmsg.text("全部重複");
 								} else if (current.length + stag.length <= 20) {
 									$
 											.post(
@@ -985,24 +985,21 @@ $(function(){
 															showTags(data);
 															if (message != "")
 																addmsg
-																		.text("ignored following tags:"
-																				+ message
-																				+ "since existed");
+																		.text("標籤已存在: "+message);
 															else
 																addmsg
-																		.text("done");
+																		.text("完成");
 															itag.val("");
 														} else
 															addmsg
-																	.text("error");
+																	.text("錯誤");
 													});
 								} else
 									addmsg
-											.text("number of tags is limited to 10");
+											.text("標籤不能超過10個");
 							} else
 								addmsg
-										.text("format error,must begin and end with letters "
-												+ "and contain only letters,space and comma,at least two letters.");
+										.text("以逗點分隔，限中英文與空白，且輸入兩字以上，最多10個，每個最多20字元");
 						});
 
 		$('form>ul', '#tag').on('click', 'li>a', function(e) {

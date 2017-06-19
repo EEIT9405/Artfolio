@@ -917,7 +917,7 @@
 						var stag = tags.trim().split(",");
 						for (var i=0;i<stag.length;i++){
 							if(stag[i].length>20){
-								addmsg.text("length of tag must be less than or equal to 20.");
+								addmsg.text("標籤必須在20字以下");
 								return;
 							}
 						}
@@ -933,7 +933,7 @@
 							}	
 						});
 						if(stag.length==0){
-							addmsg.text("absorb since all existed");
+							addmsg.text("全部重複");
 						}
 						else
 						if(current.length+stag.length<=20){
@@ -944,18 +944,17 @@
 								if(data){
 									showTags(data);
 									if(message!="")
-										addmsg.text("ignored following tags:"+message+"since existed");
+										addmsg.text("標籤已存在: "+message);
 									else
-										addmsg.text("done");
+										addmsg.text("完成");
 									itag.val("");
 								}else
-									addmsg.text("error");
+									addmsg.text("錯誤");
 							});
 						}else
-							addmsg.text("number of tags is limited to 10");
+							addmsg.text("標籤不能超過10個");
 					} else
-						addmsg.text("format error,must begin and end with letters "+ 
-								"and contain only letters,space and comma,at least two letters.");
+						addmsg.text("以逗點分隔，限中英文與空白，且輸入兩字以上，最多10個，每個最多20字元");
 				});
 		
 		
