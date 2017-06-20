@@ -57,15 +57,15 @@
 	            <c:choose>
 	              <c:when test="${!empty loginOK}">
 		              <li><a href="/Artfolio/myWorks.jsp">我的作品</a></li>
-		              <li><a href="#">邀稿區</a></li>
+		              <li><a href="/Artfolio/bounty/bountyDisplay.jsp">邀稿區</a></li>
 		              <li><a href="/Artfolio/point/log.controller">點數區</a></li>
-		              <li><a href="#">站內信</a></li>
+		              <li><a href="/Artfolio/mail/mailIndex.jsp">站內信</a></li>
 		              <li><a href="/Artfolio/information.jsp">個人資料</a></li>
-		              <li><a href="#">登出</a></li>
+		              <li><a href="/Artfolio/secure/logout.jsp">登出</a></li>
 	              </c:when>
 	              <c:otherwise>
-		              <li><a href="#">登入</a></li>
-		              <li><a href="#">註冊</a></li>
+		              <li><a href="/Artfolio/secure/login.jsp">登入</a></li>
+		              <li><a href="/Artfolio/Member.jsp">註冊</a></li>
 	              </c:otherwise>
 	            </c:choose>
             </ul>
@@ -216,7 +216,13 @@
 		
 		$('button[value=submit]','#search').click(function(){
 			searchResult.empty();
-			$.get('search.controller',$('form','#search').serialize(),function(data){
+			var queryString=$('form','#search').serialize();
+			if(!document.getElementById('searchResult')){
+				window.open('/Artfolio/index.jsp?'+queryString.replace('&and=','&andCondition=')
+						.replace('&or=','&orCondition=').replace('&not=','&notCondition='),'_self')	
+			}
+			
+			$.get('search.controller',queryString,function(data){
 				var docFrag = $(document.createDocumentFragment()); 
 				searchTitle.text('Search results: ' + data.length + ' items.');
 				$.each(data, function(index, value){
@@ -246,6 +252,10 @@
 		searchButton.click(function(){
 			var searchContent = $('input[name="searchContent"]').val();
 			var searchType = searceBar.find('select').find(':selected').val();
+			if(!document.getElementById('searchResult')){
+				window.open('/Artfolio/index.jsp?type='+searchType.trim()+'&andCondition='+encodeURIComponent(searchContent.trim()),'_self')	
+			}
+			
 			searchResult.removeAttr('style');
 			searchResult.empty();
 			$.getJSON('search.controller',{type:searchType,and:searchContent}, function(data){

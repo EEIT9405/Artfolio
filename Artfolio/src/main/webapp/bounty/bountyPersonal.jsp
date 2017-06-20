@@ -9,45 +9,40 @@
 
 <!-- Bootstrap Core CSS -->
 <link href="../css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Custom CSS -->
-<link href="../css/modern-business.css" rel="stylesheet">
-
-<!-- Custom Fonts -->
 <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet"
 	type="text/css">
 <link rel="stylesheet" type="text/css" media="screen"
 	href="../css/bootstrap-datetimepicker.min.css">
 <link href="../css/fileinput.min.css" rel="stylesheet">
 <link href="/Artfolio/css/sweetalert.css" rel="stylesheet">
+<script src="/Artfolio/js/jquery-3.2.1.min.js"></script>
+<script src="/Artfolio/js/bootstrap.min.js"></script>
 <style type="text/css">
-body {
+#bd {
 	margin: 0;
 	font-family: "微軟正黑體", Helvetica, Arial, sans-serif;
 	font-size: 14px;
 	line-height: 20px;
-/* 	background-color: #ffffff; */
-/* 	background-image: url('/Artfolio/webbackground/26.jpg'); */
-/* 	-moz-background-size: cover; */
-/* 	-webkit-background-size: cover; */
-/* 	-o-background-size: cover; */
-/* 	background-size: cover;	 */
+	height:auto;
+	min-height:500px;
+	margin-bottom:30px;
+	margin-top:50px;
 }
-.img-responsive {
+#bd .img-responsive {
 	width: 300px;
 }
-.t1 {
+#bd .t1 {
 	border-style: solid;
 	border-width: 3px;
 	border-radius: 10px;
 }
-.row{
+#bd .row{
 	margin-top:10px;
 	margin-left: 0px;
 	margin-right: 0px;
 	padding:0;
 }
-.btn{
+#bd .btn{
  	margin-bottom:10px;
 }
 #header {
@@ -57,10 +52,10 @@ body {
     max-height:auto;
 /*     border-bottom:1px solid black */
 }
-.navbar {
+#bd .navbar {
 	margin-bottom:0;
 }
-.breadcrumb {
+#bd .breadcrumb {
 margin-bottom:0;
 background-color:#E6E6E6;
 /* border-bottom:1px solid black; */
@@ -68,30 +63,30 @@ color:#F3F781;
 font-weight:bolder;
 text-align:center;
 }
-h2{
+#bd h2{
 padding-top:60px;
 }
-.col-md-2{
+#bd .col-md-2{
 	text-align:right;
 	height:183px;
 	padding:0;
 	padding-right:30px;
 }
-.col-md-4{
+#bd .col-md-4{
 	padding:0;
 }
-.col-md-6{
+#bd .col-md-6{
 	padding:0;
 	height:183px;
 	padding-left:10px;
 }
-.div panel-heading{
+#bd .div panel-heading{
 	background-color:#F3F781
 }
-p{
+#bd p{
 	margin:0
 }
-.col-md-4 h1 {
+#bd .col-md-4 h1 {
 	max-width: calc(100% - 120px);
 	color: #fff;
 	margin-left:150px;
@@ -107,8 +102,9 @@ p{
 
 <body background="/Artfolio/webbackground/vintage-leaves.png">
 		<jsp:include page="../top/header.jsp"></jsp:include>
-		<header  style="margin-top:10px;">
-				<div class="row"></div>
+		<div id="bd">
+		<header>
+				
 			<ol class="breadcrumb">
 				<li class="active"><a
 					href="<c:url value="/bounty/bountyDisplay.jsp"/>">所有活動</a></li>
@@ -267,14 +263,12 @@ p{
 
 	</div>
 	<!-- /.container -->
+</div>
+<jsp:include page="../top/footer.jsp"></jsp:include>
 
-	<!-- jQuery -->
-	<script src="../js/jquery-3.2.1.min.js"></script>
 
-	<!-- Bootstrap Core JavaScript -->
-	<script src="../js/bootstrap.min.js"></script>
-	<script src="/Artfolio/js/sweetalert.min.js"></script>
-	<script type="text/javascript">
+<script src="/Artfolio/js/sweetalert.min.js"></script>
+<script type="text/javascript">
 		
 //=========顯示下拉式選單====================================
 		$(function() {

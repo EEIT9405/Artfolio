@@ -9,45 +9,38 @@
 
 <!-- Bootstrap Core CSS -->
 <link href="/Artfolio/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Custom CSS -->
-<link href="/Artfolio/css/modern-business.css" rel="stylesheet">
-
-<!-- Custom Fonts -->
 <link href="/Artfolio/font-awesome/css/font-awesome.min.css" rel="stylesheet"
 	type="text/css">
 <link rel="stylesheet" type="text/css" media="screen"
 	href="/Artfolio/css/bootstrap-datetimepicker.min.css">
 <link href="/Artfolio/css/fileinput.min.css" rel="stylesheet">
-
+<script src="../js/jquery-3.2.1.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
 <style type="text/css">
-body {
+#bd {
 	margin: 0;
 	font-family: "å¾®è»Ÿæ­£é»‘é«”", Helvetica, Arial, sans-serif;
 	font-size: 14px;
 	line-height: 20px;
-/* 	background-color: #ffffff; */
-/* 	background-image: url('/Artfolio/webbackground/26.jpg'); */
-/* 	-moz-background-size: cover; */
-/* 	-webkit-background-size: cover; */
-/* 	-o-background-size: cover; */
-/* 	background-size: cover;	 */
+	height:auto;
+	min-height:500px;
+	margin-bottom:30px;
+	margin-top:50px;
 }
-.img-responsive {
+#bd .img-responsive {
 	width: 300px;
 }
-.t1 {
+#bd .t1 {
 	border-style: solid;
 	border-width: 3px;
 	border-radius: 10px;
 }
-.row{
+#bd .row{
 	margin-top:10px;
 	margin-left: 0px;
 	margin-right: 0px;
 	padding:0;
 }
-
 #header {
 	padding-top:50px;
 	margin:0;
@@ -55,10 +48,10 @@ body {
     max-height:auto;
 /*     border-bottom:1px solid black */
 }
-.navbar {
+#bd .navbar {
 	margin-bottom:0;
 }
-.breadcrumb {
+#bd .breadcrumb {
 margin-bottom:0;
 background-color:#E6E6E6;
 /* border-bottom:1px solid black; */
@@ -66,27 +59,27 @@ color:#F3F781;
 font-weight:bolder;
 text-align:center;
 }
-h2{
+#bd h2{
 padding-top:60px;
 }
-.col-md-2{
+#bd .col-md-2{
 	text-align:right;
 	height:183px;
 	padding:0;
 	padding-right:30px;
 }
-.col-md-4{
+#bd .col-md-4{
 	padding:0;
 }
-.col-md-6{
+#bd .col-md-6{
 	padding:0;
 	height:183px;
 	padding-left:10px;
 }
-.div panel-heading{
+#bd .div panel-heading{
 	background-color:#F3F781
 }
-p{
+#bd p{
 	margin:0
 }
 </style>
@@ -94,8 +87,9 @@ p{
 
 <body background="/Artfolio/webbackground/vintage-leaves.png">
 		<jsp:include page="../top/header.jsp"></jsp:include>
-		<header  style="margin-top:10px;">
-				<div class="row"></div>
+		<div id="bd">
+		<header>
+				
 			<ol class="breadcrumb">
 				<li class="active"><a
 					href="<c:url value="/bounty/bountyDisplay.jsp"/>">æ‰€æœ‰æ´»å‹•</a></li>
@@ -300,7 +294,7 @@ p{
 							
 							
 							
-							
+							<div style="position:absolute;"></div>
 								<div class="input-group">
 									<span class="input-group-addon"><i
 										class="glyphicon glyphicon-picture"></i></span> <input id="pic"
@@ -345,29 +339,77 @@ p{
 		<!-- /.row -->
 		<hr>
 
-		<!-- Footer -->
-		<footer>
-			<div class="row">
-				<div class="col-lg-12">
-					<p align="center">æ­¡è¿ä¾†åˆ°Artfolio</p>
-				</div>
-			</div>
-		</footer>
 	
 	</div>
-
+	</div>
+<jsp:include page="../top/footer.jsp"></jsp:include>
 	<!-- /.container -->
 	<!-- jQuery -->
-	<script src="../js/jquery-3.2.1.min.js"></script>
-	<!-- Bootstrap Core JavaScript -->
-	<script src="../js/bootstrap.min•vp&DgVàù¢dÊÁ¬}sÚ©ŞìWrßdµ`vWXk34ê­>Zåmµçí¤®ß	Ï¾ò;|W±‰Fóàx­q¨„bñböªsqİöïZMûöuƒYÒpzÖ6êp1&d<¿%Ü¾Ym‡×ûš°<é~ùµR—m-9øLÓĞk1?.N*ÿù¿/és‡1À0¯€9˜Sã\Yyøä9ıôu×>buüæõßa–i{pzoZ&âøOÔ“{lFnKbú/¾ke‘1:WæqÌğrÉ/Ä€êMëp7Fø©§kbğNn™Áëô¯âÆœ
-/yøèó¡#v$puiïİ×0E\"ñuQ¾)¹8rUŒv!Ì’¹>º¿uJ·-¨$f}!®!-IÑ!æ,TJ~'a]PŒ$9»Ãù‚$YZÌAY`oRedPÍ€u¶ì-L¶(jNî¸)qón‹ÒDâ4­ 1hjâJëùÄ=lzl£N(MÎJ®		xac.!,gï&ø%:	ãğcK'H©Ï„yD7bx$±í±õ0é§ë9øèoo ğç-Í ¢ıxq—¥qZ!x>œ™ÊÍfŒ\p`N.™ôüi:P~—=Qˆ¤}“ñ—r™·qi`=B$àläY`£CJÿ2¶B2Ä¥^/éi#±VB¶è%æNCeLg÷ˆXSòapí§¸_yE…êïfË®İ*”7m,{ÅŸœõpn÷Æ8¢j&9Ä+Ü/êü¸İßLÊtm„	ışbAzKÔT 0c#¿‡-I¢ÉhÉXñ¨s÷hNRóÅIgæ&àU;+~¯ÊŸ¶Ô);Qo9a·‡´ {Dqr´nvããhö°69æEènG¸*-7Ã¯Ã#}ßúëlCÄÎ½V¬Øu\õêqô^®¯oT![‰ä:Æk
-	ì*?0{n@çÇâèé>‰N s÷ˆ®^ÉÚĞbNí'¶zzê(›ê¢)j @5gJEu+0¯gç‡ÛF(äÌˆJ+gIyL—S|¦x%}o'§k,P\í·‰häIÅA†@(mQ‰‰¡%Œ!BSx\ |lKF UbnI>êA%2z´AJÁ~m¡<²7â	u­¾EÌ®Eœ97–
-¯-MMfs äd5f`ên²a_qReòf[':/}õüwæå5y	;-a‹µÈ$oÁ*wø)ápNÌ¬7|‡ƒ$‰£Æ^oáÕ»G"x“ÿ	°%bıaài îP®Ë6‚>‰(ƒfó|û½fO}-$:tò`C„—*!
-(U
-€ÊéÜHN#~_b}gÅ4c&[p¾É,+§Úpm˜Eü$”eİQJ9®š?äKxÈ—GBó¹µã®.¦c*†¢#İà^x§ÏØtÉ¬÷`ßµ2øî 1>QÕ&9êe}k‡jnY$…g]¸ìŠÑûA&˜bÿ@Y{"kY‹@+4¦¼?áRa\ÜU×mí´]sqd]¼3ú÷e²8v6pk:¦dÑdôÛ:wFbÛc=dg1µC!Q ?öæó{9cjg ®I¿ğ:Î³	¥/0 æNÃiµÌ¾jø=<Å<}Ìü]é#t6%e¨#–)e„q¯¶†oSÿ9V`-wvš:™ÿGÔG-~¤ 1®9D9­lfğûD—"Zr,%)?GCÊİÆdU@]/k{ENI!ñŞ;	á®ÿµ
-ñ*XêsL)o51Ó—UAúv} g £Kpâ±‰)f.ç	IT*€â	U:g& Im`¯œ,{%ràã‘Œ`A^¢ÑˆxD`i÷!®=w£dË·i:™Oï1Rî--¥¤²·˜q½7i;K,-J½m¤,Gk¢^’¾}Şı+½pöÒå@3”h¾ù£1My»1šI$Uk' äk Cí÷o°=’'„Ÿ¥óD­-mÃhñºêé7lO@åÉ5Vbt@„9,õè
-DÅÔqêhiõÑönŒojxœÏRE¿VÌ,1r.,ótªî*	»Ô%ÂÙÖ
-›]Æ£VÌ$YmFÅéZktÅvÛc33^M	ªÅÙÃéÒæàâøpIÎóüGv?À÷m#ä/§Šl›‰“C¨†ñ2Cn¯Wœš¶(?(kúèô«§Œè÷°¢}ö]mnfY¸ªo¶3T<‡‹8šê	ì!;ìÊı}ní[E.8ö´jáä\³ºëfp'v¨ÚYu#Q	ò*%(ošîbãwÎµ©¶BD ıAç)®Tée
-dbµ5pN¯Ü²~;¡¢*vLC°#39g¯(yf;7}gØÈIÃ›‘ot­	®ºê+rŒV4Fí]¶ª(dAÏéqĞíæ(%Pœ%c½oI_Š<e( E[¯ZDñoÑ¨%¸3@-¡¸Mâ||¡¼â[¥6Œ"NoG¢	éiş=ínE$s„[@
-ç`dehqq³c_EnğÆMÿg&n>pô|°£Eu˜mkg2)0«%#4aU|o~çsÎ§)?0…Ë2Ug¯¿‡ÇBëU2Ö"r£æK,l?Íıáº0ö¢lI¾¸)¬ñfÌÀúñeæµáJÄo´áe%krôc®*jI@¾I'oÅ”s{' à 6öa*é%Œÿ{oãT5^=D›,k#‹‰j[eÈ¨é¤§ºt—ji!<	/Ga('²#.b $(â:)7à»´¯™!i|±*]JÜ%zˆz)oqñN‡ÁtQ~)#~-tab~
+
+	<script src="../js/fileinput.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap-datetimepicker.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap-datetimepicker.zh-CN.js"></script>
+
+	<script type="text/javascript">	
+	 	$(function() {
+	 		
+	 		$("body").on("change", "#pic", function (){
+	 	        $('#imgori').hide();
+	 	    }) 	
+	 		
+	 		 $('#datetimepicker').datetimepicker({
+	 			Date:'yyyy-mm-dd',
+	 			format: 'yyyy-mm-dd hh:ii:ss',
+	 			language:'zh-CN',
+	 			autoclose:true,
+	 			minView:'hour',
+	 			maxView:1,
+	 			todayBtn:'linked',
+	 			showMeridian:false,
+	 		});
+	 		$('#datetimepicker1').datetimepicker({
+	 			Date:'yyyy-mm-dd',
+	 			format: 'yyyy-mm-dd hh:ii:ss',
+	 			language:'zh-CN',
+	 			autoclose:true,
+	 			minView:'hour',
+	 			maxView:1,
+	 			todayBtn:'linked',
+	 			showMeridian:false,
+	 		});
+	 		$('#datetimepicker2').datetimepicker({
+	 			Date:'yyyy-mm-dd',
+	 			format: 'yyyy-mm-dd hh:ii:ss',
+	 			language:'zh-CN',
+	 			autoclose:true,
+	 			minView:'hour',
+	 			maxView:1,
+	 			todayBtn:'linked',
+	 			showMeridian:false,
+	 		});	
+	 		
+	 		
+	 		$('input[name=startdate]').val('${change.b_startdate}'.substring(0,19));
+			$('input[name=enddate]').val('${change.b_enddate}'.substring(0,19));
+			$('input[name=announced]').val('${change.b_announced}'.substring(0,19));
+	 		
+	 		
+// 			$('input[name=startdate]').val('${change.b_startdate}');
+// 			$('input[name=enddate]').val('${change.b_enddate}');
+// 			$('input[name=announced]').val('${change.b_announced}');
+	 		
+			$('#submit').click(function() {	
+				if($(this).prop('checked')){	        //if checkboxæ‰“å‹¾  append <input>
+					$("#tagInfo").append('<input type="hidden" name="tag" id=id'+$(this).val()+' value='+$(this).val()+' />')
+				}
+			})	
+			$('#button').click(function() {
+// 				alert($('#tag').val())
+				$("#newTag").append('<span  class="btn btn-default btn-sm">'+$('#tag').val()+'<span/>')
+				$("#tagInfo").append('<input type="hidden" name="tag" id=id'+$('#tag').val()+' value='+$('#tag').val()+' />')
+				$('#tag').val("")
+			})
+		});
+	</script>
+</body>
+</html>

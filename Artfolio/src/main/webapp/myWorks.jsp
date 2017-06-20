@@ -224,7 +224,7 @@
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
+				<button type="button" class="close" id="closeModal"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -313,7 +313,7 @@
 					<form id="stats">
 						版本：<select name="selectedversion" style="width:50px; margin-right:10px;"></select> 看評分：<button type="button" class="btn btn-primary btn-sm"
 							name="switch" value="showstats"><i class="glyphicon glyphicon-info-sign"></i></button>
-						<table class="hide table table-bordered">
+						<table class="hide table table-border">
 							<thead>
 								<tr>
 									<th>item</th>
@@ -779,7 +779,7 @@ $(function(){
 				$(this).empty();
 				$(this).append('<i class="glyphicon glyphicon-info-sign">');
 			}
-		}).one('click', function() {
+		}).on('click', function() {
 			var ver = selectversion.val();
 			if (ver == version.val()) {
 				setCurrent();
@@ -825,10 +825,13 @@ $(function(){
 				wid : wid.val(),
 				scoreversion : ver
 			}, function(data) {
-				for (var i = 0; i < data.length; i++) { //max,min,avg
+				for (var i = 0; i < 5; i++) { //max,min,avg...
 					for (var j = 0; j < items.length; j++) { //record1-5
+						var str='';
+						if(data)
+							str=data[i]['record_' + (j + 1)];
 						stattb.find('tbody>tr>td:nth-child(' + (i + 2) + ')')
-								.eq(j).text(data[i]['record_' + (j + 1)]);
+							.eq(j).text(str);	
 					}
 				}
 			});
@@ -1147,6 +1150,14 @@ $(function(){
 			datamsg.text('');
 			ms.text('');
 		}
+		$('#closeModal').click(function(){
+			$('#EditModal').modal('hide');
+			stattb.removeClass().addClass('hide table table-border');
+			var s=statfrm.children('button[name=switch]');
+			s.val('showstats');
+			s.empty();
+			s.append('<i class="glyphicon glyphicon-info-sign">');
+		});
 	});
 </script>
 </body>

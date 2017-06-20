@@ -10,7 +10,7 @@
 <link href="css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Custom CSS -->
-<link href="css/modern-business.css" rel="stylesheet">
+<!-- <link href="css/modern-business.css" rel="stylesheet"> -->
 
 <!-- Custom Fonts -->
 <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet"
@@ -40,7 +40,7 @@ font-size: 20px;
 <jsp:include page="top/header.jsp"></jsp:include>
 
 
-<div class="container">
+<div class="container" style="height:auto; min-height:500px; margin-bottom:30px; margin-top:100px;">
 	
 
 			<form class="well form-horizontal" action=" member.controller" method="post"
@@ -151,6 +151,7 @@ font-size: 20px;
 				</form>
 	
 </div>
+<jsp:include page="/top/footer.jsp"></jsp:include>
 
 	<script src="js/jquery-3.2.1.min.js"></script>
 	

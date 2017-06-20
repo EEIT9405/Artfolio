@@ -9,49 +9,42 @@
 
 <!-- Bootstrap Core CSS -->
 <link href="../css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Custom CSS -->
-<link href="../css/modern-business.css" rel="stylesheet">
-
 <!-- Custom Fonts -->
 <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet"
 	type="text/css">
 <link rel="stylesheet" type="text/css" media="screen"
 	href="../css/bootstrap-datetimepicker.min.css">
 <link href="../css/fileinput.min.css" rel="stylesheet">
-
-
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="/resources/demos/style.css">
-
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="../js/jquery-3.2.1.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
 <style type="text/css">
-body {
+#bd {
 	margin: 0;
 	font-family: "微軟正黑體", Helvetica, Arial, sans-serif;
 	font-size: 14px;
 	line-height: 20px;
-/* 	background-color: #ffffff; */
-/* 	background-image: url('/Artfolio/webbackground/26.jpg'); */
-/* 	-moz-background-size: cover; */
-/* 	-webkit-background-size: cover; */
-/* 	-o-background-size: cover; */
-/* 	background-size: cover;	 */
+	height:auto;
+	min-height:500px;
+	margin-bottom:30px;
+	margin-top:50px;
 }
-.img-responsive {
+#bd .img-responsive {
 	width: 300px;
 }
-.t1 {
+#bd .t1 {
 	border-style: solid;
 	border-width: 3px;
 	border-radius: 10px;
 }
-.row{
+#bd .row{
 	margin-top:10px;
 	margin-left: 0px;
 	margin-right: 0px;
 	padding:0;
 }
-.breadcrumb {
+#bd .breadcrumb {
 margin-bottom:0;
 background-color:#E6E6E6;
 /* border-bottom:1px solid black; */
@@ -59,7 +52,7 @@ color:#F3F781;
 font-weight:bolder;
 text-align:center;
 }
-.col-md-4 h1 {
+#bd .col-md-4 h1 {
 	max-width: calc(100% - 120px);
 	color: #fff;
 	margin-left:150px;
@@ -73,8 +66,9 @@ text-align:center;
 
 <body background="/Artfolio/webbackground/vintage-leaves.png">
 		<jsp:include page="../top/header.jsp"></jsp:include>
-		<header  style="margin-top:10px;">
-				<div class="row"></div>
+		<div id="bd">
+		<header>
+				
 			<ol class="breadcrumb">
 				<li class="active"><a
 					href="<c:url value="/bounty/bountyDisplay.jsp"/>">所有活動</a></li>
@@ -118,7 +112,7 @@ text-align:center;
 							<div class="col-md-4 inputGroupContainer">
 								<ul class="list-inline">
 									<li class="list"><input type="checkbox"
-									value="設計" name="tag">設計</li>
+									value="設計" name="tag" checked>設計</li>
 									<li class="list"><input type="checkbox"
 									value="攝影" name="tag">攝影  </li>
 									<li class="list"><input type="checkbox"
@@ -286,12 +280,10 @@ text-align:center;
 		</div>
 		<!-- /.row -->
 	</div>
-
+</div>
+<jsp:include page="../top/footer.jsp"></jsp:include>
 	<!-- /.container -->
-	<!-- jQuery -->
-	<script src="../js/jquery-3.2.1.min.js"></script>
-	<!-- Bootstrap Core JavaScript -->
-	<script src="../js/bootstrap.min.js"></script>
+
 	<script src="../js/fileinput.min.js"></script>
 	<script type="text/javascript" src="../js/bootstrap-datetimepicker.min.js"></script>
 	<script type="text/javascript" src="../js/bootstrap-datetimepicker.zh-CN.js"></script> 

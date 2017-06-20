@@ -678,11 +678,31 @@
 
 			var searchResult = $('#searchResult');
 			
+			
 			var fromTag='${param.tag}';
+			var doSearch='${param.type}';
+			var andCondition='${param.andCondition}';
+			var orCondition='${param.orCondition}';
+			var notCondition='${param.notCondition}';
+			var orderBy='${param.orderby}';
+			var order='${param.order}';
+			var period='${param.period}';
 			if(fromTag){
-				$('input[name="searchContent"]').val(fromTag);
-				$('#searceBar').find('select').val('tag');
-				$('#searchButton').get(0).click();
+				doSearch='tag';
+				andCondition=fromTag;
+			}
+			if(doSearch && (andCondition || orCondition || notCondition)){
+				$('select[name=type]','#search').val(doSearch);
+				if(orderBy)
+				$('select[name=orderby]','#search').val(orderBy);
+				if(order)
+				$('select[name=order]','#search').val(order);
+				if(period)
+				$('select[name=period]','#search').val(period);
+				$('input[name="and"]').val(andCondition);
+				$('input[name="or"]').val(orCondition);
+				$('input[name="not"]').val(notCondition);
+				$('button[value=submit]','#search').get(0).click();
 			}else
 				showNews();
 			
