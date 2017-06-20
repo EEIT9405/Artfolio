@@ -24,6 +24,8 @@
   	transition:0.4s;
   	overflow:hidden;
   	cursor:pointer;
+  	border:solid 1px white;
+  	border-radius:2%;
   }
 </style>
 </head>
@@ -82,7 +84,7 @@
 				var p = data[i].picurl;
 				var img = $('<img>');
 				var widhidden = $('<input type="hidden" name="wid">');
-				var frame = $('<div class="img-thumbnail">');
+				var frame = $('<div>');
 				img.attr("src", p);
 				console.log("wid="+data[i].wid);
 				widhidden.val(data[i].wid);

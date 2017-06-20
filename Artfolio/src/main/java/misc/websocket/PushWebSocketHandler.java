@@ -76,6 +76,7 @@ public class PushWebSocketHandler extends TextWebSocketHandler {
 			// WorkBean.class);
 			List<WorkBean> workList = mapper.readValue(message.getPayload().toString(),
 					mapper.getTypeFactory().constructParametricType(ArrayList.class, WorkBean.class));
+			
 			for (WorkBean workBean : workList) {
 				// 取得此bean所有tag
 				List<TagBean> tags = tagService.getTags(workBean.getWid());
@@ -83,6 +84,7 @@ public class PushWebSocketHandler extends TextWebSocketHandler {
 					Iterator<Map.Entry<MemberBean, WebSocketSession>> iterator = userSocketSessionMap.entrySet()
 							.iterator();
 					
+					nextUser:
 					while (iterator.hasNext()) {
 						Map.Entry<MemberBean, WebSocketSession> entry = iterator.next();
 						if("Admin".equals(entry.getKey().getName())){
@@ -120,6 +122,7 @@ public class PushWebSocketHandler extends TextWebSocketHandler {
 										TextMessage msg = new TextMessage(
 												new ObjectMapper().writeValueAsString(workBean));
 										entry.getValue().sendMessage(msg);
+										continue nextUser;
 									}
 								}
 							}
