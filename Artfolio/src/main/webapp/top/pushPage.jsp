@@ -13,8 +13,10 @@
   }
   
    .pushbefore {
+   	display:block;
   	margin:0 auto;
 	margin-top:15px;
+	margin-right:10px;
   	width:200px;
   	height:0;
   	background-color:white;
@@ -80,7 +82,7 @@
 				var p = data[i].picurl;
 				var img = $('<img>');
 				var widhidden = $('<input type="hidden" name="wid">');
-				var frame = $('<div>');
+				var frame = $('<div class="img-thumbnail">');
 				img.attr("src", p);
 				console.log("wid="+data[i].wid);
 				widhidden.val(data[i].wid);

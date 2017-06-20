@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -52,9 +52,10 @@ public class PushWebSocketHandler extends TextWebSocketHandler {
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		MemberBean user = (MemberBean) session.getAttributes().get("user");
-		if (user != null)
+		if (user != null){
 			System.out.println("user unconnect="+user.getName());
-		userSocketSessionMap.remove(user);
+			userSocketSessionMap.remove(user);
+		}
 	}
 
 	@Override
@@ -81,6 +82,7 @@ public class PushWebSocketHandler extends TextWebSocketHandler {
 				if (tags != null && !tags.isEmpty()) {
 					Iterator<Map.Entry<MemberBean, WebSocketSession>> iterator = userSocketSessionMap.entrySet()
 							.iterator();
+					
 					while (iterator.hasNext()) {
 						Map.Entry<MemberBean, WebSocketSession> entry = iterator.next();
 						if("Admin".equals(entry.getKey().getName())){
@@ -88,45 +90,39 @@ public class PushWebSocketHandler extends TextWebSocketHandler {
 						}
 						//如果不是自己上傳的作品才繼續
 						if (!workBean.getMid().equals(entry.getKey().getMid()) && !"Admin".equals(entry.getKey().getName())) {
+
 							// 取得user的所有看過的標籤
-//							TreeSet<FavoriteBean> favorites = (TreeSet<FavoriteBean>) entry.getKey().getFavorites();
-							Set<FavoriteBean> set = entry.getKey().getFavorites();
-//							TreeSet<FavoriteBean> favorites = new TreeSet<FavoriteBean>(set);
-							//HashSet<FavoriteBean> topFavo = new HashSet<>();
+							SortedSet<FavoriteBean> set = entry.getKey().getFavorites();
+							SortedSet<FavoriteBean> favorites = new TreeSet<>(set);
+							HashSet<FavoriteBean> topFavo = new HashSet<>();
 							
-							for(FavoriteBean fb : set){
+							// 取得前三喜歡標籤
+							if(favorites != null && !favorites.isEmpty()){
+								FavoriteBean first = favorites.first();
+								topFavo.add(first);
+								favorites.remove(first);
+								if(!favorites.isEmpty()){
+									FavoriteBean second = favorites.first();
+									topFavo.add(second);
+									favorites.remove(second);
+								}
+								if(!favorites.isEmpty()){
+									topFavo.add(favorites.first());
+								}	
+							}
+
+							// 如此workBean包含user喜歡的標籤，就push
+							for (FavoriteBean fb : topFavo) {
 								String ftag = fb.getTag();
-								for(TagBean tag : tags){
-									if(ftag.equals(tag.getTag())){
+								for (TagBean tagBean : tags) {
+									if (ftag.equals(tagBean.getTag())) {
 										System.out.println("send message");
-										TextMessage msg = new TextMessage(new ObjectMapper().writeValueAsString(workBean));
+										TextMessage msg = new TextMessage(
+												new ObjectMapper().writeValueAsString(workBean));
 										entry.getValue().sendMessage(msg);
 									}
 								}
 							}
-							// 取得前三喜歡標籤
-//							if (favorites != null && !favorites.isEmpty()) {
-//								System.out.println("has favorites");
-//								topFavo.add(favorites.pollFirst());
-//								if (!favorites.isEmpty()) {
-//									topFavo.add(favorites.pollFirst());
-//								}
-//								if (!favorites.isEmpty()) {
-//									topFavo.add(favorites.pollFirst());
-//								}
-//							}
-							// 如此workBean包含user喜歡的標籤，就push
-//							for (FavoriteBean fb : topFavo) {
-//								String ftag = fb.getTag();
-//								for (TagBean tagBean : tags) {
-//									if (ftag.equals(tagBean.getTag())) {
-//										System.out.println("send message");
-//										TextMessage msg = new TextMessage(
-//												new ObjectMapper().writeValueAsString(workBean));
-//										entry.getValue().sendMessage(msg);
-//									}
-//								}
-//							}
 						}
 					}
 				}
