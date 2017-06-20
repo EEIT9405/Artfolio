@@ -67,12 +67,12 @@ public class SearchController {
 		java.util.Date when;
 		if(period.equals("day"))
 			when=new java.util.Date(System.currentTimeMillis()-86400000);
-		else if(period.equals("week"))
-			when=new java.util.Date(System.currentTimeMillis()-86400000*7);
+		else if(period.equals("year"))
+			when=new java.util.Date(System.currentTimeMillis()-86400000L*365);
 		else if(period.equals("month"))
 			when=new java.util.Date(System.currentTimeMillis()-86400000L*30);
 		else
-			when=new java.util.Date(System.currentTimeMillis()-86400000L*365);
+			when=new java.util.Date(System.currentTimeMillis()-86400000*7);
 		
 //		System.out.println(new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(when));
 		for (int i=0;i<list.size();i++){
@@ -90,24 +90,12 @@ public class SearchController {
 		List<WorkBean> list=null;
 		if(mid!=null)
 			list=sortWork(workService.selectByMid(mid), orderby, order);
-//		Integer login = (Integer) session.getAttribute("mid");
-//		if(!mid.equals(login)){
-//			
-//		}
 		return list;
 	}
 	
 	public static List<WorkBean> sortWork(List<WorkBean> list,String orderby,String order){
 		boolean o=order.equals("ascending");
-		if(orderby.equals("like")){
-			list.sort(new Comparator<WorkBean>(){
-				public int compare(WorkBean w1, WorkBean w2) {
-					int c=w1.getWlike().compareTo(w2.getWlike());
-					return o?c:-c;
-				}	
-			});
-		//	list.sort((w1,w2)->o?w1.getWlike().compareTo(w2.getWlike()):-w1.getWlike().compareTo(w2.getWlike()));
-		}else if(orderby.equals("date")){
+		if(orderby.equals("date")){
 			list.sort(new Comparator<WorkBean>(){
 				public int compare(WorkBean w1, WorkBean w2) {
 					int c=w1.getWstart().compareTo(w2.getWstart());
@@ -120,6 +108,13 @@ public class SearchController {
 					int c=w1.getWtitle().compareTo(w2.getWtitle());
 					return o?c:-c;
 				}
+			});
+		}else{
+			list.sort(new Comparator<WorkBean>(){
+				public int compare(WorkBean w1, WorkBean w2) {
+					int c=w1.getWlike().compareTo(w2.getWlike());
+					return o?c:-c;
+				}	
 			});
 		}
 		return checkisHidden(list);

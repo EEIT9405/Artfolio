@@ -177,6 +177,7 @@ padding-top:60px;
 		<!-- Project One -->
 		<div class="row">
 			<div class="col-md-4" style="padding-top:10px;">
+				<form >
 				<div class="panel-group">
 					<div class="panel panel-default">
 						<div class="panel-heading">
@@ -187,9 +188,9 @@ padding-top:60px;
 						<div id="hidden-list3" class="panel-collapse collapse"
 							align="center">
 							<ul class="list-inline">
-								<li class="list"><input type="checkbox" value="b_bonus_total" name="order"> 最高獎金</li>
-									<li class="list"><input type="checkbox" value="b_click" name="order"> 熱門活動</li>
-									<li class="list"><input type="checkbox" value="b_update" name="order"> 最新活動</li>
+								<li class="list"><input type="radio" value="b_bonus_total" name="order"> 最高獎金</li>
+								<li class="list"><input type="radio" value="b_click" name="order"> 熱門活動</li>
+								<li class="list"><input type="radio" value="b_update" name="order"> 最新活動</li>
 							</ul>
 						</div>
 					</div>
@@ -271,6 +272,7 @@ padding-top:60px;
 						</div>
 					</div>
 				</div>
+				</form>
 			</div>
 
 
