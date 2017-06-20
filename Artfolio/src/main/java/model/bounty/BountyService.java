@@ -39,20 +39,26 @@ public class BountyService {
 	public List<BountyBean> selectByMember(Integer mid) {
 		return bountydao.selectByMember(mid);
 	}
-	//選擇byTags	
-		//選擇byState
 		
-		public List<BountyBean> selectByState(String Selector){
-			Integer selector = null;
-			if(Selector!=null){
-				selector = Integer.parseInt(Selector);
-			}
-			return bountydao.selectByState(selector);
+	//6/8 選擇byTags	
+	//select * from b_tag where b_tag='asfd'
+	public List<BountyBean> selectByTags(String Selector){
+		List<BountyBean> result = null;
+		if(Selector!=null){
+			result =  bountydao.selectByTags(Selector);	
+		}	
+		return result;
+	}
+	
+	// 6/8 選擇byState
+	public List<BountyBean> selectByState(String Selector){
+		Integer selector = null;
+		if(Selector!=null){
+			selector = Integer.parseInt(Selector);
 		}
+		return bountydao.selectByState(selector);
+	}
 	
-	
-	//選擇byTags	
-	//選擇byState		
 	//選擇byOther(最高獎金 熱門活動 最新活動)
 	public List<BountyBean> selectBySelector(String selector) {
 		List<BountyBean> result = new ArrayList<BountyBean>();
@@ -109,6 +115,11 @@ public class BountyService {
 		}
 		return result;
 	}
+		
+	//更新活動狀態
+	public boolean stateUpdate(Integer b_id, Integer b_state){	
+		return bountydao.stateUpdate(b_id, b_state);	
+	}
 	
 	//刪除活動
 	public boolean delete(BountyBean bean) {
@@ -119,8 +130,6 @@ public class BountyService {
 		return result;
 	}
 	
-	
-	//create method by Lin Teiu
 	public boolean updateByDate(int state){
 		return bountydao.updateByDate(state);
 	}

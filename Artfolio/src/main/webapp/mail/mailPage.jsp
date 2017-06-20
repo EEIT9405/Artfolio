@@ -1,12 +1,60 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-<style>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title></title>
+
+	   <!-- Bootstrap Core CSS -->
+	<link href="/Artfolio/css/bootstrap.min.css" rel="stylesheet">
+	
+	<!-- Custom CSS -->
+	<link href="/Artfolio/css/modern-business.css" rel="stylesheet">
+	
+	<!-- Custom Fonts -->
+	<link href="/Artfolio/font-awesome/css/font-awesome.min.css" rel="stylesheet"
+		type="text/css">
+	<link rel="stylesheet" type="text/css" media="screen"
+		href="/Artfolio/css/bootstrap-datetimepicker.min.css">
+	<link href="/Artfolio/css/fileinput.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/u/bs/jq-2.2.3,dt-1.10.12/datatables.min.css" />
+	<link href="../css/fileinput.min.css" rel="stylesheet">
+
+<style type="text/css">
+.classes{
+	margin-top:10px;
+	margin-bottom:10px
+}
+.competition__keyBg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 0;
+	width: 100%;
+	height: 250px;
+	overflow: hidden
+}
+
+.competition__keyBg img {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%) scale(1.15);
+	transform-origin: center;
+	-ms-filter:
+		"progid:DXImageTransform.Microsoft.MotionBlur(strength=50), progid:DXImageTransform.Microsoft.BasicImage(mirror=1)";
+	/* 	filter: blur(50px) */
+}
+.uniqueClassName{
+	text-align:center;
+}
 div#replyBox {
 	border: 1px solid #E6E6E6;
 	padding-right: 50px;
@@ -15,31 +63,21 @@ div#replyBox {
 	font-size: 12px;
 	color: #A4A4A4;
 }
-div#sendBox {
-	font-size: 12px;
-	color: #000000;
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
 }
-div#column1{
-	position:absolute;
-	border: 1px solid #ccc;
-	padding:10px;
-	width:100px;	
-}
-div#allcontent{
-	position:absolute;
-	left:200px;
-}
-div#mailcontent {
-	border: 1px solid #E6E6E6;
-	width: 500px;
-	font-size: 12px;
-/* 	color: #A4A4A4; */
-}
-div#content {
-	position: relative;
-	left:200px;
-	width: 500px;
-	border: 1px solid #E6E6E6;
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
 }
 .text {
 	font-size: 12px;
@@ -58,174 +96,156 @@ div#content {
 	color: #A4A4A4;
 	text-decoration: underline;
 }
-.writeout{
-	padding:5px;
-	background-color: #819FF7;
-	text-align:center;
-}
-.writeover{
-	padding:5px;
-	background-color: #0040FF;
-	color: white;
-	text-align:center;
-}
-div.mailboxout{
-	padding:5px;
-	font-size:12px;
-	background-color: ;
-	text-align:center;
-}
-div.mailboxover{
-	padding:5px;
-	font-size:12px;
-	background-color: #E6E6E6;
-	text-align:center;
-}
-
-
 </style>
+
+
+
 </head>
-<body>
-	<h3>ArtFolio活動專區</h3>
-	<a href="<c:url value="/bounty/bountyIndex.jsp"/>">活動首頁</a> |
-	<a href="<c:url value="/bounty/bountyDisplay.jsp"/>">所有活動</a> |
-	<a href="<c:url value="/bounty/bountyUpload.jsp"/>">舉辦活動</a> |
-	<a href="<c:url value="/bounty/bountyTrackPage.jsp"/>">活動追蹤</a> |
-	<a href="<c:url value="/bounty/bountyPersonal.jsp"/>">活動管理</a> |
-	<a href="">回作品集</a>  |
-	<a href="<c:url value="/mail/mailIndex.jsp"/>">站內信</a>  |
-	<a href="<c:url value="/secure/login.jsp"/>">登入</a> |
-	<a href="<c:url value="/secure/logout.jsp"/>">登出</a> |  <span>您好，${loginOK.name}</span>
-	<hr>
 
+<body background="/Artfolio/webbackground/vintage-leaves.png">
 
-<div id="column1">
-	<h3>站內信通知</h3>
-	
-	<div id="write">撰寫</div>
-	<hr>
-	<div id="mailbox">收件匣</div>
-	<br>
-	<div id="mailcopy">寄件備份</div>
-	<br>
-	<div id="draft">草稿</div>
-	<br>
-	<div id="read">已讀 </div>
-	<br>
-	<div id="junk">垃圾桶</div>
-	<br>
-</div>
+	<jsp:include page="../top/header.jsp"></jsp:include>
+	<header class="head-inner">
+		<div class="competition__keyBg">
+<!-- 			<img src="/Artfolio/webbackground/23.jpg" style="width: 100%;"> -->
+			<div class="competition__keyBg__mask"></div>
+		</div>
+<!-- 		<div class="container"> -->
+<!-- 			<div class="row"> -->
+<!-- 				<h1 class="page-title text-center">Left Sidebar</h1> -->
+<!-- 				<h2 class="page-lead text-center">Sample page featuring default header with background image on top</h2> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+	</header>
 
-<div id="allcontent">
-	<div id="mailcontent">
-		<h3>${mailBean.mailtitle}</h3>
-	</div>
-	
-	<div id="#content">
-		<br>
-		<c:forEach var="re" items="${replyList}">
-			<c:url var="link" value="FileDownServlet">
-				<c:param name="attachId" value="${re.mattach.substring(re.mattach.lastIndexOf('/')+1)}"></c:param>
-			</c:url>
-			<div id="mailcontent">
-				<table>
-					<tr><td>寄件者:${re.memberBean.name} (${re.memberBean.email}):<br>${re.maildate}</td></tr>
-					<tr><td width="300px"><br>${re.mailcontent}</td></tr>						
-					<c:if test="${not empty re.mattach}">
-					<tr><td class="mailDownLoad"><a href="${link}">附件下載</a></td></tr><!--mailAttach -->	
-					</c:if>						
-				</table>
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Page Heading/Breadcrumbs -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header" style="margin-top:80px">會員信箱
+                    <small>收件匣</small>
+                </h1>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <!-- Content Row -->
+        <div class="row">
+            <!-- Sidebar Column -->
+            <div class="col-md-3">
+               <div class="official-button col-xs-12">
+					<div id="write" class="classes">
+						<a id="write"
+							class="competition__btn-enter btn btn-block btn-primary"><span
+							class='glyphicon glyphicon-pencil'style="padding-top:3px;padding-bottom:4px">撰寫</span></a>
+					</div>
+					<div id="mailbox" class="classes">
+						<a id="mailbox"
+							class="competition__btn-enter btn btn-block btn-default"><span>收件匣</span></a>
+					</div>
+					<div id="mailcopy" class="classes">
+						<a id="mailcopy"
+							class="competition__btn-enter btn btn-block btn-default"><span>寄件備份</span></a>
+					</div>
+					<div id="draft" class="classes">
+						<a id="draft"
+							class="competition__btn-enter btn btn-block btn-default"><span>草稿</span></a>
+					</div>
+					<div id="read" class="classes">
+						<a id="read"
+							class="competition__btn-enter btn btn-block btn-default"><span>已讀</span></a>
+					</div>
+					<div id="junk" class="classes" >
+						<a id="junk"
+							class="competition__btn-enter btn btn-block btn-default"><span>垃圾桶</span></a>
+					</div>	
+				</div>
+            </div>
+            <!-- Content Column -->
+            
+            
+            <div class="col-md-9">
+<!--                 <h2>Section Heading</h2> -->
+<!--                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta, et temporibus, facere perferendis veniam beatae non debitis, numquam blanditiis necessitatibus vel mollitia dolorum laudantium, voluptate dolores iure maxime ducimus fugit.</p> -->
+           		<div class="">
+			<div class="">				
 			</div>
-		</c:forEach>
-	</div>
-	<br>
+					<div id="mailcontent">
+						<h3>${mailBean.mailtitle}</h3>
+					</div>			
+						<br>
+						<c:forEach var="re" items="${replyList}">
+							<c:url var="link" value="FileDownServlet">
+								<c:param name="attachId"
+									value="${re.mattach.substring(re.mattach.lastIndexOf('/')+1)}"></c:param>
+							</c:url>
+							
+							<div class="well well-lg" style="width:850px;">
+								<table>
+									<tr>
+										<td>寄件者:${re.memberBean.name} (${re.memberBean.email}):<br>${re.maildate}</td>
+									</tr>
+									<tr>
+										<td><br>${re.mailcontent}</td>
+									</tr>
+									<c:if test="${not empty re.mattach}">
+										<tr>
+											<td class="mailDownLoad"><a href="${link}">附件下載</a></td>
+										</tr>
+										<!--mailAttach -->
+									</c:if>
+								</table>
+								
+							</div>
+						</c:forEach>
+					
 
-	<div id="replyBox">
-		按這裡即可<label id="reply">回覆</label>或<label id="forward">轉寄</label>郵件
-	</div>
+					<div id="replyBox" class="panel panel-default" style="width:850px;">
+  						<div class="panel-body">按這裡即可<label id="reply">回覆</label>或<label id="forward">轉寄</label>郵件</div>
+					</div>
+					
+					<div id="sendBox" class="form-group" >
+						<form action="mail.controller" method="post"
+							enctype="multipart/form-data" id="form">
+						<label for="email">收件者:</label>
+						<input type="text" class="form-control" id="recipientmail" name="recipientmail" value="${mailBean.memberBean.email}" />	
+						<input type="hidden" class="form-control" id="recipient" name="recipient" value="${mailBean.memberBean.mid}" /> <!--取得要回覆者的ID -->
+						<label for="email">主旨:</label>					
+						<input type="text" class="form-control" name="title" value="Re:${mailBean.mailtitle}" />			
+						<br>
+						<textarea class="form-control"  rows="10" name="content"></textarea>	
+						<input type="hidden" name="reply" value="${mailBean.reid}" />
+						<input type="hidden" name="mailid" value="${mailBean.mailid}" /> <!-- 取得要回覆的mailId -->
+						<input type="hidden" name="replystate" value="true">
+						<br>
+						<input id="file" name="file" type="file" class="file" multiple data-show-upload="false">
+						<button type="submit" class="fileUpload btn btn-primary">傳送</button>		
+						</form>
+						<div>${err.alert}</div>
+					</div>
+				</div>     
+            </div>
+        </div>
+        <!-- /.row -->
 
-	<div id="sendBox">
-		<form action="mail.controller" method="post"
-			enctype="multipart/form-data" id="form">
-			<table>
-				<tbody>
-					<tr>
-						<td><span>收件者</span></td>
-						<td><input type="text" size="40" name="recipientmail"
-							value="${mailBean.memberBean.name} ${mailBean.memberBean.email}" /></td>
-						<!--取得要回覆者的ID -->
-						<td><input type="hidden" id="recipient" name="recipient"
-							size="40" value="${mailBean.memberBean.mid}" /></td>
-						<!--取得要回覆者的ID -->
-					</tr>
-					<tr>
-						<td><span>主旨</span></td>
-						<td><input type="text" name="title" size="40"
-							value="Re:${mailBean.mailtitle}" /></td>
-					</tr>
-					<tr>
-						<td colspan="2"><textarea cols="49" rows="20" name="content"></textarea></td>
-					</tr>
-					<tr>
-						<td><input type="hidden" name="reply"
-							value="${mailBean.reid}" /></td>
-						<td><input type="hidden" name="mailid"
-							value="${mailBean.mailid}" /></td>
-							<!-- 取得要回覆的mailId -->
-						<td><input type="hidden" name="replystate" value="true"></td>
-							<!--  -->
-					</tr>
-					<tr>
-						<td colspan="2"><input type="submit" name="submit" value="傳送" /><input
-							type="file" name="file" /></td>
-					</tr>
-				</tbody>
-			</table>
-		</form>
-		<div>${err.alert}</div>
-	</div>
-</div>	
+        <!-- Footer -->
+    </div>
+    <!-- /.container -->
 
+   <!-- jQuery -->
 	<script src="../js/jquery-3.2.1.min.js"></script>
-	<script language="Javascript">
-		$(document).ready(function() {
-			var contentPath = "${pageContext.request.contextPath}"		
-			//=====按鈕樣式======================================
-			$('#write').addClass('writeout').mouseover(function (){
-				$(this).removeClass().addClass('writeover');
-			}).mouseout(function (){
-				$(this).removeClass().addClass('writeout');	
-			});
-			
-			$('#mailbox').addClass('mailboxout').mouseover(function (){
-				$(this).removeClass().addClass('mailboxover');
-			}).mouseout(function (){
-				$(this).removeClass().addClass('mailboxout');	
-			});
-			
-			$('#junk').addClass('mailboxout').mouseover(function (){
-				$(this).removeClass().addClass('mailboxover');
-			}).mouseout(function (){
-				$(this).removeClass().addClass('mailboxout');	
-			});
-			
-			$('#mailcopy').addClass('mailboxout').mouseover(function (){
-				$(this).removeClass().addClass('mailboxover');
-			}).mouseout(function (){
-				$(this).removeClass().addClass('mailboxout');	
-			});
-			
-			$('#draft').addClass('mailboxout').mouseover(function (){
-				$(this).removeClass().addClass('mailboxover');
-			}).mouseout(function (){
-				$(this).removeClass().addClass('mailboxout');	
-			});	
-			
-			$('#read').addClass('mailboxout').mouseover(function (){
-				$(this).removeClass().addClass('mailboxover');
-			}).mouseout(function (){
-				$(this).removeClass().addClass('mailboxout');	
-			});
+
+	<!-- Bootstrap Core JavaScript -->
+	<script src="../js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/u/bs/jq-2.2.3,dt-1.10.12/datatables.min.js"></script>
+	<script src="../js/fileinput.min.js"></script>
+
+<script>
+	$(document).ready(function() {
+		var mid = "${loginOK.mid}"
+			var contentPath = "${pageContext.request.contextPath}"	
 				
 			$('#reply').addClass('text').mouseover(function() {
 				$(this).removeClass().addClass('textOver');
@@ -239,22 +259,25 @@ div.mailboxover{
 				$(this).removeClass().addClass('textout');
 			})
 			
-			//=====按鈕動作===========================================================================
+			
+			//=====按鈕動作===========================================================================	
+				
 			$('#write').click(function () {	
 	 			$(location).attr('href', contentPath+'/mail/mailUploadList.controller?mailClass=general')	
 			});
 			
 			$('#mailbox').click(function () {			
-				$(location).attr('href', '<c:url value="/mail/mailIndex.jsp" />')				
+				$(location).attr('href', '<c:url value="/mail/mailIndex.jsp"/>')				
 			});
 			
 			$('#junk').click(function () {			
-				$(location).attr('href', '<c:url value="/mail/junkemail.jsp" />')			
+				$(location).attr('href', '<c:url value="/mail/junkemail.jsp"/>')			
 			});
 			
 			$('#read').click(function () {			
-				$(location).attr('href', '<c:url value="/mail/readmail.jsp" />')			
-			});
+				$(location).attr('href', '<c:url value="/mail/readmail.jsp"/>')			
+			});	
+			
 			
 			$('#sendBox').hide();
 			$('#reply').click(function(data) {
@@ -262,15 +285,17 @@ div.mailboxover{
 				$('#sendBox').show();
 			});
 			
-			var mid = "${loginOK.mid}"
 			$.getJSON("mailDisplay.controller",{"targetId":mid, "ShowReadOrDelete":"undelete"},function(datas) {
-				$('#mailbox').text("收件匣 ("+datas.length+")")
+				 $('#mailbox').html("<a id='mailbox' class='competition__btn-enter btn btn-block btn-default'><span>收件匣 ("+datas.length+")</span></a>")		
 			})
 			$.getJSON("mailDisplay.controller",{"targetId":mid, "ShowReadOrDelete":"read"},function(datas) {
-				$('#read').text("已讀 ("+datas.length+")")
+				$('#read').html("<a id='read' class='competition__btn-enter btn btn-block btn-default'><span>已讀 ("+datas.length+")</span></a>")			
 			})
-			$.getJSON("mailDisplay.controller",{"targetId":mid,"ShowReadOrDelete":"delete"},function(datas) {
-				$('#junk').text("垃圾桶 ("+datas.length+")")
-			})	
-		});
-	</script>
+			$.getJSON("mailDisplay.controller",{"targetId":mid, "ShowReadOrDelete":"delete"},function(datas) {
+				$('#junk').html("<a id='junk' class='competition__btn-enter btn btn-block btn-default'><span>垃圾桶 ("+datas.length+")</span></a>")			
+			})		
+	})
+</script>
+</body>
+
+</html>

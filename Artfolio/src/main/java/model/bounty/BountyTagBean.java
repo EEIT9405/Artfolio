@@ -51,8 +51,4 @@ public class BountyTagBean implements Serializable {
 	public void setB_tag(String b_tag) {
 		this.b_tag = b_tag;
 	}
-	@Override
-	public String toString() {
-		return "BountyTagBean [b_tagid=" + b_tagid + ", bountyBean=" + bountyBean + ", b_tag=" + b_tag + "]";
-	}
 }

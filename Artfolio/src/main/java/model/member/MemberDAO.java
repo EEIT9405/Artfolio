@@ -9,6 +9,5 @@ public interface MemberDAO {
 	List<MemberBean> select();
 	MemberBean update(MemberBean bean);
 	
-	
 	boolean updatePoint(Integer mid,Integer point);
 }

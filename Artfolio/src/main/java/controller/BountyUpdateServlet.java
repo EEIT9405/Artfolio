@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,7 +35,7 @@ public class BountyUpdateServlet extends HttpServlet {
 
 	@Override
 	public void init() throws ServletException {
-		sdf = new SimpleDateFormat("yyyy-MM-dd");
+		sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		WebApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
 		bountyService = (BountyService) context.getBean("bountyService");
 	}
@@ -69,6 +70,7 @@ public class BountyUpdateServlet extends HttpServlet {
 		String particimethod =null;
 		String pisStorageURL = null;
 		String attchStorageURL=null;
+		String oriurl = null;
 		String temp6 = request.getParameter("bid");
 
 		Integer b_id = null;
@@ -106,18 +108,22 @@ public class BountyUpdateServlet extends HttpServlet {
 						content = value;
 					} else if (fldName.equals("particimethod")) {
 						particimethod = value;
+					} else if (fldName.equals("oriurl")) {
+						oriurl = value;
 					}
 				} else { // 檔案類型資料
 					if (fldName.equals("pic")) {
 						String picname = null;
 						for (String file : p.getHeader("content-disposition").split(";")) { // 從part取得"content-disposition"標頭(內含上傳檔案資訊(包含名稱))，並從標頭中取得filenanme
-							if (file.trim().startsWith("filename")) {
-								picname = file.substring(file.indexOf('=') + 1).trim().replace("\"", "");
-								System.out.println(picname);
-							}
-						}
-
-						pisStorageURL = "C:/Artfolio/BountyImgs/" + picname;
+							if (file.trim().startsWith("filename")) {	
+								if(file.substring(file.indexOf('=') + 1).trim().replace("\"", "").length()==0){
+									pisStorageURL = oriurl;
+								}else{
+									picname = file.substring(file.indexOf('=') + 1).trim().replace("\"", "");
+									pisStorageURL = "C:/Artfolio/BountyImgs/" + picname;		
+								}	
+							}				
+						}		
 						if (picname != null && picname.trim().length() > 0) {
 							try (InputStream is = p.getInputStream(); // 開啟輸入檔
 									FileOutputStream os = new FileOutputStream(pisStorageURL);// 將上傳檔案寫入至資料庫硬碟
@@ -128,8 +134,6 @@ public class BountyUpdateServlet extends HttpServlet {
 									os.write(b, 0, len);
 								}
 							}
-						} else {
-							errors.put("attach", "必須上傳活動圖片");
 						}
 					}
 					if (fldName.equals("file")) {
@@ -159,6 +163,7 @@ public class BountyUpdateServlet extends HttpServlet {
 				}
 			}
 		}
+		
 		// 驗證資料
 		if (topic == null || topic.trim().length() == 0) {
 			errors.put("topic", "請輸入活動主題");
@@ -237,7 +242,35 @@ public class BountyUpdateServlet extends HttpServlet {
 			}
 		}
 		
+		System.out.println(new Date());
+		System.out.println(enddate);
+		
+		long now = new Date().getTime(); //現在時間
+		long end = enddate.getTime();//結束時間
+		long twoWeek = 14*24*60*60*1000; //2周毫秒數
+		
+		System.out.println("now: "+now);
+		System.out.println("end: "+end);
+		System.out.println((end-now));
+		
 		BountyBean bean = bountyService.selectById(b_id);
+		
+		if(end<now){
+			bean.setB_state(1);
+			System.out.println("ooooooo");
+			//b_state 1 已結束
+		}else{
+			if((end-now)>=twoWeek){
+				bean.setB_state(0);
+				System.out.println("hahaha");
+				//b_state 0 徵件中
+			}else if((end-now)<twoWeek){
+				bean.setB_state(2);
+				System.out.println("hehee");
+				//b_state 2 即將截止
+			}
+		}
+			
 		bean.setMid(mid);
 		bean.setB_id(b_id);
 		bean.setB_title(topic);
@@ -252,15 +285,16 @@ public class BountyUpdateServlet extends HttpServlet {
 		bean.setB_attach_pic(pisStorageURL);
 		bean.setB_attach_pdf(attchStorageURL);
 
-		if ("Modify".equals(action)) {
+		if ("修改".equals(action)) {
 			BountyBean inser = bountyService.update(bean);
-			
 			if (inser == null) {
 				errors.put("error", "更新失敗");
+				request.getRequestDispatcher("/bounty/bountyPersonal.jsp").forward(request, response);
 			} else {
 				request.setAttribute("inser", inser);
-			}
-			request.getRequestDispatcher("/bounty/bountyPersonal.jsp").forward(request, response);
+				request.getRequestDispatcher("/bounty/bountyPage.controller?id=" + b_id).forward(request, response);	
+			//6/7
+			}		
 		}
 	}
 }

@@ -10,8 +10,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.stereotype.Component;
+
 import model.member.MemberBean;
 
+@Component
 @Entity
 @Table(name="TB_BMSG")
 public class BmsgBean {

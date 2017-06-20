@@ -106,8 +106,6 @@ public class BountyTrackService {
 		return result;
 	}
 	
-	
-	//
 	public long countAllTracks(Integer b_id){	
 		return bountyTrackDao.countAllTracks(b_id);
 	}

@@ -106,7 +106,7 @@
 						id="contact_form">
 
 						<fieldset>
-							<legend>個人資訊</legend>
+				<legend>個人資訊</legend>
 							<div class="row"></div>
 							<div class="col-md-8">
 
@@ -147,14 +147,23 @@
 										class="col-md-5  control-label" style="text-align:left;">${loginOK.info}</label>
 								</div>
 								
+                                   <div class="form-group" align="right">
 
+								
+									<input type="submit" class="btn btn-default " name="submit"
+										value="更改" />
+							
+
+							        </div>
+							
 							</div>
 
 
 							<div class="col-md-4">
 
 								<div class="form-group">
-									<a href=""> <img
+									<a href="portfolio-item.html"> <img
+									 
 										class="img-responsive img-hover img-circle" style="width:200px"
 										src="${loginOK.mphoto}" alt="">
 									</a>
@@ -163,15 +172,9 @@
 								
 
 							</div>
-
-							<div class="form-group">
-								<label class="col-md-4 control-label"></label>
-								<div class="col-md-2">
-									<input type="submit" class="btn btn-default " name="submit"
-										value="更改" />
-								</div>
-
-							</div>
+                            
+							
+							
 						</fieldset>
 					</form>
 				</div>
@@ -259,6 +262,12 @@ $(function(){
 		});
 			$(this).parent('td').parent('tr').remove();
 	});
+	
+	var aa='${ErrorMsg.noupdate}';
+    if(aa){
+
+              swal(aa," ","success");
+        }
 	
 });
 </script>

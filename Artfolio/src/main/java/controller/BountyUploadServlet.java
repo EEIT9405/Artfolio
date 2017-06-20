@@ -33,7 +33,7 @@ public class BountyUploadServlet extends HttpServlet {
 	private BountyService bountyService;
 	@Override
 	public void init() throws ServletException {
-		sdf = new SimpleDateFormat("yyyy-MM-dd");
+		sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		WebApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
 		bountyService =  (BountyService) context.getBean("bountyService");
 	}
@@ -71,7 +71,7 @@ public class BountyUploadServlet extends HttpServlet {
 			for (Part p : parts) {
 				String fldName = p.getName();
 				String value = request.getParameter(fldName);
-				//System.out.println("fldName=" + fldName + ", value=" + value);
+				System.out.println("fldName=" + fldName + ", value=" + value);
 				if (p.getContentType() == null) { // 非檔案類型資料
 					if (fldName.equals("topic")) {
 						topic = value;
@@ -104,7 +104,7 @@ public class BountyUploadServlet extends HttpServlet {
 							}
 						}	
 
-						pisStorageURL = "D:/temp/img/"+ picname;
+						pisStorageURL = "C:/Artfolio/BountyImgs/"+ picname;
 						if (picname != null && picname.trim().length() > 0) {
 							try (InputStream is = p.getInputStream(); // 開啟輸入檔
 									FileOutputStream os = new FileOutputStream(pisStorageURL);// 將上傳檔案寫入至資料庫硬碟

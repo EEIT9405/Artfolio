@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta http-equiv="refresh" content="3; url=point/log.controller">
+<meta http-equiv="refresh" content="3; url=/Artfolio/point/log.controller">
 <title>Insert title here</title>
 </head>
 <body>
@@ -13,7 +13,7 @@
 	<c:choose>
 		<c:when test="${from=='exchange'}">
 			<h5>3秒後自動跳轉回原畫面。如無跳轉，請點選一下連結。</h5>
-			<a href="point/log.controller">回點數頁面</a>
+			<a href="/Artfolio/point/log.controller">回點數頁面</a>
 		</c:when>
 		<c:when test="${from=='donate'}">
 			<form>

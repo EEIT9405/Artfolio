@@ -93,9 +93,9 @@
 </head>
 <body>
 <!-- Navigation -->
-<jsp:include page="top/header.jsp"></jsp:include>
+<jsp:include page="/top/header.jsp"></jsp:include>
 	<c:if test="${!empty loginOK }">
-		<jsp:include page="top/pushPage.jsp"></jsp:include>
+		<jsp:include page="/top/pushPage.jsp"></jsp:include>
 	</c:if>
 	
 <div class="container-fluid top-colleciton">
@@ -287,7 +287,7 @@
 
 </div>
 
-<jsp:include page="top/footer.jsp"></jsp:include>
+<jsp:include page="/top/footer.jsp"></jsp:include>
 <!-- /.container -->
 
 <!-- JS -->

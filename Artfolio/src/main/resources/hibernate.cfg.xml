@@ -18,8 +18,8 @@
 
 		<!--Java物件與資料庫表格的映射檔 -->
 		<mapping class="model.bounty.BountyBean" />
-		<mapping class="model.bounty.BountyTagBean" />
-		<mapping class="model.bounty.BountyTrackBean" />
+        <mapping class="model.bounty.BountyTagBean" />
+        <mapping class="model.bounty.BountyTrackBean"/>
 		<mapping class="model.block.BlockBean" />
 		<mapping class="model.member.MemberBean" />
 		<mapping class="model.browsed.BrowsedBean" />

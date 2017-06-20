@@ -162,7 +162,9 @@ public class MailUploadServlet extends HttpServlet {
 					toId = bean.getMid();
 				}
 			}
-							
+				
+			System.out.println(mstate);
+			
 			MailBean bean = new MailBean();			
 				//呼叫Model			
 				MemberBean memberBean = new MemberBean();
@@ -191,7 +193,9 @@ public class MailUploadServlet extends HttpServlet {
 				request.getRequestDispatcher("/mail/replyTest.jsp").forward(request, response);			
 			}		
 			if(result!=null){
-				request.getRequestDispatcher("/mail/mailIndex.jsp").forward(request, response);	
+				response.sendRedirect("/Artfolio/mail/mailIndex.jsp");
+				//6/8
+//				request.getRequestDispatcher("/mail/mailIndex.jsp").forward(request, response);	
 			}else{
 				errors.put("alert", "寄件失敗");
 				request.getRequestDispatcher("/mail/mailSendPage.jsp").forward(request, response);

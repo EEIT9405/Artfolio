@@ -43,12 +43,9 @@ public class MemberService {
 	}
 	
 	public MemberBean select(Integer mid){
-		if(mid!=null)
-			return  memberdao.select(mid);
-		return null;
+		return  memberdao.select(mid);
 	}
 	
-	//////////////
 	
 	@Transactional(propagation=Propagation.MANDATORY)
 	public boolean updatePoint(Integer mid,Integer point){
@@ -56,5 +53,4 @@ public class MemberService {
 		return memberdao.updatePoint(mid, point);
 		return false;
 	}
-	
 }

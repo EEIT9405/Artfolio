@@ -3,16 +3,6 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
-	<bean id="bountyIndext"
-		class="org.springframework.web.servlet.view.RedirectView">
-		<property name="url" value="/bounty/bountyIndex.jsp"></property>
-		<property name="contextRelative" value="true"></property>
-	</bean>
-	
-	<bean id="bountyPage"
-		class="org.springframework.web.servlet.view.InternalResourceView">
-		<property name="url" value="/bounty/BountyPage.jsp"></property>
-	</bean>
 	
 	<bean id="picture"
 		class="org.springframework.web.servlet.view.InternalResourceView">
@@ -25,18 +15,18 @@
 	</bean>
 	
 	<bean id="point" class="org.springframework.web.servlet.view.InternalResourceView">
-		<property name="url" value="/point.jsp"/>
+		<property name="url" value="/WEB-INF/web/point.jsp"/>
 	</bean> 
 	<bean id="traderesult" class="org.springframework.web.servlet.view.RedirectView">
 		<property name="contextRelative" value="true" />
-		<property name="url" value="/traderesult.jsp"/>
+		<property name="url" value="/WEB-INF/web/traderesult.jsp"/>
 	</bean> 
 	<bean id="donate" class="org.springframework.web.servlet.view.InternalResourceView">
-		<property name="url" value="/donate.jsp"/>
+		<property name="url" value="/WEB-INF/web/donate.jsp"/>
 	</bean> 
 	<bean id="upload" class="org.springframework.web.servlet.view.RedirectView">
 		<property name="contextRelative" value="true" />
-		<property name="url" value="/uploadresult.jsp"/>
+		<property name="url" value="/WEB-INF/web/uploadresult.jsp"/>
 	</bean> 
 	
 	<bean id="targetPage" class="org.springframework.web.servlet.view.InternalResourceView">
@@ -52,5 +42,15 @@
 		<property name="contextRelative" value="true" />
 		<property name="url" value="/myWorks.jsp"/>
 	</bean> 
+	
+	<bean id="bountyPage"
+		class="org.springframework.web.servlet.view.InternalResourceView">
+		<property name="url" value="/bounty/BountyPage.jsp"></property>
+	</bean>
+	
+	<bean id="bountyChange"
+		class="org.springframework.web.servlet.view.InternalResourceView">
+		<property name="url" value="/bounty/bountyChange.jsp"></property>
+	</bean>
 	
 </beans>

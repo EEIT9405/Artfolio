@@ -26,12 +26,14 @@ public interface BountyDAO {
 	List<BountyBean> selectByUpdateDate();
 	List<BountyBean> selectByMaxBouns();
 	List<BountyBean> selectByState(Integer b_state);
+	List<BountyBean> selectByTags(String b_tag);
 	
 	boolean delete(Integer b_id);
-
 	BountyBean update(BountyBean bean);
 	
-	//create method by Lin teiu
+	boolean stateUpdate(Integer b_id, Integer b_state);
+	
+	//系統時鐘
 	public boolean updateByDate(int state);
 
 }

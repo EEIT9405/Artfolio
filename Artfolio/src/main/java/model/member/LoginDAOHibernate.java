@@ -55,6 +55,5 @@ public class LoginDAOHibernate implements LoginDAO {
 	//selectByPrimaryKey
 		public MemberBean select(Integer mid){
 			return this.getSession().get(MemberBean.class, mid);
-		}
-
+		}		
 }

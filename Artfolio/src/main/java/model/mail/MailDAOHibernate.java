@@ -11,6 +11,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Repository;
 
+import model.mail.MailBean;
 import model.member.MemberBean;
 
 @Repository
@@ -137,28 +138,28 @@ public class MailDAOHibernate implements MailDAO {
 	}
 	
 	// create method by Lin Teiu
-	private static final String SELECT_REPORT_MAILS = "from MailBean where (toId=1 or toId=?) and isdelete != 1 and mstatus=3 and reid=null order by maildate desc";
+		private static final String SELECT_REPORT_MAILS = "from MailBean where (toId=1 or toId=?) and isdelete != 1 and mstatus=3 and reid=null order by maildate desc";
 
-	@Override
-	public List<MailBean> selectReportMails(MemberBean admin) {
-		if (admin != null)
-			return getSession().createQuery(SELECT_REPORT_MAILS, MailBean.class).setParameter(0, admin.getMid()).getResultList();
-		return null;
-	}
-	// create method by Lin Teiu
-	private static final String SELECT_SERVICE_MAILS = "from MailBean where (toId=1 or toId=?) and isdelete != 1 and mstatus=2 and reid=null order by maildate desc";
-	@Override
-	public List<MailBean> selectServiceMails(MemberBean admin) {
-		if (admin != null)
-			return getSession().createQuery(SELECT_SERVICE_MAILS, MailBean.class).setParameter(0, admin.getMid()).getResultList();
-		return null;
-	}
-	// create method by Lin Teiu
-	private static final String SELECT_JUNK_MAILS = "from MailBean where toId=? and isdelete=1 and reid=null order by maildate desc";
-	@Override
-	public List<MailBean> selectJunkMails(MemberBean admin) {
-		if (admin != null)
-			return getSession().createQuery(SELECT_JUNK_MAILS, MailBean.class).setParameter(0, admin.getMid()).getResultList();
-		return null;
-	}
+		@Override
+		public List<MailBean> selectReportMails(MemberBean admin) {
+			if (admin != null)
+				return getSession().createQuery(SELECT_REPORT_MAILS, MailBean.class).setParameter(0, admin.getMid()).getResultList();
+			return null;
+		}
+		// create method by Lin Teiu
+		private static final String SELECT_SERVICE_MAILS = "from MailBean where (toId=1 or toId=?) and isdelete != 1 and mstatus=2 and reid=null order by maildate desc";
+		@Override
+		public List<MailBean> selectServiceMails(MemberBean admin) {
+			if (admin != null)
+				return getSession().createQuery(SELECT_SERVICE_MAILS, MailBean.class).setParameter(0, admin.getMid()).getResultList();
+			return null;
+		}
+		// create method by Lin Teiu
+		private static final String SELECT_JUNK_MAILS = "from MailBean where toId=? and isdelete=1 and reid=null order by maildate desc";
+		@Override
+		public List<MailBean> selectJunkMails(MemberBean admin) {
+			if (admin != null)
+				return getSession().createQuery(SELECT_JUNK_MAILS, MailBean.class).setParameter(0, admin.getMid()).getResultList();
+			return null;
+		}
 }

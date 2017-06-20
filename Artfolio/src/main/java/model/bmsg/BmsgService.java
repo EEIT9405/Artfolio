@@ -12,7 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class BmsgService {
 	@Autowired
 	private BmsgDAO bmsgdao;
-
+//	PUBLIC BMSGSERVICE(BMSGDAO BMSGDAO) {
+//		THIS.BMSGDAO = BMSGDAO;
+//	}
+	
 	public List<BmsgBean> select(BmsgBean bean) {
 		List<BmsgBean> result = null;
 		if(bean!=null && bean.getB_id()!=0) {
@@ -54,9 +57,23 @@ public class BmsgService {
 		}
 		return result;
 	}
+	//6/12
+	public boolean deleteByB_id(Integer b_id){
+		return  bmsgdao.deleteByB_id(b_id);	
+	}
+	
+	//6/15
+	public boolean delete(Integer b_msgid){
+		return  bmsgdao.delete(b_msgid);	
+	}
 	
 	public BmsgBean select(Integer b_msgid){
 		return  bmsgdao.select(b_msgid);
+	}
+	
+	//6/7
+	public long countAllMsgs(Integer b_id){	
+		return bmsgdao.countAllMsgs(b_id);
 	}
 	
 }

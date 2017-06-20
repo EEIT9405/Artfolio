@@ -2,6 +2,7 @@ package model.mail;
 
 import java.util.List;
 
+import model.mail.MailBean;
 import model.member.MemberBean;
 
 public interface MailDAO {
@@ -20,6 +21,7 @@ public interface MailDAO {
 	List<MailBean> getReplyMails(Integer reid);
 	List<MailBean> getUnReadMails(MailBean bean);
 	List<MailBean> getReadMails(MailBean bean);
+	
 	//create method by Lin Teiu
 	public List<MailBean> selectReportMails(MemberBean admin);
 	//create method by Lin Teiu

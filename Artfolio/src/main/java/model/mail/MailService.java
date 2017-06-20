@@ -71,22 +71,22 @@ public class MailService {
 	}
 	
 	//create method by Lin Teiu
-	public MailBean selectByPrimaryKey(MailBean bean){
-		return mailDao.getMailByPrimaryKey(bean);
-	}
-	
-	//create method by Lin Teiu
-	public List<MailBean> getAdminMails(MemberBean admin, Boolean isServiceMail){
-		if(isServiceMail == null)
-			return mailDao.selectJunkMails(admin);
-		else if(isServiceMail.booleanValue() == false)
-			return mailDao.selectReportMails(admin);
-		else
-			return mailDao.selectServiceMails(admin);
-	}
-	
-	//create method by Lin Teiu
-	public MailBean getMail(MailBean bean){
-		return mailDao.getMailByPrimaryKey(bean);
-	}
+		public MailBean selectByPrimaryKey(MailBean bean){
+			return mailDao.getMailByPrimaryKey(bean);
+		}
+		
+		//create method by Lin Teiu
+		public List<MailBean> getAdminMails(MemberBean admin, Boolean isServiceMail){
+			if(isServiceMail == null)
+				return mailDao.selectJunkMails(admin);
+			else if(isServiceMail.booleanValue() == false)
+				return mailDao.selectReportMails(admin);
+			else
+				return mailDao.selectServiceMails(admin);
+		}
+		
+		//create method by Lin Teiu
+		public MailBean getMail(MailBean bean){
+			return mailDao.getMailByPrimaryKey(bean);
+		}
 }

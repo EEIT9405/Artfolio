@@ -75,7 +75,7 @@ public class MailDispalySevvlet extends HttpServlet {
 		
 		//將資料轉換成JSON格式
 		ObjectMapper mapper = new ObjectMapper();
-		mapper.setDateFormat(sdf);
+//		mapper.setDateFormat(sdf);
 		JsonGenerator generator = mapper.getFactory().createGenerator(out);
 		generator.writeObject(result);
 	}

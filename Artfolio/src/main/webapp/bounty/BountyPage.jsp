@@ -1,323 +1,412 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<title>Modern Business - Start Bootstrap Template</title>
+
+<!-- Bootstrap Core CSS -->
+<link href="/Artfolio/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom CSS -->
+<link href="/Artfolio/css/modern-business.css" rel="stylesheet">
+
+<!-- Custom Fonts -->
+<link href="/Artfolio/font-awesome/css/font-awesome.min.css" rel="stylesheet"
+	type="text/css">
+<link rel="stylesheet" type="text/css" media="screen"
+	href="/Artfolio/css/bootstrap-datetimepicker.min.css">
+<link href="/Artfolio/css/fileinput.min.css" rel="stylesheet">
+<link href="/Artfolio/css/sweetalert.css" rel="stylesheet">
+<link href="/Artfolio/css/bountyPage.css" rel="stylesheet">
 <style type="text/css">
-	div#abgne_marquee {
-		position: relative;
-		overflow: hidden;	/* 超出範圍的部份要隱藏 */
-		width: 200px;
-		height: 100px;
-/* 		width: 375px; */
-/* 		height: 25px; */
-		border: 1px solid #ccc;
-	}
-	div#similar{
-		position: relative;
-		width: 200px;
-		height: 450px;
-		border: 1px solid #ccc;
-	}
-	div#abgne_marquee ul, div#abgne_marquee li {
-		margin: 0;
-		padding: 0;
-		list-style: none;
-	}
-	div#abgne_marquee ul {
-		position: absolute;
-	}
-	div#abgne_marquee ul li a {
-		display: block;
- 		overflow: hidden;	/* 超出範圍的部份要隱藏 */ 
-		font-size:12px;
-		height: 100px;
-/* 		height: 25px; */
-		line-height: 25px;
-		padding-left: 40px;
-		text-decoration: none;
-		background: #fff url(back.gif) no-repeat;
-	}
-	div#abgne_marquee ul li.b1 a {
-		background-position: 5px 5px;
-	}
-	div#abgne_marquee ul li.b2 a {
-		background-position: 5px -15px;
-	}
-	div#abgne_marquee ul li.b3 a {
-		background-position: 5px -35px;
-	}
 </style>
-<script type="text/javascript">
-	$(function(){
-		// 先取得 div#abgne_marquee ul
-		// 接著把 ul 中的 li 項目再重覆加入 ul 中(等於有兩組內容)
-		// 再來取得 div#abgne_marquee 的高來決定每次跑馬燈移動的距離
-		// 設定跑馬燈移動的速度及輪播的速度
-		var $marqueeUl = $('div#abgne_marquee ul'),
-			$marqueeli = $marqueeUl.append($marqueeUl.html()).children(),
-			_height = $('div#abgne_marquee').height() * -1,
-			scrollSpeed = 1000,
-			timer,
-			speed = 3000 + scrollSpeed;
-		
-		// 幫左邊 $marqueeli 加上 hover 事件
-		// 當滑鼠移入時停止計時器；反之則啟動
-		$marqueeli.hover(function(){
-			clearTimeout(timer);
-		}, function(){
-			timer = setTimeout(showad, speed);
-		});
-		
-		// 控制跑馬燈移動的處理函式
-		function showad(){
-			var _now = $marqueeUl.position().top / _height;
-			_now = (_now + 1) % $marqueeli.length;
-			
-			// $marqueeUl 移動
-			$marqueeUl.animate({
-				top: _now * _height
-			}, scrollSpeed, function(){
-				// 如果已經移動到第二組時...則馬上把 top 設 0 來回到第一組
-				// 藉此產生不間斷的輪播
-				if(_now == $marqueeli.length / 2){
-					$marqueeUl.css('top', 0);
-				}
-			});
-			
-			// 再啟動計時器
-			timer = setTimeout(showad, speed);
-		}
-		
-		// 啟動計時器
-		timer = setTimeout(showad, speed);
 
-		$('a').focus(function(){
-			this.blur();
-		});
-		
-		
-		$('#t').css('color', 'green');
-		
-//==============================================================================================
-		$("#track").click(function() {   //新增追蹤				
-			var b_id = "${bean.b_id}";
-			var mid = "${loginOK.mid}";	
-			$.get("bountyTrack.controller",{"b_id":b_id,"mid":mid}, function(data) {			
-				alert(data);
-			});
-			//${loginOK.mid}
-			//${bean.b_id}
-			//傳送到servlet(/bountyTrack.controller)進行資料新增
-			//新增成功後在畫面顯示成功訊息		
-		});
-	});
-</script>
-<style type="text/css">
-#column1 {
-position:absolute;
-border: 1px solid #ccc;
-width:300px;
-left:50px;
-top:100px;
-padding:10px;
-}
-#column2 {
-position:absolute;
-left:380px;
-width:400px;
-height:80px;
-top:100px;
-border: 1px solid #ccc;
-padding-top:85px;
-padding-left:30px;
-padding-right:430px;padding-bottom:40px;
-}
-#column3 {
-position:absolute;
-width:500px;
-left:380px;
-top:345px;
-border: 1px solid #ccc;
-padding:50px;
-overflow:auto;
-
-}
-#column4 {
-position:absolute;
-left:1000px;
-top:345px;
-border: 1px solid #ccc;
-width:200px;
-padding-top:30px;
-padding-left:30px;
-padding-right:20px;
-}
-#column5 {
-
-border: 1px solid #ccc;
-padding:50px;
-width:500px;
-}
-</style>
 </head>
-<body>		
-<h3>ArtFolio活動專區</h3>
-	<a href="<c:url value="/bounty/bountyIndex.jsp"/>">活動首頁</a> |
-	<a href="<c:url value="/bounty/bountyDisplay.jsp"/>">所有活動</a> |
-	<a href="<c:url value="/bounty/bountyUpload.jsp"/>">舉辦活動</a> |
-	<a href="<c:url value="/bounty/bountyTrackPage.jsp"/>">活動追蹤</a> |
-	<a href="<c:url value="/bounty/bountyPersonal.jsp"/>">活動管理</a> |
-	<a href="">回作品集</a>  |
-	<a href="<c:url value="/mail/mailIndex.jsp"/>">站內信</a>  |
-	<a href="<c:url value="/secure/login.jsp"/>">登入</a> |
-	<a href="<c:url value="/secure/logout.jsp"/>">登出</a> |  <span>您好，${loginOK.name}</span>
-	<hr>
+<body background="/Artfolio/webbackground/vintage-leaves.png">
+		<jsp:include page="../top/header.jsp"></jsp:include>
+		<header  style="margin-top:10px;">
+				<ol class="breadcrumb">
+					<li class="active"><a href="<c:url value="/bounty/bountyDisplay.jsp"/>">所有活動</a></li>
+					<li class="active"><a href="<c:url value="/bounty/bountyTrackPage.jsp"/>">活動追蹤</a></li>
+					<li class="active"><a href="<c:url value="/bounty/bountyPersonal.jsp"/>">活動管理</a></li>
+					<li class="active"><a href="<c:url value="/bounty/bountyUpload.jsp"/>">舉辦活動</a></li>
+				</ol>		
 
-	<div id="column1">
-		<img width="300px" src="/bountyImgs/${bean.b_attach_pic.substring(bean.b_attach_pic.lastIndexOf("/")+1)}"/>
-		<br>
+		</header>
+
+	<!-- /.container -->
+<!-- Page Content -->
+		<!-- Content Row -->
 	
-		<br>
-		<br>
-		投稿期間:  ${bean.b_startdate.toString().substring(0,10)}  至   ${bean.b_enddate.toString().substring(0,10)} </br>
-		<br>
-		得獎公佈日期:   ${bean.b_announced.toString().substring(0,10)}
-		<br>
-		<br>
-		總獎金:${bean.b_bonus_total}
-		</br>
-		最高獎金:${bean.b_bonus_max}  
-		</br>	
-		</br>
-		<input id="track" type="button" value="追蹤"/><input type="button" value="參加"/>
-		</br>
-		</br>
-		</br>
-		主辦單位:${bean.b_organizer}  
-		</br>
-		</br>
-		</br>
-		
-		<div id="fileDownload">
-			<c:url var="link" value="FileDownServlet">
-				<c:param name="fileId" value="${bean.b_attach_pdf.substring(bean.b_attach_pdf.lastIndexOf('/')+1)}"></c:param>
-			</c:url>
-			<a href="${link}">附件下載</a>
-		</div>
-		
-		</div>
-		<div id="column2">
-			${bean.b_title}</br>
-		<br>
-		標籤:
-		<c:forEach var="tag" items="${tags}">
-			${tag.b_tag}
-		</c:forEach>
-		<br>
-		<pre>瀏覽數:${bean.b_click}  收藏數:${trackcount}  留言數:   </pre> 
-		</div>
-<%-- 		徵稿會員編號:${bean.mid} 徵稿編號:${bean.b_id}  登入會員編號:${loginOK.mid}  --%>
-<%-- 		<div id="b_id" style="display:none">${bean.b_id}</div> --%>
-<%-- 		<div id="loginOK" style="display:none">${loginOK.mid}</div> --%>
-		<div id="column3">
-			<div>活動詳情<br>
-			    ${bean.b_content} 
+		<div id="layout">
+
+			<div class="onHeaderfixed">
+				<div class="competitions" transition="app-layout">
+					<section class="bg__wrap--full" transition-mode="out-in">
+					<section>
+									
+					<!--標頭圖片 -->
+					<div class="competition__keyBg" style="box-shadow: 5px 5px 5px #BDBDBD;">
+						<img
+							src="/Artfolio/webbackground/21.jpg"
+							style="width: 100%;">
+						<div class="competition__keyBg__mask"></div>
+					</div>
+							
+					<div class="container">
+						<div class="row competition__content-wrap">
+							<div class="sidebar col-md-4" style="position: relative; z-index: 1; background-color:#FAFAFA ;border:1px solid #D8D8D8; padding:5px; box-shadow: 5px 5px 5px #E6E6E6;">
+								<aside class="card card-default">
+								
+							<!--活動圖片 -->
+								<div class="competition__cover text-center">   
+									<img class="img-responsive img-hover img-thumbnail" style="width: 100%;" src="/bountyImgs/${bean.b_attach_pic.substring(bean.b_attach_pic.lastIndexOf("/")+1)}" alt="">
+								</div>
+								
+								<hr>
+								
+								<div class="competition__times">
+									
+									<div class="row button-hack">
+										<!--button -->		
+										<c:choose>
+											<c:when test="${loginOK.mid != bean.mid}">
+												<div class="subscribe-button col-xs-6">
+													<div id="track" class="competition__btn-save btn btn-block btn-primary">
+														<!---->
+														<span>追蹤</span>
+													</div>												
+												</div>
+												
+												<div class="official-button col-xs-6">
+													<div class="classes">
+														<a id="participate" class="competition__btn-enter btn btn-block btn-success"><span>參加</span></a>
+													</div>
+												</div>
+											</c:when>
+											<c:otherwise>
+												<div class="official-button col-xs-12">
+													<div class="classes">
+														<a id="edit" class="competition__btn-enter btn btn-block btn-default"><span>編輯</span></a>
+													</div>
+												</div>															
+														<div id="closebutton" class="official-button col-xs-12">
+															<div class="classes">
+																<a id="close" class="competition__btn-enter btn btn-block btn-default"><span>關閉活動</span></a>
+															</div>
+														</div>
+											
+														<div id="openbutton" class="official-button col-xs-12">
+															<div class="classes">
+																<a id="open" class="competition__btn-enter btn btn-block btn-default"><span>活動已關閉</span></a>
+															</div>	
+														</div>		
+											</c:otherwise>
+										</c:choose>
+									</div>				
+									<hr>
+	
+									<div class="competition__times__row submissionDuring">
+										<div id="addToCalendarTime">	
+										</div>
+										<div>
+											<span style="padding-left:40px" content="${bean.b_startdate.toString().substring(0,19)}">${bean.b_startdate.toString().substring(0,19)}</span>
+											<span>至</span>
+											<span content="${bean.b_enddate.toString().substring(0,19)}">${bean.b_enddate.toString().substring(0,19)}</span>
+										</div>
+									</div>
+									
+									<div class="competition__times__row winnerAnnouncements">
+										<div id="addToCalendarAnnounced">
+										</div>
+										<div style="padding-left:40px">${bean.b_announced.toString().substring(0,19)}</div>
+									</div>
+									
+									<hr>
+									
+									<div
+										class="competition__award card card-default card-flat border-radius clearfix"
+										style="background-color: rgb(243, 242, 240); margin: 12px 0px; padding:10px;">
+										
+										
+										<div class="competition__award__item" style="margin-left:50px">
+											<span>總獎金</span><span><i class="glyphicon glyphicon-usd">${bean.b_bonus_total}</i></span>
+										</div>
+										<div class="competition__award__item">
+											<span>最高獎金</span><span><i class="glyphicon glyphicon-usd">${bean.b_bonus_max}</i></span>
+										</div>
+									</div>	
+									
+									
+									
+									<div id="fileDownload">
+										<c:url var="link" value="FileDownServlet">
+											<c:param name="fileId" value="${bean.b_attach_pdf.substring(bean.b_attach_pdf.lastIndexOf('/')+1)}"></c:param>
+										</c:url>
+										<a class='btn btn-mini btn-primary' type="button" href="${link}" style='font-size:12px'><span class='glyphicon glyphicon-cloud-download'></span>  附件下載</a>		
+									</div>
+									
+																
+								</div>
+								</aside>
+								
+								
+								<address class="row">
+									<div class="col-xs-12">
+										<div class="card card-default">
+											<div 
+												class="competition__organizer card clearfix">
+												<h4 >主辦單位</h4>
+												<div  class="card border-radius">
+													<div 
+														class="competition__organizer__avatar pull-left">
+														<img 
+															src="/Artfolio/img/img_avatar1.png"
+															class="img-circle" width="50px" style="padding:5px;">
+													</div>
+													<div class="competition__organizer__content">
+														<div  class="organizerTitle">${bean.b_organizer}</span></div>
+													</div>
+												</div>
+											</div>
+											<hr>
+
+										</div>
+			
+									</div>
+								</address>
+								<div class="row">
+									<div class="col-xs-12">
+										<div class="similarCompetitions">
+									
+									
+										</div>
+									</div>
+								</div>
+							</div>
+										<div class="col-md-8">
+											<div class="competition__description__wrap ">
+												<h1>${bean.b_title}</h1>		
+														<div class="social__share ">	
+																<a class="btn btn-outline" style="color:#0040FF"><i class="fa fa-facebook fa-lg"></i></a>
+																<a class="btn btn-outline"><i class="fa fa-twitter fa-lg"></i></a>		
+														</div>
+														<div style='font-size:12px; font-weight:bolder; color:black' class='btn btn-default btn-xs' id='soon'>即將截止</div>
+														<div style='font-size:12px; font-weight:bolder; color:black' class='btn btn-default btn-xs' id='ing'>進行中</div>
+														<div style='font-size:12px; font-weight:bolder; color:black' class='btn btn-default btn-xs' id='end'>已結束</div>
+														<div style='font-size:12px; font-weight:bolder; color:black' class='btn btn-default btn-xs' id='ann'>獲選公布</div><br>	
+												<div class="competition__description hidden-xs hidden-sm"
+													style="margin: 5px 0px;">
+													<div class="counts-wrap clearfix border-radius">
+														<div class="" style="font-size:14px; margin-top:0px;margin-left:10px;">
+															<!--瀏覽數 -->
+															<i class="glyphicon glyphicon-eye-open" style="padding:5px;"></i><span>${bean.b_click}</span>
+															<i class="glyphicon glyphicon-heart" style="padding:5px;"></i><span>${trackcount}</span>
+															<i class="glyphicon glyphicon-comment" style="padding:5px;"></i><span>${msgcount}</span>			
+														
+														<c:if test="${not empty tags}">
+															<div class="" style="font-size:16px; margin-top:20px;">
+																<i class="glyphicon glyphicon-tags"></i>
+																	<c:forEach var="tag" items="${tags}">${tag.b_tag}   </c:forEach></i>
+															</div>
+														</c:if>
+														</div>
+													</div>
+												</div>
+											</div>
+											
+
+											<article
+												class="competition__content card card-default border-radius col-xs-12"
+												style="box-shadow: none; ">
+												<div></div>
+												<div class="bh-redactor" style="padding-top: 22px;"></div>
+												<div>
+													<h3>活動詳情</h3>
+													${bean.b_content}
+												</div>
+												<br>
+												<div>
+													<h3>參加辦法</h3>
+													${bean.b_partimethod}
+												</div>
+												<div>
+												<br><br>
+							<!-- wang -->
+											<div id="column1">
+												<div style="overflow-y: scroll; height: 200px;">
+													<table class="table table-striped" id="bmsgTable">
+														<thead>
+															<tr>
+																<th>留言&提問</th>
+																<th></th>
+																<th></th>
+																<th></th>
+																<th></th>
+															</tr>
+														</thead>
+														<tbody>
+
+
+														</tbody>
+													</table>
+													<span id='table_page'></span>
+												</div>
+												<table id="textareaTable" class="table table-striped">
+													<tbody>
+													<caption>填寫留言訊息</caption>
+													<tr>
+														<td><textarea class="form-control" id="text1" name="message" rows="5"
+																onfocus="onTextarea()" onkeyup="onTextareaChang()"
+																rows="5" cols="200" ></textarea></td>
+														<td>${error.message}</td>
+													</tr>
+													</tbody>
+												</table>
+												<div id="column2" align="center">
+													<input id="closeb" type="submit" class="btn btn-primary"
+														name="prodaction" value="留言" /> <input type="reset"
+														class="btn btn-default" value="重置" />
+												</div>
+
+											</div>
+											<!-- wang -->
+										</div>
+										</article>
+								<!---->
+								<div class="competition__extra">
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				
+				</div>
 			</div>
-			<br>
-			<div>參加辦法<br>
-			     ${bean.b_partimethod} 
-			</div>
-			
-			
-			
-<!-- 		wang -->
-			<form action="<c:url value="/message.controller"/>" method="post">
+			<div id="layout_footer"></div>
+	
+	
+		<!---->
+		<!---->
+	
+	<!-- /.container -->
 
-			<c:if test="${not empty select}">
-				<table cellspacing="0" align="center" border="1">
-					<caption>所有留言信息</caption>
-					<thead>
-						<tr>
-							<th>留言人姓名</th>
-							<th>留言时间</th>
-							<th>留言内容</th>
-						</tr>
-					</thead>
-					<tbody>
-
-						<c:forEach var="row" items="${select}">
-							<tr>
-
-								<td>${row.member.name}</td>
-								<td>${row.msg.b_msgdate}</td>
-								<td>${row.msg.b_msgcontent}</td>
-								<td><input type="hidden" value="${row.msg.b_msgid}">
-									<c:if test="${loginOK.mid == row.msg.mid}">
-										<input type="submit" name="prodaction" value="Delete" />
-									</c:if></td>
-								<td><input type="hidden" value="${row.msg.b_msgid}">
-									<c:if test="${loginOK.mid == row.msg.mid}">
-										<input type="button" value="Updatemsg" />
-									</c:if></td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-				<span style="font-weight: bold; margin-left: 30%; color: red">${error.deletex}</span>
-			</c:if>
-			<br> <br> <br>
-			<table align="center" border="1">
-				<caption>填寫留言訊息</caption>
-
-				<tr>
-					<td>留言內容</td>
-					<td><textarea name="message" rows="5" cols="35"></textarea></td>
-					<td>${error.message}</td>
-				</tr>
-			</table>
-			<input style="margin-left: 25%" type="submit" name="prodaction"
-				value="Insert" /> <input type="reset" value="重置" /> <input
-				type="hidden" name="cmsgid"> <input type="hidden"
-				name="bid">
-		</form>
-		<h3>
-			<span class="error">${errors.action}</span>
-		</h3>
-<!-- 		wang -->	
-		</div>
-		
-		
-	<div id="column4">
-		獲選活動
-		<br>
-		<div id="abgne_marquee">
-		<ul>
-			<li class="b1"><a href="http://www.flycan.com.tw/course/course_javascript.php"><img height="100px" src="img/1.jpg"></a></li>
-			<li class="b2"><a href="http://www.flycan.com.tw/course/course_photopro.php"><img height="100px" src="img/2.png"></a></li>
-			<li class="b3"><a href="http://abgne.tw/site-proclamation/questionnaire-1.html"><img height="100px" src="img/3.jpg"></a></li>
-		</ul>
-	</div>
-		<br><br><br>
-		相似的活動
-		<div id="similar">
-		<ul>
-			<li class="b1"><a href="http://www.flycan.com.tw/course/course_javascript.php"><img height="100px" src="img/3.jpg"></a></li>
-			<li class="b2"><a href="http://www.flycan.com.tw/course/course_photopro.php"><img height="100px" src="img/4.jpg"></a></li>
-			<li class="b3"><a href="http://abgne.tw/site-proclamation/questionnaire-1.html"><img height="100px" src="img/5.png"></a></li>
-			<li class="b3"><a href="http://abgne.tw/site-proclamation/questionnaire-1.html"><img height="100px" src="img/1.jpg"></a></li>
-		</ul>
-		<br>
-		</div>
-		
-		
-	<script src="js/jquery-3.2.1.min.js" ></script>
+	<script src="/Artfolio/js/jquery-3.2.1.min.js"></script>
+	<!-- Bootstrap Core JavaScript -->
+	<script src="/Artfolio/js/bootstrap.min.js"></script>
+	<script src="/Artfolio/js/sweetalert.min.js"></script>
 	<script>
-		$(document).ready(function() {				
+		$(document).ready(function() {			
+		
+			var title = '${bean.b_title}'
+			var start = new Date('${bean.b_startdate}').toISOString();
+				start = start.replace(/-/g,"");
+				start = start.replace(/:/g,"");
+				start = start.replace(start.substring(start.lastIndexOf(".")), "Z");			
+			var end = new Date('${bean.b_enddate}').toISOString();
+				end = end.replace(/-/g,"");
+				end = end.replace(/:/g,"");
+				end = end.replace(end.substring(end.lastIndexOf(".")), "Z");
+			var ann = new Date('${bean.b_announced}').toISOString();
+				ann = ann.replace(/-/g,"");
+				ann = ann.replace(/:/g,"");
+				ann = ann.replace(ann.substring(ann.lastIndexOf(".")), "Z");
+			
+		
+			$('#addToCalendarTime')
+			.html('<span style="padding-left:30px" >投稿期間</span><a href="////www.google.com/calendar/event?action=TEMPLATE&amp;text='+title+' 報名時間&amp;dates='+start+'/'+end+'&amp;details=活動網址 https://bhuntr.com/tw/competitions/2017HGpoemmv&amp;location=&amp;trp=false&amp;sprop=&amp;sprop=name:" target="_blank" class="addToCalender btn btn-default btn-xs"><i class="glyphicon glyphicon-calendar"></i></a>')
+			$('#addToCalendarAnnounced')
+			.html('<span style="padding-left:30px" >得獎公佈</span><a href="////www.google.com/calendar/event?action=TEMPLATE&amp;text='+title+' 得獎公佈&amp;dates='+start+'/'+end+'&amp;details=活動網址 https://bhuntr.com/tw/competitions/2017HGpoemmv&amp;location=&amp;trp=false&amp;sprop=&amp;sprop=name:" target="_blank" class="addToCalender btn btn-default btn-xs"><i class="glyphicon glyphicon-calendar"></i></a>')
+			
+			
+			
+			
+			var b_state = '${bean.b_state}'
+			switch(b_state){
+			case '0'://進行中
+				$("#ing").removeClass().addClass('btn btn-warning btn-xs');
+				break;
+			case '1'://已結束
+				$("#end").removeClass().addClass('btn btn-warning btn-xs');
+				break;
+			case '2'://即將截止
+				$("#soon").removeClass().addClass('btn btn-warning btn-xs');
+				break;
+			case '3'://獲選公布
+				$("#ann").removeClass().addClass('btn btn-warning btn-xs');
+				break;	
+			}	
+			
+		
+	//==============================================================================================
+			var contentPath = "${pageContext.request.contextPath}"
+			$("#track").click(function() {   //追蹤	
+				var b_id = "${bean.b_id}";
+				var mid = "${loginOK.mid}";	
+				$.get("bountyTrack.controller",{"b_id":b_id,"mid":mid}, function(data) {
+					swal({
+						  title: "新增成功!",
+						  text: data,
+						  type: "success",
+						  confirmButtonText: "OK"
+						});	
+				});
+				//${loginOK.mid}
+				//${bean.b_id}
+				//傳送到servlet(/bountyTrack.controller)進行資料新增
+				//新增成功後在畫面顯示成功訊息		
+			});
+
+	// ====================================================================================================		
+			$('#participate').click(function() {//參加
+						var toId = "${bean.mid}";
+						var title = "${bean.b_title}";
+						$(location).attr('href',contentPath
+														+ '/mail/mailUploadList.controller?toId='
+														+ toId + '&title='
+														+ title
+														+ '&mailClass=signup');
+					});
+
+			$('#edit').click(function() { //編輯
+						var b_id = "${bean.b_id}";
+						$.ajax({'url' : 'personalUpdate.controller',
+								'data' : {'b_id' : b_id},
+								'type' : 'get'
+								}).done(function(data) {
+									document.open();
+									document.write(data);
+									document.close();
+								})
+					});
+			
+			
+			if(${bean.b_state!='1'}){			
+				$('#closebutton').show();
+				$('#openbutton').hide();
+			}else{
+				$('#closebutton').hide();
+				$('#openbutton').show();
+			}
+			
+	
+			$('#close').click(function() { //關閉活動
+				$('#closebutton').hide();
+				$('#openbutton').show();
+				
+				var b_id = "${bean.b_id}";
+				$.ajax({'url' : 'bountyStateUpdate.controller',
+						'data' : {'b_id' : b_id, 'bountyState': 'close'},
+						'type' : 'get'
+						})
+			});
+			
+			
+	// ====================================================================================================				
+		
 			var isAttach = "${bean.b_attach_pdf}"
 			if(isAttach != "C:/Artfolio/BountyAttchs/"){
 				$('#fileDownload').show();
@@ -326,74 +415,183 @@ width:500px;
 			}		
 		});
 	</script>
-	
-	
-	
-	<script>
+	<!-- 	=================================================================== -->
+		<script type="text/javascript">
+			$(function() {
+
+				var mid = '${loginOK.mid}';
+				var bid = '${bean.b_id}';
+				console.log(bid);
+				loadBmsg();
+				function loadBmsg() {
+					$
+							.getJSON(
+									'showBmsg.controller',
+									{
+										'b_id' : bid
+									},
+									function(datas) {
+
+										console.log(datas);
+										var docFrag = $(document
+												.createDocumentFragment());
+										var tb = $('#bmsgTable>tbody');
+										tb.empty();
+
+										$
+												.each(
+														datas,
+														function(idx, bmg) {
+															var img = $('<img>')
+																	.attr(
+																			'src',
+																			bmg.member.mphoto)
+																	.css(
+																			'width',
+																			'50px')
+																	.css(
+																			'heigh',
+																			'50px')
+																	.css(
+																			'box-shadow',
+																			'3px 3px 5px 3px gray')
+																	.css(
+																			'border-radius',
+																			'10px');
+
+															var cell0 = $(
+																	'<td></td>')
+																	.append(img);
+															var cell1 = $(
+																	'<td></td>')
+																	.text(
+																			bmg.member.name);
+															var cell2 = $(
+																	'<td></td>')
+																	.text(
+																			bmg.msg.b_msgdate);
+															var cell3 = $(
+																	'<td></td>')
+																	.text(
+																			bmg.msg.b_msgcontent);
+															if (bmg.msg.mid == mid) {
+																var cell4 = $(
+																		'<td></td>')
+																		.html(
+																				"<button class='b1 btn btn-danger'><span class='glyphicon glyphicon-remove'></span></button><button class='btn btn-info' value='編輯'><span class='glyphicon glyphicon-pencil'></span></button>")
+
+															} else {
+																var cell4 = $('<td></td>')
+															}
+															var cell5 = $(
+																	"<input type='hidden' name='bmsgid'>")
+																	.val(
+																			bmg.msg.b_msgid);
+															var row = $(
+																	'<tr></tr>')
+																	.append(
+																			[
+																					cell0,
+																					cell1,
+																					cell2,
+																					cell3,
+																					cell4,
+																					cell5 ]);
+
+															docFrag.append(row);
+
+														})
+										tb.append(docFrag);
+
+									})
+
+				}
+
+				$('#column2').on('click', 'input:nth-child(1)', function(data) { //新增
+					//alert($(this).parents('tr').children('td:eq(2)').children('div').text())
+					var content = $('#text1').val();
+					// 	alert(content);
+					var mid = "${loginOK.mid}";
+					console.log(mid);
+					$.post("insertBmsg.controller", {
+						"b_id" : bid,
+						"b_msgcontent" : content
+					}, function(data) {
+						loadBmsg();
+					});
+				});
+
+				$('#bmsgTable>tbody').on(
+						'click',
+						'button:nth-child(1)',
+						function(data) { //刪除
+							alert("haha")
+							//alert($(this).parents('tr').children('td:eq(2)').children('div').text())
+							console.log(this);
+							var mid = "${loginOK.mid}";
+							$.get("deletebmsg.controller", {
+								"b_msgid" : $(this).parent('td').parent('tr')
+										.children('input[name=bmsgid]').val()
+							}, function(data) {
+
+								loadBmsg();
+							});
+						});
+
+				$('#bmsgTable>tbody').on(
+						'click',
+						'button:nth-child(2)',
+						function(data) { //修改
+							//alert($(this).parents('tr').children('td:eq(2)').children('div').text())
+							var content = $('.textarea1').val();
+							if ($(this).val() == '編輯') {
+								$(this).val('修改');
+
+								var t1 = $(this).parent('td').parent('tr')
+										.children('td:eq(3)').text();
+								$(this).parent('td').parent('tr').children(
+										'td:eq(3)').empty();
+
+								$(this).parent('td').parent('tr').children(
+										'td:eq(3)').append(
+										$("<textarea class='textarea1'>" + t1
+												+ "</textarea>"));
+							} else {
+
+								$.get("updateBmsg.controller", {
+									"b_id" : bid,
+									"b_msgid" : $(this).parent('td').parent(
+											'tr')
+											.children('input[name=bmsgid]')
+											.val(),
+									"b_msgcontent" : content
+								}, function(data) {
+									loadBmsg();
+								});
+
+							}
+						});
+
+			});
+
+			function onTextarea() {
+				if ($('#text1').val() == '') {
+					// 		$('#closeb').prop('disabled','true');
+					document.getElementById("closeb").disabled = true;
+
+				}
+			}
+			function onTextareaChang() {
+				if ($('#text1').val() != '') {
+					document.getElementById("closeb").disabled = false;
+				}
+			}
+			
 		
-			var bid ="${bean.b_id}";
-			$('input[name=bid]').val(bid);
-			$('input[value=Delete]').click(function(){
-				$('input[name=cmsgid]').val($(this).prev('input').val());
-			});
 			
-			$('input[value=Updatemsg]').click(function(e){
-				$('input[name=cmsgid]').val($(this).prev('input').val());
-				$('input[value=Insert]').val('Update');
-				var t=$(this).parent('td').parent('tr').children('td:nth-child(3)').text();
-				$('textarea[name=message]').val(t);			
-			});
 			
-// 			$('input[value=Insert]').click(function(){
-// 				$('input[name=bid]').val(bid);
-// 			});
+			
+			
 		</script>
-		<script> 
-$(function(){ 
-var $table = $('table:first'); 
-var currentPage = 0;//当前页默认值为0 
-var pageSize = 3;//每一页显示的数目 
-$table.bind('paging',function(){ 
-$table.find('tbody tr').hide().slice(currentPage*pageSize,(currentPage+1)*pageSize).show(); 
-}); 
-var sumRows = $table.find('tbody tr').length; 
-var sumPages = Math.ceil(sumRows/pageSize);//总页数 
-
-var $pager = $('<div class="page" style="margin-left: 45%"></div>'); //新建div，放入a标签,显示底部分页码 
-for(var pageIndex = 0 ; pageIndex<sumPages ; pageIndex++){ 
-$('<a href="#" rel="external nofollow" id="pageStyle" onclick="changCss(this)"><span>'+(pageIndex+1)+'</span></a>').bind("click",{"newPage":pageIndex},function(event){ 
-currentPage = event.data["newPage"]; 
-$table.trigger("paging"); 
-//触发分页函数 
-}).appendTo($pager); 
-$pager.append(" "); 
-} 
-$pager.insertAfter($table); 
-$table.trigger("paging"); 
-
-//默认第一页的a标签效果 
-var $pagess = $('#pageStyle'); 
-$pagess[0].style.backgroundColor="#006B00"; 
-$pagess[0].style.color="#ffffff"; 
-}); 
-
-//a链接点击变色，再点其他回复原色 
-function changCss(obj){ 
-var arr = document.getElementsByTagName("a"); 
-for(var i=0;i<arr.length;i++){ 
-if(obj==arr[i]){ //当前页样式 
-obj.style.backgroundColor="#006B00"; 
-obj.style.color="#ffffff"; 
-} 
-else 
-{ 
-arr[i].style.color=""; 
-arr[i].style.backgroundColor=""; 
-} 
-} 
-} 
-</script>
-	
-		
-</body>
+		</body>
 </html>
