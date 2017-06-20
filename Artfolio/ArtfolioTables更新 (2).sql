@@ -98,13 +98,14 @@ worder int
 );
 
 insert into tb_member (pwd,name,email,gender) values ('','a','1',0),('','b','2',1),('','c','3',0)
+
+insert into tb_album (aname,mid) values('default',1),('default',2),('a',1),('b',1),('c',2)
+
 insert into tb_work (mid,picurl,wtitle) values(1,'/','aa'),(1,'/','ba'),(1,'/','ca'),(1,'/','da'),(1,'/','ea')
 insert into tb_work (mid,picurl,wtitle) values(1,'/','ab'),(1,'/','bb'),(1,'/','cb'),(1,'/','db'),(1,'/','eb')
 insert into tb_work (mid,picurl,wtitle) values(1,'/','ac'),(1,'/','bc'),(1,'/','cc'),(1,'/','dc'),(1,'/','ec')
 insert into tb_work (mid,picurl,wtitle) values(1,'/','ad'),(1,'/','bd'),(1,'/','cd'),(1,'/','dd'),(1,'/','ed')
 insert into tb_work (mid,picurl,wtitle) values(1,'/','ae'),(1,'/','be'),(1,'/','ce'),(1,'/','de'),(1,'/','ee')
-
-insert into tb_album (aname,mid) values('a',1),('b',1),('c',2)
 
 create table tb_tag(
 wid int foreign key references tb_work(wid) not null,

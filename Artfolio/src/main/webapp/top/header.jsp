@@ -216,7 +216,13 @@
 		
 		$('button[value=submit]','#search').click(function(){
 			searchResult.empty();
-			$.get('search.controller',$('form','#search').serialize(),function(data){
+			var queryString=$('form','#search').serialize();
+			if(!document.getElementById('searchResult')){
+				window.open('/Artfolio/index.jsp?'+queryString.replace('&and=','&andCondition=')
+						.replace('&or=','&orCondition=').replace('&not=','&notCondition='),'_self')	
+			}
+			
+			$.get('search.controller',queryString,function(data){
 				var docFrag = $(document.createDocumentFragment()); 
 				searchTitle.text('Search results: ' + data.length + ' items.');
 				$.each(data, function(index, value){
@@ -246,6 +252,10 @@
 		searchButton.click(function(){
 			var searchContent = $('input[name="searchContent"]').val();
 			var searchType = searceBar.find('select').find(':selected').val();
+			if(!document.getElementById('searchResult')){
+				window.open('/Artfolio/index.jsp?type='+searchType.trim()+'&andCondition='+encodeURIComponent(searchContent.trim()),'_self')	
+			}
+			
 			searchResult.removeAttr('style');
 			searchResult.empty();
 			$.getJSON('search.controller',{type:searchType,and:searchContent}, function(data){
