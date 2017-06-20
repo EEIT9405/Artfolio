@@ -72,7 +72,7 @@ public class LoginServlet extends HttpServlet {
 					else {
 					session.setAttribute("loginOK", bean);
 					session.setAttribute("mid", bean.getMid());
-					response.sendRedirect("/Artfolio/bounty/bountyDisplay.jsp");
+					response.sendRedirect("/Artfolio/index.jsp");
 					
 				}	
 	}

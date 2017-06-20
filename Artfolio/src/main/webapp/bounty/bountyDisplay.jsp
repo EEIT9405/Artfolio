@@ -21,9 +21,13 @@
 <link href="/Artfolio/css/fileinput.min.css" rel="stylesheet">
 <link href="/Artfolio/css/sweetalert.css" rel="stylesheet">
 
+	<script src="/Artfolio/js/jquery-3.2.1.min.js"></script>
 
+	<!-- Bootstrap Core JavaScript -->
+	<script src="/Artfolio/js/bootstrap.min.js"></script>
+	<script src="/Artfolio/js/sweetalert.min.js"></script>
 <style type="text/css">
-body {
+#bd {
 	margin: 0;
 	font-family: "微軟正黑體", Helvetica, Arial, sans-serif;
 	font-size: 14px;
@@ -36,21 +40,21 @@ body {
 /* 	-o-background-size: cover; */
 /* 	background-size: cover; 	 */
 }
-.img-responsive {
+#bd .img-responsive {
 	width: 300px;
 }
-.t1 {
+#bd .t1 {
 	border-style: solid;
 	border-width: 3px;
 	border-radius: 10px;
 }
-.row{
+#bd .row{
 	margin-top:10px;
 	margin-left: 0px;
 	margin-right: 0px;
 	padding:0;
 }
-.btn{
+#bd .btn{
  	margin-bottom:10px;
 }
 #header {
@@ -60,10 +64,10 @@ body {
     max-height:auto;
 /*     border-bottom:1px solid black */
 }
-.navbar {
+#bd .navbar {
 	margin-bottom:0;
 }
-.breadcrumb {
+#bd .breadcrumb {
 margin-bottom:0;
 background-color:#E6E6E6;
 /* border-bottom:1px solid black; */
@@ -71,30 +75,30 @@ color:#F3F781;
 font-weight:bolder;
 text-align:center;
 }
-h2{
+#bd h2{
 padding-top:60px;
 }
-.col-md-2{
+#bd .col-md-2{
 	text-align:right;
 	height:183px;
 	padding:0;
 	padding-right:30px;
 }
-.col-md-4{
+#bd .col-md-4{
 	padding:0;
 }
-.col-md-6{
+#bd .col-md-6{
 	padding:0;
 	height:183px;
 	padding-left:10px;
 }
-.div panel-heading{
+#bd .div panel-heading{
 	background-color:#F3F781
 }
-p{
+#bd p{
 	margin:0
 }
-.competition__keyBg {
+#bd .competition__keyBg {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -104,7 +108,7 @@ p{
 	overflow: hidden
 }
 
-.competition__keyBg img {
+#bd .competition__keyBg img {
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -115,7 +119,7 @@ p{
    	filter: blur(0px)   
 }
 
-.competition__keyBg__mask {
+#bd .competition__keyBg__mask {
 	position: absolute;
 	top: 0;
 	width: 0;
@@ -124,14 +128,8 @@ p{
 	width: 100%;
 	height: 100%
 }
-.col-md-4 h1 {
-	max-width: calc(100% - 120px);
-	color: #fff;
-	margin-left:80px;
-	margin-bottom:30px;
-	
-}
-.col-md-4 h1 {
+
+#bd .col-md-4 h1 {
 	max-width: calc(100% - 120px);
 	color: #fff;
 	margin-left:150px;
@@ -140,12 +138,12 @@ p{
 }
 
 
-.btn-primary.raised {
+#bd .btn-primary.raised {
 	box-shadow: 0 3px 0 0 #007299;
 }
 
 
-.btn-primary.raised:active, .btn-primary.raised.active {
+#bd .btn-primary.raised:active, .btn-primary.raised.active {
 	background: #33a6cc;
 	box-shadow: none;
 	margin-bottom: -3px;
@@ -156,8 +154,9 @@ p{
 
 <body background="/Artfolio/webbackground/vintage-leaves.png">
 		<jsp:include page="../top/header.jsp"></jsp:include>
-		<header  style="margin-top:10px;">
-				<div class="row"></div>
+		<div id="bd">
+		<header>
+				
 			<ol class="breadcrumb">
 				<li class="active"><a
 					href="<c:url value="/bounty/bountyDisplay.jsp"/>">所有活動</a></li>
@@ -308,12 +307,8 @@ p{
 	<!-- /.container -->
 
 	<!-- jQuery -->
-	<script src="/Artfolio/js/jquery-3.2.1.min.js"></script>
 
-	<!-- Bootstrap Core JavaScript -->
-	<script src="/Artfolio/js/bootstrap.min.js"></script>
-	<script src="/Artfolio/js/sweetalert.min.js"></script>
-	
+	</div>
 	<script type="text/javascript">
 	
 		

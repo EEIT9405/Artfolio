@@ -57,14 +57,14 @@
 	            <c:choose>
 	              <c:when test="${!empty loginOK}">
 		              <li><a href="/Artfolio/myWorks.jsp">我的作品</a></li>
-		              <li><a href="#">邀稿區</a></li>
+		              <li><a href="/Artfolio/bounty/bountyDisplay.jsp">邀稿區</a></li>
 		              <li><a href="/Artfolio/point/log.controller">點數區</a></li>
-		              <li><a href="#">站內信</a></li>
+		              <li><a href="/Artfolio/mail/mailIndex.jsp">站內信</a></li>
 		              <li><a href="/Artfolio/information.jsp">個人資料</a></li>
-		              <li><a href="#">登出</a></li>
+		              <li><a href="">登出</a></li>
 	              </c:when>
 	              <c:otherwise>
-		              <li><a href="#">登入</a></li>
+		              <li><a href="/Artfolio/secure/login.jsp">登入</a></li>
 		              <li><a href="#">註冊</a></li>
 	              </c:otherwise>
 	            </c:choose>

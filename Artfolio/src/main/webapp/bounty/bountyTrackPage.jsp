@@ -21,91 +21,75 @@
 <link href="../css/fileinput.min.css" rel="stylesheet">
 <link href="/Artfolio/css/sweetalert.css" rel="stylesheet">
 <style type="text/css">
-body {
+#bd {
 	margin: 0;
 	font-family: "微軟正黑體", Helvetica, Arial, sans-serif;
 	font-size: 14px;
 	line-height: 20px;
+	
 /* 	background-color: #ffffff; */
 /* 	background-image: url('/Artfolio/webbackground/26.jpg'); */
 /* 	-moz-background-size: cover; */
 /* 	-webkit-background-size: cover; */
 /* 	-o-background-size: cover; */
-/* 	background-size: cover;	 */
+/* 	background-size: cover; 	 */
 }
-
-.img-responsive {
+#bd .img-responsive {
 	width: 300px;
 }
-
-.t1 {
+#bd .t1 {
 	border-style: solid;
 	border-width: 3px;
 	border-radius: 10px;
 }
-
-.row {
-	margin-top: 10px;
+#bd .row{
+	margin-top:10px;
 	margin-left: 0px;
 	margin-right: 0px;
-	padding: 0;
+	padding:0;
 }
-
-.btn {
-	margin-bottom: 10px;
+#bd .btn{
+ 	margin-bottom:10px;
 }
-
 #header {
-	padding-top: 50px;
-	margin: 0;
-	max-width: 100%;
-	max-height: auto;
-	/*     border-bottom:1px solid black */
+	padding-top:50px;
+	margin:0;
+    max-width:100%;
+    max-height:auto;
+/*     border-bottom:1px solid black */
 }
-
-.navbar {
-	margin-bottom: 0;
+#bd .navbar {
+	margin-bottom:0;
 }
-
-.breadcrumb {
-	margin-bottom: 0;
-	background-color: #E6E6E6;
-	/* border-bottom:1px solid black; */
-	color: #F3F781;
-	font-weight: bolder;
-	text-align: center;
+#bd .breadcrumb {
+margin-bottom:0;
+background-color:#E6E6E6;
+/* border-bottom:1px solid black; */
+color:#F3F781;
+font-weight:bolder;
+text-align:center;
 }
-
-h2 {
-	padding-top: 60px;
+#bd .col-md-2{
+	text-align:right;
+	height:183px;
+	padding:0;
+	padding-right:30px;
 }
-
-.col-md-2 {
-	text-align: right;
-	height: 183px;
-	padding: 0;
-	padding-right: 30px;
+#bd .col-md-4{
+	padding:0;
 }
-
-.col-md-4 {
-	padding: 0;
+#bd .col-md-6{
+	padding:0;
+	height:183px;
+	padding-left:10px;
 }
-
-.col-md-6 {
-	padding: 0;
-	height: 183px;
-	padding-left: 10px;
+#bd .div panel-heading{
+	background-color:#F3F781
 }
-
-.div panel-heading {
-	background-color: #F3F781
+#bd p{
+	margin:0
 }
-
-p {
-	margin: 0
-}
-
-.col-md-4 h1 {
+#bd .col-md-4 h1 {
 	max-width: calc(100% - 120px);
 	color: #fff;
 	margin-left: 150px;
@@ -121,8 +105,9 @@ p {
 
 <body background="/Artfolio/webbackground/vintage-leaves.png">
 		<jsp:include page="../top/header.jsp"></jsp:include>
-		<header class="navbar navbar-light navbar-toggleable-md bd-navbar">
-		<div class="row"></div>
+		<div id="bd">
+		<header>
+		
 			<ol class="breadcrumb">
 				<li class="active"><a
 					href="<c:url value="/bounty/bountyDisplay.jsp"/>">所有活動</a></li>
@@ -281,7 +266,7 @@ p {
 
 	</div>
 	<!-- /.container -->
-
+</div>
 	<!-- jQuery -->
 	<script src="../js/jquery-3.2.1.min.js"></script>
 

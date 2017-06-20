@@ -25,33 +25,34 @@
   <link rel="stylesheet" href="/resources/demos/style.css">
 
 <style type="text/css">
-body {
+#bd {
 	margin: 0;
 	font-family: "微軟正黑體", Helvetica, Arial, sans-serif;
 	font-size: 14px;
 	line-height: 20px;
+	
 /* 	background-color: #ffffff; */
 /* 	background-image: url('/Artfolio/webbackground/26.jpg'); */
 /* 	-moz-background-size: cover; */
 /* 	-webkit-background-size: cover; */
 /* 	-o-background-size: cover; */
-/* 	background-size: cover;	 */
+/* 	background-size: cover; 	 */
 }
-.img-responsive {
+#bd .img-responsive {
 	width: 300px;
 }
-.t1 {
+#bd .t1 {
 	border-style: solid;
 	border-width: 3px;
 	border-radius: 10px;
 }
-.row{
+#bd .row{
 	margin-top:10px;
 	margin-left: 0px;
 	margin-right: 0px;
 	padding:0;
 }
-.breadcrumb {
+#bd .breadcrumb {
 margin-bottom:0;
 background-color:#E6E6E6;
 /* border-bottom:1px solid black; */
@@ -59,7 +60,7 @@ color:#F3F781;
 font-weight:bolder;
 text-align:center;
 }
-.col-md-4 h1 {
+#bd .col-md-4 h1 {
 	max-width: calc(100% - 120px);
 	color: #fff;
 	margin-left:150px;
@@ -73,8 +74,9 @@ text-align:center;
 
 <body background="/Artfolio/webbackground/vintage-leaves.png">
 		<jsp:include page="../top/header.jsp"></jsp:include>
-		<header  style="margin-top:10px;">
-				<div class="row"></div>
+		<div id="bd">
+		<header>
+				
 			<ol class="breadcrumb">
 				<li class="active"><a
 					href="<c:url value="/bounty/bountyDisplay.jsp"/>">所有活動</a></li>
@@ -286,7 +288,7 @@ text-align:center;
 		</div>
 		<!-- /.row -->
 	</div>
-
+</div>
 	<!-- /.container -->
 	<!-- jQuery -->
 	<script src="../js/jquery-3.2.1.min.js"></script>
