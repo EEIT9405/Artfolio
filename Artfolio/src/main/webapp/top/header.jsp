@@ -49,7 +49,7 @@
 	         </c:when>
 	         <c:otherwise>
 	         	 <a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-		         	<div class="userimg"><img style="-webkit-filter:invert(1); width:100%;" src="/img/designer-512.png"></div>
+		         	<div class="userimg"><img style="-webkit-filter:invert(1); width:100%;" src="/Artfolio/img/designer-512.png"></div>
 		         </a>
 	         </c:otherwise>
          </c:choose>

@@ -10,17 +10,13 @@
 <!-- Bootstrap Core CSS -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
 
-<!-- Custom CSS -->
-<link href="css/modern-business.css" rel="stylesheet">
-
-<!-- Custom Fonts -->
 <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet"
 	type="text/css">
 <link rel="stylesheet" type="text/css" media="screen"
 	href="css/bootstrap-datetimepicker.min.css">
 
 <link href="css/fileinput.min.css" rel="stylesheet">
-
+<link rel="stylesheet" href="/Artfolio/css/sweetalert.css">
 
 <style type="text/css">
 
@@ -47,7 +43,7 @@ margin-top: 100px;
 <jsp:include page="/top/header.jsp"></jsp:include>
 
 
-          <div class="container">
+          <div class="container" style="height:auto; min-height:500px; margin-bottom:30px;">
 	
          <div  class="div1">
 			<form class="well form-horizontal" action=" member.controller" method="post"
@@ -123,7 +119,7 @@ margin-top: 100px;
 									<span class="input-group-addon"><i
 										class="glyphicon glyphicon-pencil"></i></span>
 										
-									<textarea class="form-control" name="info"
+									<textarea Wrap="soft" class="form-control" name="info"
 										placeholder="自我介紹"></textarea><span>${err.aprti}</span>
 								</div>
 							</div>
@@ -150,7 +146,7 @@ margin-top: 100px;
 						<div class="form-group">
 							<label class="col-md-4 control-label"></label>
 							<div class="col-md-2">
-							<input type="submit" class="btn btn-warning " name="action"  value="完成" />
+							<input  id="change"  type="submit" class="btn btn-warning " name="action"  value="完成" />
 							</div>
 							<div class="col-md-4">
 							<input type="reset" class="btn btn-info" value="重置" />
@@ -163,6 +159,7 @@ margin-top: 100px;
 	
 </div>
 </div>
+<jsp:include page="top/footer.jsp"></jsp:include>
 	<script src="js/jquery-3.2.1.min.js"></script>
 	
 
@@ -170,7 +167,7 @@ margin-top: 100px;
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/fileinput.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
-	
+	<script src="/Artfolio/js/sweetalert.min.js"></script>
 	
 	
 	
@@ -198,6 +195,15 @@ margin-top: 100px;
 		        return true; 
 		    } 
 		} 
+	
+	$(document).ready(function() {
+		
+		var aa='${ErrorMsg.noupdate}';
+                 if(aa){
+                	   swal(aa,"" ,"error")
+                     }
+	});
+	
 
 	</script>
 </body>
