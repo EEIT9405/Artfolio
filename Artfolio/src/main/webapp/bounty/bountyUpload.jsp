@@ -9,34 +9,26 @@
 
 <!-- Bootstrap Core CSS -->
 <link href="../css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Custom CSS -->
-<link href="../css/modern-business.css" rel="stylesheet">
-
 <!-- Custom Fonts -->
 <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet"
 	type="text/css">
 <link rel="stylesheet" type="text/css" media="screen"
 	href="../css/bootstrap-datetimepicker.min.css">
 <link href="../css/fileinput.min.css" rel="stylesheet">
-
-
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="/resources/demos/style.css">
-
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="../js/jquery-3.2.1.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
 <style type="text/css">
 #bd {
 	margin: 0;
 	font-family: "微軟正黑體", Helvetica, Arial, sans-serif;
 	font-size: 14px;
 	line-height: 20px;
-	
-/* 	background-color: #ffffff; */
-/* 	background-image: url('/Artfolio/webbackground/26.jpg'); */
-/* 	-moz-background-size: cover; */
-/* 	-webkit-background-size: cover; */
-/* 	-o-background-size: cover; */
-/* 	background-size: cover; 	 */
+	height:auto;
+	min-height:500px;
+	margin-bottom:30px;
+	margin-top:50px;
 }
 #bd .img-responsive {
 	width: 300px;
@@ -120,7 +112,7 @@ text-align:center;
 							<div class="col-md-4 inputGroupContainer">
 								<ul class="list-inline">
 									<li class="list"><input type="checkbox"
-									value="設計" name="tag">設計</li>
+									value="設計" name="tag" checked>設計</li>
 									<li class="list"><input type="checkbox"
 									value="攝影" name="tag">攝影  </li>
 									<li class="list"><input type="checkbox"
@@ -289,11 +281,9 @@ text-align:center;
 		<!-- /.row -->
 	</div>
 </div>
+<jsp:include page="../top/footer.jsp"></jsp:include>
 	<!-- /.container -->
-	<!-- jQuery -->
-	<script src="../js/jquery-3.2.1.min.js"></script>
-	<!-- Bootstrap Core JavaScript -->
-	<script src="../js/bootstrap.min.js"></script>
+
 	<script src="../js/fileinput.min.js"></script>
 	<script type="text/javascript" src="../js/bootstrap-datetimepicker.min.js"></script>
 	<script type="text/javascript" src="../js/bootstrap-datetimepicker.zh-CN.js"></script> 

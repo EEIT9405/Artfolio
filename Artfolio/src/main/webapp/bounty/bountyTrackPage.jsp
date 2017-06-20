@@ -9,10 +9,6 @@
 
 <!-- Bootstrap Core CSS -->
 <link href="../css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Custom CSS -->
-<link href="../css/modern-business.css" rel="stylesheet">
-
 <!-- Custom Fonts -->
 <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet"
 	type="text/css">
@@ -20,19 +16,18 @@
 	href="../css/bootstrap-datetimepicker.min.css">
 <link href="../css/fileinput.min.css" rel="stylesheet">
 <link href="/Artfolio/css/sweetalert.css" rel="stylesheet">
+<script src="/Artfolio/js/jquery-3.2.1.min.js"></script>
+<script src="/Artfolio/js/bootstrap.min.js"></script>
 <style type="text/css">
 #bd {
 	margin: 0;
 	font-family: "微軟正黑體", Helvetica, Arial, sans-serif;
 	font-size: 14px;
 	line-height: 20px;
-	
-/* 	background-color: #ffffff; */
-/* 	background-image: url('/Artfolio/webbackground/26.jpg'); */
-/* 	-moz-background-size: cover; */
-/* 	-webkit-background-size: cover; */
-/* 	-o-background-size: cover; */
-/* 	background-size: cover; 	 */
+	height:auto;
+	min-height:500px;
+	margin-bottom:30px;
+	margin-top:50px;
 }
 #bd .img-responsive {
 	width: 300px;
@@ -267,13 +262,11 @@ text-align:center;
 	</div>
 	<!-- /.container -->
 </div>
-	<!-- jQuery -->
-	<script src="../js/jquery-3.2.1.min.js"></script>
+<jsp:include page="../top/footer.jsp"></jsp:include>
 
-	<!-- Bootstrap Core JavaScript -->
-	<script src="../js/bootstrap.min.js"></script>
-	<script src="/Artfolio/js/sweetalert.min.js"></script>
-	<script type="text/javascript">
+
+<script src="/Artfolio/js/sweetalert.min.js"></script>
+<script type="text/javascript">
 		
 //=========顯示下拉式選單====================================
 		$(function() {

@@ -61,11 +61,11 @@
 		              <li><a href="/Artfolio/point/log.controller">點數區</a></li>
 		              <li><a href="/Artfolio/mail/mailIndex.jsp">站內信</a></li>
 		              <li><a href="/Artfolio/information.jsp">個人資料</a></li>
-		              <li><a href="">登出</a></li>
+		              <li><a href="/Artfolio/secure/logout.jsp">登出</a></li>
 	              </c:when>
 	              <c:otherwise>
 		              <li><a href="/Artfolio/secure/login.jsp">登入</a></li>
-		              <li><a href="#">註冊</a></li>
+		              <li><a href="/Artfolio/Member.jsp">註冊</a></li>
 	              </c:otherwise>
 	            </c:choose>
             </ul>

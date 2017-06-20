@@ -9,10 +9,6 @@
 
 <!-- Bootstrap Core CSS -->
 <link href="/Artfolio/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Custom CSS -->
-<link href="/Artfolio/css/modern-business.css" rel="stylesheet">
-
 <!-- Custom Fonts -->
 <link href="/Artfolio/font-awesome/css/font-awesome.min.css" rel="stylesheet"
 	type="text/css">
@@ -21,13 +17,19 @@
 <link href="/Artfolio/css/fileinput.min.css" rel="stylesheet">
 <link href="/Artfolio/css/sweetalert.css" rel="stylesheet">
 <link href="/Artfolio/css/bountyPage.css" rel="stylesheet">
+	<script src="/Artfolio/js/jquery-3.2.1.min.js"></script>
+	<!-- Bootstrap Core JavaScript -->
+	<script src="/Artfolio/js/bootstrap.min.js"></script>
+	<script src="/Artfolio/js/sweetalert.min.js"></script>
 <style type="text/css">
+
 </style>
 
 </head>
 <body background="/Artfolio/webbackground/vintage-leaves.png">
 		<jsp:include page="../top/header.jsp"></jsp:include>
-		<header  style="margin-top:10px;">
+		<div id="bd">
+		<header >
 				<ol class="breadcrumb">
 					<li class="active"><a href="<c:url value="/bounty/bountyDisplay.jsp"/>">所有活動</a></li>
 					<li class="active"><a href="<c:url value="/bounty/bountyTrackPage.jsp"/>">活動追蹤</a></li>
@@ -46,7 +48,7 @@
 			<div class="onHeaderfixed">
 				<div class="competitions" transition="app-layout">
 					<section class="bg__wrap--full" transition-mode="out-in">
-					<section>
+					
 									
 					<!--標頭圖片 -->
 					<div class="competition__keyBg" style="box-shadow: 5px 5px 5px #BDBDBD;">
@@ -56,7 +58,7 @@
 						<div class="competition__keyBg__mask"></div>
 					</div>
 							
-					<div class="container">
+					<div class="container" >
 						<div class="row competition__content-wrap">
 							<div class="sidebar col-md-4" style="position: relative; z-index: 1; background-color:#FAFAFA ;border:1px solid #D8D8D8; padding:5px; box-shadow: 5px 5px 5px #E6E6E6;">
 								<aside class="card card-default">
@@ -286,18 +288,14 @@
 				
 				</div>
 			</div>
-			<div id="layout_footer"></div>
-	
-	
+	</div>
+	</div>
 		<!---->
 		<!---->
 	
 	<!-- /.container -->
+<jsp:include page="../top/footer.jsp"></jsp:include>
 
-	<script src="/Artfolio/js/jquery-3.2.1.min.js"></script>
-	<!-- Bootstrap Core JavaScript -->
-	<script src="/Artfolio/js/bootstrap.min.js"></script>
-	<script src="/Artfolio/js/sweetalert.min.js"></script>
 	<script>
 		$(document).ready(function() {			
 		
@@ -525,7 +523,7 @@
 						'click',
 						'button:nth-child(1)',
 						function(data) { //刪除
-							alert("haha")
+							swal('成功','留言已刪除','success');
 							//alert($(this).parents('tr').children('td:eq(2)').children('div').text())
 							console.log(this);
 							var mid = "${loginOK.mid}";
