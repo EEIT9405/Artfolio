@@ -38,7 +38,7 @@ public class BlockResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 		if (returnValue != null && methodParameter != null) {
 			String methodName = methodParameter.getMethod().getName();
 			HttpServletRequest request = ((ServletServerHttpRequest) req).getServletRequest();
-			MemberBean user = (MemberBean) request.getSession(false).getAttribute("loginOK");
+			MemberBean user = (MemberBean) request.getSession().getAttribute("loginOK");
 			if(user == null){
 				return returnValue;
 			}
