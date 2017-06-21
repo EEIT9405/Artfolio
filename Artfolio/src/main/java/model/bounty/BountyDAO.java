@@ -2,6 +2,8 @@ package model.bounty;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.RequestParam;
+
 import model.bounty.BountyBean;
 
 public interface BountyDAO {
@@ -36,4 +38,7 @@ public interface BountyDAO {
 	//系統時鐘
 	public boolean updateByDate(int state);
 
+	
+	List<BountyBean> search(Integer orderby,Integer[] amount,
+			Integer[] state,String[] tag);
 }

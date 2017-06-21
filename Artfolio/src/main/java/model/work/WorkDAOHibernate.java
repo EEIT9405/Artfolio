@@ -110,11 +110,13 @@ public class WorkDAOHibernate implements WorkDAO {
 	public List<WorkBean> searchByTitle(String[] and, String[] or, String[] not,boolean content) {
 		List<WorkBean> list=null;
 		StringBuilder condition=new StringBuilder(SEARCH_BY_TITLE);
+		boolean t=true;
 		final String LIKE=content?" (wtitle like ? or winfo like ?)":" wtitle like ?";
 		if(and!=null){
 			for(int i=0;i<and.length;i++){
 				if(i==0){
 					condition.append(LIKE);
+					t=false;
 				}else{
 					condition.append(AND).append(LIKE);
 				}
@@ -122,8 +124,9 @@ public class WorkDAOHibernate implements WorkDAO {
 		}
 		if(or!=null){
 			for(int i=0;i<or.length;i++){
-				if(condition.toString().equals(SEARCH_BY_TITLE)){
+				if(t){
 					condition.append(LB).append(LIKE);
+					t=false;
 				}else if(i==0){
 					condition.append(AND).append(LB).append(LIKE);
 				}else{
@@ -134,8 +137,9 @@ public class WorkDAOHibernate implements WorkDAO {
 		}
 		if(not!=null){
 			for(int i=0;i<not.length;i++){
-				if(condition.toString().equals(SEARCH_BY_TITLE)){
+				if(t){
 					condition.append(NOT).append(LB).append(LIKE);
+					t=false;
 				}else if(i==0){
 					condition.append(AND).append(NOT).append(LB).append(LIKE);
 				}else{
@@ -146,7 +150,7 @@ public class WorkDAOHibernate implements WorkDAO {
 		}
 		System.out.println(condition.toString());
 		
-		if (!condition.toString().equals(SEARCH_BY_TITLE)) {
+		if (!t) {
 			Query<WorkBean> query=this.getSession().createQuery(condition.toString(),WorkBean.class);
 			list=new ArrayList<>();
 			int i=0;

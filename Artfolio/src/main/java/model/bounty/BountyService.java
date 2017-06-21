@@ -134,4 +134,11 @@ public class BountyService {
 		return bountydao.updateByDate(state);
 	}
 	
+	public List<BountyBean> search(Integer orderby,Integer[] amount,
+			Integer[] state,String[] tag){
+		if(orderby==null && amount==null && state==null && tag==null)
+			return null;
+		return bountydao.search(orderby, amount, state, tag);
+	}
+	
 }
