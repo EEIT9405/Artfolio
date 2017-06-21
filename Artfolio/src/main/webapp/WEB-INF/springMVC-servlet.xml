@@ -38,9 +38,10 @@
 	<bean id="bountyScheduler" class="misc.schedule.BountyScheduler"></bean>
 	<task:scheduler id="scheduler2"/>
 	<task:scheduled-tasks scheduler="scheduler2">
-		<task:scheduled ref="bountyScheduler" method="doSomethig" cron="59 59 23 * * ?"/>
+		<task:scheduled ref="bountyScheduler" method="doSomethig" cron="0/10 * * * * ?"/>
 	</task:scheduled-tasks>
-	
+<!-- 	0/10 * * * * ? -->
+<!-- 59 59 23 * * ? -->
 	<!--郵件黑名單過濾AOP -->
 <!-- 	<aop:aspectj-autoproxy /> -->
 
