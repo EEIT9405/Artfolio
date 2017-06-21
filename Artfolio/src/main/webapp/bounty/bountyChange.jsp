@@ -69,7 +69,7 @@ padding-top:60px;
 	padding-right:30px;
 }
 #bd .col-md-4{
-	padding:0;
+/* 	padding:0; */
 }
 #bd .col-md-6{
 	padding:0;

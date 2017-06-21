@@ -448,7 +448,7 @@
 																			'width',
 																			'50px')
 																	.css(
-																			'heigh',
+																			'height',
 																			'50px')
 																	.css(
 																			'box-shadow',
