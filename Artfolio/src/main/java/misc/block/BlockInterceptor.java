@@ -29,35 +29,39 @@ public class BlockInterceptor implements HandlerInterceptor {
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
-		MemberBean user = (MemberBean) request.getSession(false).getAttribute("loginOK");
-		if (user == null) {
-			return;
+		MemberBean user = null;
+		if (request != null) {
+			user = (MemberBean) request.getSession().getAttribute("loginOK");
 		}
-		int mid = user.getMid();
-		List<BlockBean> blockList = blockService.getAllList(user);
 
-		Object obj = modelAndView.getModel().get("bean");
-		Object obj2 = modelAndView.getModel().get("select");
+		if (user != null) {
+			int mid = user.getMid();
+			List<BlockBean> blockList = blockService.getAllList(user);
 
-		if (blockList != null && !blockList.isEmpty()) {
-			// if (workList != null) {
-			// request.setAttribute("works", filterWork(blockList, workList));
-			// }
-			if (obj != null && obj2 != null) {
-				if (obj instanceof BountyBean) {
-					BountyBean bountyBean = (BountyBean) obj;
-					BountyBean bean = BlockUtils.filterBounty(blockList, bountyBean, mid);
-					if (bean == null) {
-						modelAndView.setViewName("bountyIndext");
+			Object obj = modelAndView.getModel().get("bean");
+			Object obj2 = modelAndView.getModel().get("select");
+
+			if (blockList != null && !blockList.isEmpty()) {
+				// if (workList != null) {
+				// request.setAttribute("works", filterWork(blockList,
+				// workList));
+				// }
+				if (obj != null && obj2 != null) {
+					if (obj instanceof BountyBean) {
+						BountyBean bountyBean = (BountyBean) obj;
+						BountyBean bean = BlockUtils.filterBounty(blockList, bountyBean, mid);
+						if (bean == null) {
+							modelAndView.setViewName("bountyIndext");
+						}
+						modelAndView.addObject("bean", bean);
 					}
-					modelAndView.addObject("bean", bean);
-				}
-				if (obj2 instanceof List) {
-					List<Map<String, Object>> temp = (List<Map<String, Object>>) obj2;
-					if (!temp.isEmpty())
-						modelAndView.addObject("select", BlockUtils.filterBmsg(blockList, temp, mid));
-				}
+					if (obj2 instanceof List) {
+						List<Map<String, Object>> temp = (List<Map<String, Object>>) obj2;
+						if (!temp.isEmpty())
+							modelAndView.addObject("select", BlockUtils.filterBmsg(blockList, temp, mid));
+					}
 
+				}
 			}
 		}
 	}

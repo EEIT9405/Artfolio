@@ -72,7 +72,7 @@
 </div>
 <br/> 
 	<!-- Page Content -->
-	<div class="container" style="height:auto; min-height:500px; margin-bottom:30px;">
+	<div class="container" style="height:auto; min-height:660px; margin-bottom:30px;">
 
 		<!-- Page Heading/Breadcrumbs -->
 
