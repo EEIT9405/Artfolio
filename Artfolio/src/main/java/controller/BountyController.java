@@ -447,4 +447,45 @@ public class BountyController {
 			return "bountyPersonal";
 		}
 	}
+	
+	
+	@RequestMapping(path = "/bounty/bountySearch.controller", method = {
+			RequestMethod.GET }, produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public String bountySearch(@RequestParam(defaultValue="1")Integer orderby,@RequestParam(required=false)Integer[] amount,
+			@RequestParam(required=false)Integer[] state,@RequestParam(required=false)String[] tag) throws JsonProcessingException {
+		if(orderby==null && amount==null && state==null && tag==null)
+			return null;
+		if(orderby!=null){
+			if(orderby.intValue() > 2 || orderby.intValue() < 0 )
+				return null;
+		}
+		if(amount!=null){
+			if(amount.length>5)
+				return null;
+			for(int i=0;i<amount.length;i++){
+				if(amount[i].intValue() > 16 || amount[i].intValue() < 0 || (amount[i].intValue()%2==1 && amount[i].intValue()!=1))
+					return null;
+			}
+		}
+		if(state!=null){
+			if(state.length>4)
+				return null;
+			for(int i=0;i<state.length;i++){
+				if(state[i].intValue() > 16 || state[i].intValue() < 0 || state[i].intValue()%2==1 && state[i].intValue()!=1)
+					return null;
+			}
+		}
+		if(tag!=null){
+//			for(int i=0;i<tag.length;i++){
+//				
+//			}
+		}
+		
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.setDateFormat(sdf);
+		
+		return mapper.writeValueAsString(bountyService.search(orderby, amount, state, tag));
+	}
+	
 }
