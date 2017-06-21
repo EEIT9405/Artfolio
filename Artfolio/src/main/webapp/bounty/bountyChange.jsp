@@ -261,7 +261,15 @@ padding-top:60px;
 							<label class="col-md-4 control-label">活動圖片</label>
 							<div class="col-md-4 inputGroupContainer">
 							
-							<div class="file-preview-frame krajee-default  kv-preview-thumb"
+						
+									<input type="hidden" name="oriurl" value="C:/Artfolio/BountyImgs/${change.b_attach_pic.substring(change.b_attach_pic.lastIndexOf("/")+1)}"/>						
+							
+							
+								<div class="input-group">
+									<span class="input-group-addon"><i
+										class="glyphicon glyphicon-picture"></i></span>
+										
+											<div class="file-preview-frame krajee-default  kv-preview-thumb"
 								id="imgori" data-fileindex="0" data-template="image" style="display:inline">
 								<div class="kv-file-content">
 									<img
@@ -288,16 +296,8 @@ padding-top:60px;
 									</div>
 								</div>
 							</div>
-									<input type="hidden" name="oriurl" value="C:/Artfolio/BountyImgs/${change.b_attach_pic.substring(change.b_attach_pic.lastIndexOf("/")+1)}"/>						
-							
-							
-							
-							
-							
-							<div style="position:absolute;"></div>
-								<div class="input-group">
-									<span class="input-group-addon"><i
-										class="glyphicon glyphicon-picture"></i></span> <input id="pic"
+										
+										<input id="pic"
 										name="pic" type="file" class="file" multiple data-show-upload="false">
 								</div>
 								<div>${err.attach}</div>

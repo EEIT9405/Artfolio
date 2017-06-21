@@ -27,6 +27,13 @@
 	<bean id="upload" class="org.springframework.web.servlet.view.RedirectView">
 		<property name="contextRelative" value="true" />
 		<property name="url" value="/uploadresult.jsp"/>
+
+	</bean> 
+	
+	<bean id="login" class="org.springframework.web.servlet.view.RedirectView">
+		<property name="contextRelative" value="true" />
+		<property name="url" value="/secure/login.jsp"/>
+
 	</bean> 
 	
 	<bean id="targetPage" class="org.springframework.web.servlet.view.InternalResourceView">

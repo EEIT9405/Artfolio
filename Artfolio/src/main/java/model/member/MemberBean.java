@@ -1,8 +1,6 @@
 package model.member;
 
-import java.util.Comparator;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.SortedSet;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
@@ -50,17 +49,22 @@ public class MemberBean {
 	private java.util.Date mupdate;
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name="mid")
-	private Set<FavoriteBean> favorites = new TreeSet<FavoriteBean>(new Comparator<FavoriteBean>() {
-		@Override
-		public int compare(FavoriteBean o1, FavoriteBean o2) {
-			if (o1.getFcount() > o2.getFcount()) {
-				return -1;
-			} else if (o1.getFcount() == o2.getFcount()) {
-				return 0;
-			}
-			return 1;
-		}
-	});
+	@OrderBy("fcount desc")
+	private SortedSet<FavoriteBean> favorites;
+	
+//	 = new TreeSet<FavoriteBean>(new Comparator<FavoriteBean>() {
+//			@Override
+//			public int compare(FavoriteBean o1, FavoriteBean o2) {
+//				if (o1.getFcount() > o2.getFcount()) {
+//					return -1;
+//				} else if (o1.getFcount() == o2.getFcount()) {
+//					return 0;
+//				}
+//				return 1;
+//			}
+//		});
+	
+	
 	public MemberBean(){}
 	public MemberBean(Integer mid){this.mid=mid;}
 	
@@ -80,11 +84,11 @@ public class MemberBean {
 		this.isinfo = isinfo;
 	}
 
-	public Set<FavoriteBean> getFavorites() {
+	public SortedSet<FavoriteBean> getFavorites() {
 		return favorites;
 	}
 
-	public void setFavorites(Set<FavoriteBean> favorites) {
+	public void setFavorites(SortedSet<FavoriteBean> favorites) {
 		this.favorites = favorites;
 	}
 

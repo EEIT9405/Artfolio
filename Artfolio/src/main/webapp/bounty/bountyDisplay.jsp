@@ -192,7 +192,7 @@ padding-top:60px;
 								<li class="list"><input type="radio" value="b_click" name="order"> 熱門活動</li>
 								<li class="list"><input type="radio" value="b_update" name="order"> 最新活動</li>
 							</ul>
-						</div>
+						</div>s
 					</div>
 
 					<div class="panel panel-default">

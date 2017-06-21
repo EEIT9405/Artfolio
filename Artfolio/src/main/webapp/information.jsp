@@ -10,7 +10,9 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/u/bs/jq-2.2.3,dt-1.10.12/datatables.min.css">
 <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="/Artfolio/css/sweetalert.css">
+<link href="/Artfolio/css/lightbox.css" rel="stylesheet">
 <script src="js/jquery-3.2.1.min.js"></script>
+<script src="/Artfolio/js/lightbox.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src='/Artfolio/js/sweetalert.min.js'></script>
 <style type="text/css">
@@ -162,7 +164,7 @@
 							<div class="col-md-4">
 
 								<div class="form-group">
-									<a href="portfolio-item.html"> <img
+									<a href="${loginOK.mphoto}"  rel="lightbox" title="大頭照"> <img
 									 
 										class="img-responsive img-hover img-circle" style="width:200px"
 										src="${loginOK.mphoto}" alt="">
