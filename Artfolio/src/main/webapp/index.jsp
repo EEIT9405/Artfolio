@@ -21,7 +21,8 @@
 	font-family:monospace 微軟正黑體;
 }
 .wmsgArea {
-	height: 270px;
+	min-height: auto;
+	max-height: 500px;
 /* 	overflow-y: auto; */
 /* 	overflow-x: hidden; */
 }
@@ -730,8 +731,7 @@
 				$('#wid').val(thisWid);
 				var mb = $('#modalbodyimage').empty();
 				$(this).children('img').clone().attr("style",
-							"max-width:100%;max-height:500px").addClass(
-							'img-fluid').appendTo(mb);
+							"max-width:100%;max-height:700px;").appendTo(mb);
 				$('#ImageModal').modal(
 					{backdrop : 'static',keyboard:false}
 				);

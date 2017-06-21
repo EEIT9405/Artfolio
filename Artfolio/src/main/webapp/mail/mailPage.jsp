@@ -15,8 +15,6 @@
 	   <!-- Bootstrap Core CSS -->
 	<link href="/Artfolio/css/bootstrap.min.css" rel="stylesheet">
 	
-	<!-- Custom CSS -->
-	<link href="/Artfolio/css/modern-business.css" rel="stylesheet">
 	
 	<!-- Custom Fonts -->
 	<link href="/Artfolio/font-awesome/css/font-awesome.min.css" rel="stylesheet"
@@ -26,7 +24,8 @@
 	<link href="/Artfolio/css/fileinput.min.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/u/bs/jq-2.2.3,dt-1.10.12/datatables.min.css" />
 	<link href="../css/fileinput.min.css" rel="stylesheet">
-
+	<script src="../js/jquery-3.2.1.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
 <style type="text/css">
 .classes{
 	margin-top:10px;
@@ -119,7 +118,7 @@ div#replyBox {
 	</header>
 
     <!-- Page Content -->
-    <div class="container">
+    <div class="container" style="height:auto; min-height:800px; margin-bottom:30px; margin-top:50px;">
 
         <!-- Page Heading/Breadcrumbs -->
         <div class="row">
@@ -233,12 +232,9 @@ div#replyBox {
         <!-- Footer -->
     </div>
     <!-- /.container -->
-
+<jsp:include page="../top/footer.jsp"></jsp:include>
    <!-- jQuery -->
-	<script src="../js/jquery-3.2.1.min.js"></script>
 
-	<!-- Bootstrap Core JavaScript -->
-	<script src="../js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="https://cdn.datatables.net/u/bs/jq-2.2.3,dt-1.10.12/datatables.min.js"></script>
 	<script src="../js/fileinput.min.js"></script>
 

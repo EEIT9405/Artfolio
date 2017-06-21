@@ -124,6 +124,10 @@
   background-size: 100%;
   padding-top: 60px;
 }
+#photoContainer {
+	overflow-y:auto;
+	height:800px;
+}
 </style>
 
 </head>
@@ -212,7 +216,7 @@
 				</div>
             </div>
             
-	<div id="photoContainer" class="col-md-10" style="overflow-y:auto; height:500px;">
+	<div id="photoContainer" class="col-md-10">
          <!-- Projects Row -->
         <div class="row">
 	        
