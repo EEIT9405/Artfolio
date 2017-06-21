@@ -192,7 +192,7 @@ padding-top:60px;
 								<li class="list"><input type="checkbox" value="1" name="orderby"> 熱門活動</li>
 								<li class="list"><input type="checkbox" value="2" name="orderby"> 最新活動</li>
 							</ul>
-						</div>s
+						</div>
 					</div>
 
 					<div class="panel panel-default">
