@@ -13,6 +13,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Repository;
 
+
 @Repository
 public class BountyDAOHibernate implements BountyDAO {
 	@Autowired
@@ -135,5 +136,114 @@ public class BountyDAOHibernate implements BountyDAO {
 			return true;
 		}
 		return false;
+	}
+	
+	
+	
+	
+	private static final String SEARCH="FROM BountyBean",
+								ORDER_BY_CLICK=" ORDER BY b_click DESC",
+								ORDER_BY_DATE=" ORDER BY b_update DESC",
+								ORDER_BY_BONUS=" ORDER BY b_bonus_total DESC",
+								WHERE=" WHERE",
+								BONUS_CONDITION=" (b_bonus_total Between ? AND ?)",
+								STATE_CONDITION=" b_state=?",
+								TAG_CONDITION=" b_id IN (SELECT bountyBean FROM BountyTagBean WHERE b_tag=?)",
+								LB=" (",RB=" )",AND=" and",OR=" or";
+	
+	public List<BountyBean> search(Integer orderby,Integer[] amounts,
+			Integer[] states,String[] tag){
+		if(orderby==null && (amounts==null || amounts.length==0) && (states==null || states.length==0) && (tag==null || tag.length==0))
+			return null;
+		StringBuilder condition=new StringBuilder(SEARCH);
+		boolean t=true;
+		int amount=0,state=0;
+		if((amounts!=null && amounts.length>0) || (states!=null && states.length>0) || (tag!=null && tag.length>0))
+			condition.append(WHERE);
+		if(amounts!=null && amounts.length>0){
+			for(int i=0;i<amounts.length;i++){
+				if(i==0){
+					condition.append(LB).append(BONUS_CONDITION);
+					t=false;
+				}
+				else
+					condition.append(OR).append(BONUS_CONDITION);
+				amount+=amounts[i];
+			}
+			condition.append(RB);
+		}
+		if(states!=null && states.length>0){
+			for(int i=0;i<states.length;i++){
+				if (t){
+					condition.append(LB).append(STATE_CONDITION);
+					t=false;
+				}
+				else if(i==0)
+					condition.append(AND).append(LB).append(STATE_CONDITION);
+				else
+					condition.append(OR).append(STATE_CONDITION);		
+				state+=states[i];
+			}
+			condition.append(RB);
+		}
+		if(tag!=null && tag.length>0){
+			for(int i=0;i<tag.length;i++){
+				if(t){
+					condition.append(LB).append(TAG_CONDITION);
+					t=false;
+				}
+				else if(i==0)
+					condition.append(AND).append(LB).append(TAG_CONDITION);
+				else 
+					condition.append(OR).append(TAG_CONDITION);
+			}
+			condition.append(RB);
+		}
+		if(orderby!=null){
+			if(orderby.equals(0))
+				condition.append(ORDER_BY_BONUS);
+			else if(orderby.equals(2))
+				condition.append(ORDER_BY_DATE);
+			else
+				condition.append(ORDER_BY_CLICK);
+		}else
+			condition.append(ORDER_BY_CLICK);
+		
+		System.out.println(condition.toString());
+		Query<BountyBean> query=this.getSession().createQuery(condition.toString(),BountyBean.class);
+		int i=0;
+		if((amount&1)==1){
+			query.setParameter(i++, 0);
+			query.setParameter(i++, 50000);
+		}
+		if((amount&2)==2){
+			query.setParameter(i++, 50000);
+			query.setParameter(i++, 100000);
+		}
+		if((amount&4)==4){
+			query.setParameter(i++, 100000);
+			query.setParameter(i++, 250000);
+		}
+		if((amount&8)==8){
+			query.setParameter(i++, 250000);
+			query.setParameter(i++, 500000);
+		}
+		if((amount&16)==16){
+			query.setParameter(i++, 500000);
+			query.setParameter(i++, Integer.MAX_VALUE);
+		}
+		if((state&1)==1)
+			query.setParameter(i++, 0);
+		if((state&2)==2)
+			query.setParameter(i++, 2);
+		if((state&4)==4)
+			query.setParameter(i++, 1);
+		if((state&8)==8)
+			query.setParameter(i++, 3);
+		if(tag!=null && tag.length>0)
+		for(String term:tag)
+			query.setParameter(i++, term);
+			
+		return query.list();
 	}
 }

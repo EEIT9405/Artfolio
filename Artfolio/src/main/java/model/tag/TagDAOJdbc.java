@@ -114,10 +114,12 @@ public class TagDAOJdbc implements TagDAO {
 		ResultSet rset = null;
 		List<Integer> list=null;
 		StringBuilder condition=new StringBuilder(SELECT_WORKS);
+		boolean t=true;
 		if(and!=null){
 			for(int i=0;i<and.length;i++){
 				if(i==0){
 					condition.append(TAG);
+					t=false;
 				}else{
 					condition.append(AND).append(IN).append(LB).append(SELECT_WORKS).append(TAG).append(RB);
 				}
@@ -125,8 +127,9 @@ public class TagDAOJdbc implements TagDAO {
 		}
 		if(or!=null){
 			for(int i=0;i<or.length;i++){
-				if(condition.toString().equals(SELECT_WORKS)){
+				if(t){
 					condition.append(LB).append(TAG);
+					t=false;
 				}else if(i==0){
 					condition.append(AND).append(IN).append(LB).append(SELECT_WORKS).append(TAG);
 				}else{
@@ -137,15 +140,16 @@ public class TagDAOJdbc implements TagDAO {
 		}
 		if(not!=null){
 			for(int i=0;i<not.length;i++){
-				if(condition.toString().equals(SELECT_WORKS)){
+				if(t){
 					condition.append(NOT_IN).append(LB).append(SELECT_WORKS).append(TAG).append(RB);
+					t=false;
 				}else{
 					condition.append(AND).append(NOT_IN).append(LB).append(SELECT_WORKS).append(TAG).append(RB);
 				}
 			}
 		}
 		System.out.println(condition);
-		if(!condition.toString().equals(SELECT_WORKS)){
+		if(!t){
 			try (Connection conn = dataSource.getConnection();
 					PreparedStatement stmt = conn.prepareStatement(condition.toString());) {
 					int i=1;

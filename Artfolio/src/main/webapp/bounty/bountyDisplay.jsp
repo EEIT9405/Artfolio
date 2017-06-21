@@ -177,7 +177,41 @@ padding-top:60px;
 		<!-- Project One -->
 		<div class="row">
 			<div class="col-md-4" style="padding-top:10px;">
-				<form >
+
+				
+				  <div style="box-shadow:3px 3px 12px gray;" id="carousel-example-generic" class="carousel slide" data-ride="carousel" align="center">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                    </ol>
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <img class="img-responsive" src="http://placehold.it/750x500" alt="">
+                        </div>
+                        <div class="item">
+                            <img class="img-responsive" src="http://placehold.it/750x500" alt="">
+                        </div>
+                        <div class="item">
+                            <img class="img-responsive" src="http://placehold.it/750x500" alt="">
+                        </div>
+                        </div>
+                    </div>
+
+                    <!-- Controls -->
+                 <br>
+				
+				
+				
+				
+				
+				
+
+				<form id="bountySearch">
+
 				<div class="panel-group">
 					<div class="panel panel-default">
 						<div class="panel-heading">
@@ -188,11 +222,11 @@ padding-top:60px;
 						<div id="hidden-list3" class="panel-collapse collapse"
 							align="center">
 							<ul class="list-inline">
-								<li class="list"><input type="radio" value="b_bonus_total" name="order"> 最高獎金</li>
-								<li class="list"><input type="radio" value="b_click" name="order"> 熱門活動</li>
-								<li class="list"><input type="radio" value="b_update" name="order"> 最新活動</li>
+								<li class="list"><input type="checkbox" value="0" name="orderby"> 最高獎金</li>
+								<li class="list"><input type="checkbox" value="1" name="orderby"> 熱門活動</li>
+								<li class="list"><input type="checkbox" value="2" name="orderby"> 最新活動</li>
 							</ul>
-						</div>s
+						</div>
 					</div>
 
 					<div class="panel panel-default">
@@ -204,10 +238,10 @@ padding-top:60px;
 						<div id="hidden-list4" class="panel-collapse collapse"
 							align="center">
 							<ul class="list-inline">
-									<li class="list"><input type="checkbox" value="0" name="ing">徵件中</li>
-									<li class="list"><input type="checkbox" value="2" name="sonn">即將截止</li>
-									<li class="list"><input type="checkbox" value="1" name="end">已結束</li>
-									<li class="list"><input type="checkbox" value="3" name="ann">獲選公佈</li>
+									<li class="list"><input type="checkbox" value="1" name="state">徵件中</li>
+									<li class="list"><input type="checkbox" value="2" name="state">即將截止</li>
+									<li class="list"><input type="checkbox" value="4" name="state">已結束</li>
+									<li class="list"><input type="checkbox" value="8" name="state">獲選公佈</li>
 							</ul>
 						</div>
 					</div>
@@ -222,15 +256,15 @@ padding-top:60px;
 						<div id="hidden-list" class="panel-collapse collapse">
 							<ul class="list-group">
 								<li class="list-group-item"><input type="checkbox"
-									value="below50k" name="below50k">5萬以下</li>
+									value="1" name="amount">5萬以下</li>
 								<li class="list-group-item"><input type="checkbox"
-									value="50to100k" name="50to100k">5萬到10萬</li>
+									value="2" name="amount">5萬到10萬</li>
 								<li class="list-group-item"><input type="checkbox"
-									value="100to250k" name="100to250k">10萬到25萬 </li>
+									value="4" name="amount">10萬到25萬 </li>
 								<li class="list-group-item"><input type="checkbox"
-									value="250to500k" name="250to500k">25萬到50萬 </li>
+									value="8" name="amount">25萬到50萬 </li>
 								<li class="list-group-item"><input type="checkbox"
-									value="500kup" name="500kup">50萬以上  </li>
+									value="16" name="amount">50萬以上  </li>
 							</ul>
 						</div>					
 					</div>
@@ -245,29 +279,29 @@ padding-top:60px;
 							<ul class="list-group">
 								<li class="list-group-item">設計類別:</li>
 								<li class="list-group-item"><input type="checkbox"
-									value="t平面設計" name="t平面設計">平面設計</li>
+									value="平面設計" name="tag">平面設計</li>
 								<li class="list-group-item"><input type="checkbox"
-									value="t產品設計" name="t產品設計">產品設計</li>
+									value="產品設計" name="tag">產品設計</li>
 								<li class="list-group-item">影像類別:</li>
 								<li class="list-group-item"><input type="checkbox"
-									value="t攝影" name="t攝影">攝影</li>
+									value="攝影" name="tag">攝影</li>
 								<li class="list-group-item"><input type="checkbox"
-									value="t影片" name="t影片">影片</li>
+									value="影片" name="tag">影片</li>
 								<li class="list-group-item">寫作類別:</li>
 								<li class="list-group-item"><input type="checkbox"
-									value="t文學獎" name="t文學獎">文學獎</li>
+									value="文學獎" name="tag">文學獎</li>
 								<li class="list-group-item"><input type="checkbox"
-									value="t創意寫作" name="t創意寫作">創意寫作</li>
+									value="創意寫作" name="tag">創意寫作</li>
 								<li class="list-group-item">商業類別:</li>
 								<li class="list-group-item"><input type="checkbox"
-									value="tag企劃" name="t企劃">企劃</li>
+									value="企劃" name="tag">企劃</li>
 								<li class="list-group-item"><input type="checkbox"
-									value="tag創業" name="t創業">創業</li>
+									value="創業" name="tag">創業</li>
 								<li class="list-group-item">其他類別:</li>
 								<li class="list-group-item"><input type="checkbox"
-									value="t實習生徵求" name="t實習生徵求">實習生徵求</li>
+									value="實習生徵求" name="tag">實習生徵求</li>
 								<li class="list-group-item"><input type="checkbox"
-									value="t其他" name="t其他">其他</li>
+									value="其他" name="tag">其他</li>
 							</ul>
 						</div>
 					</div>
@@ -317,7 +351,7 @@ padding-top:60px;
 			$('#hidden-list4').collapse('show')
 		});	
 //==========================================================		
-		
+	
 		$(function() {
 			var mid = "${loginOK.mid}"
 				
@@ -328,11 +362,13 @@ padding-top:60px;
 				}
 				$('input:checkbox').change(function() { //選擇器選取狀態改變
 					if ($(':checkbox:checked').prop('checked')) { //若checkbox有打勾		
-						selectBounty($(this).val()); //取得打勾checkbox的值並以此選取活動資訊
+		//				selectBounty($(this).val()); //取得打勾checkbox的值並以此選取活動資訊
+						bountySearch();
 					} else {
 						loadBounty(); //取消選擇  載入loadBounty()
 					}
 				})	
+				
 		})
 		
 
@@ -506,7 +542,85 @@ padding-top:60px;
 						}
 					});
 				});
+		
+		var orderCheckboxes=$('input[name=orderby]');
+		orderCheckboxes.change(function(event){
+			orderCheckboxes.each(function(index,element){
+				if(event.target!=element)
+					$(element).prop('checked',false);
+			});
+		});
+		function bountySearch(){
+			$.getJSON('bountySearch.controller',$('form#bountySearch').serialize(),function(datas) {
+				$('#bountyTable').empty();
+					var count = 0;
+					$.each(datas,function(idx, bounty) {	
+						
+						var trackcount;
+						var msgcount;
+						$.ajax({
+								  url: 'displayCount.controller',
+								  data:{'id':bounty.b_id},
+								  async: false,
+								  dataType: 'json',
+								  success: function (data) {
+									  trackcount = data.trackcount;
+									  msgcount = data.msgcount;
+								  }
+							   });
+						
+						$('#bountyTable').append("<div id='row"+ count +"' class='row' style='border:1px solid #D8D8D8; border-radius:20px; overflow:hidden ;background-color:#fff;  box-shadow: 5px 5px 5px #E6E6E6;'></div>");
+						$('#row'+count).html("<div class='col-md-4'></div><div class='col-md-6'></div><div class='col-md-2'></div>");
+						$('#row'+count+' >div:nth-child(1)').html("<a href='/Artfolio/bounty/bountyPage.controller?id="
+								+ bounty.b_id
+								+ "'><img style='border-radius:10px'  class='img-responsive' alt='Cinque Terre' src='/bountyImgs/"
+								+ bounty.b_attach_pic
+										.substring(bounty.b_attach_pic
+												.lastIndexOf('/') + 1)
+								+ "'></a>")
+						$('#row'+count+' >div:nth-child(2)').html("<h3><a href='/Artfolio/bounty/bountyPage.controller?id="+ bounty.b_id+"'>"+bounty.b_title+"</a></h3>"
+																   + "<div>總獎金 TWD$ : "+ bounty.b_bonus_total 
+																   + "</div><div style=' margin-bottom:20px'>截止收件 : "+ bounty.b_enddate +"</div>"
+																   + "<div style='font-size:12px' class='btn btn-default' id='soon"+count+"'>即將截止</div>"
+																   + "<div style='font-size:12px' class='btn btn-default' id='ing"+count+"'>進行中</div>"
+																   + "<div style='font-size:12px' class='btn btn-default' id='end"+count+"'>已結束</div>"
+																   + "<div style='font-size:12px' class='btn btn-default' id='ann"+count+"'>獲選公布</div><br>"											  
+																   + "<div style='display:none'>"+ bounty.b_id+ "</div>"
+																   + "<div style='display:none'>"+ bounty.mid+ "</div>"
+																   + "<div style='display:none'>"+ bounty.b_title+ "</div>")
+							$('#row'+count+' >div:last-child').html("<br><p ><i style='padding-right:5px' class='glyphicon glyphicon-eye-open'></i>"+ bounty.b_click +"</p>"
+																   +"<p><i style='padding-right:5px' class='glyphicon glyphicon-comment'></i>"+ msgcount +"</p>"
+																   +"<p style=' margin-bottom:61px'><i style='padding-right:5px' class='glyphicon glyphicon-heart-empty'></i>"+  trackcount +"</p>"
+																   +"<a class='btn btn-mini btn-primary' style='font-size:12px'><span class='glyphicon glyphicon-heart'></span>  追蹤</a>")
+// 																   +"<a class='btn btn-primary' href='portfolio-item.html'><span class='glyphicon glyphicon-heart'></span>  參加</a>")
+							 	
+						var b_state = bounty.b_state
+						switch(b_state){
+						case 0://進行中
+							$("#ing"+count).removeClass().addClass('btn btn-info');
+							break;
+						case 1://已結束
+							$("#end"+count).removeClass().addClass('btn btn-info');
+							break;
+						case 2://即將截止
+							$("#soon"+count).removeClass().addClass('btn btn-info');
+							break;
+						case 3://獲選公布
+							$("#ann"+count).removeClass().addClass('btn btn-info');
+							break;	
+						}
 	
+						//alert(bounty.mid +"  "+mid)
+						//根據使用者判斷顯示活動按鈕
+// 						if(bounty.mid==mid){
+// 							$('.button').attr('type','hidden')
+// 						}	
+						
+						count++;
+					})
+ 				})
+			
+		}
 	</script>
 
 </body>

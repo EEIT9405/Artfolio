@@ -29,6 +29,11 @@ height:20px;
 font-size: 20px;
 
 }
+#contact_form{
+background-color: #D3D3D3;
+
+}
+
 </style>
 </head>
 <body>
@@ -108,7 +113,7 @@ font-size: 20px;
 									<span class="input-group-addon"><i
 										class="glyphicon glyphicon-pencil"></i></span>
 										
-									<textarea Wrap="hard" class="form-control" name="info" 
+									<textarea   id="changearea"   onfocus="test3()" Wrap="hard" class="form-control" name="info" 
 										placeholder="自我介紹">${loginOK.info}</textarea><span>${err.aprti}</span>
 								</div>
 							</div>
@@ -209,6 +214,13 @@ font-size: 20px;
                   swal(aa,"" ,"error")
             }
 	});
+	
+	function test3(){
+		$('#changearea').css('width','400px').css('height','200px');
+	}
+	
+	
+	
 	</script>
 </body>
 </html>

@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,8 @@ public class BountyController {
 	private BmsgService bmsgService;
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private HttpSession session;
 
 	// ============活動頁面=========================================================================================================	
 	// 活動主頁呈現
@@ -412,6 +415,77 @@ public class BountyController {
 		}
 		return false;
 	}
+	// ============活動留言更新 6/21=======================================================================================================	
+	@RequestMapping(path = { "/bounty/NewpersonalDisplay.controller" }, method = {
+			RequestMethod.GET })
 	
+	public String BountyPersonal(Integer mid,Model model) throws JsonProcessingException {
+
+
+		// 利用會員ID取得該會員所有發表活動資訊
+		List<BountyBean> result = bountyService.selectByMember(mid);
+		                           
+		List<Map<String, Object>> select = new ArrayList<>();
+		for (BountyBean ca : result) {
+			Map<String, Object> map = new HashMap<>();
+			map.put("msg", bmsgService.countAllMsgs(ca.getB_id()));
+			map.put("track", bountyTrackService.countAllTracks(ca.getB_id()));
+			map.put("bounty", ca);
+	
+			select.add(map);
+		}		
+		     
+		MemberBean user = (MemberBean) session.getAttribute("loginOK");
+		if (!mid.equals(user.getMid())){
+		
+		model.addAttribute("member",memberService.select(mid));
+		// 將活動資訊轉為JSON格式
+		model.addAttribute("midPersonal", select);
+		return "midPersonal";
+		
+		}else{
+			return "bountyPersonal";
+		}
+	}
+	
+	
+	@RequestMapping(path = "/bounty/bountySearch.controller", method = {
+			RequestMethod.GET }, produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public String bountySearch(@RequestParam(defaultValue="1")Integer orderby,@RequestParam(required=false)Integer[] amount,
+			@RequestParam(required=false)Integer[] state,@RequestParam(required=false)String[] tag) throws JsonProcessingException {
+		if(orderby==null && amount==null && state==null && tag==null)
+			return null;
+		if(orderby!=null){
+			if(orderby.intValue() > 2 || orderby.intValue() < 0 )
+				return null;
+		}
+		if(amount!=null){
+			if(amount.length>5)
+				return null;
+			for(int i=0;i<amount.length;i++){
+				if(amount[i].intValue() > 16 || amount[i].intValue() < 0 || (amount[i].intValue()%2==1 && amount[i].intValue()!=1))
+					return null;
+			}
+		}
+		if(state!=null){
+			if(state.length>4)
+				return null;
+			for(int i=0;i<state.length;i++){
+				if(state[i].intValue() > 16 || state[i].intValue() < 0 || state[i].intValue()%2==1 && state[i].intValue()!=1)
+					return null;
+			}
+		}
+		if(tag!=null){
+//			for(int i=0;i<tag.length;i++){
+//				
+//			}
+		}
+		
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.setDateFormat(sdf);
+		
+		return mapper.writeValueAsString(bountyService.search(orderby, amount, state, tag));
+	}
 	
 }

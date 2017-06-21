@@ -24,7 +24,6 @@
 <style type="text/css">
 
 </style>
-
 </head>
 <body background="/Artfolio/webbackground/vintage-leaves.png">
 		<jsp:include page="../top/header.jsp"></jsp:include>
@@ -191,11 +190,20 @@
 							</div>
 										<div class="col-md-8">
 											<div class="competition__description__wrap ">
-												<h1>${bean.b_title}</h1>		
+												<h1>${bean.b_title}</h1>	
+												
+												
+												
+												
+													
 														<div class="social__share ">	
-																<a class="btn btn-outline" style="color:#0040FF"><i class="fa fa-facebook fa-lg"></i></a>
+																<a class="btn btn-outline" style="color:#0040FF" onclick="share()"><i class="fa fa-facebook fa-lg"></i></a>
 																<a class="btn btn-outline"><i class="fa fa-twitter fa-lg"></i></a>		
 														</div>
+														
+														
+														
+														
 														<div style='font-size:12px; font-weight:bolder; color:black' class='btn btn-default btn-xs' id='soon'>即將截止</div>
 														<div style='font-size:12px; font-weight:bolder; color:black' class='btn btn-default btn-xs' id='ing'>進行中</div>
 														<div style='font-size:12px; font-weight:bolder; color:black' class='btn btn-default btn-xs' id='end'>已結束</div>
@@ -295,6 +303,54 @@
 	
 	<!-- /.container -->
 <jsp:include page="../top/footer.jsp"></jsp:include>
+
+
+<!-- FB分享 -->
+<script>
+
+var str1= location.href;
+var path = str1.replace('localhost','192.168.31.4')
+
+
+window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '130481644193160',
+      xfbml      : true,
+      version    : 'v2.9'
+    });
+    FB.AppEvents.logPageView();
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+  
+  
+  function share()
+  {
+     FB.ui(
+      {
+        method: 'share',
+        href: path,
+      },
+      // callback
+      function(response) {
+        if (response && !response.error_message) {
+          alert('分享成功後即可領取紅利!');
+        } else {
+          // alert('Error while posting.');
+        }
+      }
+    )
+  };
+</script>
+
+
+
 
 	<script>
 		$(document).ready(function() {			
@@ -448,7 +504,7 @@
 																			'width',
 																			'50px')
 																	.css(
-																			'heigh',
+																			'height',
 																			'50px')
 																	.css(
 																			'box-shadow',
@@ -462,8 +518,8 @@
 																	.append(img);
 															var cell1 = $(
 																	'<td></td>')
-																	.text(
-																			bmg.member.name);
+																	.html(
+																			'<a href="/Artfolio/bounty/NewpersonalDisplay.controller?mid='+bmg.member.mid+'">'+bmg.member.name+'<a>');
 															var cell2 = $(
 																	'<td></td>')
 																	.text(

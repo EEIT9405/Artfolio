@@ -150,7 +150,7 @@
    </div>             
 </div>
 <br/> 
-<div class="container" style="height:auto; min-height:500px; margin-bottom:30px;">
+<div class="container" style="height:auto; min-height:800px; margin-bottom:30px;">
         <!-- Page Heading/Breadcrumbs -->
         <div class="row">
             <div class="col-lg-12">
