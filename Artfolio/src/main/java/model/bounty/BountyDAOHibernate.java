@@ -240,6 +240,7 @@ public class BountyDAOHibernate implements BountyDAO {
 			query.setParameter(i++, 1);
 		if((state&8)==8)
 			query.setParameter(i++, 3);
+		if(tag!=null && tag.length>0)
 		for(String term:tag)
 			query.setParameter(i++, term);
 			
