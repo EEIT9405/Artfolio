@@ -124,7 +124,7 @@ font-style:italic;
 									<label class="col-md-3 control-label lab1">名稱：</label> <label
 										class="col-md-6  control-label" style="text-align:left;">${loginOK.name}</label>
 								</div>
-
+                            
 								<div class="form-group">
 									<label class="col-md-3 control-label lab1">信箱：</label> <label
 										class="col-md-6  control-label" style="text-align:left;">${loginOK.email}</label>
