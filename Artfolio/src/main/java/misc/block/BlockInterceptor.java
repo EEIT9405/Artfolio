@@ -29,10 +29,11 @@ public class BlockInterceptor implements HandlerInterceptor {
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
-		MemberBean user = (MemberBean) request.getSession(false).getAttribute("loginOK");
-		if (user == null) {
-			return;
+		MemberBean user=null;
+		if(request!=null){
+			user = (MemberBean) request.getSession().getAttribute("loginOK");
 		}
+		if (user != null) {	
 		int mid = user.getMid();
 		List<BlockBean> blockList = blockService.getAllList(user);
 
@@ -59,6 +60,7 @@ public class BlockInterceptor implements HandlerInterceptor {
 				}
 
 			}
+		}
 		}
 	}
 

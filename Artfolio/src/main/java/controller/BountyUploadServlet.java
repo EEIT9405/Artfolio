@@ -67,13 +67,13 @@ public class BountyUploadServlet extends HttpServlet {
 		String pisStorageURL = null;
 		String attchStorageURL=null;
 
-		if (parts != null) {
+		if (parts != null) {  //multipart request!=null 用for迴圈取得所有part
 			for (Part p : parts) {
-				String fldName = p.getName();
-				String value = request.getParameter(fldName);
+				String fldName = p.getName();    //取得part的name
+				String value = request.getParameter(fldName);  //利用name取得參數值
 				System.out.println("fldName=" + fldName + ", value=" + value);
-				if (p.getContentType() == null) { // 非檔案類型資料
-					if (fldName.equals("topic")) {
+				if (p.getContentType() == null) { // 如果part的contentType==null非檔案類型資料
+					if (fldName.equals("topic")) {     //取得表單中各名稱相對應的值
 						topic = value;
 					} else if (fldName.equals("tag")) {		
 						tags = request.getParameterValues("tag");
@@ -94,12 +94,12 @@ public class BountyUploadServlet extends HttpServlet {
 					} else if (fldName.equals("particimethod")) {
 						particimethod = value;
 					} 				
-				} else {    // 檔案類型資料
+				} else {    // 如果part的contentType!=null 檔案類型資料
 					if(fldName.equals("pic")){
 						String picname = null;
 						for (String file : p.getHeader("content-disposition").split(";")) { // 從part取得"content-disposition"標頭(內含上傳檔案資訊(包含名稱))，並從標頭中取得filenanme
 							if (file.trim().startsWith("filename")) {
-								picname = file.substring(file.indexOf('=') + 1).trim().replace("\"", "");
+								picname = file.substring(file.indexOf('=') + 1).trim().replace("\"", ""); //取得檔案名稱
 								System.out.println(picname);
 							}
 						}	

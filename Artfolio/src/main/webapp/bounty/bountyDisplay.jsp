@@ -317,7 +317,7 @@ padding-top:60px;
 			$('#hidden-list4').collapse('show')
 		});	
 //==========================================================		
-		
+	
 		$(function() {
 			var mid = "${loginOK.mid}"
 				
