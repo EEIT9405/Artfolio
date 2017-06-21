@@ -170,7 +170,20 @@
 <script src='/Artfolio/js/imagesloaded.pkgd.min.js'></script>
 <script src='/Artfolio/js/jquery.lazyload.min.js'></script>
 <script>
+
+// 	$(document).ajaxStart(function(){
+// 		timestart=window.setTimeout(function(){
+// 			if(!document.getElementById('loading'))
+// 			$('<div id="loading" style="text-align:center;position: fixed; top: 0;right: 0;bottom: 0;left: 0'+
+// 			';z-index: 2000;"><img src="/Artfolio/img/User_47571025.jpg"></div>').appendTo($('body'));
+// 		},2000);
+		
+// 	});
+
 	$(document).ajaxStop(function(){
+// 		 window.clearTimeout(timestart);
+// 		$('#loading').remove();
+		
 		
 		$("img.lazy").lazyload({
 		    effect : "fadeIn",
