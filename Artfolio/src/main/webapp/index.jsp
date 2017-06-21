@@ -32,10 +32,11 @@
   height: 100px;
   margin-top: 12px;
   margin-bottom: 12px;
-  margin-right:15px;
+  margin-right:30px;
   position: relative;
   float:left;
   cursor:pointer;
+  transition:0.4s;
 }
 .recommendPhoto img {
   position: absolute;

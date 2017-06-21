@@ -171,18 +171,18 @@
 <script src='/Artfolio/js/jquery.lazyload.min.js'></script>
 <script>
 
-// 	$(document).ajaxStart(function(){
-// 		timestart=window.setTimeout(function(){
-// 			if(!document.getElementById('loading'))
-// 			$('<div id="loading" style="text-align:center;position: fixed; top: 0;right: 0;bottom: 0;left: 0'+
-// 			';z-index: 2000;"><img src="/Artfolio/img/User_47571025.jpg"></div>').appendTo($('body'));
-// 		},2000);
+	$(document).ajaxStart(function(){
+		timestart=window.setTimeout(function(){
+			if(!document.getElementById('loading'))
+			$('<div id="loading" style="text-align:center;position: fixed; top: 200px;right: 0;bottom: 0;left: 0'+
+			';z-index: 2000;"><img style="border-radius:10%; width:300px" src="/Artfolio/img/01-progress.gif"></div>').appendTo($('body'));
+		},1000);
 		
-// 	});
+	});
 
 	$(document).ajaxStop(function(){
-// 		 window.clearTimeout(timestart);
-// 		$('#loading').remove();
+		 window.clearTimeout(timestart);
+		$('#loading').remove();
 		
 		
 		$("img.lazy").lazyload({
