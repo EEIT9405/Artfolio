@@ -41,10 +41,10 @@ public class WorkController {
 	public String upload(MultipartFile[] files, @RequestParam Map<String, String> params) {
 		Integer mid = (Integer) session.getAttribute("mid");
 		if (mid == null) {
-			return "upload";
+			return "login";
 		}
-
-		File path = new File("C:\\EEIT94_05_Project\\" + mid);
+		
+		File path = new File("C:/Artfolio/works/" + mid);
 		if (!path.exists())
 			path.mkdirs();
 		List<List<String>> list = new ArrayList<>();

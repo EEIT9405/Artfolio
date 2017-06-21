@@ -13,8 +13,10 @@
   }
   
    .pushbefore {
+   	display:block;
   	margin:0 auto;
 	margin-top:15px;
+	margin-right:10px;
   	width:200px;
   	height:0;
   	background-color:white;
@@ -22,6 +24,8 @@
   	transition:0.4s;
   	overflow:hidden;
   	cursor:pointer;
+  	border:solid 1px white;
+  	border-radius:2%;
   }
 </style>
 </head>

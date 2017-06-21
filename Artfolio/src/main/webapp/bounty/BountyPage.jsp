@@ -9,10 +9,6 @@
 
 <!-- Bootstrap Core CSS -->
 <link href="/Artfolio/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Custom CSS -->
-<link href="/Artfolio/css/modern-business.css" rel="stylesheet">
-
 <!-- Custom Fonts -->
 <link href="/Artfolio/font-awesome/css/font-awesome.min.css" rel="stylesheet"
 	type="text/css">
@@ -21,13 +17,18 @@
 <link href="/Artfolio/css/fileinput.min.css" rel="stylesheet">
 <link href="/Artfolio/css/sweetalert.css" rel="stylesheet">
 <link href="/Artfolio/css/bountyPage.css" rel="stylesheet">
+	<script src="/Artfolio/js/jquery-3.2.1.min.js"></script>
+	<!-- Bootstrap Core JavaScript -->
+	<script src="/Artfolio/js/bootstrap.min.js"></script>
+	<script src="/Artfolio/js/sweetalert.min.js"></script>
 <style type="text/css">
-</style>
 
+</style>
 </head>
 <body background="/Artfolio/webbackground/vintage-leaves.png">
 		<jsp:include page="../top/header.jsp"></jsp:include>
-		<header  style="margin-top:10px;">
+		<div id="bd">
+		<header >
 				<ol class="breadcrumb">
 					<li class="active"><a href="<c:url value="/bounty/bountyDisplay.jsp"/>">所有活動</a></li>
 					<li class="active"><a href="<c:url value="/bounty/bountyTrackPage.jsp"/>">活動追蹤</a></li>
@@ -46,7 +47,7 @@
 			<div class="onHeaderfixed">
 				<div class="competitions" transition="app-layout">
 					<section class="bg__wrap--full" transition-mode="out-in">
-					<section>
+					
 									
 					<!--標頭圖片 -->
 					<div class="competition__keyBg" style="box-shadow: 5px 5px 5px #BDBDBD;">
@@ -56,7 +57,7 @@
 						<div class="competition__keyBg__mask"></div>
 					</div>
 							
-					<div class="container">
+					<div class="container" >
 						<div class="row competition__content-wrap">
 							<div class="sidebar col-md-4" style="position: relative; z-index: 1; background-color:#FAFAFA ;border:1px solid #D8D8D8; padding:5px; box-shadow: 5px 5px 5px #E6E6E6;">
 								<aside class="card card-default">
@@ -189,11 +190,20 @@
 							</div>
 										<div class="col-md-8">
 											<div class="competition__description__wrap ">
-												<h1>${bean.b_title}</h1>		
+												<h1>${bean.b_title}</h1>	
+												
+												
+												
+												
+													
 														<div class="social__share ">	
-																<a class="btn btn-outline" style="color:#0040FF"><i class="fa fa-facebook fa-lg"></i></a>
+																<a class="btn btn-outline" style="color:#0040FF" onclick="share()"><i class="fa fa-facebook fa-lg"></i></a>
 																<a class="btn btn-outline"><i class="fa fa-twitter fa-lg"></i></a>		
 														</div>
+														
+														
+														
+														
 														<div style='font-size:12px; font-weight:bolder; color:black' class='btn btn-default btn-xs' id='soon'>即將截止</div>
 														<div style='font-size:12px; font-weight:bolder; color:black' class='btn btn-default btn-xs' id='ing'>進行中</div>
 														<div style='font-size:12px; font-weight:bolder; color:black' class='btn btn-default btn-xs' id='end'>已結束</div>
@@ -286,18 +296,62 @@
 				
 				</div>
 			</div>
-			<div id="layout_footer"></div>
-	
-	
+	</div>
+	</div>
 		<!---->
 		<!---->
 	
 	<!-- /.container -->
+<jsp:include page="../top/footer.jsp"></jsp:include>
 
-	<script src="/Artfolio/js/jquery-3.2.1.min.js"></script>
-	<!-- Bootstrap Core JavaScript -->
-	<script src="/Artfolio/js/bootstrap.min.js"></script>
-	<script src="/Artfolio/js/sweetalert.min.js"></script>
+
+<!-- FB分享 -->
+<script>
+
+var str1= location.href;
+var path = str1.replace('localhost','192.168.31.4')
+
+
+window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '130481644193160',
+      xfbml      : true,
+      version    : 'v2.9'
+    });
+    FB.AppEvents.logPageView();
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+  
+  
+  function share()
+  {
+     FB.ui(
+      {
+        method: 'share',
+        href: path,
+      },
+      // callback
+      function(response) {
+        if (response && !response.error_message) {
+          alert('分享成功後即可領取紅利!');
+        } else {
+          // alert('Error while posting.');
+        }
+      }
+    )
+  };
+</script>
+
+
+
+
 	<script>
 		$(document).ready(function() {			
 		
@@ -450,7 +504,7 @@
 																			'width',
 																			'50px')
 																	.css(
-																			'heigh',
+																			'height',
 																			'50px')
 																	.css(
 																			'box-shadow',
@@ -525,7 +579,7 @@
 						'click',
 						'button:nth-child(1)',
 						function(data) { //刪除
-							alert("haha")
+							swal('成功','留言已刪除','success');
 							//alert($(this).parents('tr').children('td:eq(2)').children('div').text())
 							console.log(this);
 							var mid = "${loginOK.mid}";

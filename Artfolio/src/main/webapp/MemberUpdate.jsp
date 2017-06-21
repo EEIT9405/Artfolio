@@ -8,10 +8,6 @@
 
 <!-- Bootstrap Core CSS -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Custom CSS -->
-<link href="css/modern-business.css" rel="stylesheet">
-
 <!-- Custom Fonts -->
 <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet"
 	type="text/css">
@@ -20,7 +16,7 @@
 
 <link href="css/fileinput.min.css" rel="stylesheet">
 
-
+<link rel="stylesheet" href="/Artfolio/css/sweetalert.css">
 <style type="text/css">
 
 
@@ -33,6 +29,11 @@ height:20px;
 font-size: 20px;
 
 }
+#contact_form{
+background-color: #D3D3D3;
+
+}
+
 </style>
 </head>
 <body>
@@ -40,7 +41,7 @@ font-size: 20px;
 <jsp:include page="top/header.jsp"></jsp:include>
 
 
-<div class="container">
+<div class="container" style="height:auto; min-height:500px; margin-bottom:30px; margin-top:50px;">
 	
 
 			<form class="well form-horizontal" action=" member.controller" method="post"
@@ -112,7 +113,7 @@ font-size: 20px;
 									<span class="input-group-addon"><i
 										class="glyphicon glyphicon-pencil"></i></span>
 										
-									<textarea class="form-control" name="info" 
+									<textarea   id="changearea"   onfocus="test3()" Wrap="hard" class="form-control" name="info" 
 										placeholder="自我介紹">${loginOK.info}</textarea><span>${err.aprti}</span>
 								</div>
 							</div>
@@ -126,10 +127,43 @@ font-size: 20px;
 							<div class="col-md-4 inputGroupContainer">
 								<div class="input-group">
 									<span class="input-group-addon"><i
-										class="glyphicon glyphicon-picture"></i></span>  <input id="input-2" name="mphoto" type="file" class="file" multiple data-show-upload="false" value="">
+										class="glyphicon glyphicon-picture"></i></span>  
+										
+										
+									<div class="file-preview-frame krajee-default  kv-preview-thumb"
+								id="imgori" data-fileindex="0" data-template="image" style="display:inline">
+								<div class="kv-file-content">
+									<img
+										src="${loginOK.mphoto}" class="file-preview-image kv-preview-data rotate-1"
+										title="" alt=""
+										style="width: auto; height: 160px;">
+								</div>
+								<div class="file-thumbnail-footer">
+									<div class="file-footer-caption" title="">
+										原圖<br>
+									</div>
+									<div class="file-upload-indicator" title="Not uploaded yet">
+										<i class="glyphicon glyphicon-hand-down text-warning"></i>
+									</div>
+									<div class="file-actions">
+										<div class="file-footer-buttons">
+											<button type="button"
+												class="kv-file-zoom btn btn-xs btn-default"
+												title="View Details">
+												<i class="glyphicon glyphicon-zoom-in"></i>
+											</button>
+										</div>
+										<div class="clearfix"></div>
+									</div>
+								</div>
+							</div>	
+										
+										
+					
+										<input id="pic" name="mphoto" type="file" class="file" multiple data-show-upload="false" value="">
 										
 								</div>
-								<img alt="" style="height: 80px;" src="${loginOK.mphoto}">
+<%-- 								<img id="imgori" alt="" style="height: 80px;" src="/memberPhoto/${loginOK.mphoto.substring(loginOK.mphoto.lastIndexOf('/')+1)}"> --%>
 							</div>
 							
 						</div>
@@ -140,7 +174,7 @@ font-size: 20px;
 						<div class="form-group">
 							<label class="col-md-4 control-label"></label>
 							<div class="col-md-2">
-							<input type="submit" class="btn btn-warning " name="action"  value="更新" />
+							<input  id="change"type="submit" class="btn btn-warning " name="action"  value="更新" />
 							</div>
 							<div class="col-md-4">
 							<input type="reset" class="btn btn-info" value="重置" />
@@ -151,7 +185,7 @@ font-size: 20px;
 				</form>
 	
 </div>
-
+<jsp:include page="top/footer.jsp"></jsp:include>
 	<script src="js/jquery-3.2.1.min.js"></script>
 	
 
@@ -159,14 +193,33 @@ font-size: 20px;
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/fileinput.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
-	
+	<script src="/Artfolio/js/sweetalert.min.js"></script>
 	
 	
 	
 	
 	<script type="text/javascript">
-
-
+	$(document).ready(function() {
+		
+		$("body").on("change", "#pic", function (){
+ 	        $('#imgori').hide();
+ 	    }) 	
+		
+		
+		
+		
+		var aa='${ErrorMsg.noupdate}';
+                 if(aa){
+                 
+                  swal(aa,"" ,"error")
+            }
+	});
+	
+	function test3(){
+		$('#changearea').css('width','400px').css('height','200px');
+	}
+	
+	
 	
 	</script>
 </body>

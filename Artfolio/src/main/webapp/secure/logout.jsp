@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta http-equiv="refresh" content="3;url=../bounty/bountyDisplay.jsp">
+<meta http-equiv="refresh" content="3;url=/Artfolio/index.jsp">
 <title>登出畫面</title>
 
 </head>

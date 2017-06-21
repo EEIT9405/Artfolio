@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Entity
 @Table(name="tb_favorite")
-public class FavoriteBean {
+public class FavoriteBean implements Comparable<FavoriteBean> {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer favoriteid;
@@ -24,6 +24,16 @@ public class FavoriteBean {
 	private int fcount;
 	@Column(insertable = false)
 	private Timestamp favoritedate;
+	
+	@Override
+	public int compareTo(FavoriteBean o) {
+		if(fcount > o.getFcount()){
+			return -1;
+		}else if(fcount < o.getFcount()){
+			return 1;
+		}
+		return 0;
+	}
 	
 	public Integer getFavoriteid() {
 		return favoriteid;

@@ -10,7 +10,9 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/u/bs/jq-2.2.3,dt-1.10.12/datatables.min.css">
 <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="/Artfolio/css/sweetalert.css">
+<link href="/Artfolio/css/lightbox.css" rel="stylesheet">
 <script src="js/jquery-3.2.1.min.js"></script>
+<script src="/Artfolio/js/lightbox.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src='/Artfolio/js/sweetalert.min.js'></script>
 <style type="text/css">
@@ -51,6 +53,14 @@
 
 .title h3{
 	text-align:center;
+}
+.lab1 {
+
+font-size: 18px;
+}
+
+.col-md-6{
+font-style:italic;
 }
 </style>
 
@@ -108,21 +118,21 @@
 						<fieldset>
 				<legend>個人資訊</legend>
 							<div class="row"></div>
-							<div class="col-md-8">
+							<div class="col-md-9">
 
 								<div class="form-group">
-									<label class="col-md-3 control-label">名稱：</label> <label
-										class="col-md-5  control-label" style="text-align:left;">${loginOK.name}</label>
+									<label class="col-md-3 control-label lab1">名稱：</label> <label
+										class="col-md-6  control-label" style="text-align:left;">${loginOK.name}</label>
 								</div>
 
 								<div class="form-group">
-									<label class="col-md-3 control-label">信箱：</label> <label
-										class="col-md-5  control-label" style="text-align:left;">${loginOK.email}</label>
+									<label class="col-md-3 control-label lab1">信箱：</label> <label
+										class="col-md-6  control-label" style="text-align:left;">${loginOK.email}</label>
 								</div>
 
 								<div class="form-group">
-									<label class="col-md-3 control-label">性別：</label> <label
-										class="col-md-5  control-label" style="text-align:left;">
+									<label class="col-md-3 control-label lab1">性別：</label> <label
+										class="col-md-6  control-label" style="text-align:left;">
 										
 										<c:choose>
 										<c:when test="${loginOK.gender}">
@@ -138,38 +148,38 @@
 								</div>
 
 								<div class="form-group">
-									<label class="col-md-3 control-label">點數：</label> <label  
-										class="col-md-5  control-label" style="text-align:left;">${loginOK.point}</label>
+									<label class="col-md-3 control-label lab1">點數：</label> <label  
+										class="col-md-6  control-label" style="text-align:left;">${loginOK.point}</label>
 								</div>
 								
 								<div class="form-group">
-									<label class="col-md-3 control-label">自我介紹:</label> <label
-										class="col-md-5  control-label" style="text-align:left;">${loginOK.info}</label>
+									<label class="col-md-3 control-label lab1">自我介紹:</label> <label
+										class="col-md-6  control-label" style="text-align:left;">${loginOK.info}</label>
 								</div>
 								
-                                   <div class="form-group" align="right">
+                               <div class="form-group" align="right">
 
 								
-									<input type="submit" class="btn btn-default " name="submit"
+									<input type="submit"  class="btn btn-info " name="submit"
 										value="更改" />
 							
 
 							        </div>
+								
 							
 							</div>
 
 
-							<div class="col-md-4">
+							<div class="col-md-3">
 
 								<div class="form-group">
-									<a href="portfolio-item.html"> <img
+									<a href="${loginOK.mphoto}"  rel="lightbox" title="大頭照"> <img
 									 
 										class="img-responsive img-hover img-circle" style="width:200px"
 										src="${loginOK.mphoto}" alt="">
 									</a>
 								</div>
-								
-								
+								    
 
 							</div>
                             

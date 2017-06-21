@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context>
+
+
 	<Resource name="jdbc/artfolio" auth="Container" type="javax.sql.DataSource"
                maxTotal="100" maxIdle="30" maxWaitMillis="10000"
                username="sa" password="passw0rd"
@@ -10,6 +12,14 @@
 <!--     username="sa" password="sa123456" -->
 <!--     driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver" -->
 <!--     url="jdbc:sqlserver://192.168.204.128:1433;database=ARTFOLIO"/> -->
+
+
+<!--      <Resource name="jdbc/artfolio" auth="Container" type="javax.sql.DataSource" -->
+<!--     maxTotal="100" maxIdle="30" maxWaitMillis="10000" -->
+<!--     username="sa" password="sa123456" -->
+<!--     driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver" -->
+<!--     url="jdbc:sqlserver://localhost:1433;database=ARTFOLIO"/> -->
+    
                
     <Resource name="mail/Session" auth="Container"
             type="javax.mail.Session" mail.smtp.host="smtp.live.com" 

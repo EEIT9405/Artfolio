@@ -21,16 +21,19 @@ import model.mail.MailBean;
 import model.member.LoginService;
 import model.member.MemberBean;
 import model.member.MemberService;
+import util.SpringEmailService;
 @WebServlet("/secure/forgotpass.controller")
 public class ForgotServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private LoginService loginService;
 	private MemberService memberService;
+	private SpringEmailService springEmailService;
 	@Override
 	public void init() throws ServletException {
 		WebApplicationContext context = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
 		loginService = (LoginService) context.getBean("loginService");
 		memberService = (MemberService) context.getBean("memberService");
+		springEmailService = (SpringEmailService) context.getBean("springEmailService");
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -70,6 +73,7 @@ public class ForgotServlet extends HttpServlet {
 		if(bean!=null&&bean.size()!=0){
 		for(MemberBean ca :bean){
 		    ca.setPwd(returnStr);
+		    springEmailService.sendEmailTask(femail,"您的新密碼","你的新密碼:"+returnStr+"\n"+"http://localhost:8080/Artfolio/secure/login.jsp");
 		    MemberBean result = memberService.update(ca);
 		    request.setAttribute("newemail", bean.size());
 		    

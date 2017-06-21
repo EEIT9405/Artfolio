@@ -19,6 +19,7 @@
 	type="text/css">
   
  <link rel="stylesheet" href="/Artfolio/css/loginstyle.css">
+ <link rel="stylesheet" href="/Artfolio/css/sweetalert.css">
 <style type="text/css">
 #content{
 margin-top: 100px;
@@ -66,14 +67,13 @@ function setFocusToUserId(){
    <script src="/Artfolio/js/jquery-3.2.1.min.js"></script>
     <script src="/Artfolio/js/index.js"></script>
     <script src="/Artfolio/js/bootstrap.min.js"></script>
-   
+   	<script src="/Artfolio/js/sweetalert.min.js"></script>
 <script type="text/javascript">
 
 $(document).ready(function() {
 	if('${newemail}'=='1'){
-
-			alert("已寄新的密碼到您的信箱")
-
+			
+			swal("已寄新的密碼到您的信箱", "You clicked the button!", "success")
 	}
 	
 	
@@ -84,7 +84,9 @@ $(document).ready(function() {
 
 	})
 	
-	
+
+
+
 	
 	
 	
