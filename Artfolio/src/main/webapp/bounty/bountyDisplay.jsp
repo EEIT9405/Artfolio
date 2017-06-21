@@ -177,7 +177,41 @@ padding-top:60px;
 		<!-- Project One -->
 		<div class="row">
 			<div class="col-md-4" style="padding-top:10px;">
+
+				
+				  <div style="box-shadow:3px 3px 12px gray;" id="carousel-example-generic" class="carousel slide" data-ride="carousel" align="center">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                    </ol>
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <img class="img-responsive" src="http://placehold.it/750x500" alt="">
+                        </div>
+                        <div class="item">
+                            <img class="img-responsive" src="http://placehold.it/750x500" alt="">
+                        </div>
+                        <div class="item">
+                            <img class="img-responsive" src="http://placehold.it/750x500" alt="">
+                        </div>
+                        </div>
+                    </div>
+
+                    <!-- Controls -->
+                 <br>
+				
+				
+				
+				
+				
+				
+
 				<form id="bountySearch">
+
 				<div class="panel-group">
 					<div class="panel panel-default">
 						<div class="panel-heading">

@@ -518,8 +518,8 @@ window.fbAsyncInit = function() {
 																	.append(img);
 															var cell1 = $(
 																	'<td></td>')
-																	.text(
-																			bmg.member.name);
+																	.html(
+																			'<a href="/Artfolio/bounty/NewpersonalDisplay.controller?mid='+bmg.member.mid+'">'+bmg.member.name+'<a>');
 															var cell2 = $(
 																	'<td></td>')
 																	.text(

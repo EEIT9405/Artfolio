@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,8 @@ public class BountyController {
 	private BmsgService bmsgService;
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private HttpSession session;
 
 	// ============活動頁面=========================================================================================================	
 	// 活動主頁呈現
@@ -411,6 +414,38 @@ public class BountyController {
 			return true;
 		}
 		return false;
+	}
+	// ============活動留言更新 6/21=======================================================================================================	
+	@RequestMapping(path = { "/bounty/NewpersonalDisplay.controller" }, method = {
+			RequestMethod.GET })
+	
+	public String BountyPersonal(Integer mid,Model model) throws JsonProcessingException {
+
+
+		// 利用會員ID取得該會員所有發表活動資訊
+		List<BountyBean> result = bountyService.selectByMember(mid);
+		                           
+		List<Map<String, Object>> select = new ArrayList<>();
+		for (BountyBean ca : result) {
+			Map<String, Object> map = new HashMap<>();
+			map.put("msg", bmsgService.countAllMsgs(ca.getB_id()));
+			map.put("track", bountyTrackService.countAllTracks(ca.getB_id()));
+			map.put("bounty", ca);
+	
+			select.add(map);
+		}		
+		     
+		MemberBean user = (MemberBean) session.getAttribute("loginOK");
+		if (!mid.equals(user.getMid())){
+		
+		model.addAttribute("member",memberService.select(mid));
+		// 將活動資訊轉為JSON格式
+		model.addAttribute("midPersonal", select);
+		return "midPersonal";
+		
+		}else{
+			return "bountyPersonal";
+		}
 	}
 	
 	
