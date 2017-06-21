@@ -278,6 +278,14 @@ $(function(){
 
               swal(aa," ","success");
         }
+    
+    
+    var loginOK='${loginOK.mid}';
+    if(loginOK)
+    $.get('reload.controller',{mid:loginOK},function(data){
+    	if(data)
+    		$('label.col-md-6.control-label').eq(3).text(data);	
+    });
 	
 });
 </script>
