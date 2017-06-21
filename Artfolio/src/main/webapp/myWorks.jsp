@@ -127,6 +127,10 @@
   background-size: 100%;
   padding-top: 60px;
 }
+#photoContainer {
+	overflow-y:auto;
+	height:800px;
+}
 </style>
 
 </head>
@@ -207,7 +211,7 @@
 				</div>
             </div>
             
-		 <div id="photoContainer" class="col-md-10" style="overflow-y:auto; height:500px;">
+		 <div id="photoContainer" class="col-md-10" >
 	        <!-- Projects Row -->
 	        <div class="row">   
 	        </div>
@@ -563,7 +567,7 @@ $(function(){
 			else{
 				var mb = $('#modalimage').empty();
 				div.children('img').clone().attr("style","max-width:100%;max-height:500px")
-					.addClass('img-fluid').appendTo(mb);
+					.appendTo(mb);
 				showModal(div.children('input[name=wid]').val());
 			}
 		}
