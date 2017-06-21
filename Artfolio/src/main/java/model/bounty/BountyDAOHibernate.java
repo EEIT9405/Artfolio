@@ -146,7 +146,7 @@ public class BountyDAOHibernate implements BountyDAO {
 								ORDER_BY_DATE=" ORDER BY b_update DESC",
 								ORDER_BY_BONUS=" ORDER BY b_bonus_total DESC",
 								WHERE=" WHERE",
-								BONUS_CONDITION=" b_bonus_total Between ? AND ?",
+								BONUS_CONDITION=" (b_bonus_total Between ? AND ?)",
 								STATE_CONDITION=" b_state=?",
 								TAG_CONDITION=" b_id IN (SELECT bountyBean FROM BountyTagBean WHERE b_tag=?)",
 								LB=" (",RB=" )",AND=" and",OR=" or";
@@ -240,6 +240,7 @@ public class BountyDAOHibernate implements BountyDAO {
 			query.setParameter(i++, 1);
 		if((state&8)==8)
 			query.setParameter(i++, 3);
+		if(tag!=null && tag.length>0)
 		for(String term:tag)
 			query.setParameter(i++, term);
 			
