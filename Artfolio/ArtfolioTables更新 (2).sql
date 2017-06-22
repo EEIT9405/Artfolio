@@ -94,18 +94,8 @@ score_3 varchar(20),
 score_4 varchar(20),
 score_5 varchar(20),
 scoreversion int default 0 not null,
-worder int
+worder int default 9999999
 );
-
-insert into tb_member (pwd,name,email,gender) values ('','a','1',0),('','b','2',1),('','c','3',0)
-
-insert into tb_album (aname,mid) values('default',1),('default',2),('a',1),('b',1),('c',2)
-
-insert into tb_work (mid,picurl,wtitle) values(1,'/','aa'),(1,'/','ba'),(1,'/','ca'),(1,'/','da'),(1,'/','ea')
-insert into tb_work (mid,picurl,wtitle) values(1,'/','ab'),(1,'/','bb'),(1,'/','cb'),(1,'/','db'),(1,'/','eb')
-insert into tb_work (mid,picurl,wtitle) values(1,'/','ac'),(1,'/','bc'),(1,'/','cc'),(1,'/','dc'),(1,'/','ec')
-insert into tb_work (mid,picurl,wtitle) values(1,'/','ad'),(1,'/','bd'),(1,'/','cd'),(1,'/','dd'),(1,'/','ed')
-insert into tb_work (mid,picurl,wtitle) values(1,'/','ae'),(1,'/','be'),(1,'/','ce'),(1,'/','de'),(1,'/','ee')
 
 create table tb_tag(
 wid int foreign key references tb_work(wid) not null,
@@ -271,8 +261,3 @@ logtype bit, --1客服,0檢舉
 lstatus bit, --1已處理,0未處理
 logdate datetime default getDate()
 );
-
-insert into tb_donate (mid,targetid,point) values(1,2,70)
-,(2,1,30),(1,3,50),(2,3,100),(3,2,10),(3,1,60)
-
-insert into tb_expoint (mid,ptype,point) values(1,1,50),(1,0,150),(1,1,50),(2,1,100),(3,0,50),(3,1,100)
