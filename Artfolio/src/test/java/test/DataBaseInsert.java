@@ -50,7 +50,7 @@ public class DataBaseInsert {
 			// put like into work
 			String countLike = "select count(*) from tb_like where wid=?";
 			String updateWorkLike = "update tb_work set wlike=? where wid=?";
-			int[] likeResult = new int[34];
+			int likeRC = 0;
 
 			for (int i = 1; i < 34; i++) {
 				pstmt = conn.prepareStatement(countLike);
@@ -60,10 +60,11 @@ public class DataBaseInsert {
 					pstmt = conn.prepareStatement(updateWorkLike);
 					pstmt.setInt(1, rs.getInt(1));
 					pstmt.setInt(2, i);
-					likeResult[i - 1] = pstmt.executeUpdate();
+					if(pstmt.executeUpdate() == 1)
+						likeRC++;
 				}
 			}
-			System.out.println("likeResult=" + likeResult.length);
+			System.out.println("likeResult=" + likeRC);
 
 			// follow
 			String insertFollow = "insert into tb_follow(mid,followid) values(?,?)";
@@ -115,6 +116,35 @@ public class DataBaseInsert {
 			}
 			int[] favorite = pstmt.executeBatch();
 			System.out.println("favorite=" + favorite.length);
+			
+			//wmsg
+			String insertWmsg = "insert into tb_wmsg(mid,wid,wmsgcontent) values(?,?,?)";
+			String selectMidByWid = "select mid from tb_work where wid=?";
+			int wmsgRC = 0;
+			for(int i = 1; i <= 5; i++){
+				for(int j = 1; j <=33 ; j++){
+					pstmt = conn.prepareStatement(selectMidByWid);
+					pstmt.setInt(1, j);
+					ResultSet rs = pstmt.executeQuery();
+					if(rs.next()){
+						pstmt = conn.prepareStatement(insertWmsg);
+						if(rs.getInt(1) != i){
+							pstmt.setInt(1, i);
+							pstmt.setInt(2, j);
+							switch(i){
+							case 1:pstmt.setString(3, "我很喜歡你的作品!");break;
+							case 2:pstmt.setString(3, "意境很不錯。");break;
+							case 3:pstmt.setString(3, "我的作品更棒!");break;
+							case 4:pstmt.setString(3, "繼續加油喔~");break;
+							case 5:pstmt.setString(3, "我覺得畫面飽和度不足。");break;
+							}
+						}
+						if(pstmt.executeUpdate() > 0)
+							wmsgRC++;
+					}
+				}
+			}
+			System.out.println("wmsgResult="+wmsgRC);
 
 		} catch (SQLException e) {
 			e.printStackTrace();

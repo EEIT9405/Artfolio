@@ -648,10 +648,12 @@ $(function(){
 		}
 		$('#album').click(function(){
 			album(mid);
+			wedit.text('編輯');
 		});
 		
 		$('#works').click(function(){
 			listWork(mid, "alphabet", "ascending");
+			wedit.text('編輯');
 		});
 		
 		sortbtn.click(function() {
@@ -674,6 +676,7 @@ $(function(){
 			if (sort.hasClass('abdown')) {
 				listWork(mid, "alphabet", "descending");
 			}
+			wedit.text('編輯');
 		});
 
 		function listWork(mid, orderby, order) {

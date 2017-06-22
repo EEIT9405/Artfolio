@@ -64,6 +64,22 @@
           transform: translate(-50%, -50%);
   width: 160%;
 }
+
+.userImg {
+  overflow: hidden;
+  width: 40px;
+  height: 40px;
+  position: relative;
+}
+.userImg img {
+	position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 160%;
+}
+
 .top-colleciton {
   background-image: url(/Artfolio/img/bg_index.jpg);
   background-size: 100%;
@@ -232,7 +248,7 @@
 								<c:forEach items="${donatelog}" var="item">
 									<tr>
 										<td>
-										<td><img src="${item.mphoto}"></td>
+										<td><div class="userImg"><img src="${item.mphoto}"></div></td>
 <%-- 										<td>${item.mid}</td> --%>
 										<td>${item.name}</td>
 										<td>${item.point}</td>
@@ -264,7 +280,7 @@
 								<c:forEach items="${donatedlog}" var="item">
 									<tr>
 										<td>
-										<td><img src="${item.mphoto}"></td>
+										<td><div class="userImg"><img src="${item.mphoto}"></div></td>
 <%-- 										<td>${item.mid}</td> --%>
 										<td>${item.name}</td>
 										<td>${item.point}</td>
