@@ -142,6 +142,14 @@ padding-top:60px;
 	margin-bottom: -3px;
 	margin-top: 3px;
 }
+
+.lab1{
+font-size: 18px;
+
+}
+
+
+
 </style>
 </head>
 
@@ -187,9 +195,13 @@ padding-top:60px;
 								</div>
 								
 								<hr>
-								<div align="center"><label>名稱：</label><label>${member.name}</label></div>
+								<div align="center"><label class="lab1">名稱：</label><label>${member.name}</label></div>
 							<br>
-							<div align="center"><label >信箱：</label><label>${member.email}</label></div>
+							<div align="center"><label class="lab1">信箱：</label><label>${member.email}</label></div>
+								
+							<div align="center"><input class="btn btn-primary" type ="button" onclick="history.back()" value="回到上一頁"></input></div>	
+								
+								
 								</aside>
 								
 								
@@ -257,7 +269,12 @@ padding-top:60px;
 	</div>
 	
 <jsp:include page="../top/footer.jsp"></jsp:include>	
+	<script type="text/javascript">
 	
+	
+	
+	
+	</script>
 
 </body>
 
