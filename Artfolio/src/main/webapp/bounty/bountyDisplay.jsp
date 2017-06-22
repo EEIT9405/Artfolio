@@ -377,8 +377,11 @@ padding-top:60px;
 					$('#bountyTable').empty();
 					var count = 0;
 					
-					$.each(datas,function(idx, bounty) {	
-														
+					$.each(datas,function(idx, bounty) {
+						
+						var enddate = bounty.b_enddate;
+						enddate = enddate.replace('T',' ').replace(enddate.substring(enddate.lastIndexOf('.')),'')
+										
 						var trackcount;
 						var msgcount;
 						$.ajax({
@@ -403,7 +406,7 @@ padding-top:60px;
 								+ "'></a>")
 						$('#row'+count+' >div:nth-child(2)').html("<h3><a href='/Artfolio/bounty/bountyPage.controller?id="+ bounty.b_id+"'>"+bounty.b_title+"</a></h3>"
 																   + "<div>總獎金 TWD$ : "+ bounty.b_bonus_total 
-																   + "</div><div style=' margin-bottom:20px'>截止收件 : "+ bounty.b_enddate +"</div>"
+																   + "</div><div style=' margin-bottom:20px'>截止收件 : "+ enddate +"</div>"
 																   + "<div style='font-size:12px' class='btn btn-default' id='soon"+count+"'>即將截止</div>"
 																   + "<div style='font-size:12px' class='btn btn-default' id='ing"+count+"'>進行中</div>"
 																   + "<div style='font-size:12px' class='btn btn-default' id='end"+count+"'>已結束</div>"
@@ -452,6 +455,10 @@ padding-top:60px;
 					var count = 0;
 					$.each(datas,function(idx, bounty) {	
 						
+						var enddate = bounty.b_enddate;
+						enddate = enddate.replace('T',' ').replace(enddate.substring(enddate.lastIndexOf('.')),'')
+						
+						
 						var trackcount;
 						var msgcount;
 						$.ajax({
@@ -465,6 +472,8 @@ padding-top:60px;
 								  }
 							   });
 						
+						
+						
 						$('#bountyTable').append("<div id='row"+ count +"' class='row' style='border:1px solid #D8D8D8; border-radius:20px; overflow:hidden ;background-color:#fff;  box-shadow: 5px 5px 5px #E6E6E6;'></div>");
 						$('#row'+count).html("<div class='col-md-4'></div><div class='col-md-6'></div><div class='col-md-2'></div>");
 						$('#row'+count+' >div:nth-child(1)').html("<a href='/Artfolio/bounty/bountyPage.controller?id="
@@ -476,7 +485,7 @@ padding-top:60px;
 								+ "'></a>")
 						$('#row'+count+' >div:nth-child(2)').html("<h3><a href='/Artfolio/bounty/bountyPage.controller?id="+ bounty.b_id+"'>"+bounty.b_title+"</a></h3>"
 																   + "<div>總獎金 TWD$ : "+ bounty.b_bonus_total 
-																   + "</div><div style=' margin-bottom:20px'>截止收件 : "+ bounty.b_enddate +"</div>"
+																   + "</div><div style=' margin-bottom:20px'>截止收件 : "+ enddate +"</div>"
 																   + "<div style='font-size:12px' class='btn btn-default' id='soon"+count+"'>即將截止</div>"
 																   + "<div style='font-size:12px' class='btn btn-default' id='ing"+count+"'>進行中</div>"
 																   + "<div style='font-size:12px' class='btn btn-default' id='end"+count+"'>已結束</div>"
@@ -556,6 +565,11 @@ padding-top:60px;
 					var count = 0;
 					$.each(datas,function(idx, bounty) {	
 						
+						
+						var enddate = bounty.b_enddate;
+						enddate = enddate.replace('T',' ').replace(enddate.substring(enddate.lastIndexOf('.')),'')
+						
+						
 						var trackcount;
 						var msgcount;
 						$.ajax({
@@ -580,7 +594,7 @@ padding-top:60px;
 								+ "'></a>")
 						$('#row'+count+' >div:nth-child(2)').html("<h3><a href='/Artfolio/bounty/bountyPage.controller?id="+ bounty.b_id+"'>"+bounty.b_title+"</a></h3>"
 																   + "<div>總獎金 TWD$ : "+ bounty.b_bonus_total 
-																   + "</div><div style=' margin-bottom:20px'>截止收件 : "+ bounty.b_enddate +"</div>"
+																   + "</div><div style=' margin-bottom:20px'>截止收件 : "+ enddate +"</div>"
 																   + "<div style='font-size:12px' class='btn btn-default' id='soon"+count+"'>即將截止</div>"
 																   + "<div style='font-size:12px' class='btn btn-default' id='ing"+count+"'>進行中</div>"
 																   + "<div style='font-size:12px' class='btn btn-default' id='end"+count+"'>已結束</div>"
