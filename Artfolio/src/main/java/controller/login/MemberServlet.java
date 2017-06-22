@@ -130,8 +130,15 @@ public class MemberServlet extends HttpServlet {
 			request.getRequestDispatcher("Member.jsp").forward(request, response);
 			return;
 		}
-
-		MemberBean bean = user;
+		
+		//fix
+		MemberBean bean=null;
+		if(user!=null)
+			bean = user;
+		else
+			bean=new MemberBean();
+		
+		
 		if ("boy".equals(gender)) {
 			bean.setGender(true);
 		} else {
