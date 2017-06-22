@@ -98,7 +98,6 @@ worder int default 9999999
 );
 
 
-
 create table tb_tag(
 wid int foreign key references tb_work(wid) not null,
 tag varchar(100) not null,
@@ -263,8 +262,3 @@ logtype bit, --1�ȪA,0���|
 lstatus bit, --1�w�B�z,0���B�z
 logdate datetime default getDate()
 );
-
-insert into tb_donate (mid,targetid,point) values(1,2,70)
-,(2,1,30),(1,3,50),(2,3,100),(3,2,10),(3,1,60)
-
-insert into tb_expoint (mid,ptype,point) values(1,1,50),(1,0,150),(1,1,50),(2,1,100),(3,0,50),(3,1,100)
