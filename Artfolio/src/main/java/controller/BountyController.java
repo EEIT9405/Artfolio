@@ -39,7 +39,7 @@ import model.member.MemberService;
 public class BountyController {
 	SimpleDateFormat sdf;
 	public BountyController() {
-		sdf = new SimpleDateFormat("yyyy-MM-dd hh:MM:ss");
+		sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 	}
 	@Autowired
 	private ServletContext apllication;
