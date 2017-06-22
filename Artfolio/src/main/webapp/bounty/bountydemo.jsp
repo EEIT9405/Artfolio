@@ -178,7 +178,7 @@ font-size: 18px;
 	
 	
 	
-	<div class="container">
+	<div class="container" style="height:auto; min-height:660px; margin-bottom:30px;">
 
 		<!-- /.row -->
 
