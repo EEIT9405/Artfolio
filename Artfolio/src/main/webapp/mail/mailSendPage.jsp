@@ -26,6 +26,7 @@
 	<link href="../css/fileinput.min.css" rel="stylesheet">
 	<script src="../js/jquery-3.2.1.min.js"></script>
 	<script src="../js/bootstrap.min.js"></script>
+	<script src="/Artfolio/ckeditor/ckeditor.js"></script>
 <style type="text/css">
 .classes{
 	margin-top:10px;
@@ -205,6 +206,9 @@ div#replyBox {
 
 	<script type="text/javascript" src="https://cdn.datatables.net/u/bs/jq-2.2.3,dt-1.10.12/datatables.min.js"></script>
 	<script src="../js/fileinput.min.js"></script>
+
+
+<script>CKEDITOR.replace( 'content');</script>
 
 <script>
 	$(document).ready(function() {
