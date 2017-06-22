@@ -136,7 +136,7 @@ public class DonateController {
 			targetid=workService.getWork(wid).getMid();
 		}
 		if(mid!=null && mid.equals(targetid)){
-			msg="you cannot donate to yourself";
+			msg="您無法贊助自己。";
 			targetid=null;
 		}
 		if(targetid!=null){

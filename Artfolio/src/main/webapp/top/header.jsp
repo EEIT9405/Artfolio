@@ -171,18 +171,18 @@
 <script src='/Artfolio/js/jquery.lazyload.min.js'></script>
 <script>
 
-// 	$(document).ajaxStart(function(){
-// 		timestart=window.setTimeout(function(){
-// 			if(!document.getElementById('loading'))
-// 			$('<div id="loading" style="text-align:center;position: fixed; top: 0;right: 0;bottom: 0;left: 0'+
-// 			';z-index: 2000;"><img src="/Artfolio/img/User_47571025.jpg"></div>').appendTo($('body'));
-// 		},2000);
+	$(document).ajaxStart(function(){
+		timestart=window.setTimeout(function(){
+			if(!document.getElementById('loading'))
+			$('<div id="loading" style="text-align:center;position: fixed; top: 0;right: 0;bottom: 0;left: 0'+
+			';z-index: 2000;"><img style="border-radius:10%; width:300px; opacity:0.8; margin-top:100px;" src="/Artfolio/img/01-progress.gif"></div>').appendTo($('body'));
+		},1000);
 		
-// 	});
+	});
 
 	$(document).ajaxStop(function(){
-// 		 window.clearTimeout(timestart);
-// 		$('#loading').remove();
+		 window.clearTimeout(timestart);
+		$('#loading').remove();
 		
 		
 		$("img.lazy").lazyload({
@@ -271,7 +271,7 @@
 			
 			searchResult.removeAttr('style');
 			searchResult.empty();
-			$.getJSON('search.controller',{type:searchType,and:searchContent}, function(data){
+			$.getJSON('search.controller',{type:searchType,and:searchContent,period:'year'}, function(data){
 				var docFrag = $(document.createDocumentFragment()); 
 				searchTitle.text('Search '+searchContent+': ' + data.length + ' items.');
 				$.each(data, function(index, value){

@@ -20,6 +20,8 @@
   
  <link rel="stylesheet" href="/Artfolio/css/loginstyle.css">
  <link rel="stylesheet" href="/Artfolio/css/sweetalert.css">
+    <script src="/Artfolio/js/jquery-3.2.1.min.js"></script>
+    <script src="/Artfolio/js/bootstrap.min.js"></script>
 <style type="text/css">
 #content{
 margin-top: 100px;
@@ -64,9 +66,8 @@ function setFocusToUserId(){
 	</section><!-- content -->
 </div><!-- container -->
 
-   <script src="/Artfolio/js/jquery-3.2.1.min.js"></script>
+
     <script src="/Artfolio/js/index.js"></script>
-    <script src="/Artfolio/js/bootstrap.min.js"></script>
    	<script src="/Artfolio/js/sweetalert.min.js"></script>
 <script type="text/javascript">
 

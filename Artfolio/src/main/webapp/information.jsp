@@ -56,11 +56,23 @@
 }
 .lab1 {
 
-font-size: 18px;
+font-size:22px;
 }
 
 .col-md-6{
 font-style:italic;
+}
+#contact_form{
+background-color:#FFF8DC;
+}
+.nav-tabs > li > a:hover{
+  background-color: #FFEFD5 !important;
+    border: medium none;
+    border-radius: 0;
+    color:	#F4A460;
+}
+.nav-tabs > li > a{
+  border: medium none;
 }
 </style>
 
@@ -101,9 +113,9 @@ font-style:italic;
 		<!-- Project One -->
 		<div class="tabbable">
 			<!-- Only required for left/right tabs -->
-			<ul class="nav nav-tabs">
-				<li class="active"><a href="#tab1" data-toggle="tab">個人資訊</a></li>
-				<li><a href="#tab2" data-toggle="tab">黑名單</a></li>
+			<ul class="nav nav-tabs" ">
+				<li class="active" style="background-color: #FFE4C4;"><a href="#tab1" data-toggle="tab">個人資訊</a></li>
+				<li style="background-color: #FFE4C4;"><a href="#tab2" data-toggle="tab">黑名單</a></li>
 
 			</ul>
 

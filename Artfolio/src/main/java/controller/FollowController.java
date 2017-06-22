@@ -109,7 +109,7 @@ public class FollowController {
 		if(wid!=null){
 			Integer mid=(Integer) session.getAttribute("mid");
 			Integer followid=workService.getWork(wid).getMid();
-			if(mid!=null && followService.insert(new FollowBean(mid,followid,null)))
+			if(mid!=null && !mid.equals(followid) && followService.insert(new FollowBean(mid,followid,null)))
 				return new Info(followService.selectFollowed(followid).size(),true);
 		}
 		return null;

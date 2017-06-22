@@ -22,41 +22,41 @@ drop table tb_work
 drop table tb_album
 drop table tb_member
 
---·|­û
+--ï¿½|ï¿½ï¿½
 create table tb_member(
-mid int primary key identity, --·|­ûid
-pwd varchar(32) not null, --±K½X
-name varchar(20) not null, --¼ÊºÙ
+mid int primary key identity, --ï¿½|ï¿½ï¿½id
+pwd varchar(32) not null, --ï¿½Kï¿½X
+name varchar(20) not null, --ï¿½Êºï¿½
 isname bit default 1, 
-email varchar(256) not null unique , --·|­û±b¸¹
+email varchar(256) not null unique , --ï¿½|ï¿½ï¿½ï¿½bï¿½ï¿½
 ismail bit default 1,
-gender bit not null, --¨k1,¤k0
+gender bit not null, --ï¿½k1,ï¿½k0
 isgender bit default 1,
-info varchar(1024), --¦Û§Ú¤¶²Ð
+info varchar(1024), --ï¿½Û§Ú¤ï¿½ï¿½ï¿½
 isinfo bit default 1,
-mphoto varchar(256),--¤jÀY¶K
-point int default 0, --ÂI¼Æ
-mstart datetime default getDate(), --¶}©l¤é 
-mend datetime default '9999-12-31', --µ²§ô¤é
-mupdate datetime --§ó·s¤é
+mphoto varchar(256),--ï¿½jï¿½Yï¿½K
+point int default 0, --ï¿½Iï¿½ï¿½
+mstart datetime default getDate(), --ï¿½}ï¿½lï¿½ï¿½ 
+mend datetime default '9999-12-31', --ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+mupdate datetime --ï¿½ï¿½sï¿½ï¿½
 );
 
---¯¸¤º«H
+--ï¿½ï¿½ï¿½ï¿½ï¿½H
 create table tb_mail(
-mailid int primary key identity,--«H¥ó½s¸¹
-mid int foreign key references tb_member(mid) not null, --·|­ûid
-targetid int foreign key references tb_member(mid) not null, --¹ï¶Hid
+mailid int primary key identity,--ï¿½Hï¿½ï¿½sï¿½ï¿½
+mid int foreign key references tb_member(mid) not null, --ï¿½|ï¿½ï¿½id
+targetid int foreign key references tb_member(mid) not null, --ï¿½ï¿½Hid
 mailtitle varchar(100) ,
 mailcontent varchar(5000),
 mstatus tinyint, 
 isread bit default 0,
 isdelete bit default 0,
 mattach varchar(256),
-reid int foreign key references  tb_mail(mailid), --¦^«H«H¥ó½s¸¹
+reid int foreign key references  tb_mail(mailid), --ï¿½^ï¿½Hï¿½Hï¿½ï¿½sï¿½ï¿½
 maildate datetime default getDate()
 );
 
---¶Â¦W³æ --5/22§ó·s
+--ï¿½Â¦Wï¿½ï¿½ --5/22ï¿½ï¿½s
 create table tb_block (
 blockid int primary key identity,
 mid int foreign key references tb_member(mid),
@@ -64,48 +64,39 @@ targetid int foreign key references tb_member(mid),
 blockdate datetime default getdate()
 );
 
---¬ÛÃ¯
+--ï¿½ï¿½Ã¯
 create table tb_album(
 aid int primary key identity,
 aname varchar(100),
-wid int, --«Ê­±§@«~id
+wid int, --ï¿½Ê­ï¿½ï¿½@ï¿½~id
 mid int foreign key references tb_member(mid) not null,
 adate datetime default getdate()
 );
 
 
---§@«~
+--ï¿½@ï¿½~
 create table tb_work(
-wid int primary key identity, --§@«~½s¸¹
-mid int foreign key references tb_member(mid) not null, --·|­ûid
+wid int primary key identity, --ï¿½@ï¿½~ï¿½sï¿½ï¿½
+mid int foreign key references tb_member(mid) not null, --ï¿½|ï¿½ï¿½id
 picurl varchar(256) not null,
-aid int foreign key references tb_album(aid), --¬ÛÃ¯½s¸¹
-winfo varchar(1024), --§@«~´y­z
-wtitle varchar(100), --§@«~¼ÐÃD
+aid int foreign key references tb_album(aid), --ï¿½ï¿½Ã¯ï¿½sï¿½ï¿½
+winfo varchar(1024), --ï¿½@ï¿½~ï¿½yï¿½z
+wtitle varchar(100), --ï¿½@ï¿½~ï¿½ï¿½ï¿½D
 wlike int default 0,
 wissue int default 0,
-iswmsg bit default 1, --1¶}0Ãö
+iswmsg bit default 1, --1ï¿½}0ï¿½ï¿½
 isscore bit default 0,
 wstart datetime default getDate(),
 wend datetime default '9999-12-31',
-score_1 varchar(20), --§@ªÌ¦Û­qµû¤À¶µ¥Ø
+score_1 varchar(20), --ï¿½@ï¿½Ì¦Û­qï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 score_2 varchar(20),
 score_3 varchar(20),
 score_4 varchar(20),
 score_5 varchar(20),
 scoreversion int default 0 not null,
-worder int
+worder int default 9999999
 );
 
-insert into tb_member (pwd,name,email,gender) values ('','a','1',0),('','b','2',1),('','c','3',0)
-
-insert into tb_album (aname,mid) values('default',1),('default',2),('a',1),('b',1),('c',2)
-
-insert into tb_work (mid,picurl,wtitle) values(1,'/','aa'),(1,'/','ba'),(1,'/','ca'),(1,'/','da'),(1,'/','ea')
-insert into tb_work (mid,picurl,wtitle) values(1,'/','ab'),(1,'/','bb'),(1,'/','cb'),(1,'/','db'),(1,'/','eb')
-insert into tb_work (mid,picurl,wtitle) values(1,'/','ac'),(1,'/','bc'),(1,'/','cc'),(1,'/','dc'),(1,'/','ec')
-insert into tb_work (mid,picurl,wtitle) values(1,'/','ad'),(1,'/','bd'),(1,'/','cd'),(1,'/','dd'),(1,'/','ed')
-insert into tb_work (mid,picurl,wtitle) values(1,'/','ae'),(1,'/','be'),(1,'/','ce'),(1,'/','de'),(1,'/','ee')
 
 create table tb_tag(
 wid int foreign key references tb_work(wid) not null,
@@ -124,9 +115,9 @@ FOREIGN KEY(wid, tag) REFERENCES tb_tag(wid, tag)
 );
 
 create table tb_score(
-wid int foreign key references tb_work(wid) not null, --§@«~½s¸¹
+wid int foreign key references tb_work(wid) not null, --ï¿½@ï¿½~ï¿½sï¿½ï¿½
 scoreversion int not null,
-score_1 varchar(20), --§@ªÌ¦Û­qµû¤À¶µ¥Ø
+score_1 varchar(20), --ï¿½@ï¿½Ì¦Û­qï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 score_2 varchar(20),
 score_3 varchar(20),
 score_4 varchar(20),
@@ -134,7 +125,7 @@ score_5 varchar(20),
 retireddate datetime default getDate(),
 );
 
---§@«~Æ[¬Ý¬ö¿ý 5/24§ó·s
+--ï¿½@ï¿½~ï¿½[ï¿½Ý¬ï¿½ï¿½ï¿½ 5/24ï¿½ï¿½s
 create table tb_browsed(
 browsedid int primary key identity,
 mid int foreign key references tb_member(mid),
@@ -142,19 +133,19 @@ wid int foreign key references tb_work(wid),
 browseddate datetime default getdate()
 );
 
---³ß¦n¼ÐÅÒ 5/27§ó·s
+--ï¿½ß¦nï¿½ï¿½ï¿½ï¿½ 5/27ï¿½ï¿½s
 create table tb_favorite(
 favoriteid int primary key identity,
 mid int foreign key references tb_member(mid),
 tag varchar(100) not null,
-fcount int default 1, --Æ[¬Ý¹L¦¹¼ÐÅÒ«á+1
+fcount int default 1, --ï¿½[ï¿½Ý¹Lï¿½ï¿½ï¿½ï¿½ï¿½Ò«ï¿½+1
 favoritedate datetime default getdate()
 );
 
---§@«~¯d¨¥
+--ï¿½@ï¿½~ï¿½dï¿½ï¿½
 create table tb_wmsg(
 wmsgid int primary key identity,
-mid int foreign key references tb_member(mid) not null, --¯d¨¥ªÌid
+mid int foreign key references tb_member(mid) not null, --ï¿½dï¿½ï¿½ï¿½ï¿½id
 wid int foreign key references tb_work(wid) not null,
 wmsgcontent varchar(512),
 wmsgdate datetime default getDate()
@@ -163,11 +154,11 @@ wmsgdate datetime default getDate()
 
 
 
---µû¤À¬ö¿ý --5/27§ó·s
+--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ --5/27ï¿½ï¿½s
 create table tb_record(
 mid int foreign key references tb_member(mid) not null,
 wid int foreign key references tb_work(wid) not null,
-record_1 decimal(2), --µû¤À1~10
+record_1 decimal(2), --ï¿½ï¿½ï¿½ï¿½1~10
 record_2 decimal(2),
 record_3 decimal(2),
 record_4 decimal(2),
@@ -177,15 +168,15 @@ recorddate datetime default getDate(),
 primary key(mid,wid,recordversion)
 );
 
---§@®a°lÂÜ --5/27§ó·s
+--ï¿½@ï¿½aï¿½lï¿½ï¿½ --5/27ï¿½ï¿½s
 create table tb_follow(
 mid int foreign key references tb_member(mid) not null,
-followid int foreign key references tb_member(mid) not null, --°lÂÜ§@®aªºid
+followid int foreign key references tb_member(mid) not null, --ï¿½lï¿½Ü§@ï¿½aï¿½ï¿½id
 followdate datetime default getDate()
 primary key(mid,followid)
 );
 
---³ß·R§@«~ --5/27§ó·s
+--ï¿½ß·Rï¿½@ï¿½~ --5/27ï¿½ï¿½s
 create table tb_like(
 mid int foreign key references tb_member(mid) not null,
 wid int foreign key references tb_work(wid) not null,
@@ -193,16 +184,16 @@ likedate datetime default getDate()
 primary key(mid,wid)
 );
 
---ÂI¼Æ¥æ©ö¬ö¿ý(»P©x¤è)
+--ï¿½Iï¿½Æ¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½Pï¿½xï¿½ï¿½)
 create table tb_expoint(
 pno int primary key identity,
 mid int foreign key references tb_member(mid) not null,
-ptype bit,--¥æ©ö«¬ºA 1ÁÊ¤JÂI¼Æ,0ÂI¼Æ§I´«²{ª÷
-point int, --ÂI¼Æ
+ptype bit,--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½A 1ï¿½Ê¤Jï¿½Iï¿½ï¿½,0ï¿½Iï¿½Æ§Iï¿½ï¿½ï¿½{ï¿½ï¿½
+point int, --ï¿½Iï¿½ï¿½
 expointdate datetime default getDate(),
 );
 
---ÂI¼Æ¦¬¨ü¬ö¿ý(»P¨ä¥L·|­û)
+--ï¿½Iï¿½Æ¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½Pï¿½ï¿½Lï¿½|ï¿½ï¿½)
 create table tb_donate(
 dno int primary key identity,
 mid int foreign key references tb_member(mid) not null,
@@ -211,40 +202,40 @@ point int,
 donatedate datetime default getDate()
 );
 
---ÁÜ½Z¸ê®Æ 5/28§ó·s
+--ï¿½Ü½Zï¿½ï¿½ï¿½ 5/28ï¿½ï¿½s
 create table tb_bounty(
-b_id  int primary key identity, --ÁÜ½Z½s¸¹
+b_id  int primary key identity, --ï¿½Ü½Zï¿½sï¿½ï¿½
 mid int foreign key references tb_member(mid) not null,
-b_state  int default 0,	 --¬¡°Êª¬ºA
+b_state  int default 0,	 --ï¿½ï¿½ï¿½Êªï¿½ï¿½A
 b_title	 varchar(100),
-b_content varchar(5000),--¬¡°Ê¤º®e
-b_partimethod varchar(5000),--°Ñ¥[¿ìªk
-b_organizer	 varchar(100), --¥D¿ì³æ¦ì
-b_bonus_total Integer, --Á`¼úª÷
-b_bonus_max Integer, --	³Ì°ª¼úª÷
-b_startdate	datetime, --¬¡°Ê¶}©l¤é	
-b_enddate datetime, --¬¡°ÊºI¤î¤é
-b_announced datetime,-- ¤½¥¬±o¼ú¤é´Á	
-b_attach_pic varchar(256),-- ¬¡°Êªþ¥ó(¹ÏÀÉ)	
-b_attach_pdf varchar(256),-- ¬¡°ÊEmailªþ¥ó(PDFÀÉ)
---b_company varchar(20), -- ¤½¥q
---b_phone	varchar(20), --	¹q¸Ü	
+b_content varchar(5000),--ï¿½ï¿½ï¿½Ê¤ï¿½ï¿½e
+b_partimethod varchar(5000),--ï¿½Ñ¥[ï¿½ï¿½k
+b_organizer	 varchar(100), --ï¿½Dï¿½ï¿½ï¿½ï¿½
+b_bonus_total Integer, --ï¿½`ï¿½ï¿½ï¿½ï¿½
+b_bonus_max Integer, --	ï¿½Ì°ï¿½ï¿½ï¿½ï¿½ï¿½
+b_startdate	datetime, --ï¿½ï¿½ï¿½Ê¶}ï¿½lï¿½ï¿½	
+b_enddate datetime, --ï¿½ï¿½ï¿½ÊºIï¿½ï¿½ï¿½
+b_announced datetime,-- ï¿½ï¿½ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½ï¿½ï¿½	
+b_attach_pic varchar(256),-- ï¿½ï¿½ï¿½Êªï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)	
+b_attach_pdf varchar(256),-- ï¿½ï¿½ï¿½ï¿½Emailï¿½ï¿½ï¿½ï¿½(PDFï¿½ï¿½)
+--b_company varchar(20), -- ï¿½ï¿½ï¿½q
+--b_phone	varchar(20), --	ï¿½qï¿½ï¿½	
 --b_email	varchar(256), --	
---b_contectperson	varchar(20), --Ápµ¸¤H
-b_click	Integer default 0,-- ÂsÄý¼Æ
-b_uploaddate datetime default getDate(), --¤W¶Ç¤é´Á
-b_update datetime default getDate(),	--§ó·s¤é´Á
-b_end datetime default '9999-12-31', -- ¾A¥Îµ²§ô¤é
+--b_contectperson	varchar(20), --ï¿½pï¿½ï¿½ï¿½H
+b_click	Integer default 0,-- ï¿½sï¿½ï¿½ï¿½ï¿½
+b_uploaddate datetime default getDate(), --ï¿½Wï¿½Ç¤ï¿½ï¿½
+b_update datetime default getDate(),	--ï¿½ï¿½sï¿½ï¿½ï¿½
+b_end datetime default '9999-12-31', -- ï¿½Aï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½
 );
 
---ÁÜ½Z¼ÐÅÒ 5/15·s¼W
+--ï¿½Ü½Zï¿½ï¿½ï¿½ï¿½ 5/15ï¿½sï¿½W
 create table b_tag(
 b_tagid int primary key identity,
 b_id int foreign key references tb_bounty(b_id) not null,
-b_tag varchar(100) not null,--¼ÐÅÒ
+b_tag varchar(100) not null,--ï¿½ï¿½ï¿½ï¿½
 );
 
---ÁÜ½Z¯d¨¥
+--ï¿½Ü½Zï¿½dï¿½ï¿½
 create table tb_bmsg( 
 b_msgid int primary key identity, 
 mid int foreign key references tb_member(mid) not null,
@@ -253,7 +244,7 @@ b_msgcontent varchar(1024),
 b_msgdate datetime default getDate()
 );
 
---ÁÜ½Z°lÂÜ 5/29§ó·s
+--ï¿½Ü½Zï¿½lï¿½ï¿½ 5/29ï¿½ï¿½s
 create table tb_track(
 mid int foreign key references tb_member(mid) NOT NULL,
 b_id int foreign key references tb_bounty(b_id) NOT NULL,
@@ -261,18 +252,13 @@ PRIMARY KEY(mid, b_id)
 );
 
 
---ºÞ²z­û¤é»x
+--ï¿½Þ²zï¿½ï¿½ï¿½ï¿½x
 create table tb_log(
 logid int primary key identity,
-mid int foreign key references tb_member(mid) not null, --ºÞ²z­ûid
-targetid int, --¹ï¶Hid
+mid int foreign key references tb_member(mid) not null, --ï¿½Þ²zï¿½ï¿½id
+targetid int, --ï¿½ï¿½Hid
 logcontent varchar(1024),
-logtype bit, --1«ÈªA,0ÀËÁ|
-lstatus bit, --1¤w³B²z,0¥¼³B²z
+logtype bit, --1ï¿½ÈªA,0ï¿½ï¿½ï¿½|
+lstatus bit, --1ï¿½wï¿½Bï¿½z,0ï¿½ï¿½ï¿½Bï¿½z
 logdate datetime default getDate()
 );
-
-insert into tb_donate (mid,targetid,point) values(1,2,70)
-,(2,1,30),(1,3,50),(2,3,100),(3,2,10),(3,1,60)
-
-insert into tb_expoint (mid,ptype,point) values(1,1,50),(1,0,150),(1,1,50),(2,1,100),(3,0,50),(3,1,100)
