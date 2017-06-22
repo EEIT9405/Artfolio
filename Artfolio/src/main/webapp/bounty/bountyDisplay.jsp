@@ -622,11 +622,13 @@ padding-top:60px;
 			
 		}
 		$.getJSON('bountySearch.controller?orderby=1',function(datas){
-			if(datas.length>0)
-			for(var i=0;i<3;i++){
-			$('img.img-responsive').get(i).src='/bountyImgs/'+ datas[i]
-			.b_attach_pic.substring(datas[i].b_attach_pic.lastIndexOf('/') + 1);
+			if(datas.length>0){
+				for(var i=0;i<Math.min(3,datas.length);i++){
+					$('img.img-responsive').get(i).src='/bountyImgs/'+ datas[i]
+					.b_attach_pic.substring(datas[i].b_attach_pic.lastIndexOf('/') + 1);
+					}
 			}
+			
 			
 			});
 	</script>

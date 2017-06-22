@@ -37,7 +37,7 @@ public class PushInterceptor implements HandlerInterceptor {
 		SockJsClient sockJsClient = new SockJsClient(transports);
 		
 		WebSocketSession session = sockJsClient.doHandshake(new PushWebSocketHandler(),
-				"ws://localhost:8080" + request.getContextPath() + "/ws/push").get();
+				"ws://1.34.217.132:18080" + request.getContextPath() + "/ws/push").get();
 		List<WorkBean> workList = (List<WorkBean>) request.getSession().getAttribute("workList");
 		if (workList != null && !workList.isEmpty()) {
 			session.sendMessage(new TextMessage(new ObjectMapper().writeValueAsString(workList)));

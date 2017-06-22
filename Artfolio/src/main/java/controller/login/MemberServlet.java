@@ -131,7 +131,7 @@ public class MemberServlet extends HttpServlet {
 			return;
 		}
 
-		MemberBean bean = new MemberBean();
+		MemberBean bean = user;
 		if ("boy".equals(gender)) {
 			bean.setGender(true);
 		} else {
