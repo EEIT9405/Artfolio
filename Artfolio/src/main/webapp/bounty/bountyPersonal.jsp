@@ -308,6 +308,7 @@ padding-top:60px;
 					$('#bountyTable').empty();
 					$.each(datas,function(idx, bounty) {
 						
+						
 						var enddate = bounty.b_enddate;
 						enddate = enddate.replace('T',' ').replace(enddate.substring(enddate.lastIndexOf('.')),'')
 						

@@ -380,8 +380,9 @@ padding-top:60px;
 					$.each(datas,function(idx, bounty) {
 						
 						var enddate = bounty.b_enddate;
-						enddate = enddate.replace('T',' ').replace(enddate.substring(enddate.lastIndexOf('.')),'')
-										
+						var date = new Date(enddate).toISOString()
+						date = date.replace('T',' ').replace(date.substring(date.lastIndexOf('.')),'')
+							
 						var trackcount;
 						var msgcount;
 						$.ajax({
@@ -406,7 +407,7 @@ padding-top:60px;
 								+ "'></a>")
 						$('#row'+count+' >div:nth-child(2)').html("<h3><a href='/Artfolio/bounty/bountyPage.controller?id="+ bounty.b_id+"'>"+bounty.b_title+"</a></h3>"
 																   + "<div>總獎金 TWD$ : "+ bounty.b_bonus_total 
-																   + "</div><div style=' margin-bottom:20px'>截止收件 : "+ enddate +"</div>"
+																   + "</div><div style=' margin-bottom:20px'>截止收件 : "+ date +"</div>"
 																   + "<div style='font-size:12px' class='btn btn-default' id='soon"+count+"'>即將截止</div>"
 																   + "<div style='font-size:12px' class='btn btn-default' id='ing"+count+"'>進行中</div>"
 																   + "<div style='font-size:12px' class='btn btn-default' id='end"+count+"'>已結束</div>"
@@ -456,8 +457,8 @@ padding-top:60px;
 					$.each(datas,function(idx, bounty) {	
 						
 						var enddate = bounty.b_enddate;
-						enddate = enddate.replace('T',' ').replace(enddate.substring(enddate.lastIndexOf('.')),'')
-						
+						var date = new Date(enddate).toISOString()
+						date = date.replace('T',' ').replace(date.substring(date.lastIndexOf('.')),'')
 						
 						var trackcount;
 						var msgcount;
@@ -485,7 +486,7 @@ padding-top:60px;
 								+ "'></a>")
 						$('#row'+count+' >div:nth-child(2)').html("<h3><a href='/Artfolio/bounty/bountyPage.controller?id="+ bounty.b_id+"'>"+bounty.b_title+"</a></h3>"
 																   + "<div>總獎金 TWD$ : "+ bounty.b_bonus_total 
-																   + "</div><div style=' margin-bottom:20px'>截止收件 : "+ enddate +"</div>"
+																   + "</div><div style=' margin-bottom:20px'>截止收件 : "+ date +"</div>"
 																   + "<div style='font-size:12px' class='btn btn-default' id='soon"+count+"'>即將截止</div>"
 																   + "<div style='font-size:12px' class='btn btn-default' id='ing"+count+"'>進行中</div>"
 																   + "<div style='font-size:12px' class='btn btn-default' id='end"+count+"'>已結束</div>"
