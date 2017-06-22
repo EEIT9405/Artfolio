@@ -197,7 +197,7 @@ font-size: 18px;
 								<hr>
 								<div align="center"><label class="lab1">名稱：</label><label>${member.name}</label></div>
 							<br>
-							<div align="center"><label class="lab1">信箱：</label><label>${member.email}</label></div>
+							<div align="center"><label class="lab1">信箱：</label><label id="mail" onmouseover="this.style.color='#FF0000';" onmouseout="this.style.color='#0000FF'" style="cursor: pointer;color:#0000FF; ">${member.email}</label></div>
 								
 							<div align="center"><input class="btn btn-primary" type ="button" onclick="history.back()" value="回到上一頁"></input></div>	
 								
@@ -267,13 +267,112 @@ font-size: 18px;
 	<!-- jQuery -->
 
 	</div>
-	
+	<div class="modal fade bs-example-modal-sm" id="mailmodal"
+								tabindex="-1" role="dialog" aria-labelledby="mailmodalLabel">
+							<div class="modal-dialog modal-sm" role="document">
+								<div class="modal-content">
+									<div class="modal-header" style="text-align: left">
+										<button type="button" class="close" id="closemail" aria-label="Close">
+										<span aria-hidden="true">&times;</span></button>
+										<h4 class="modal-title" id="mailmodalLabel">郵件</h4>
+									</div>
+									<div class="modal-body">
+										<div class="row">
+											<form id='mailForm'>
+												<div class="form-group">
+													<span>主旨：</span>
+													<input type="text" name="mailtitle" value=""><br><br>
+													<textarea class="form-control" rows="5"
+														cols="30" name="mailcontent"></textarea>
+														<input type="hidden" name="toId" value="${member.mid}">
+														<input type="hidden" name="mstatus" value="1">
+													<div class="pull-right">
+														<input type="button" class="btn btn-primary disabled"
+															name="mailSubmit" value="送出" disabled> <input
+															type="button" class="btn btn-default disabled"
+															name="mailCancel" value="取消" disabled>
+													</div>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 <jsp:include page="../top/footer.jsp"></jsp:include>	
 	<script type="text/javascript">
+	$(function(){
+	
+	
+	var mail = $('#mail');
+	var closemail = $('#closemail');
+	var mailcontent = $('textarea[name="mailcontent"]');
+	var mailSubmit = $('input[name="mailSubmit"]');
+	var mailCancel = $('input[name="mailCancel"]');
+	var mailtitle = $('input[name="mailtitle"]');
+	var mid = "${member.mid}";
+	
+	mail.click(function(){
+		$('#mailmodal').modal(
+				{backdrop : 'static'}
+		);
+	});
+	
+	
+	mailCancel.click(function() {
+		mailcontent.val('');
+		mailtitle.val('');
+		changeBtnDisableMail();
+	});
+	
+	function changeBtnDisableMail() {
+		if (mailcontent.val().length <= 0) {
+			mailSubmit.addClass('disabled');
+			mailSubmit.prop('disabled', true);
+			mailCancel.addClass('disabled');
+			mailCancel.prop('disabled', true);
+		} else if (mailcontent.val().length > 0) {
+			mailSubmit.removeClass('disabled');
+			mailSubmit.prop('disabled', false);
+			mailCancel.removeClass('disabled');
+			mailCancel.prop('disabled', false);
+		}
+	}
+	
+	closemail.click(function() {
+		mailcontent.val('');
+		mailtitle.val('');
+		$('#mailmodal').modal('hide');
+	});
+	
+	mailcontent.keyup(function() {
+		changeBtnDisableMail();
+	});
+
+	mailcontent.mouseout(function() {
+		changeBtnDisableMail();
+	});
+	
+	mailSubmit.click(function() {
+		if(mid != null){
+			$.post('/Artfolio/sendToAuthorMail.controller', $('#mailForm').serialize(), function(data){
+				$('#mailmodal').modal('hide');
+				if(data == "已成功寄出"){
+					swal('成功',data,'success');
+				}
+			});
+		}else {
+			swal('錯誤',"請登入後重試",'error');
+		}
+		mailtitle.val('');
+		mailcontent.val('');
+		$('#mailmodal').modal('hide');
+	});
 	
 	
 	
 	
+	});
 	</script>
 
 </body>
