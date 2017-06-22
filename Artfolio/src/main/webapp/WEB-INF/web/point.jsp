@@ -146,7 +146,7 @@
 		</ul>
 		<div class="tab-content">
 			<div id="exchange" role="tabpanel" class="tab-pane active">
-				<form action="point/exchange.controller" method="post">
+				<form action="/Artfolio/point/exchange.controller" method="post">
 					<table class="table table-striped">
 						<thead>
 							<tr>

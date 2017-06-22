@@ -23,7 +23,7 @@
 			<h1>${ermsg}</h1>
 		</c:when>
 		<c:otherwise>
-			<form action="donate.controller" method="post">
+			<form action="/Artfolio/point/donate.controller" method="post">
 				<table class="table table-">
 					<thead>
 						<tr>
