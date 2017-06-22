@@ -20,23 +20,25 @@ public class PushHandShakeBrowser extends HttpSessionHandshakeInterceptor {
 	public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler,
 			Map<String, Object> attributes) throws Exception {
 		System.out.println("broeser handshake");
-		if(request instanceof ServletServerHttpRequest){
+		if (request instanceof ServletServerHttpRequest) {
 			ServletServerHttpRequest servletServerHttpRequest = (ServletServerHttpRequest) request;
 			HttpSession session = servletServerHttpRequest.getServletRequest().getSession(false);
-			MemberBean user = (MemberBean) session.getAttribute("loginOK");
-			if(user != null){
+			MemberBean user = null;
+			if (session != null)
+				user = (MemberBean) session.getAttribute("loginOK");
+			if (user != null) {
 				attributes.put("user", user);
-			}else {
+			} else {
 				return false;
 			}
 			return true;
 		}
 		return false;
 	}
-	
+
 	@Override
 	public void afterHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler,
 			Exception ex) {
 		super.afterHandshake(request, response, wsHandler, ex);
 	}
-}	
+}

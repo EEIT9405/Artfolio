@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h4>${msg}</h4>
+	<h5>${msg}</h5>
 	<c:choose>
 		<c:when test="${from=='exchange'}">
 			<h5>3秒後自動跳轉回原畫面。如無跳轉，請點選一下連結。</h5>
