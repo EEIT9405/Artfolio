@@ -130,7 +130,7 @@
 						<div class="row">
 							<div class="col-sm-12 col-md-12 padding-0">
 								<div id="top1" class="img-box">
-									<img src="/Artfolio/img/User_47571025.jpg" alt="" />
+									<img src="" alt="" />
 									<div class="title-box">
 										<div class="info">
 											<h3 class="author"></h3>
@@ -144,19 +144,19 @@
 								<div class="row">
 									<div class="col-sm-6 col-md-12 padding-0">
 										<div id="top8" class="img-box tobig">
-											<img src="/Artfolio/img/User_47571025.jpg" alt="" />
+											<img src="" alt="" />
 										</div>
 									</div>
 									<div class="col-sm-6 col-md-12 padding-0">
 										<div id="top9" class="img-box tobig">
-											<img src="/Artfolio/img/User_47571025.jpg" alt="" />
+											<img src="" alt="" />
 										</div>
 									</div>
 								</div>
 							</div>
 							<div class="col-sm-12 col-md-8 padding-0">
 								<div id="top3" class="img-box">
-									<img src="/Artfolio/img/User_47571025.jpg" alt="" />
+									<img src="" alt="" />
 									<div class="title-box">
 										<div class="info">
 											<h3 class="author"></h3>
@@ -172,7 +172,7 @@
 						<div class="row">
 							<div class="col-sm-6 padding-0">
 								<div id="top4" class="img-box">
-									<img src="/Artfolio/img/User_47571025.jpg" alt="" />
+									<img src="" alt="" />
 									<div class="title-box">
 										<div class="info">
 											<h3 class="author"></h3>
@@ -184,7 +184,7 @@
 							</div>
 							<div class="col-sm-6 padding-0">
 								<div id="top5" class="img-box">
-									<img src="/Artfolio/img/User_47571025.jpg" alt="" />
+									<img src="" alt="" />
 									<div class="title-box">
 										<div class="info">
 											<h3 class="author"></h3>
@@ -196,7 +196,7 @@
 							</div>
 							<div class="col-sm-12 col-md-8 padding-0">
 								<div id="top2" class="img-box">
-									<img src="/Artfolio/img/User_47571025.jpg" alt="" />
+									<img src="" alt="" />
 									<div class="title-box">
 										<div class="info">
 											<h3 class="author"></h3>
@@ -210,19 +210,19 @@
 								<div class="row">
 									<div class="col-sm-6 col-md-12 padding-0">
 										<div id="top10" class="img-box tobig">
-											<img src="/Artfolio/img/User_47571025.jpg" alt="" />
+											<img src="" alt="" />
 										</div>
 									</div>
 									<div class="col-sm-6 col-md-12 padding-0">
 										<div id="top11" class="img-box tobig">
-											<img src="/Artfolio/img/User_47571025.jpg" alt="" />
+											<img src="" alt="" />
 										</div>
 									</div>
 								</div>
 							</div>
 							<div class="col-sm-6 padding-0">
 								<div id="top6" class="img-box">
-									<img src="/Artfolio/img/User_47571025.jpg" alt="" />
+									<img src="" alt="" />
 									<div class="title-box">
 										<div class="info">
 											<h3 class="author"></h3>
@@ -234,7 +234,7 @@
 							</div>
 							<div class="col-sm-6 padding-0">
 								<div id="top7" class="img-box">
-									<img src="/Artfolio/img/User_47571025.jpg" alt="" />
+									<img src="" alt="" />
 									<div class="title-box">
 										<div class="info">
 											<h3 class="author"></h3>
