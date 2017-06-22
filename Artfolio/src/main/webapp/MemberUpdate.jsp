@@ -216,7 +216,7 @@ background-color: #D3D3D3;
 	});
 	
 	function test3(){
-		$('#changearea').css('width','400px').css('height','200px');
+		$('#changearea').css('width','300px').css('height','200px');
 	}
 	
 	
