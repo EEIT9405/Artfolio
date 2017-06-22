@@ -291,5 +291,12 @@
 			$('input[name="searchContent"]').val('');
 		});
 		
+		$('input[name="searchContent"]').keydown(function(e){
+			if(e.keyCode==13){
+			e.preventDefault();
+			searchButton.get(0).click();
+			}
+		});
+		
 	});
 </script>
