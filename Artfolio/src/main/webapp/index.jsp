@@ -1369,6 +1369,9 @@
 			});
 		}
 		
+		if(${empty loginOK}) $('#rc').remove();
+		
+		
 	</script>
 	
 </body>
