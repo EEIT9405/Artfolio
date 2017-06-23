@@ -43,7 +43,7 @@ margin-top: 100px;
 <jsp:include page="/top/header.jsp"></jsp:include>
 
 
-          <div class="container" style="height:auto; min-height:500px; margin-bottom:30px;">
+          <div class="container" style="height:auto; min-height:800px; margin-bottom:30px;">
 	
          <div  class="div1">
 			<form class="well form-horizontal" action=" member.controller" method="post"
@@ -198,10 +198,13 @@ margin-top: 100px;
 	
 	$(document).ready(function() {
 		
-		var aa='${ErrorMsg.noupdate}';
+		var aa='${ErrorMsg.error}';
                  if(aa){
                 	   swal(aa,"" ,"error")
                      }
+
+                    
+                 
 	});
 	
 

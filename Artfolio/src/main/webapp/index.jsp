@@ -94,7 +94,9 @@
 	</c:if>
 	<section class="container-fluid top-colleciton">
 		<div class="row">
-			<div class="col-sm-0 col-md-1"></div>
+			<div class="col-sm-0 col-md-1">
+				<a id="timer" class="btn btn-lg"></a>
+			</div>
 			<div class="col-sm-0 col-md-1">
 				<div id="issueMenu">
 					<div class="circle">
@@ -1369,6 +1371,11 @@
 			});
 		}
 		
+		if(${empty loginOK}) $('#rc').remove();
+		
+		$('#timer').click(function(){
+			window.open('/Artfolio/timer.jsp','_blank','height=200,width=500');
+		});
 	</script>
 	
 </body>

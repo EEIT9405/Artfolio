@@ -14,9 +14,11 @@ public class DataBaseInsert {
 
 		Connection conn = null;
 		try {
-			String url = "jdbc:sqlserver://192.168.204.128:1433;databaseName=Artfolio";
-			conn = DriverManager.getConnection(url, "sa", "sa123456");
-
+			//String url = "jdbc:sqlserver://192.168.204.128:1433;databaseName=Artfolio";
+			//conn = DriverManager.getConnection(url, "sa", "sa123456");
+			String url = "jdbc:sqlserver://localhost:1433;databaseName=Artfolio";
+			conn = DriverManager.getConnection(url, "sa", "xk4nk4y hk4cjo4");
+			
 			// member
 			String insertMember = "insert into tb_member(pwd,name,email,gender) values(?,?,?,?)";
 			PreparedStatement pstmt = conn.prepareStatement(insertMember);
@@ -138,9 +140,9 @@ public class DataBaseInsert {
 							case 4:pstmt.setString(3, "繼續加油喔~");break;
 							case 5:pstmt.setString(3, "我覺得畫面飽和度不足。");break;
 							}
+							if(pstmt.executeUpdate() > 0)
+								wmsgRC++;
 						}
-						if(pstmt.executeUpdate() > 0)
-							wmsgRC++;
 					}
 				}
 			}

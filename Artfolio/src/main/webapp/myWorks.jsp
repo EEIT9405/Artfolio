@@ -649,11 +649,13 @@ $(function(){
 		$('#album').click(function(){
 			album(mid);
 			wedit.text('編輯');
+			photoContainer.sortable('destroy');
 		});
 		
 		$('#works').click(function(){
 			listWork(mid, "alphabet", "ascending");
 			wedit.text('編輯');
+			photoContainer.sortable('destroy');
 		});
 		
 		sortbtn.click(function() {
@@ -677,6 +679,7 @@ $(function(){
 				listWork(mid, "alphabet", "descending");
 			}
 			wedit.text('編輯');
+			photoContainer.sortable('destroy');
 		});
 
 		function listWork(mid, orderby, order) {

@@ -184,7 +184,7 @@ public class MemberServlet extends HttpServlet {
 				errorMessage.put("error", "Insert失敗");
 			} else {
 			
-				request.setAttribute("InsertOK", result);
+				session.setAttribute("InsertOK", result);
 			}
 			response.sendRedirect("/Artfolio/secure/login.jsp");
 

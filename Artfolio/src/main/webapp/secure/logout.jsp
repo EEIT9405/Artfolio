@@ -5,16 +5,17 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta http-equiv="refresh" content="3;url=/Artfolio/index.jsp">
+<meta http-equiv="refresh" content="1;url=/Artfolio/index.jsp">
 <title>登出畫面</title>
 
 </head>
 <body>
 <c:set var="memberName" value="${ loginOK.name }" />
 <c:remove var="loginOK" scope="session" />
+<c:remove var="mid" scope="session" />
 <font color='blue' ><BR>
 訪客${ memberName }，感謝您使用本系統。<BR>
-您已經登出 3秒後將為您轉入首頁<BR>
+您已經登出即將為您轉入首頁<BR>
 <!-- <script> window.setInterval("location='${pageContext.request.contextPath}/bountyIndex.jsp'",3000); </script> -->
 </font>
 </body>
