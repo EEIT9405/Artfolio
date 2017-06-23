@@ -198,7 +198,7 @@ margin-top: 100px;
 	
 	$(document).ready(function() {
 		
-		var aa='${ErrorMsg.error}';
+		var aa='${ErrorMsg.noinsert}';
                  if(aa){
                 	   swal(aa,"" ,"error")
                      }
