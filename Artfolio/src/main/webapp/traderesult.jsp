@@ -5,7 +5,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<c:if test="${from=='exchange'}">
 <meta http-equiv="refresh" content="3; url=/Artfolio/point/log.controller">
+</c:if>
 <title>Insert title here</title>
 </head>
 <body>
