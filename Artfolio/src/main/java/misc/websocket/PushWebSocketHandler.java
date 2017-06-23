@@ -101,22 +101,26 @@ public class PushWebSocketHandler extends TextWebSocketHandler {
 							// 取得前三喜歡標籤
 							if(favorites != null && !favorites.isEmpty()){
 								FavoriteBean first = favorites.first();
+								System.out.println("first="+first.getTag());
 								topFavo.add(first);
 								favorites.remove(first);
 								if(!favorites.isEmpty()){
 									FavoriteBean second = favorites.first();
+									System.out.println("second="+second.getTag());
 									topFavo.add(second);
 									favorites.remove(second);
 								}
 								if(!favorites.isEmpty()){
 									topFavo.add(favorites.first());
+									System.out.println("third="+favorites.first().getTag());
 								}	
 							}
-
+							System.out.println(entry.getKey().getName() + " topFavorite=" + topFavo.size());
 							// 如此workBean包含user喜歡的標籤，就push
 							for (FavoriteBean fb : topFavo) {
 								String ftag = fb.getTag();
 								for (TagBean tagBean : tags) {
+									System.out.println("tag="+tagBean.getTag());
 									if (ftag.equals(tagBean.getTag())) {
 										System.out.println("send message");
 										TextMessage msg = new TextMessage(

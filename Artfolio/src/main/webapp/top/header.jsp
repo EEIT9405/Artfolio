@@ -59,7 +59,7 @@
 		              <li><a href="/Artfolio/myWorks.jsp">我的作品</a></li>
 		              <li><a href="/Artfolio/bounty/bountyDisplay.jsp">邀稿區</a></li>
 		              <li><a href="/Artfolio/point/log.controller">點數區</a></li>
-		              <li><a href="/Artfolio/mail/mailIndex.jsp">站內信</a></li>
+		              <li><a href="/Artfolio/mail/mailIndex.jsp">站內信<label style="float:right; background-color:red;color:white; width:20px; text-align:center; border-radius:100%;" id="mailCount"></label></a></li>
 		              <li><a href="/Artfolio/information.jsp">個人資料</a></li>
 		              <li><a href="/Artfolio/secure/logout.jsp">登出</a></li>
 	              </c:when>
@@ -295,6 +295,16 @@
 			if(e.keyCode==13){
 			e.preventDefault();
 			searchButton.get(0).click();
+			}
+		});
+		
+		var mailmid = '${mid}';
+		var mailCount = $('#mailCount');
+		$.get('/Artfolio/mail/mailDisplay.controller',{targetId:mailmid,ShowReadOrDelete:"unread"},function(data){
+			mailCount.empty();
+			var d = JSON.parse(data);
+			if(d.length > 0){
+				mailCount.text(d.length);
 			}
 		});
 		
