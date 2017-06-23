@@ -163,7 +163,7 @@ public class MemberServlet extends HttpServlet {
 			return;			
 		}else if(em!=null&&!em.isEmpty()&&"完成".equals(action)){
 
-			errorMessage.put("noupdate", "更新失敗,email重複");
+			errorMessage.put("noinsert", "註冊失敗,email重複");
 		
 			request.getRequestDispatcher("/Member.jsp").forward(request, response);
 			return;
