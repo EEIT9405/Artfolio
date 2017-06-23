@@ -142,6 +142,7 @@ padding-top:60px;
 	margin-bottom: -3px;
 	margin-top: 3px;
 }
+
 </style>
 </head>
 
@@ -221,7 +222,7 @@ padding-top:60px;
 						</div>
 						<div id="hidden-list3" class="panel-collapse collapse"
 							align="center">
-							<ul class="list-inline">
+							<ul class="list-inline"  >
 								<li class="list"><label><input type="checkbox" value="0" name="orderby"> 最高獎金</label></li>
 								<li class="list"><label><input type="checkbox" value="1" name="orderby"> 熱門活動</label></li>
 								<li class="list"><label><input type="checkbox" value="2" name="orderby"> 最新活動</label></li>
@@ -556,8 +557,10 @@ padding-top:60px;
 		var orderCheckboxes=$('input[name=orderby]');
 		orderCheckboxes.change(function(event){
 			orderCheckboxes.each(function(index,element){
-				if(event.target!=element)
+				if(event.target!=element){
 					$(element).prop('checked',false);
+					$(element).parent('label').css('background-color','#FFFFFF');
+				}
 			});
 		});
 		function bountySearch(){
@@ -644,8 +647,17 @@ padding-top:60px;
 					}
 			}
 			
+					
 			
 			});
+		$(":checkbox").change(function(){
+			if($(this).prop('checked'))
+				$(this).parent('label').css('background-color','#DCDCDC');
+			else
+				$(this).parent('label').css('background-color','#FFFFFF');
+		});
+
+		
 	</script>
 
 </body>
