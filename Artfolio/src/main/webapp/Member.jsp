@@ -17,7 +17,8 @@
 
 <link href="css/fileinput.min.css" rel="stylesheet">
 <link rel="stylesheet" href="/Artfolio/css/sweetalert.css">
-
+<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
 <style type="text/css">
 
 
@@ -160,11 +161,11 @@ margin-top: 100px;
 </div>
 </div>
 <jsp:include page="top/footer.jsp"></jsp:include>
-	<script src="js/jquery-3.2.1.min.js"></script>
+	
 	
 
 	<!-- Bootstrap Core JavaScript -->
-	<script src="js/bootstrap.min.js"></script>
+	
 	<script src="js/fileinput.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
 	<script src="/Artfolio/js/sweetalert.min.js"></script>
