@@ -222,9 +222,9 @@ padding-top:60px;
 						<div id="hidden-list3" class="panel-collapse collapse"
 							align="center">
 							<ul class="list-inline">
-								<li class="list"><input type="checkbox" value="0" name="orderby"> 最高獎金</li>
-								<li class="list"><input type="checkbox" value="1" name="orderby"> 熱門活動</li>
-								<li class="list"><input type="checkbox" value="2" name="orderby"> 最新活動</li>
+								<li class="list"><label><input type="checkbox" value="0" name="orderby"> 最高獎金</label></li>
+								<li class="list"><label><input type="checkbox" value="1" name="orderby"> 熱門活動</label></li>
+								<li class="list"><label><input type="checkbox" value="2" name="orderby"> 最新活動</label></li>
 							</ul>
 						</div>
 					</div>
@@ -238,10 +238,10 @@ padding-top:60px;
 						<div id="hidden-list4" class="panel-collapse collapse"
 							align="center">
 							<ul class="list-inline">
-									<li class="list"><input type="checkbox" value="1" name="state">徵件中</li>
-									<li class="list"><input type="checkbox" value="2" name="state">即將截止</li>
-									<li class="list"><input type="checkbox" value="4" name="state">已結束</li>
-									<li class="list"><input type="checkbox" value="8" name="state">獲選公佈</li>
+									<li class="list"><label><input type="checkbox" value="1" name="state">徵件中</label></li>
+									<li class="list"><label><input type="checkbox" value="2" name="state">即將截止</label></li>
+									<li class="list"><label><input type="checkbox" value="4" name="state">已結束</label></li>
+									<li class="list"><label><input type="checkbox" value="8" name="state">獲選公佈</label></li>
 							</ul>
 						</div>
 					</div>
@@ -255,16 +255,16 @@ padding-top:60px;
 
 						<div id="hidden-list" class="panel-collapse collapse">
 							<ul class="list-group">
-								<li class="list-group-item"><input type="checkbox"
-									value="1" name="amount">5萬以下</li>
-								<li class="list-group-item"><input type="checkbox"
-									value="2" name="amount">5萬到10萬</li>
-								<li class="list-group-item"><input type="checkbox"
-									value="4" name="amount">10萬到25萬 </li>
-								<li class="list-group-item"><input type="checkbox"
-									value="8" name="amount">25萬到50萬 </li>
-								<li class="list-group-item"><input type="checkbox"
-									value="16" name="amount">50萬以上  </li>
+								<li class="list-group-item"><label><input type="checkbox"
+									value="1" name="amount">5萬以下</label></li>
+								<li class="list-group-item"><label><input type="checkbox"
+									value="2" name="amount">5萬到10萬</label></li>
+								<li class="list-group-item"><label><input type="checkbox"
+									value="4" name="amount">10萬到25萬 </label></li>
+								<li class="list-group-item"><label><input type="checkbox"
+									value="8" name="amount">25萬到50萬 </label></li>
+								<li class="list-group-item"><label><input type="checkbox"
+									value="16" name="amount">50萬以上 </label> </li>
 							</ul>
 						</div>					
 					</div>
@@ -278,30 +278,30 @@ padding-top:60px;
 						<div id="hidden-list2" class="panel-collapse collapse">
 							<ul class="list-group">
 								<li class="list-group-item">設計類別:</li>
-								<li class="list-group-item"><input type="checkbox"
-									value="平面設計" name="tag">平面設計</li>
-								<li class="list-group-item"><input type="checkbox"
-									value="產品設計" name="tag">產品設計</li>
+								<li class="list-group-item"><label><input type="checkbox"
+									value="平面設計" name="tag">平面設計</label></li>
+								<li class="list-group-item"><label><input type="checkbox"
+									value="產品設計" name="tag">產品設計</label></li>
 								<li class="list-group-item">影像類別:</li>
-								<li class="list-group-item"><input type="checkbox"
-									value="攝影" name="tag">攝影</li>
-								<li class="list-group-item"><input type="checkbox"
-									value="影片" name="tag">影片</li>
+								<li class="list-group-item"><label><input type="checkbox"
+									value="攝影" name="tag">攝影</label></li>
+								<li class="list-group-item"><label><input type="checkbox"
+									value="影片" name="tag">影片</label></li>
 								<li class="list-group-item">寫作類別:</li>
-								<li class="list-group-item"><input type="checkbox"
-									value="文學獎" name="tag">文學獎</li>
-								<li class="list-group-item"><input type="checkbox"
-									value="創意寫作" name="tag">創意寫作</li>
+								<li class="list-group-item"><label><input type="checkbox"
+									value="文學獎" name="tag">文學獎</label></li>
+								<li class="list-group-item"><label><input type="checkbox"
+									value="創意寫作" name="tag">創意寫作</label></li>
 								<li class="list-group-item">商業類別:</li>
-								<li class="list-group-item"><input type="checkbox"
-									value="企劃" name="tag">企劃</li>
-								<li class="list-group-item"><input type="checkbox"
-									value="創業" name="tag">創業</li>
+								<li class="list-group-item"><label><input type="checkbox"
+									value="企劃" name="tag">企劃</label></li>
+								<li class="list-group-item"><label><input type="checkbox"
+									value="創業" name="tag">創業</label></li>
 								<li class="list-group-item">其他類別:</li>
-								<li class="list-group-item"><input type="checkbox"
-									value="實習生徵求" name="tag">實習生徵求</li>
-								<li class="list-group-item"><input type="checkbox"
-									value="其他" name="tag">其他</li>
+								<li class="list-group-item"><label><input type="checkbox"
+									value="實習生徵求" name="tag">實習生徵求</label></li>
+								<li class="list-group-item"><label><input type="checkbox"
+									value="其他" name="tag">其他</label></li>
 							</ul>
 						</div>
 					</div>
