@@ -12,6 +12,7 @@
 <body>
 <c:set var="memberName" value="${ loginOK.name }" />
 <c:remove var="loginOK" scope="session" />
+<c:remove var="mid" scope="session" />
 <font color='blue' ><BR>
 訪客${ memberName }，感謝您使用本系統。<BR>
 您已經登出 3秒後將為您轉入首頁<BR>
