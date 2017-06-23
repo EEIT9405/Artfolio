@@ -554,5 +554,6 @@ $(function(){
 	
 });
 </script>
+<jsp:include page="top/modal.jsp"></jsp:include>
 </body>
 </html>
