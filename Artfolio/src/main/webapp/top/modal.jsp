@@ -276,11 +276,11 @@
 			var memberName = $('#memberName');
 			var workInfo = $('#workInfo');
 			var ImageModalLabel = $('#ImageModalLabel');
-			function showModal() {
-				thisWid = $(this).children('input[name="wid"]').val();
+			function showModal(thiz) {
+				thisWid = $(thiz).children('input[name="wid"]').val();
 				$('#wid').val(thisWid);
 				var mb = $('#modalbodyimage').empty();
-				$(this).children('img').clone().attr("style",
+				$(thiz).children('img').clone().attr("style",
 							"max-width:100%;max-height:700px;").appendTo(mb);
 				$('#ImageModal').modal(
 					{backdrop : 'static',keyboard:false}
@@ -313,7 +313,11 @@
 			
 			$(document).on('click','div.search-box', showModal);
 			
-			$(document).on('click','div.img-box',showModal);
+			$(document).on('click','div.img-box',function(){
+				if($(this).find('input').attr('name') != 'aid'){
+					showModal(this);
+				}
+			});
 			//博超-----------
 			
 			//推薦欄點擊
