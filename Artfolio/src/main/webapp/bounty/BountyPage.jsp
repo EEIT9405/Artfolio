@@ -308,9 +308,9 @@
 <!-- FB分享 -->
 <script>
 
-var str1= location.href;
-var path = str1.replace('localhost','192.168.31.4')
-
+//var str1= location.href;
+//var path = str1.replace('localhost','192.168.31.4')
+var path= location.href;
 
 window.fbAsyncInit = function() {
     FB.init({

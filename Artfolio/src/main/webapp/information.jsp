@@ -74,6 +74,23 @@ background-color:#FFF8DC;
 .nav-tabs > li > a{
   border: medium none;
 }
+.myPhoto {
+	overflow: hidden;
+	width: 200px;
+	height: 200px;
+	margin:0 auto;
+	margin-top: 12px;
+	position: relative;
+	cursor: pointer;
+}
+.myPhoto img {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	width: 160%;
+}
 </style>
 
 
@@ -185,10 +202,10 @@ background-color:#FFF8DC;
 							<div class="col-md-3">
 
 								<div class="form-group">
-									<a href="${loginOK.mphoto}"  rel="lightbox" title="大頭照"> <img
+									<a href="${loginOK.mphoto}"  rel="lightbox" title="大頭照"><div class="myPhoto"><img
 									 
 										class="img-responsive img-hover img-circle" style="width:200px"
-										src="${loginOK.mphoto}" alt="">
+										src="${loginOK.mphoto}" alt=""></div>
 									</a>
 								</div>
 								    
