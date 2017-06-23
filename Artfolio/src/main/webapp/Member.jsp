@@ -198,10 +198,13 @@ margin-top: 100px;
 	
 	$(document).ready(function() {
 		
-		var aa='${ErrorMsg.noupdate}';
+		var aa='${ErrorMsg.error}';
                  if(aa){
                 	   swal(aa,"" ,"error")
                      }
+
+                    
+                 
 	});
 	
 

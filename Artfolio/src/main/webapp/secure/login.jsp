@@ -86,15 +86,18 @@ $(document).ready(function() {
 	})
 	
 
-
-
-	
-	
+	var aa='${InsertOK}';
+             if(aa){
+             
+              swal("註冊完成","","success")
+        }
+      
 	
 	});
 
 
 
 </script>
+<c:remove var="InsertOK" scope="session" />
 </body>
 </html>
