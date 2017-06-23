@@ -451,7 +451,7 @@ $(function(){
 			photoContainer.sortable({stop: function(event, ui) {
 			    result = photoContainer.sortable("toArray");
 			}});
-			wedit.text('取消');
+			wedit.text('完成');
 		}else {
 			for(var i=0; i<editer.length; i++){
 				editer.eq(i).empty();
@@ -1170,5 +1170,6 @@ $(function(){
 		});
 	});
 </script>
+<jsp:include page="top/modal.jsp"></jsp:include>
 </body>
 </html>
