@@ -437,7 +437,7 @@ public class BountyController {
 		}		
 		     
 		MemberBean user = (MemberBean) session.getAttribute("loginOK");
-		if (!mid.equals(user.getMid())){
+		if (user==null || !mid.equals(user.getMid())){
 		
 		model.addAttribute("member",memberService.select(mid));
 		// 將活動資訊轉為JSON格式
