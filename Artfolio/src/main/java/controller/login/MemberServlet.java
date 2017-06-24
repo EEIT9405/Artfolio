@@ -144,15 +144,17 @@ public class MemberServlet extends HttpServlet {
 		} else {
 			bean.setGender(false);
 		}
-		if ("更新".equals(action)) {
-			bean.setMid(user.getMid());
-		}
-
 		bean.setEmail(email);
 		bean.setPwd(pwd);
 		bean.setName(name);
 		bean.setInfo(info);
 		bean.setMphoto(sqlphoto);
+		if ("更新".equals(action)) {
+			bean.setMid(user.getMid());
+			if("/memberPhoto/user.png".equals(sqlphoto)){
+				bean.setMphoto(memberService.select(user.getMid()).getMphoto());
+			}
+		}
 
 		List<MemberBean>  em =    loginService.select(email);
 		if(em!=null&&!em.isEmpty()&&"更新".equals(action)&&!em.get(0).getMid().equals(user.getMid())){

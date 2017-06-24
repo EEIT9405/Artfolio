@@ -19,11 +19,6 @@
 *{
 	font-family:monospace 微軟正黑體;
 }
-.img-responsive {
-	width: 400px;
-	height: 200px;
-}
-
 
 .tdmiddle{
  
@@ -82,6 +77,7 @@ background-color:#FFF8DC;
 	margin-top: 12px;
 	position: relative;
 	cursor: pointer;
+	border-radius:100%;
 }
 .myPhoto img {
 	position: absolute;
@@ -89,7 +85,7 @@ background-color:#FFF8DC;
 	left: 50%;
 	-webkit-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
-	width: 160%;
+	width: 120%;
 }
 </style>
 
@@ -202,11 +198,12 @@ background-color:#FFF8DC;
 							<div class="col-md-3">
 
 								<div class="form-group">
-									<a href="${loginOK.mphoto}"  rel="lightbox" title="大頭照"><div class="myPhoto"><img
+									<div class="myPhoto"><a href="${loginOK.mphoto}"  rel="lightbox" title="大頭照"><img
 									 
-										class="img-responsive img-hover img-circle" style="width:200px"
-										src="${loginOK.mphoto}" alt=""></div>
+										class=" img-hover"
+										src="${loginOK.mphoto}" alt="">
 									</a>
+									</div>
 								</div>
 								    
 

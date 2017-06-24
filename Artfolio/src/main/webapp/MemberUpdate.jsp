@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html >
 <html>
 <head>
@@ -94,11 +95,18 @@ background-color: #D3D3D3;
 							<label class="col-md-4 control-label">性別</label>
 							<div class="col-md-4 inputGroupContainer ">
 								<div class="input-group " >
-						
-										 <input class="radio1"
-										name="gender" type=radio value="boy" 
-										checked>男<input class="radio1" name="gender" type=radio value="girl">女<span>${err.topic}</span>
-										
+									<c:choose>
+										<c:when test="${loginOK.gender}">
+											 <input class="radio1"
+											name="gender" type=radio value="boy" 
+											checked>男<input class="radio1" name="gender" type=radio value="girl">女<span>${err.topic}</span>
+										</c:when>
+										<c:otherwise>
+											 <input class="radio1"
+											name="gender" type=radio value="boy" 
+											>男<input class="radio1" name="gender" type=radio value="girl" checked>女<span>${err.topic}</span>
+										</c:otherwise>
+									</c:choose>
 								</div>
 							</div>
 						</div>
