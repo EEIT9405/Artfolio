@@ -17,6 +17,7 @@ import model.tag.TagService;
 import model.work.WorkBean;
 import model.work.WorkService;
 import model.member.MemberInfo;
+import model.member.MemberService;
 
 @Controller
 @ResponseBody
@@ -25,6 +26,8 @@ public class SearchController {
 	private TagService tagService;
 	@Autowired
 	private WorkService workService;
+	@Autowired
+	private MemberService memberService;
 	@Autowired
 	HttpSession session;
 	
@@ -36,17 +39,17 @@ public class SearchController {
 			@RequestParam(name="orderby",defaultValue="like")String orderby,
 			@RequestParam(name="order",defaultValue="descending")String order,
 			@RequestParam(name="period",defaultValue="week")String period){
-		if(type==null || ((and==null || and.length()==0) && (or==null || or.length()==0) && (not==null || not.length()==0)))
+		if(type==null || ((and==null || and.trim().length()==0) && (or==null || or.trim().length()==0) && (not==null || not.trim().length()==0)))
 		return null;
 		List<WorkBean> list=null;
 		String[] andConditions=null,orConditions=null,notConditions=null;
-		if(and!=null && and.length()>0)
+		if(and!=null && and.trim().length()>0)
 		andConditions=and.trim().split(" ");
 		
-		if(or!=null && or.length()>0)
+		if(or!=null && or.trim().length()>0)
 		orConditions=or.trim().split(" ");
 
-		if(not!=null && not.length()>0)
+		if(not!=null && not.trim().length()>0)
 		notConditions=not.trim().split(" ");
 	
 		if(type.equals("tag")){
@@ -157,5 +160,28 @@ public class SearchController {
 				list.remove(i--);
 		}
 		return list; 
+	}
+	
+	@RequestMapping(path="searchAuthor.controller",method=RequestMethod.GET)
+	public List<MemberInfo> searchAuthor(@RequestParam(name="and",required=false)String and,
+			@RequestParam(name="or",required=false)String or,
+			@RequestParam(name="not",required=false)String not,
+			@RequestParam(name="orderby",defaultValue="ascending")String orderby,
+			@RequestParam(name="order",defaultValue="alphabet")String order){
+		if((and!=null && and.trim().length()>0) || (or!=null && or.trim().length()>0) || (not!=null && not.trim().length()>0) ){
+			String[] andConditions=null,orConditions=null,notConditions=null;
+			if(and!=null && and.trim().length()>0)
+			andConditions=and.trim().split(" ");
+			
+			if(or!=null && or.trim().length()>0)
+			orConditions=or.trim().split(" ");
+
+			if(not!=null && not.trim().length()>0)
+			notConditions=not.trim().split(" ");
+			
+			return sortMember(MemberInfo.beanToInfo(memberService.searchByName(andConditions, orConditions, notConditions)),orderby,order);
+			
+		}
+		return null;
 	}
 }

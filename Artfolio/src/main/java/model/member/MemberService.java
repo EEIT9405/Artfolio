@@ -53,4 +53,10 @@ public class MemberService {
 		return memberdao.updatePoint(mid, point);
 		return false;
 	}
+	
+	public List<MemberBean> searchByName(String[] and,String[] or,String[] not){
+		if((and!=null && and.length>0) || (or!=null && or.length>0) || (not!=null && not.length>0) )
+			return memberdao.searchByName(and, or, not);
+		return null;
+	}
 }
