@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <head>
-<link rel="stylesheet" href="css/pushBar.css">
+<link rel="stylesheet" href="/Artfolio/css/pushBar.css">
 <style type="text/css">
   .pushbefore img {
   	width:170%;

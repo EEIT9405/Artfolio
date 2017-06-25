@@ -37,7 +37,7 @@ public class ExpointDAOJdbc implements ExpointDAO {
 		return false;
 	}
 
-	private static final String SELECT="select pno,mid,ptype,point,expointdate from tb_expoint where mid=?";
+	private static final String SELECT="select pno,mid,ptype,point,expointdate from tb_expoint where mid=? order by expointdate desc";
 	@Override
 	public List<ExpointBean> select(Integer mid) {
 		ResultSet rset = null;

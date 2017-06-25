@@ -36,7 +36,7 @@ public class DonateDAOJdbc implements DonateDAO {
 		}
 		return false;
 	}
-	private static final String SELECT="select dno,mid,targetid,point,donatedate from tb_donate where mid=?";
+	private static final String SELECT="select dno,mid,targetid,point,donatedate from tb_donate where mid=? order by donatedate desc";
 	@Override
 	public List<DonateBean> select(Integer mid) {
 		ResultSet rset = null;
@@ -66,7 +66,7 @@ public class DonateDAOJdbc implements DonateDAO {
 		}
 		return list;
 	}
-	private static final String SELECT_SELF="select dno,mid,targetid,point,donatedate from tb_donate where targetid=?";
+	private static final String SELECT_SELF="select dno,mid,targetid,point,donatedate from tb_donate where targetid=? order by donatedate desc";
 	@Override
 	public List<DonateBean> selectDonated(Integer targetid) {
 		ResultSet rset = null;

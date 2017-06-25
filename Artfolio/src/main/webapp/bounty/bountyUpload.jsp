@@ -15,8 +15,8 @@
 <link rel="stylesheet" type="text/css" media="screen"
 	href="../css/bootstrap-datetimepicker.min.css">
 <link href="../css/fileinput.min.css" rel="stylesheet">
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
+<!-- <link rel="stylesheet" href="/Artfolio/code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
+<!-- <link rel="stylesheet" href="/Artfolio/resources/demos/style.css"> -->
 <script src="../js/jquery-3.2.1.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
 <style type="text/css">

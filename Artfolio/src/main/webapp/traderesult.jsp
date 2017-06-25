@@ -8,10 +8,13 @@
 <c:if test="${from=='exchange'}">
 <meta http-equiv="refresh" content="3; url=/Artfolio/point/log.controller">
 </c:if>
-<title>Insert title here</title>
+<title>donate result</title>
+<link href="/Artfolio/css/bootstrap.min.css" rel="stylesheet">
+<script src="/Artfolio/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<h5>${msg}</h5>
+	<div style="margin:20px;">
+	<h4>${msg}</h4>
 	<c:choose>
 		<c:when test="${from=='exchange'}">
 			<h5>3秒後自動跳轉回原畫面。如無跳轉，請點選一下連結。</h5>
@@ -19,13 +22,14 @@
 		</c:when>
 		<c:when test="${from=='donate'}">
 			<form>
-				<input type="button" value="close">
+				<input class="btn btn-info" type="button" value="close">
 			</form>
 		</c:when>
 		<c:otherwise>
 		
 		</c:otherwise>
 	</c:choose>
+	</div>
 	<script>
 		var c=document.querySelector('input[value=close]')
 		if(c){
