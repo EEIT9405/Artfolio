@@ -37,7 +37,7 @@ public class DataBaseInsert {
 			pstmt = conn.prepareStatement(insertLike);
 			java.util.Random r=new java.util.Random();
 			for (int i = 1; i < 34; i++) {
-				double c=Math.min(1005, r.nextGaussian()*200+500);
+				double c=Math.min(1005, r.nextGaussian()*170+500);
 				for (int j = 6; j <=1005; j++) {
 					
 					if (Math.random()<c/1005)
@@ -54,14 +54,15 @@ public class DataBaseInsert {
 			// track
 			String insertTrack = "insert into tb_track(mid,b_id) values(?,?)";
 			pstmt = conn.prepareStatement(insertTrack);
-			for (int i = 6; i <= 1005; i++) {
-				next: for (int j = 1; j < 10; j++) {
+			for (int i = 1; i < 10; i++) {
+				double c=Math.min(1005, r.nextGaussian()*170+500);
+				for (int j = 6; j <=1005; j++) {
+					
+					if (Math.random()<c/1005)
+						continue;
 
-					if (Math.random() * 10 > 7 || (Math.random() * 10 > 6 && j % 2 == 0))
-						continue next;
-
-					pstmt.setInt(1, i);
-					pstmt.setInt(2, j);
+					pstmt.setInt(1, j); 
+					pstmt.setInt(2, i);
 					pstmt.addBatch();
 				}
 			}
@@ -90,15 +91,15 @@ public class DataBaseInsert {
 			// follow
 			String insertFollow = "insert into tb_follow(mid,followid) values(?,?)";
 			pstmt = conn.prepareStatement(insertFollow);
-			for (int i = 6; i <= 505; i++) {
-				double c=Math.min(5, r.nextGaussian()*1+2.5);
-				for (int j = 1; j <= 5; j++) {
+			for (int i = 1; i <= 5; i++) {
+				double c=Math.min(1005, r.nextGaussian()*170+500);
+				for (int j = 6; j <= 1005; j++) {
 
-					if (Math.random()<c/5)
+					if (Math.random()<c/670)
 						continue;
 
-					pstmt.setInt(1, i);
-					pstmt.setInt(2, j);
+					pstmt.setInt(1, j);
+					pstmt.setInt(2, i);
 					pstmt.addBatch();
 				}
 			}
@@ -108,15 +109,15 @@ public class DataBaseInsert {
 			// browsed
 			String insertBrowsed = "insert into tb_browsed(mid, wid) values(?,?)";
 			pstmt = conn.prepareStatement(insertBrowsed);
-			for (int i = 6; i <= 1005; i++) {
-				double c=Math.min(33, r.nextGaussian()*5+16.5);
-				for (int j = 1; j < 34; j++) {
-
-					if (Math.random()<c/33)
+			for (int i = 1; i < 34; i++) {
+				double c=Math.min(1005, r.nextGaussian()*170+500);
+				for (int j = 6; j <=1005; j++) {
+					
+					if (Math.random()<c/1005)
 						continue;
 
-					pstmt.setInt(1, i);
-					pstmt.setInt(2, j);
+					pstmt.setInt(1, j);
+					pstmt.setInt(2, i);
 					pstmt.addBatch();
 				}
 			}
