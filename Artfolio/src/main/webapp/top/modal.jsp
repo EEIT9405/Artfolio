@@ -922,7 +922,7 @@
 			});
 		}
 		
-		if(${empty loginOK}) $('#rc').remove();
+		if(${empty loginOK}) $('button','#rc').remove();
 		
 	</script>	
 						
