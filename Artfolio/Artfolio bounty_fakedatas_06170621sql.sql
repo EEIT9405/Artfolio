@@ -8,6 +8,7 @@ INSERT INTO tb_member (pwd, name, email, gender, mphoto) VALUES ('123', '庭', '
 
 INSERT INTO tb_bounty 
 (mid, 
+ b_state,
  b_title,
  b_content,
  b_partimethod,
@@ -22,6 +23,7 @@ INSERT INTO tb_bounty
  b_click
  ) 
 VALUES (
+5,
 1, 
 '2017世界機器人大賽-RoboCom青少年挑戰賽', 
 
@@ -58,6 +60,7 @@ insert into b_tag (b_id, b_tag) values(1,'設計')
 
 INSERT INTO tb_bounty 
 (mid, 
+ b_state,
  b_title,
  b_content,
  b_partimethod,
@@ -72,7 +75,8 @@ INSERT INTO tb_bounty
  b_click
  ) 
 VALUES (
-1, 
+5,
+2, 
 'ISCA大阪國際學生創作節', 
 
 '技嘉科技創立於1986年，以前瞻性的眼光與優越的產品屢創佳績，邁入新世紀之際，本著「創新科技、美化人生」之理念，成立了技嘉教育基金會，以推動科技教育、藝術人文、創造和諧進步之社會為發展宗旨；鑑於優質的設計對資訊產品的重要及附加價值，期藉由此設計大賽，提升國內資訊產品設計能力，及為未來即將成為設計師的學生提供一最佳實務訓練經驗。', 
@@ -106,6 +110,7 @@ insert into b_tag (b_id, b_tag) values(2,'設計')
 
 INSERT INTO tb_bounty 
 (mid, 
+ b_state,
  b_title,
  b_content,
  b_partimethod,
@@ -120,7 +125,8 @@ INSERT INTO tb_bounty
  b_click
  ) 
 VALUES (
-1, 
+5,
+2, 
 '2017 南投縣玉山美術獎', 
 
 '南投縣山高水長風景明媚，是藝術家創作的最佳環境，特舉辦玉 
@@ -150,6 +156,7 @@ insert into b_tag (b_id, b_tag) values(3,'美術')
 
 INSERT INTO tb_bounty 
 (mid, 
+ b_state,
  b_title,
  b_content,
  b_partimethod,
@@ -164,7 +171,8 @@ INSERT INTO tb_bounty
  b_click
  ) 
 VALUES (
-1, 
+5,
+0, 
 '106年「舊是愛鐵橋」微電影拍攝競賽', 
 
 '南投縣山高水長風景明媚，是藝術家創作的最佳環境，特舉辦玉 
@@ -193,7 +201,8 @@ insert into b_tag (b_id, b_tag) values(4,'設計')
 
 
 INSERT INTO tb_bounty 
-(mid, 
+(mid,
+ b_state, 
  b_title,
  b_content,
  b_partimethod,
@@ -208,7 +217,8 @@ INSERT INTO tb_bounty
  b_click
  ) 
 VALUES (
-4, 
+4,
+0, 
 '2017青春尬歌-校園原創音樂徵選大賽', 
 '為培育高雄在地流行音樂人才，鼓勵青年學子勇於創作並提供其登台表演展現自我機會', 
 
@@ -237,6 +247,7 @@ insert into b_tag (b_id, b_tag) values(5,'徵才')
 
 INSERT INTO tb_bounty 
 (mid, 
+ b_state,
  b_title,
  b_content,
  b_partimethod,
@@ -251,7 +262,8 @@ INSERT INTO tb_bounty
  b_click
  ) 
 VALUES (
-1, 
+5,
+0, 
 '2017 為耶穌歌唱 Sing 4 Jesus', 
 
 '活動宗旨
@@ -283,6 +295,7 @@ insert into b_tag (b_id, b_tag) values(6,'合唱')
 
 INSERT INTO tb_bounty 
 (mid, 
+ b_state,
  b_title,
  b_content,
  b_partimethod,
@@ -298,6 +311,7 @@ INSERT INTO tb_bounty
  ) 
 VALUES (
 4, 
+1,
 '2017臺北文創天空創意節', 
 
 '百萬製作費 幫你圓夢提供製作費用：製作費將分為新台幣100萬、50萬、及30萬等3組，由各組報名者中選出一名優選，分別提供新台幣100萬、50萬、及30萬製作經費，報名時須選定投件組別。
@@ -323,6 +337,7 @@ insert into b_tag (b_id, b_tag) values(7,'文創')
 
 INSERT INTO tb_bounty 
 (mid, 
+ b_state,
  b_title,
  b_content,
  b_partimethod,
@@ -338,6 +353,7 @@ INSERT INTO tb_bounty
  ) 
 VALUES (
 1, 
+1,
 '浪漫臺三線 玩印客 印花再造計畫 客家印花設計競賽比賽辦法',
 
 '「浪漫臺三線」為國家新政策，全國唯一以服裝訂製為特色的【衣啟飛翔創客基地】，要用設計玩轉客家印象。
@@ -375,6 +391,7 @@ insert into b_tag (b_id, b_tag) values(8,'文化')
 
 INSERT INTO tb_bounty 
 (mid, 
+ b_state,
  b_title,
  b_content,
  b_partimethod,
@@ -390,6 +407,7 @@ INSERT INTO tb_bounty
  ) 
 VALUES (
 1, 
+0,
 '106年度 低壓智慧電表大數據分析與設計競賽', 
 
 '行政院106年核定修正【智慧電網總體規劃方案】，將積極推動低壓智慧電表系統建置，預計在113年全台低壓將達300萬戶。
