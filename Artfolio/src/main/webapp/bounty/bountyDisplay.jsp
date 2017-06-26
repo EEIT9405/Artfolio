@@ -547,7 +547,8 @@ padding-top:60px;
 							  confirmButtonText: "OK"
 							});	
 						if ($(':checkbox:checked').prop('checked')) { //若checkbox有打勾		
-							selectBounty($(':checkbox:checked').val()); //取得打勾checkbox的值並以此選取活動資訊
+					//		selectBounty($(':checkbox:checked').val()); //取得打勾checkbox的值並以此選取活動資訊
+							bountySearch();
 						} else {
 							loadBounty(); //取消選擇  載入loadBounty()
 						}

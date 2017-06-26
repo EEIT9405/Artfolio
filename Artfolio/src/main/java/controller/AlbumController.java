@@ -30,7 +30,7 @@ public class AlbumController {
 	@Autowired
 	HttpSession session;
 	
-	@RequestMapping(path = "get.controller", method = RequestMethod.GET , produces="application/json;charset=utf-8")
+	@RequestMapping(path = "get.controller", method = RequestMethod.GET)
 	public List<AlbumBean> getAlbums(Integer mid){
 		if(mid==null)
 			return null;
@@ -41,7 +41,7 @@ public class AlbumController {
 		return list;
 	}
 	
-	@RequestMapping(path = "insert.controller", method = RequestMethod.POST, produces="application/json;charset=utf-8")
+	@RequestMapping(path = "insert.controller", method = RequestMethod.POST)
 	public AlbumBean insert(String aname){
 		Integer mid = (Integer) session.getAttribute("mid");
 		if(mid==null || aname==null || aname.trim().length()==0 || aname.equals("default"))
@@ -49,7 +49,7 @@ public class AlbumController {
 		return albumService.insert(new AlbumBean(null, aname.trim(), null, mid, null));
 	}
 	
-	@RequestMapping(path = "update.controller", method = RequestMethod.POST, produces="application/json;charset=utf-8")
+	@RequestMapping(path = "update.controller", method = RequestMethod.POST)
 	public boolean update(Integer aid,String aname){
 		Integer mid = (Integer) session.getAttribute("mid");
 		if(mid!=null && aid!=null && aname!=null && aname.trim().length()!=0){
@@ -66,7 +66,7 @@ public class AlbumController {
 		return false;
 	}
 	
-	@RequestMapping(path = "delete.controller", method = RequestMethod.POST, produces="application/json;charset=utf-8")
+	@RequestMapping(path = "delete.controller", method = RequestMethod.POST)
 	public Boolean delete(Integer aid){
 		if(aid!=null){
 			Integer mid = (Integer) session.getAttribute("mid");

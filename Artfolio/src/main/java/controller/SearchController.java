@@ -31,7 +31,7 @@ public class SearchController {
 	@Autowired
 	HttpSession session;
 	
-	@RequestMapping(path="search.controller",method=RequestMethod.GET, produces="application/json;charset=utf-8")
+	@RequestMapping(path="search.controller",method=RequestMethod.GET)
 	public List<WorkBean> search(String type,
 			@RequestParam(name="and",required=false)String and,
 			@RequestParam(name="or",required=false)String or,
@@ -86,7 +86,7 @@ public class SearchController {
 		return list;
 	}
 	
-	@RequestMapping(path="searchByMid.controller",method=RequestMethod.GET, produces="application/json;charset=utf-8")
+	@RequestMapping(path="searchByMid.controller",method=RequestMethod.GET)
 	public List<WorkBean> searchByMid(Integer mid,
 			@RequestParam(name="orderby",defaultValue="like")String orderby,
 			@RequestParam(name="order",defaultValue="descending")String order){
@@ -142,12 +142,12 @@ public class SearchController {
 		}
 		return list;
 	}
-	@RequestMapping(path="searchRecent.controller",method=RequestMethod.GET, produces="application/json;charset=utf-8")
+	@RequestMapping(path="searchRecent.controller",method=RequestMethod.GET)
 	public List<WorkBean> searchRecent(){
 		return checkisHidden(workService.selectRecent());
 	}
 	
-	@RequestMapping(path="searchByAid.controller",method=RequestMethod.GET, produces="application/json;charset=utf-8")
+	@RequestMapping(path="searchByAid.controller",method=RequestMethod.GET)
 	public List<WorkBean> searchByAid(Integer aid){
 		List<WorkBean> list=workService.selectByAid(aid);
 		list.sort((w1,w2)->w1.getWorder().compareTo(w2.getWorder()));
@@ -162,7 +162,7 @@ public class SearchController {
 		return list; 
 	}
 	
-	@RequestMapping(path="searchAuthor.controller",method=RequestMethod.GET, produces="application/json;charset=utf-8")
+	@RequestMapping(path="searchAuthor.controller",method=RequestMethod.GET)
 	public List<MemberInfo> searchAuthor(@RequestParam(name="and",required=false)String and,
 			@RequestParam(name="or",required=false)String or,
 			@RequestParam(name="not",required=false)String not,

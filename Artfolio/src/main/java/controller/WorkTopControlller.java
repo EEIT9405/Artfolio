@@ -53,6 +53,7 @@ public class WorkTopControlller {
 				if (off) {
 					boolean on = workTopScheduler.start(cron);
 					if (on) {
+						workTopScheduler.pause(true);
 						return "計時器已更改" + timetext;
 					} else
 						return "錯誤: 未更改";
