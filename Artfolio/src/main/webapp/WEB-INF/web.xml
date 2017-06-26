@@ -5,6 +5,10 @@
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
   
+  <session-config>
+  	<session-timeout>60</session-timeout>
+  </session-config>
+  
   <resource-ref>
     <res-ref-name>jdbc/artfolio</res-ref-name>
     <res-type>javax.sql.DataSource</res-type>

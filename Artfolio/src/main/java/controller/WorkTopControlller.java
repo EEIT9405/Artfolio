@@ -95,7 +95,7 @@ public class WorkTopControlller {
 			}
 		}
 		if (issue > 0) {
-			List<WorkBean> workList = workTopService.selectTop(issue);
+			List<WorkBean> workList = SearchController.checkisHidden(workTopService.selectTop(issue));
 			List<Map<String, Object>> mapList = new ArrayList<>();
 			for (WorkBean work : workList) {
 				Map<String, Object> map = new HashMap<>();

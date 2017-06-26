@@ -21,7 +21,7 @@ public class WorkTopDAOHibernate implements WorkTopDAO {
 		return sessionFactory.getCurrentSession();
 	}
 
-	private static final String UPDATE_ISSUE = "update WorkBean set wissue=? where wid=?";
+	private static final String UPDATE_ISSUE = "update WorkBean set wissue=? where wid=?  and wend > getDate()";
 
 	@Override
 	public boolean update(int issue, int wid) {
