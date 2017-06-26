@@ -69,6 +69,7 @@ public class PushWebSocketHandler extends TextWebSocketHandler {
 	// 判斷傳入之圖片
 	private void sendMessage(TextMessage message) throws IOException {
 		if (!userSocketSessionMap.isEmpty()) {
+			System.out.println("userSocketSessionMap is not empty.");
 			// 將message(json)轉回WrokBean/list物件
 			ObjectMapper mapper = new ObjectMapper();
 			// WorkBean workBean =
@@ -81,6 +82,7 @@ public class PushWebSocketHandler extends TextWebSocketHandler {
 				// 取得此bean所有tag
 				List<TagBean> tags = tagService.getTags(workBean.getWid());
 				if (tags != null && !tags.isEmpty()) {
+					System.out.println("tags are not empty.");
 					Iterator<Map.Entry<MemberBean, WebSocketSession>> iterator = userSocketSessionMap.entrySet()
 							.iterator();
 					

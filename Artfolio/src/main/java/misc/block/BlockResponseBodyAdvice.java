@@ -66,7 +66,7 @@ public class BlockResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 					List<WmsgBean> wmsgList = (List<WmsgBean>) returnValue;
 					return BlockUtils.filterWmsg(blockList, wmsgList, mid, request);
 				}
-				if ("search".equals(methodName) || "searchByMid".equals(methodName)){
+				if ("search".equals(methodName) || "searchByMid".equals(methodName) || "searchRecent".equals(methodName)){
 					List<WorkBean> workList = (List<WorkBean>) returnValue;
 					return BlockUtils.filterWork(blockList, workList, mid);
 				}
@@ -87,7 +87,7 @@ public class BlockResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 		if ("getAllWmsg".equals(methodName)) {
 			return true;
 		}
-		if("search".equals(methodName) || "searchByMid".equals(methodName)){
+		if("search".equals(methodName) || "searchByMid".equals(methodName)|| "searchRecent".equals(methodName)){
 			return true;
 		}
 		return false;
