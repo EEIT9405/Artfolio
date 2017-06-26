@@ -1371,7 +1371,7 @@
 			});
 		}
 		
-		if(${empty loginOK}) $('#rc').remove();
+		if(${empty loginOK}) $('button','#rc').remove();
 		
 		$('#timer').click(function(){
 			window.open('/Artfolio/timer.jsp','_blank','height=200,width=500');

@@ -70,12 +70,12 @@ public class SearchController {
 		java.util.Date when;
 		if(period.equals("day"))
 			when=new java.util.Date(System.currentTimeMillis()-86400000);
-		else if(period.equals("year"))
-			when=new java.util.Date(System.currentTimeMillis()-86400000L*365);
+		else if(period.equals("week"))
+			when=new java.util.Date(System.currentTimeMillis()-86400000*7);
 		else if(period.equals("month"))
 			when=new java.util.Date(System.currentTimeMillis()-86400000L*30);
 		else
-			when=new java.util.Date(System.currentTimeMillis()-86400000*7);
+			when=new java.util.Date(System.currentTimeMillis()-86400000L*365);
 		
 //		System.out.println(new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(when));
 		for (int i=0;i<list.size();i++){
