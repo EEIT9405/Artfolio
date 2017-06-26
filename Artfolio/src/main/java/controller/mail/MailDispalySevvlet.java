@@ -51,7 +51,7 @@ public class MailDispalySevvlet extends HttpServlet {
 			targetId = Integer.parseInt(temp);
 		}
 	
-		System.out.println(showReadOrDelete);
+//		System.out.println(showReadOrDelete);
 		
 		MailBean bean = null; //根據條件查詢信件
 		switch(showReadOrDelete){
@@ -71,7 +71,7 @@ public class MailDispalySevvlet extends HttpServlet {
 							
 		//呼叫model選取資料
 		List<MailBean> result = mailService.select(bean);
-		System.out.println(result);
+//		System.out.println(result);
 		
 		//將資料轉換成JSON格式
 		ObjectMapper mapper = new ObjectMapper();

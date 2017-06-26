@@ -50,6 +50,23 @@ public class DataBaseInsert {
 			}
 			int[] like = pstmt.executeBatch();
 			System.out.println("like=" + like.length);
+			
+			// track
+			String insertTrack = "insert into tb_track(mid,b_id) values(?,?)";
+			pstmt = conn.prepareStatement(insertTrack);
+			for (int i = 6; i <= 1005; i++) {
+				next: for (int j = 1; j < 10; j++) {
+
+					if (Math.random() * 10 > 7 || (Math.random() * 10 > 6 && j % 2 == 0))
+						continue next;
+
+					pstmt.setInt(1, i);
+					pstmt.setInt(2, j);
+					pstmt.addBatch();
+				}
+			}
+			int[] track = pstmt.executeBatch();
+			System.out.println("track=" + track.length);
 
 			// put like into work
 			String countLike = "select count(*) from tb_like where wid=?";
