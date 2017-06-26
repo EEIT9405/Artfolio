@@ -20,7 +20,7 @@
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  width: 120%; 
+  width: 140%; 
 }
 .search-box {
   overflow: hidden;

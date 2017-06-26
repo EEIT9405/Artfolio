@@ -51,6 +51,9 @@
 		"progid:DXImageTransform.Microsoft.MotionBlur(strength=50), progid:DXImageTransform.Microsoft.BasicImage(mirror=1)";
 	/* 	filter: blur(50px) */
 }
+.uniqueClassName {
+	cursor: pointer;
+}
 </style>
 
 
@@ -204,10 +207,10 @@
 					 	destroy: true,
 		               "data": datas,
 		               "columns": [
-		                   { "data": "mailid" ,"title":"mailid", "class":"hidden", className: "uniqueClassName"},
-		                   { "data": "memberBean.name" ,"title":"寄件者", className: "uniqueClassName"},
+		                   { "data": "mailid" ,"title":"mailid", "class":"hidden"},
+		                   { "data": "memberBean.name" ,"title":"寄件者"},
 		                   { "data": "mailtitle" ,"title":"主旨", className: "uniqueClassName"},
-		                   { "data": "maildate" ,"title":"寄件日期", className: "uniqueClassName", type: "date",render: function(maildate) {
+		                   { "data": "maildate" ,"title":"寄件日期", type: "date",render: function(maildate) {
 		                       var d = new Date(maildate);  return d.getFullYear() + '/'  + (d.getMonth() + 1) + '/' + d.getDate() + ' ' + d.getHours()+ ':' + d.getMinutes()+ ':' + d.getSeconds();
 		                     }},
 		                   { "data": null,

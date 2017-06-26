@@ -85,7 +85,7 @@ background-color:#FFF8DC;
 	left: 50%;
 	-webkit-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
-	width: 120%;
+	width: 140%;
 }
 </style>
 
