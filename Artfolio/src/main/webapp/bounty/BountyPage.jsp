@@ -578,18 +578,31 @@ window.fbAsyncInit = function() {
 				$('#bmsgTable>tbody').on(
 						'click',
 						'button:nth-child(1)',
-						function(data) { //刪除
-							swal('成功','留言已刪除','success');
-							//alert($(this).parents('tr').children('td:eq(2)').children('div').text())
-							console.log(this);
+						function(e) { //刪除
+// 							swal('成功','留言已刪除','success');
+// 							//alert($(this).parents('tr').children('td:eq(2)').children('div').text())
+// 							console.log(this);
 							var mid = "${loginOK.mid}";
+						
+							swal({
+								  title: "確定要刪除?",
+//	 							  text: "You will not be able to recover this imaginary file!",
+								  type: "warning",
+								  showCancelButton: true,
+								  confirmButtonColor: "#DD6B55",
+								  confirmButtonText: "確定",
+								  cancelButtonText:"取消",
+								  closeOnConfirm: false
+								},
+								function(){
 							$.get("deletebmsg.controller", {
-								"b_msgid" : $(this).parent('td').parent('tr')
+								"b_msgid" : $(e.currentTarget).parent('td').parent('tr')
 										.children('input[name=bmsgid]').val()
 							}, function(data) {
-
+								swal('成功','留言已刪除','success');
 								loadBmsg();
 							});
+								});
 						});
 
 				$('#bmsgTable>tbody').on(
