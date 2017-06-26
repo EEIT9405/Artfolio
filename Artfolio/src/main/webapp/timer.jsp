@@ -17,7 +17,7 @@
 	<select id="select">
 		<option value="" selected>請選擇</option>
 		<option value="stop">停止</option>
-		<option value="0 0/5 * * * ?">每五分鐘</option>
+		<option value="0 0/5 * * * ?">每五分</option>
 		<option value="59 59 23 * * ?">每日24:00</option>
 		<option value="59 59 23 * * 7">每週六24:00</option>
 		<option value="0 0 0 1 * ?">每月底24:00</option>
