@@ -187,7 +187,7 @@ public class WorkController {
 		return "upload";
 	}
 	
-	@RequestMapping(path = "update.controller", method = RequestMethod.POST)
+	@RequestMapping(path = "update.controller", method = RequestMethod.POST, produces="application/json;charset=utf-8")
 	@ResponseBody
 	public boolean update(Integer wid,String wtitle,String winfo,Integer aid,Boolean iswmsg){
 		Integer mid = (Integer) session.getAttribute("mid");
@@ -210,7 +210,7 @@ public class WorkController {
 		return false;
 	}
 
-	@RequestMapping(path = "delete.controller", method = RequestMethod.POST)
+	@RequestMapping(path = "delete.controller", method = RequestMethod.POST, produces="application/json;charset=utf-8")
 	@ResponseBody
 	public boolean hide(Integer wid){
 		Integer mid = (Integer) session.getAttribute("mid");
@@ -226,7 +226,7 @@ public class WorkController {
 		return false;
 	}
 	
-	@RequestMapping(path = "getNewDate.controller", method = RequestMethod.GET)
+	@RequestMapping(path = "getNewDate.controller", method = RequestMethod.GET, produces="application/json;charset=utf-8")
 	@ResponseBody
 	public Date getNewWorkDate(Integer mid){
 		if(mid != null){

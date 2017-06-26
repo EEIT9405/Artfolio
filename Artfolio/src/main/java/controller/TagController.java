@@ -30,7 +30,7 @@ public class TagController {
 	TagvoteService tagvoteService;
 	@Autowired
 	HttpSession session;
-	@RequestMapping(method=RequestMethod.POST,path="add.controller")
+	@RequestMapping(method=RequestMethod.POST,path="add.controller", produces="application/json;charset=utf-8")
 	public List<TagBean> addTag(Integer wid,@RequestParam("tags[]") String[] tags){
 		Integer mid = (Integer) session.getAttribute("mid");
 		if(mid==null)
@@ -47,7 +47,7 @@ public class TagController {
 
 	}
 	
-	@RequestMapping(method=RequestMethod.GET,path="get.controller")
+	@RequestMapping(method=RequestMethod.GET,path="get.controller", produces="application/json;charset=utf-8")
 	public List<TagBean> getTags(Integer wid){
 		if(wid!=null){
 			List<TagBean> list=tagService.getTags(wid);
@@ -61,7 +61,7 @@ public class TagController {
 		
 		return null;
 	}
-	@RequestMapping(method=RequestMethod.GET,path="del.controller")
+	@RequestMapping(method=RequestMethod.GET,path="del.controller", produces="application/json;charset=utf-8")
 	public boolean delTag(Integer wid,String tag){
 		Integer mid = (Integer) session.getAttribute("mid");
 		if(mid==null)
@@ -70,7 +70,7 @@ public class TagController {
 		return tagService.delTag(wid, tag);
 		return false;
 	}
-	@RequestMapping(method=RequestMethod.GET,path="lock.controller")
+	@RequestMapping(method=RequestMethod.GET,path="lock.controller", produces="application/json;charset=utf-8")
 	public boolean lockTag(Integer wid,String tag,Boolean islock){
 		if(wid!=null && tag.length()!=0 && islock!=null){
 			Integer mid=(Integer) session.getAttribute("mid");
@@ -79,7 +79,7 @@ public class TagController {
 		return false;
 	}
 	
-	@RequestMapping(method=RequestMethod.POST,path="vote.controller")
+	@RequestMapping(method=RequestMethod.POST,path="vote.controller", produces="application/json;charset=utf-8")
 	public boolean vote(Integer wid,String tag,boolean check){
 		if(wid!=null && tag!=null){
 			Integer mid=(Integer) session.getAttribute("mid");
@@ -92,7 +92,7 @@ public class TagController {
 		}
 		return false;
 	}
-	@RequestMapping(method=RequestMethod.GET,path="voted.controller")
+	@RequestMapping(method=RequestMethod.GET,path="voted.controller", produces="application/json;charset=utf-8")
 	public boolean voted(Integer wid,String tag){
 		if(wid!=null && tag!=null){
 			Integer mid=(Integer) session.getAttribute("mid");

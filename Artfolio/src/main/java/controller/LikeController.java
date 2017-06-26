@@ -28,7 +28,7 @@ public class LikeController {
 	@Autowired
 	private WorkService workService;
 
-	@RequestMapping(path = "get.controller", method = RequestMethod.GET)
+	@RequestMapping(path = "get.controller", method = RequestMethod.GET, produces="application/json;charset=utf-8")
 	public List<WorkBean> get(@RequestParam(name="orderby",defaultValue="alphabet")String orderby,
 			@RequestParam(name="order",defaultValue="ascending")String order) {
 		Integer mid = (Integer) session.getAttribute("mid");
@@ -44,7 +44,7 @@ public class LikeController {
 		return null;
 	}
 
-	@RequestMapping(path = "check.controller", method = RequestMethod.GET)
+	@RequestMapping(path = "check.controller", method = RequestMethod.GET, produces="application/json;charset=utf-8")
 	public Info check(Integer wid) {
 		if (wid != null) {
 			Integer mid = (Integer) session.getAttribute("mid");
@@ -61,7 +61,7 @@ public class LikeController {
 		return null;
 	}
 
-	@RequestMapping(path = "insert.controller", method = RequestMethod.POST)
+	@RequestMapping(path = "insert.controller", method = RequestMethod.POST, produces="application/json;charset=utf-8")
 	public Info insert(Integer wid) {
 		if (wid != null) {
 			Integer mid = (Integer) session.getAttribute("mid");
@@ -71,7 +71,7 @@ public class LikeController {
 		return null;
 	}
 
-	@RequestMapping(path = "delete.controller", method = RequestMethod.POST)
+	@RequestMapping(path = "delete.controller", method = RequestMethod.POST, produces="application/json;charset=utf-8")
 	public Info delete(Integer wid) {
 		if (wid != null) {
 			Integer mid = (Integer) session.getAttribute("mid");

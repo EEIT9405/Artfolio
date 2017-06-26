@@ -37,7 +37,7 @@ public class FollowController {
 	@Autowired
 	private MemberService memberService;
 	
-	@RequestMapping(path="get.controller",method=RequestMethod.GET)
+	@RequestMapping(path="get.controller",method=RequestMethod.GET, produces="application/json;charset=utf-8")
 	public List<MemberInfo> get(@RequestParam(name="orderby",defaultValue="alphabet")String orderby,
 			@RequestParam(name="order",defaultValue="ascending")String order){
 		Integer mid = (Integer) session.getAttribute("mid");
@@ -52,7 +52,7 @@ public class FollowController {
 		return null;
 	}
 	
-	@RequestMapping(path="check.controller",method=RequestMethod.GET)
+	@RequestMapping(path="check.controller",method=RequestMethod.GET, produces="application/json;charset=utf-8")
 	public Info check(Integer wid){
 		if(wid!=null){
 			Integer mid=(Integer) session.getAttribute("mid");
@@ -69,7 +69,7 @@ public class FollowController {
 		return null;
 	}
 	
-	@RequestMapping(path="check2.controller",method=RequestMethod.GET)
+	@RequestMapping(path="check2.controller",method=RequestMethod.GET, produces="application/json;charset=utf-8")
 	public int check2(){
 		Integer mid=(Integer) session.getAttribute("mid");
 		MemberBean targetBean = (MemberBean) session.getAttribute("targetBean");
@@ -88,7 +88,7 @@ public class FollowController {
 		return 0;
 	}
 	
-	@RequestMapping(value="/getFollowCount.controller", method=RequestMethod.GET)
+	@RequestMapping(value="/getFollowCount.controller", method=RequestMethod.GET, produces="application/json;charset=utf-8")
 	public Map<String, Integer> getFollowCount(Integer mid){
 		Map<String, Integer> map = new HashMap<>();
 		if(mid != null){
@@ -104,7 +104,7 @@ public class FollowController {
 		return map;
 	}
 	
-	@RequestMapping(path="insert.controller",method=RequestMethod.POST)
+	@RequestMapping(path="insert.controller",method=RequestMethod.POST, produces="application/json;charset=utf-8")
 	public Info insert(Integer wid){
 		if(wid!=null){
 			Integer mid=(Integer) session.getAttribute("mid");
@@ -128,14 +128,14 @@ public class FollowController {
 		return "追踪失敗，請重新登入後再試";
 	}
 	
-	@RequestMapping(path="deleteByWid.controller",method=RequestMethod.POST)
+	@RequestMapping(path="deleteByWid.controller",method=RequestMethod.POST, produces="application/json;charset=utf-8")
 	public Info deleteByWid(Integer wid){
 		if(wid!=null){
 			return delete(workService.getWork(wid).getMid());
 		}	
 		return null;
 	}
-	@RequestMapping(path="delete.controller",method=RequestMethod.POST)
+	@RequestMapping(path="delete.controller",method=RequestMethod.POST, produces="application/json;charset=utf-8")
 	public Info delete(Integer followid){
 		if(followid!=null){
 			Integer mid=(Integer) session.getAttribute("mid");
