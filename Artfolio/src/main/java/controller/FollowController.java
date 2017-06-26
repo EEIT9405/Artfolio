@@ -115,7 +115,7 @@ public class FollowController {
 		return null;
 	}
 	
-	@RequestMapping(value="/create.controller", method=RequestMethod.POST)
+	@RequestMapping(value="/create.controller", method=RequestMethod.POST, produces="text/plain;charset=utf-8")
 	@ResponseBody
 	public String follow(){
 		Integer mid = (Integer) session.getAttribute("mid");
