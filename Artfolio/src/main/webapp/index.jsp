@@ -456,7 +456,7 @@
 													<h5><span>檢舉事由：</span></h5><br/>
 													<textarea class="form-control" rows="5"
 														cols="30" name="mailcontent"></textarea>
-														<input type="hidden" name="toId" value="1">
+														<input type="hidden" name="toId" value="6">
 														<input type="hidden" name="mailtitle" value="">
 														<input type="hidden" name="mstatus" value="3">
 													<div class="pull-right">

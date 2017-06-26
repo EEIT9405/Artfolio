@@ -61,8 +61,8 @@ public class LoginServlet extends HttpServlet {
 		MemberBean bean = loginService.login(email, password);
 
 		// 根據Model執行結果呼叫View
-		if (bean == null) {
-//		if (bean == null || !vcode.equals(msg)) {
+//		if (bean == null) {
+		if (bean == null || !vcode.equals(msg)) {
 			errors.put("msg", "登入失敗，請再次輸入帳號密碼");
 			request.getRequestDispatcher("/secure/login.jsp").forward(request, response);
 			return;
