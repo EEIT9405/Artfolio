@@ -64,7 +64,7 @@ public class RecordController {
 		if(bean!=null){
 			Integer mid=(Integer) session.getAttribute("mid");
 			bean.setMid(mid);
-			if(bean.getWid()==null || bean.getRecordversion()==null || bean.getMid()==null)
+			if(bean.getWid()==null || bean.getRecordversion()==null || bean.getMid()==null || workService.getWork(bean.getWid()).getMid().equals(mid))
 				return false;
 			if(update)
 				return recordService.updateRecord(bean);

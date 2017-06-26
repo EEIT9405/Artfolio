@@ -38,7 +38,7 @@ public class SearchController {
 			@RequestParam(name="not",required=false)String not,
 			@RequestParam(name="orderby",defaultValue="like")String orderby,
 			@RequestParam(name="order",defaultValue="descending")String order,
-			@RequestParam(name="period",defaultValue="week")String period){
+			@RequestParam(name="period",defaultValue="year")String period){
 		if(type==null || ((and==null || and.trim().length()==0) && (or==null || or.trim().length()==0) && (not==null || not.trim().length()==0)))
 		return null;
 		List<WorkBean> list=null;

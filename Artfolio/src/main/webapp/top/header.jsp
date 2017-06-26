@@ -149,9 +149,9 @@
 									<td>
 										<select name="period">
 											<option value="day">過去一天</option>
-											<option value="week" selected>過去一週</option>
+											<option value="week">過去一週</option>
 											<option value="month">過去一月</option>
-											<option value="year">過去一年</option>
+											<option value="year" selected>過去一年</option>
 										</select>
 									</td>
 								</tr>
