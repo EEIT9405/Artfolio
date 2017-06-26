@@ -10,4 +10,6 @@ public interface MemberDAO {
 	MemberBean update(MemberBean bean);
 	
 	boolean updatePoint(Integer mid,Integer point);
+	
+	List<MemberBean>  searchByName(String[] and,String[] or,String[] not);
 }

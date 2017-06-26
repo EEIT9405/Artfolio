@@ -1,6 +1,8 @@
 package model.member;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class MemberInfo{
 	private Integer mid;
@@ -59,4 +61,12 @@ public class MemberInfo{
 		this.mstart = mstart;
 	}
 	
+	public static List<MemberInfo> beanToInfo(List<MemberBean> beanList){
+		List<MemberInfo> list=new ArrayList<>();
+		for(MemberBean bean:beanList){
+			list.add(new MemberInfo(bean.getMid(), bean.getName(), bean.getInfo(),
+					bean.getGender(), bean.getMphoto(), bean.getMstart()));
+		}
+		return list; 
+	}
 }
