@@ -92,11 +92,8 @@ public class MailUploadServlet extends HttpServlet {
 								}
 							}	
 							System.out.println(replystate);
-							if("true".equals(replystate)){
-								fileStorageURL = "C:/Artfolio/MailAttachs/"+ filename;
-							}else{
-								fileStorageURL = "C:/Artfolio/BountyImgs/"+ filename;
-							}				
+							fileStorageURL = "C:/Artfolio/MailAttachs/"+ filename;
+							
 							if (filename != null && filename.trim().length() > 0) {
 								try (InputStream is = p.getInputStream(); // 開啟輸入檔
 										FileOutputStream os = new FileOutputStream(fileStorageURL);// 將上傳檔案寫入至資料庫硬碟
