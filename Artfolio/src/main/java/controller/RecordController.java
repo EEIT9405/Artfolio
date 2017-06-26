@@ -32,7 +32,7 @@ public class RecordController {
 	@Autowired
 	HttpSession session;
 	
-	@RequestMapping(path="getw.controller",method=RequestMethod.GET, produces="application/json;charset=utf-8")
+	@RequestMapping(path="getw.controller",method=RequestMethod.GET)
 	public WorkBean getCurrent(Integer wid){
 		if(wid!=null){
 			return workService.getWork(wid);
@@ -40,7 +40,7 @@ public class RecordController {
 		return null;
 	}
 	
-	@RequestMapping(path="update.controller",method=RequestMethod.POST, produces="application/json;charset=utf-8")
+	@RequestMapping(path="update.controller",method=RequestMethod.POST)
 	public Boolean updateScore(WorkBean bean,Boolean lock){
 		if(bean!=null){
 			Integer mid=(Integer) session.getAttribute("mid");
@@ -59,7 +59,7 @@ public class RecordController {
 	}
 	
 	
-	@RequestMapping(path="insert.controller",method=RequestMethod.POST, produces="application/json;charset=utf-8")
+	@RequestMapping(path="insert.controller",method=RequestMethod.POST)
 	public boolean insert(RecordBean bean,Boolean update){
 		if(bean!=null){
 			Integer mid=(Integer) session.getAttribute("mid");
@@ -75,7 +75,7 @@ public class RecordController {
 		return false;
 	}
 	
-	@RequestMapping(path="getr.controller",method=RequestMethod.GET, produces="application/json;charset=utf-8")
+	@RequestMapping(path="getr.controller",method=RequestMethod.GET)
 	public RecordBean getRecord(RecordBean bean){
 		if(bean!=null){
 			Integer mid=(Integer) session.getAttribute("mid");
@@ -87,7 +87,7 @@ public class RecordController {
 		return null;
 	}
 	
-	@RequestMapping(path="delete.controller",method=RequestMethod.POST, produces="application/json;charset=utf-8")
+	@RequestMapping(path="delete.controller",method=RequestMethod.POST)
 	public boolean delete(RecordBean bean){
 		if(bean!=null){
 			Integer mid=(Integer) session.getAttribute("mid");
@@ -99,21 +99,21 @@ public class RecordController {
 		return false;
 	}
 	
-	@RequestMapping(path="getsv.controller",method=RequestMethod.GET, produces="application/json;charset=utf-8")
+	@RequestMapping(path="getsv.controller",method=RequestMethod.GET)
 	public Integer getScoreVersions(Integer wid){
 		if(wid!=null){
 			return scoreService.select(wid)+1;
 		}
 		return null;
 	}
-	@RequestMapping(path="gets.controller",method=RequestMethod.GET, produces="application/json;charset=utf-8")
+	@RequestMapping(path="gets.controller",method=RequestMethod.GET)
 	public ScoreBean getScore(Integer wid,Integer scoreversion){
 		if(wid!=null && scoreversion!=null){
 			return scoreService.select(wid,scoreversion);
 		}
 		return null;
 	}
-	@RequestMapping(path="getst.controller",method=RequestMethod.GET, produces="application/json;charset=utf-8")
+	@RequestMapping(path="getst.controller",method=RequestMethod.GET)
 	public List<RecordBean> getStats(Integer wid,Integer scoreversion){
 		if(wid!=null && scoreversion!=null)
 			return recordService.calStat(wid, scoreversion);
