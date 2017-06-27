@@ -1,9 +1,9 @@
 ﻿use ARTFOLIO 
 go
 
-INSERT INTO tb_member (pwd, name, email, gender, mphoto) VALUES ('123', '保', 'a', 1,'/memberPhoto/user.png');
-INSERT INTO tb_member (pwd, name, email, gender, mphoto) VALUES ('123', '程', 'b', 1,'/memberPhoto/user.png');
-INSERT INTO tb_member (pwd, name, email, gender, mphoto) VALUES ('123', '庭', 'c', 1,'/memberPhoto/user.png');
+--INSERT INTO tb_member (pwd, name, email, gender, mphoto) VALUES ('123', '保', 'a', 1,'/memberPhoto/user.png');
+--INSERT INTO tb_member (pwd, name, email, gender, mphoto) VALUES ('123', '程', 'b', 1,'/memberPhoto/user.png');
+--INSERT INTO tb_member (pwd, name, email, gender, mphoto) VALUES ('123', '庭', 'c', 1,'/memberPhoto/user.png');
 
 
 INSERT INTO tb_bounty 

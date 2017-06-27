@@ -1,9 +1,9 @@
 --demo用
-insert into tb_member(pwd,name,email,gender,mphoto,point) values('12345678','畢卡索','teiulin0914@outlook.com',1,'/memberPhoto/picaso.jpg',1200)
+insert into tb_member(pwd,name,email,gender,mphoto,point) values('12345678','畢卡索','picaso@gmail.com',1,'/memberPhoto/picaso.jpg',1200)
 insert into tb_member(pwd,name,email,gender,mphoto) values('12345678','達文西','bbb@gmail.com',1,'/memberPhoto/mengnalisa.jpeg')
 insert into tb_member(pwd,name,email,gender,mphoto) values('12345678','維梅爾','ccc@gmail.com',1,'/memberPhoto/weimeier.JPG')
 insert into tb_member(pwd,name,email,gender,mphoto) values('12345678','梵谷','ddd@gmail.com',1,'/memberPhoto/vangogh.jpg')
-insert into tb_member(pwd,name,email,gender,mphoto,point) values('12345678','孟克','munch@gmail.com',1,'/memberPhoto/mengke.jpg',500)
+insert into tb_member(pwd,name,email,gender,mphoto,point) values('12345678','孟克','teiulin0914@outlook.com',1,'/memberPhoto/user.png',500)
 
 insert into tb_favorite(mid,tag,fcount) values(5,'女',1000);
 insert into tb_favorite(mid,tag,fcount) values(5,'日本',1100);
@@ -17,8 +17,8 @@ insert into tb_album(aname,mid,wid) values('default',4,4);
 --insert into tb_album(aname,mid,wid) values('default',5,5);
 
 --作品&Tag
-insert into tb_work(mid,picurl,wtitle,winfo,wlike,wissue,aid,wstart) values(1,'/img/1/this_thing_called_art_is_really_dangerous_by_agnes_cecile-d5ax6g0.jpg','菸癮','煙霧吞吐間的，<br />一種思緒。',123,1,1,'2017-01-01')
-insert into tb_tag(wid,tag) values(1,'香菸')
+insert into tb_work(mid,picurl,wtitle,winfo,wlike,wissue,aid,wstart,isscore,score_1,score_2,score_3,score_4,scoreversion) values(1,'/img/1/this_thing_called_art_is_really_dangerous_by_agnes_cecile-d5ax6g0.jpg','菸癮','煙霧吞吐間的，<br />一種思緒。',123,0,1,'2017-01-01',1,'用色','線條張力','主題性','意境',1)
+insert into tb_tag(wid,tag,lock) values(1,'香菸',1)
 insert into tb_tag(wid,tag) values(1,'水彩')
 insert into tb_tag(wid,tag) values(1,'女')
 insert into tb_work(mid,picurl,wtitle,winfo,wlike,wissue,aid,wstart) values(2,'/img/2/ebb-and-flow-mandy-budan.jpg','田間','小路',5,1,2,'2017-01-02')
@@ -105,7 +105,7 @@ insert into tb_tag(wid,tag) values(22,'神奇寶貝')
 insert into tb_tag(wid,tag) values(22,'水')
 insert into tb_tag(wid,tag) values(22,'日本')
 
-insert into tb_work(mid,picurl,wtitle,winfo,wlike,wissue,aid) values(1,'/img/1/9d7bf0bc196a6fa0402b7cb1a27c35a3.jpg','女子','色彩繽紛!',123,0,1)
+insert into tb_work(mid,picurl,wtitle,winfo,wlike,wissue,aid) values(1,'/img/1/9d7bf0bc196a6fa0402b7cb1a27c35a3.jpg','女子','色彩繽紛!',123,1,1)
 insert into tb_tag(wid,tag) values(23,'女')
 insert into tb_tag(wid,tag) values(23,'水彩')
 insert into tb_work(mid,picurl,wtitle,winfo,wlike,wissue,aid) values(2,'/img/2/image-728739_960_720.jpg','小汽車','童年',5555,0,2)

@@ -70,7 +70,7 @@ background-color: #D3D3D3;
 								<div class="input-group">
 									<span class="input-group-addon"><i
 										class="glyphicon glyphicon-lock"></i></span> <input name="pwd"
-										placeholder="Password" value="${loginOK.pwd}" class="form-control" type="text">
+										placeholder="Password" value="${loginOK.pwd}" class="form-control" type="password">
 										
 								</div>
 								<span style="color: red; font-size: 60%; display: inline">${ErrorMsg.pwd}</span>
