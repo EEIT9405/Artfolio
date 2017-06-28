@@ -854,7 +854,6 @@
 		function getAll(){
 			$.get('follow/check.controller',{wid:wid.val()},function(data){
 				followers.text(data.followers);
-				console.log("data.followed=" + data.followed);
 				if(data.followed){
 					follow.val('unfollow');
 					follow.removeClass('btn-default');
@@ -879,6 +878,8 @@
 					$('#wmsgTextarea').prop('disabled', false);
 				}
 				if(data.isscore){
+					review.next('table').show();	
+					review.show();
 					version.val(data.scoreversion);
 					titles.each(function(i){
 						var item=data['score_'+(i+1)];	
@@ -908,8 +909,8 @@
 					});
 				}
 				else{
-					review.next('table').remove();	
-					review.remove();
+					review.next('table').hide();	
+					review.hide();
 				}	
 			});
 			$.get('like/check.controller',{wid:wid.val()},function(data){
@@ -918,6 +919,10 @@
 					like.val('unlike');
 					like.removeClass('btn-default');
 					like.addClass('btn-danger');
+				}else{
+					like.val('like');
+					like.removeClass('btn-danger');
+					like.addClass('btn-default');
 				}
 			});
 		}
