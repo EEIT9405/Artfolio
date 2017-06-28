@@ -64,7 +64,7 @@ margin-top: 100px;
 										name="email" placeholder="Email" class="form-control" value="${param.email}"
 										type="text">
 								</div>
-								<span  id="checkEmail" style="color: red; font-size: 60%; display: inline;">${ErrorMsg.email}</span>
+								<span  id="checkEmail" style="color: red; font-size: 120%; text-align:center; display: block;">${ErrorMsg.email}</span>
 							</div>
 							
 							
