@@ -59,7 +59,8 @@ public class MemberServlet extends HttpServlet {
 		String check = request.getParameter("check");
 		if(check!=null && check.trim().length()>0){
 			if(memberService.select(check.trim())!=null){
-				response.getWriter().print("fuck you");
+				response.setHeader("Content-Type", "text/plain; charset=utf-8");
+				response.getWriter().print("exist");
 			}	
 			return;
 		}

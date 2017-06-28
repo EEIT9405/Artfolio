@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title></title>
+    <title>會員信箱</title>
 
 	   <!-- Bootstrap Core CSS -->
 	<link href="/Artfolio/css/bootstrap.min.css" rel="stylesheet">
