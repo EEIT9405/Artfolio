@@ -531,7 +531,7 @@ padding-top:60px;
 	
 		
 		// ====================================================================================================
-		$('#bountyTable').on('click','div:nth-child(3) a',
+		$('#bountyTable').on('click','div div:nth-child(3) a',
 				function(data) {//追蹤
 		
 					var b_id = $(this).parent('div').parent('div').children('div').children('div:eq(6)').text();

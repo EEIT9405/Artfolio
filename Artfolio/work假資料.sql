@@ -151,6 +151,11 @@ insert into tb_tag(wid,tag) values(33,'萌')
 insert into tb_tag(wid,tag) values(33,'女')
 insert into tb_tag(wid,tag) values(33,'日本')
 insert into tb_tag(wid,tag) values(33,'花')
-
+insert into tb_work(mid,picurl,wtitle,wlike,wissue,aid) values(4,'/img/4/2016-Cute-Girl-Wallpaper.jpg','漂亮女孩',5,0,4)
+insert into tb_tag(wid,tag) values(34,'女')
+insert into tb_tag(wid,tag) values(34,'照片')
+insert into tb_work(mid,picurl,wtitle,wlike,wissue,aid) values(4,'/img/4/Lavender-Cute-Girl.jpg','可愛女孩',5,0,4)
+insert into tb_tag(wid,tag) values(35,'女')
+insert into tb_tag(wid,tag) values(35,'照片')
 
 

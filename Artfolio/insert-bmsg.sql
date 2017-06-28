@@ -33,7 +33,7 @@ INSERT INTO tb_bmsg(mid,b_id,b_msgcontent,b_msgdate) values(1,4,'你可以滾','2017
 INSERT INTO tb_bmsg(mid,b_id,b_msgcontent,b_msgdate) values(5,4,'這個主題不錯','2017-05-26'); 
 INSERT INTO tb_bmsg(mid,b_id,b_msgcontent,b_msgdate) values(4,4,'我需要工作機會','2017-05-26'); 
 
-insert into tb_mail(mid,targetid,mailtitle) values(4,5,'OOOOOOO')
-insert into tb_mail(mid,targetid,mailtitle) values(3,5,'XXXXXXX')
+insert into tb_mail(mid,targetid,mailtitle,mstatus,isread) values(4,5,'OOOOOOO',1,1)
+insert into tb_mail(mid,targetid,mailtitle,mstatus,isread) values(3,5,'XXXXXXX',1,1)
 
 
