@@ -491,10 +491,10 @@ $(function(){
 						$.post('album/delete.controller',{aid:aid},function(data){
 							if(data){
 								div.parent().remove();
-								alert('刪除成功');
+								swal('成功','刪除成功','success');
 							}
 							else
-								alert('刪除失敗');
+								swal('失敗','刪除失敗','error');
 						});
 					}
 				});
