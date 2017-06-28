@@ -56,6 +56,13 @@ public class MemberServlet extends HttpServlet {
 		String mphoto = request.getParameter("mphoto");
 		String action = request.getParameter("action");
 		String sqlphoto = null;
+		String check = request.getParameter("check");
+		if(check!=null && check.trim().length()>0){
+			if(memberService.select(check.trim())!=null){
+				response.getWriter().print("fuck you");
+			}	
+			return;
+		}
 
 		MemberBean user = (MemberBean) session.getAttribute("loginOK");
 
@@ -131,6 +138,7 @@ public class MemberServlet extends HttpServlet {
 			return;
 		}
 		
+		
 		//fix
 		MemberBean bean=null;
 		if(user!=null)
@@ -144,7 +152,7 @@ public class MemberServlet extends HttpServlet {
 		} else {
 			bean.setGender(false);
 		}
-		bean.setEmail(email);
+		bean.setEmail(email.trim());
 		bean.setPwd(pwd);
 		bean.setName(name);
 		bean.setInfo(info);
@@ -181,6 +189,7 @@ public class MemberServlet extends HttpServlet {
 		
 		
 		if (bean != null && "完成".equals(action)) {
+			
 			MemberBean result = memberService.insert(bean);
 			if (result == null) {
 				errorMessage.put("error", "Insert失敗");
@@ -191,6 +200,9 @@ public class MemberServlet extends HttpServlet {
 			response.sendRedirect("/Artfolio/secure/login.jsp");
 
 		}
+		
+       
+		
 	}
 
 	@Override

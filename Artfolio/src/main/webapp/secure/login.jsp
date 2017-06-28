@@ -50,10 +50,10 @@ function setFocusToUserId(){
 			<h1>登入畫面</h1>
 			
 			<div>
-				<input  type="text" name="email" placeholder="Email" value="${sessionScope.email}"/><span>${error.email}</span>
+				<input  type="text" name="email" placeholder="Email" value="${param.email}"/><spa style="color: red;">${error.email}</span>
 			</div>
 			<div>
-				<input   type="password" name="password" placeholder="password"value="${sessionScope.password}"/><span>${error.password}</span>
+				<input   type="password" name="password" placeholder="password"value="${param.password}"/><span style="color: red;">${error.password}</span>
 			</div>
 			<div><input autocomplete="off" type="text" name="vcode"placeholder="請輸入驗證碼" /><img id="imgchang"  src="<c:url value="/image.controller" />" /><span style="color: red;">${error.msg}</span><a href="#" id="change" >看不清楚，換一張</a></div>
 			<div>

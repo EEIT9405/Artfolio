@@ -157,4 +157,14 @@ public class MemberDAOHibernate implements MemberDAO {
 		}
 		return count;
 	}
+
+
+	@Override
+	public MemberBean select(String email) {
+		List<MemberBean> list=this.getSession().createQuery("FROM MemberBean where email=?",MemberBean.class).setParameter(0, email).getResultList();
+		if(list!=null && !list.isEmpty()){
+		return list.get(0);
+		}
+		return null;
+	}
 }

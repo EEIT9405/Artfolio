@@ -62,11 +62,15 @@ public class LoginServlet extends HttpServlet {
 
 		// 根據Model執行結果呼叫View
 //		if (bean == null) {
-		if (bean == null || !vcode.equals(msg)) {
+		if (bean == null ) {
 			errors.put("msg", "登入失敗，請再次輸入帳號密碼");
 			request.getRequestDispatcher("/secure/login.jsp").forward(request, response);
 			return;
-		} else {
+		} else if(!vcode.equals(msg)){
+			errors.put("msg", "驗證碼錯誤!!!!!");
+			request.getRequestDispatcher("/secure/login.jsp").forward(request, response);
+			return;
+		}else {
 			session.setAttribute("loginOK", bean);
 			session.setAttribute("mid", bean.getMid());
 			response.sendRedirect("/Artfolio/index.jsp");
