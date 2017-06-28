@@ -56,7 +56,7 @@
 
 	<jsp:include page="top/header.jsp"></jsp:include>
 
-	<div class="container" style="margin-top: 100px; min-height:500px; height:auto;">
+	<div class="container" style="margin-top: 100px; min-height:660px; height:auto;">
 		<div class="row">
 			<div id="wk">
 				<form role="form" action="work/upload.controller" method="post"
