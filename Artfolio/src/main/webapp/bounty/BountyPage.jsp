@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Modern Business - Start Bootstrap Template</title>
+<title>${bean.b_title}</title>
 
 <!-- Bootstrap Core CSS -->
 <link href="/Artfolio/css/bootstrap.min.css" rel="stylesheet">

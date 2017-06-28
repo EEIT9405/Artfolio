@@ -36,7 +36,7 @@ public class DataBaseInsert {
 			String insertLike = "insert into tb_like(mid,wid) values(?,?)";
 			pstmt = conn.prepareStatement(insertLike);
 			java.util.Random r=new java.util.Random();
-			for (int i = 1; i < 34; i++) {
+			for (int i = 1; i < 36; i++) {
 				double c=Math.min(1005, r.nextGaussian()*170+500);
 				for (int j = 6; j <=1005; j++) {
 					
@@ -74,7 +74,7 @@ public class DataBaseInsert {
 			String updateWorkLike = "update tb_work set wlike=? where wid=?";
 			int likeRC = 0;
 
-			for (int i = 1; i < 34; i++) {
+			for (int i = 1; i < 36; i++) {
 				pstmt = conn.prepareStatement(countLike);
 				pstmt.setInt(1, i);
 				ResultSet rs = pstmt.executeQuery();
@@ -109,7 +109,7 @@ public class DataBaseInsert {
 			// browsed
 			String insertBrowsed = "insert into tb_browsed(mid, wid) values(?,?)";
 			pstmt = conn.prepareStatement(insertBrowsed);
-			for (int i = 1; i < 34; i++) {
+			for (int i = 1; i < 36; i++) {
 				double c=Math.min(1005, r.nextGaussian()*170+500);
 				for (int j = 6; j <=1005; j++) {
 					
@@ -146,7 +146,7 @@ public class DataBaseInsert {
 			String selectMidByWid = "select mid from tb_work where wid=?";
 			int wmsgRC = 0;
 			for(int i = 1; i <= 5; i++){
-				for(int j = 1; j <=33 ; j++){
+				for(int j = 1; j <=35 ; j++){
 					pstmt = conn.prepareStatement(selectMidByWid);
 					pstmt.setInt(1, j);
 					ResultSet rs = pstmt.executeQuery();
