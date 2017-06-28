@@ -59,4 +59,11 @@ public class MemberService {
 			return memberdao.searchByName(and, or, not);
 		return null;
 	}
+	
+	public MemberBean select(String email){
+		if(email!=null&&email.length()!=0){
+			return  memberdao.select(email);
+		}
+		return null;
+	}
 }

@@ -12,4 +12,6 @@ public interface MemberDAO {
 	boolean updatePoint(Integer mid,Integer point);
 	
 	List<MemberBean>  searchByName(String[] and,String[] or,String[] not);
+	
+	MemberBean select(String email);
 }

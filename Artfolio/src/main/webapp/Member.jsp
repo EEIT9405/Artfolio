@@ -64,7 +64,7 @@ margin-top: 100px;
 										name="email" placeholder="Email" class="form-control" value="${param.email}"
 										type="text">
 								</div>
-								<span id="checkEmail" style="color: red; font-size: 60%; display: inline">${ErrorMsg.email}</span>
+								<span  id="checkEmail" style="color: red; font-size: 60%; display: inline;">${ErrorMsg.email}</span>
 							</div>
 							
 							
@@ -72,14 +72,14 @@ margin-top: 100px;
 						<!-- text 2 -->
 						<div class="form-group">
 							<label class="col-md-4 control-label">密碼</label>
-							<div class="col-md-4 inputGroupContainer">
+							<div class="col-md-4 inputGroupContainer" >
 								<div class="input-group">
 									<span class="input-group-addon"><i
 										class="glyphicon glyphicon-lock"></i></span> <input name="pwd" id="pwd"
 										placeholder="Password" value="${param.pwd}" class="form-control" type="password">
 										
 								</div>
-								<span style="color: red; font-size: 60%; display: inline">${ErrorMsg.pwd}</span>
+								<span style="color: red; font-size: 110%; text-align:center;display:block; ">${ErrorMsg.pwd}</span>
 							</div>
 						</div>
 
@@ -189,11 +189,13 @@ margin-top: 100px;
 		    if(!tStr.match(tReg)) 
 		    { 
 		    	$('#checkEmail').text("E-mail格式錯誤");
-		        return false; 
 		    } 
-		    else 
-		    { 
-		        return true; 
+		    else{ 
+  		        $.get('member.controller',{check:tStr},function(data){
+  		        	if(data)
+  		        	$('#checkEmail').text("E-mail重複");
+		    	});
+		        
 		    } 
 		} 
 	
