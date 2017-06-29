@@ -64,7 +64,7 @@
 <!-- <script src='js/pushBar.js'></script> -->
 <script src="https://cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>
 <script type="text/javascript">
-	var wsUri = "ws://1.34.217.132:18080/Artfolio/ws/echo";
+	var wsUri = "wss://artfolio.ml:18443/Artfolio/ws/echo";
 	var webSocket = new WebSocket(wsUri);
 
 	var messageArray = new Array();

@@ -73,7 +73,7 @@ public class ForgotServlet extends HttpServlet {
 		if(bean!=null&&bean.size()!=0){
 		for(MemberBean ca :bean){
 		    ca.setPwd(returnStr);
-		    springEmailService.sendEmailTask(femail,"您的新密碼","你的新密碼:"+returnStr+"\n"+"http://1.34.217.132:18080/Artfolio/secure/login.jsp");
+		    springEmailService.sendEmailTask(femail,"您的新密碼","你的新密碼:"+returnStr+"\n"+"https://artfolio.ml:18443/Artfolio/secure/login.jsp");
 		    MemberBean result = memberService.update(ca);
 		    request.setAttribute("newemail", bean.size());
 		    
