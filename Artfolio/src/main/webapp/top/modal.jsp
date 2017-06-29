@@ -60,6 +60,7 @@
 </head>
 <div class="modal fade" id="ImageModal" tabindex="-1" role="dialog"
 		aria-labelledby="ImageModalLabel">
+<input id="user" type="hidden" value="${sessionScope.loginOK.mid}">
 		<div class="modal-dialog" role="document">
 			<div style="background-color:#222;" class="modal-content">
 				<div class="modal-header">
@@ -321,8 +322,12 @@
 			//博超-----------
 			
 			//推薦欄點擊
-			recommend.on('click', 'div.recommendPhoto', showModal);
-			
+// 			recommend.on('click', 'div.recommendPhoto', showModal);
+			$(document).on('click','div.recommendPhoto',function(){
+				if($(this).find('input').attr('name') != 'aid'){
+					showModal(this);
+				}
+			});
 			//推播欄點擊
 			$('#push').on(
 					'click',
