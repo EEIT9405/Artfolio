@@ -135,7 +135,7 @@ public class WorkController {
 				}
 
 				String type = file.getContentType();
-				String filename = String.valueOf(System.currentTimeMillis()) + "."
+				String filename = String.valueOf(System.currentTimeMillis())+ count + "."
 						+ type.substring(type.indexOf("/") + 1);
 				if (!errors.isEmpty()) {
 					errors.add("failed to upload since data error");
